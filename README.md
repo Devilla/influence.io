@@ -15,11 +15,42 @@
 - Optimisation
 - Language
 
+### Development 
 
+Install strapi  
+
+``
+npm install strapi@alpha -g
+``
+
+Install Docker if you dont have already. Configure mongo inside the `/docker` directory
+
+
+``
+docker-compose run -d --service-ports db 
+``
+
+Once you are finished with above and everything seems alright time to fire 
+
+``
+strapi start
+``
+
+Then go at ``localhost:1337/admin`` and create your super user. You are good to go.
+
+Please read  [strapi document](https://strapi.io/documentation/)
+
+Thanks
+
+
+
+```
 Authors 
-
-Saransh Sharma
-
+   
+   Saransh Sharma
+   
 Founders
+   
+   Raman Parashar , Kirti Prakash 
+ ```
 
-Raman Parashar , Kirti Prakash 
