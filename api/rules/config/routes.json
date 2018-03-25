@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/rules",
+      "handler": "Rules.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/rules/:_id",
+      "handler": "Rules.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/rules",
+      "handler": "Rules.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/rules/:_id",
+      "handler": "Rules.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/rules/:_id",
+      "handler": "Rules.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

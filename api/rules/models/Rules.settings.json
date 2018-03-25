@@ -1,0 +1,41 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "rules",
+    "description": "Notification rules."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "conversions": {
+      "type": "string",
+      "multiple": false
+    },
+    "message": {
+      "type": "string",
+      "multiple": false
+    },
+    "days": {
+      "type": "integer",
+      "multiple": false
+    },
+    "delay": {
+      "type": "integer",
+      "multiple": false
+    },
+    "mostRecent": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "isActive": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "notificationTypes": {
+      "model": "notificationtypes",
+      "via": "rules"
+    }
+  }
+}

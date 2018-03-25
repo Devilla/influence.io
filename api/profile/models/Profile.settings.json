@@ -1,0 +1,52 @@
+{
+  "connection": "default",
+  "collectionName": "profile",
+  "info": {
+    "name": "profile",
+    "description": "One user one profile concept."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "user": {
+      "model": "user",
+      "via": "profile",
+      "dominant": true,
+      "plugin": "users-permissions"
+    },
+    "isActive": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "state": {
+      "type": "string",
+      "multiple": false
+    },
+    "address": {
+      "type": "text",
+      "multiple": false
+    },
+    "phoneNumber": {
+      "type": "integer",
+      "multiple": false
+    },
+    "companyName": {
+      "type": "string",
+      "multiple": false
+    },
+    "plan": {
+      "model": "plan",
+      "via": "plan_profile",
+      "plugin": ""
+    },
+    "profile_payments": {
+      "collection": "payment",
+      "via": "profile"
+    },
+    "campaigns": {
+      "collection": "campaign",
+      "via": "profile"
+    }
+  }
+}

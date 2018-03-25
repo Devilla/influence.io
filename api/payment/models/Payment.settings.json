@@ -1,0 +1,43 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "payment",
+    "description": "Payment collected from user and customer"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "paymentProvider": {
+      "type": "string",
+      "multiple": false
+    },
+    "amount": {
+      "type": "integer",
+      "multiple": false
+    },
+    "status": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "paymentType": {
+      "type": "string",
+      "multiple": false
+    },
+    "user": {
+      "model": "user",
+      "via": "payments",
+      "plugin": "users-permissions"
+    },
+    "profile": {
+      "model": "profile",
+      "via": "profile_payments"
+    },
+    "plan": {
+      "model": "plan",
+      "via": "plan_payment",
+      "dominant": true
+    }
+  }
+}

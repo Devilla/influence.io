@@ -1,0 +1,41 @@
+{
+  "connection": "default",
+  "collectionName": "campaign",
+  "info": {
+    "name": "campaign",
+    "description": "Customer website campaign for the website."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "campaignName": {
+      "type": "string",
+      "multiple": false
+    },
+    "websiteName": {
+      "type": "string",
+      "multiple": false
+    },
+    "websiteUrl": {
+      "type": "string",
+      "multiple": false
+    },
+    "isActive": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "state": {
+      "type": "string",
+      "multiple": false
+    },
+    "profile": {
+      "model": "profile",
+      "via": "campaigns"
+    },
+    "notification_Type": {
+      "collection": "notificationtypes",
+      "via": "campaign"
+    }
+  }
+}

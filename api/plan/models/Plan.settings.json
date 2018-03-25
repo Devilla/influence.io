@@ -1,0 +1,41 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "plan",
+    "description": "Plans for the customer and selected to profiles."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "planName": {
+      "type": "string",
+      "multiple": false
+    },
+    "amount": {
+      "type": "integer",
+      "multiple": false
+    },
+    "planType": {
+      "type": "string",
+      "multiple": false
+    },
+    "isActive": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "configs": {
+      "type": "json",
+      "multiple": false
+    },
+    "plan_profile": {
+      "model": "profile",
+      "via": "plan"
+    },
+    "plan_payment": {
+      "model": "payment",
+      "via": "plan"
+    }
+  }
+}

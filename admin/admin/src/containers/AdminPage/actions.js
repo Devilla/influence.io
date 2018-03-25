@@ -1,0 +1,5 @@
+/**
+ *
+ * AdminPage actions
+ *
+ */

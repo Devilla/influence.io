@@ -1,0 +1,30 @@
+{
+  "connection": "default",
+  "collectionName": "notificationtypes",
+  "info": {
+    "name": "notificationtypes",
+    "description": "Notification types for customer campaigns."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "notificationName": {
+      "type": "string",
+      "multiple": false
+    },
+    "isActive": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "rules": {
+      "collection": "rules",
+      "via": "notificationTypes"
+    },
+    "campaign": {
+      "model": "campaign",
+      "via": "notification_Type",
+      "plugin": ""
+    }
+  }
+}
