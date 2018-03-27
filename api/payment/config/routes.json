@@ -2,6 +2,22 @@
   "routes": [
     {
       "method": "GET",
+      "path": "/payment/user",
+      "handler": "Payment.findAllUserPayments",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/payment/plan/:id",
+      "handler": "Payment.findAllPlanPayments",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/payment",
       "handler": "Payment.find",
       "config": {

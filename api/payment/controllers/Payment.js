@@ -9,6 +9,33 @@
 module.exports = {
 
   /**
+   * Retrieve all user payment records.
+   *
+   * @return {Object|Array}
+   */
+
+  findAllUserPayments: async (ctx) => {
+    const profile = ctx.state.user.profile;
+    const data = await strapi.services.payment.fetchAllUserPayments(profile);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
+   * Retrieve all plan payment records.
+   *
+   * @return {Object|Array}
+   */
+
+  findAllPlanPayments: async (ctx) => {
+    const data = await strapi.services.payment.fetchAllPlanPayments(ctx.params);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
    * Retrieve payment records.
    *
    * @return {Object|Array}

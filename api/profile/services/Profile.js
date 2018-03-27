@@ -30,6 +30,18 @@ module.exports = {
   },
 
   /**
+   * Promise to fetch user profile.
+   *
+   * @return {Promise}
+   */
+
+  fetchUserProfile: (params) => {
+    return Profile
+      .findOne(_.pick(params, _.keys(Profile.schema.paths)))
+      .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
+  },
+
+  /**
    * Promise to fetch a/an profile.
    *
    * @return {Promise}

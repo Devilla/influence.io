@@ -9,6 +9,20 @@
 module.exports = {
 
   /**
+   * Retrieve user plan records.
+   *
+   * @return {Object|Array}
+   */
+
+  findUserPlan: async (ctx) => {
+    const profile = ctx.state.user.profile;
+    const data = await strapi.services.plan.fetchUserPlan(profile);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
    * Retrieve plan records.
    *
    * @return {Object|Array}

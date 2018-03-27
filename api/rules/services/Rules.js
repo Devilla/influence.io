@@ -12,6 +12,138 @@ const _ = require('lodash');
 module.exports = {
 
   /**
+   * Promise to fetch all user rules.
+   *
+   * @return {Promise}
+   */
+
+  fetchAllUserRules: (params) => {
+
+    return Campaign
+    .aggregate([
+      { $match : { profile : params._id } },
+      { $group: { _id: '$_id' } }
+    ])
+    .exec()
+    .then(campaignIds => {
+
+      if(campaignIds) {
+        campaignIds = campaignIds.map(campaignId => campaignId._id );
+
+        return Notificationtypes
+        .aggregate([
+          { $match : { campaign : { $in: campaignIds }  } },
+          { $group: { _id: '$_id' } }
+        ])
+        .exec()
+        .then(notificationIds => {
+
+          if(notificationIds) {
+            notificationIds = notificationIds.map(notificationId => notificationId._id );
+
+            const query = {
+              notificationTypes: { $in: notificationIds }
+            };
+
+            const convertedParams = strapi.utils.models.convertParams('notificationtypes', query);
+
+            return Rules
+              .find()
+              .where(convertedParams.where)
+              .sort(convertedParams.sort)
+              .skip(convertedParams.start)
+              .limit(convertedParams.limit)
+              .populate(_.keys(_.groupBy(_.reject(strapi.models.rules.associations, {autoPopulate: false}), 'alias')).join(' '));
+          } else {
+            return [];
+          }
+        });
+      }
+    });
+  },
+
+  /**
+   * Promise to fetch all campaign rules.
+   *
+   * @return {Promise}
+   */
+
+  fetchAllCampaignRules: (params) => {
+
+    return Campaign
+    .findOne({ _id: params.id })
+    .exec()
+    .then(campaign => {
+
+      if(campaign) {
+
+        return Notificationtypes
+        .aggregate([
+          { $match : { campaign : campaign._id } },
+          { $group: { _id: '$_id' } }
+        ])
+        .exec()
+        .then(notificationIds => {
+
+          if(notificationIds) {
+            notificationIds = notificationIds.map(notificationId => notificationId._id );
+
+            const query = {
+              notificationTypes: { $in: notificationIds }
+            };
+
+            const convertedParams = strapi.utils.models.convertParams('notificationtypes', query);
+
+            return Rules
+              .find()
+              .where(convertedParams.where)
+              .sort(convertedParams.sort)
+              .skip(convertedParams.start)
+              .limit(convertedParams.limit)
+              .populate(_.keys(_.groupBy(_.reject(strapi.models.rules.associations, {autoPopulate: false}), 'alias')).join(' '));
+          } else {
+            return [];
+          }
+        });
+      }
+    });
+  },
+
+  /**
+   * Promise to fetch all campaign rules.
+   *
+   * @return {Promise}
+   */
+
+  fetchAllNotificationTypesRules: (params) => {
+
+    return Notificationtypes
+    .findOne({_id: params.id})
+    .exec()
+    .then(notificationType => {
+
+      if(notificationType) {
+
+        const query = {
+          notificationTypes: notificationType._id
+        };
+
+        const convertedParams = strapi.utils.models.convertParams('notificationtypes', query);
+
+        return Rules
+          .find()
+          .where(convertedParams.where)
+          .sort(convertedParams.sort)
+          .skip(convertedParams.start)
+          .limit(convertedParams.limit)
+          .populate(_.keys(_.groupBy(_.reject(strapi.models.rules.associations, {autoPopulate: false}), 'alias')).join(' '));
+      } else {
+        return [];
+      }
+    });
+  },
+
+  /**
    * Promise to fetch all rules.
    *
    * @return {Promise}

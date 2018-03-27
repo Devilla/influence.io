@@ -12,6 +12,27 @@ const _ = require('lodash');
 module.exports = {
 
   /**
+   * Promise to fetch all user campaigns.
+   *
+   * @return {Promise}
+   */
+
+  fetchUserCampaigns: (params) => {
+    const query = {
+      profile: params._id
+    };
+    const convertedParams = strapi.utils.models.convertParams('campaign', query);
+
+    return Campaign
+      .find()
+      .where(convertedParams.where)
+      .sort(convertedParams.sort)
+      .skip(convertedParams.start)
+      .limit(convertedParams.limit)
+      .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
+  },
+
+  /**
    * Promise to fetch all campaigns.
    *
    * @return {Promise}

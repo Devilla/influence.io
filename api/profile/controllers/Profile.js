@@ -9,12 +9,26 @@
 module.exports = {
 
   /**
-   * Retrieve profile records.
+   * Retrieve user profile records.
    *
    * @return {Object|Array}
    */
 
   find: async (ctx) => {
+    const profile = ctx.state.user.profile;
+    const data = await strapi.services.profile.fetchUserProfile(profile);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
+   * Retrieve profile records.
+   *
+   * @return {Object|Array}
+   */
+
+  findAll: async (ctx) => {
     const data = await strapi.services.profile.fetchAll(ctx.query);
 
     // Send 200 `ok`

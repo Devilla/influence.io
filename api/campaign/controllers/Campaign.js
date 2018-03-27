@@ -9,6 +9,20 @@
 module.exports = {
 
   /**
+   * Retrieve user campaign records.
+   *
+   * @return {Object|Array}
+   */
+
+  findUserCampaigns: async (ctx) => {
+    const profile = ctx.state.user.profile;
+    const data = await strapi.services.campaign.fetchUserCampaigns(profile);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
    * Retrieve campaign records.
    *
    * @return {Object|Array}
