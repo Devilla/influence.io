@@ -1,11 +1,11 @@
 {
   "name": "strapi-plugin-elasticsearch",
   "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "description": "Elasticsearch plugin for indexing data",
   "strapi": {
     "name": "elasticsearch",
     "icon": "plug",
-    "description": "Description of elasticsearch plugin."
+    "description": "Elasticsearch plugin for indexing data."
   },
   "scripts": {
     "analyze:clean": "node ./node_modules/strapi-helper-plugin/node_modules/.bin/rimraf stats.json",
@@ -22,18 +22,20 @@
     "test": "npm run lint",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "elasticsearch": "^14.2.1"
+  },
   "devDependencies": {
     "strapi-helper-plugin": "3.0.0-alpha.11.1"
   },
   "author": {
-    "name": "A Strapi developer",
-    "email": "",
+    "name": "Saransh Sharma",
+    "email": "saransh@theupscale.in",
     "url": ""
   },
   "maintainers": [
     {
-      "name": "A Strapi developer",
+      "name": "Saransh Sharma",
       "email": "",
       "url": ""
     }
