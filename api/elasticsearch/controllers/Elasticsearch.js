@@ -27,8 +27,8 @@ module.exports = {
     //Our logic
 
     //Send cluster health
+    let data = await strapi.services.elasticsearch.health();
 
-    const data  = await strapi.plugins['elasticsearch'].services.elasticsearch.health();
 
     ctx.send({
       message: data

@@ -19,6 +19,7 @@
     "eslint-plugin-react": "^6.8.0"
   },
   "dependencies": {
+    "elasticsearch": "^14.2.1",
     "lodash": "4.x.x",
     "strapi": "3.0.0-alpha.11.1",
     "strapi-mongoose": "3.0.0-alpha.11.1"
