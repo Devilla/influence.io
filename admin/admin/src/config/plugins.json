@@ -21,6 +21,13 @@
     }
   },
   {
+    "id": "elasticsearch",
+    "source": {
+      "development": "/elasticsearch/main.js",
+      "production": "/elasticsearch/main.js"
+    }
+  },
+  {
     "id": "email",
     "source": {
       "development": "/email/main.js",
