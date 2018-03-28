@@ -8,4 +8,14 @@
 
 module.exports = {
 
+  health : async() => {
+    let client = strapi.es;
+    client.cluster.health({}, function (err,resp,status) {
+      strapi.log.info('-- Client Health --',resp);
+    });
+  }
+
+
+
+    
 };

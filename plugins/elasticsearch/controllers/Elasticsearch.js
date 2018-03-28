@@ -21,5 +21,17 @@ module.exports = {
     ctx.send({
       message: 'ok'
     });
+  },
+
+  health: async(ctx) =>{
+    //Our logic
+
+    //Send cluster health
+
+    const data  = await strapi.plugins['elasticsearch'].services.elasticsearch.health();
+
+    ctx.send({
+      message: data
+    });
   }
 };
