@@ -47,12 +47,5 @@
       "development": "/users-permissions/main.js",
       "production": "/users-permissions/main.js"
     }
-  },
-  {
-    "id": "websockets",
-    "source": {
-      "development": "/websockets/main.js",
-      "production": "/websockets/main.js"
-    }
   }
 ]
