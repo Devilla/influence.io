@@ -2,8 +2,24 @@
   "routes": [
     {
       "method": "GET",
+      "path": "/notificationtypes/campaign",
+      "handler": "Notificationtypes.findCampaignsNotificationTypes",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/notificationtypes/campaign/:id",
+      "handler": "Notificationtypes.findCampaignNotificationTypes",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/notificationtypes",
-      "handler": "Notificationtypes.find",
+      "handler": "Notificationtypes.findCampaignsNotificationTypes",
       "config": {
         "policies": []
       }

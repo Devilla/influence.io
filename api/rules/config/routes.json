@@ -2,6 +2,30 @@
   "routes": [
     {
       "method": "GET",
+      "path": "/rules/user",
+      "handler": "Rules.findAllUserRules",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/rules/campaign/:id",
+      "handler": "Rules.findAllCampaignRules",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/rules/notificationtypes/:id",
+      "handler": "Rules.findAllNotificationTypesRules",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/rules",
       "handler": "Rules.find",
       "config": {

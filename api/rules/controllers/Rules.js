@@ -9,6 +9,47 @@
 module.exports = {
 
   /**
+   * Retrieve users rules records.
+   *
+   * @return {Object|Array}
+   */
+
+  findAllUserRules: async (ctx) => {
+    const profile = ctx.state.user.profile;
+    const data = await strapi.services.rules.fetchAllUserRules(profile);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
+   * Retrieve campaign rules records.
+   *
+   * @return {Object|Array}
+   */
+
+  findAllCampaignRules: async (ctx) => {
+    const data = await strapi.services.rules.fetchAllCampaignRules(ctx.params);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
+   * Retrieve notificationtype rules records.
+   *
+   * @return {Object|Array}
+   */
+
+  findAllNotificationTypesRules: async (ctx) => {
+    console.log(ctx, "==========");
+    const data = await strapi.services.rules.fetchAllNotificationTypesRules(ctx.params);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
    * Retrieve rules records.
    *
    * @return {Object|Array}

@@ -17,6 +17,27 @@ module.exports = {
    * @return {Promise}
    */
 
+  fetchUserPlan: (params) => {
+    const query = {
+      plan_profile: params._id
+    };
+    const convertedParams = strapi.utils.models.convertParams('plan', query);
+
+    return Plan
+      .find()
+      .where(convertedParams.where)
+      .sort(convertedParams.sort)
+      .skip(convertedParams.start)
+      .limit(convertedParams.limit)
+      .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
+  },
+
+  /**
+   * Promise to fetch all plans.
+   *
+   * @return {Promise}
+   */
+
   fetchAll: (params) => {
     const convertedParams = strapi.utils.models.convertParams('plan', params);
 

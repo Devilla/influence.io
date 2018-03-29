@@ -9,6 +9,33 @@
 module.exports = {
 
   /**
+   * Retrieve all campaigns notificationtypes records.
+   *
+   * @return {Object|Array}
+   */
+
+  findCampaignsNotificationTypes: async (ctx) => {
+    const profile = ctx.state.user.profile;
+    const data = await strapi.services.notificationtypes.fetchAllCampaignsNotificationTypes(profile);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
+   * Retrieve user notificationtypes records.
+   *
+   * @return {Object|Array}
+   */
+
+  findCampaignNotificationTypes: async (ctx) => {
+    const data = await strapi.services.notificationtypes.fetchCampaignNotificationTypes(ctx.params);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
    * Retrieve notificationtypes records.
    *
    * @return {Object|Array}

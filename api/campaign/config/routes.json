@@ -3,7 +3,7 @@
     {
       "method": "GET",
       "path": "/campaign",
-      "handler": "Campaign.find",
+      "handler": "Campaign.findUserCampaigns",
       "config": {
         "policies": []
       }

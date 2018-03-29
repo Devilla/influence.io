@@ -2,6 +2,14 @@
   "routes": [
     {
       "method": "GET",
+      "path": "/plan/user",
+      "handler": "Plan.findUserPlan",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/plan",
       "handler": "Plan.find",
       "config": {
