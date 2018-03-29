@@ -1,4 +1,5 @@
 {
   "myCustomConfiguration": "This configuration is accessible through strapi.config.myCustomConfiguration",
-  "socketsServerPath": "/web"
+  "socketsServerPath": "/web",
+  "elasticsearchNode": "localhost:9200"
 }
