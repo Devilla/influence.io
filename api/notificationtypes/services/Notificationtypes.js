@@ -19,30 +19,30 @@ module.exports = {
 
   fetchAllCampaignsNotificationTypes: (params) => {
     return Campaign
-    .aggregate([
-      { $match : { profile : params?params._id:null } },
-      { $group: { _id: '$_id' } }
-    ])
-    .exec()
-    .then(data => {
-      if(data) {
-        const query = {
-          campaign: { $in: data }
-        };
+      .aggregate([
+        { $match : { profile : params?params._id:null } },
+        { $group: { _id: '$_id' } }
+      ])
+      .exec()
+      .then(data => {
+        if(data) {
+          const query = {
+            campaign: { $in: data }
+          };
 
-        const convertedParams = strapi.utils.models.convertParams('notificationtypes', query);
+          const convertedParams = strapi.utils.models.convertParams('notificationtypes', query);
 
-        return Notificationtypes
-          .find()
-          .where(convertedParams.where)
-          .sort(convertedParams.sort)
-          .skip(convertedParams.start)
-          .limit(convertedParams.limit)
+          return Notificationtypes
+            .find()
+            .where(convertedParams.where)
+            .sort(convertedParams.sort)
+            .skip(convertedParams.start)
+            .limit(convertedParams.limit);
           // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
-      } else {
-        return [];
-      }
-    });
+        } else {
+          return [];
+        }
+      });
   },
 
   /**
@@ -52,19 +52,19 @@ module.exports = {
    */
 
   fetchCampaignNotificationTypes: (params) => {
-      const query = {
-        campaign: params.id
-      };
-      const convertedParams = strapi.utils.models.convertParams('notificationtypes', query);
+    const query = {
+      campaign: params.id
+    };
+    const convertedParams = strapi.utils.models.convertParams('notificationtypes', query);
 
-      return Notificationtypes
-        .find()
-        .where(convertedParams.where)
-        .sort(convertedParams.sort)
-        .skip(convertedParams.start)
-        .limit(convertedParams.limit)
-        // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
-    },
+    return Notificationtypes
+      .find()
+      .where(convertedParams.where)
+      .sort(convertedParams.sort)
+      .skip(convertedParams.start)
+      .limit(convertedParams.limit);
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
+  },
 
   /**
    * Promise to fetch all notificationtypes.
@@ -80,8 +80,8 @@ module.exports = {
       .where(convertedParams.where)
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
-      .limit(convertedParams.limit)
-      // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .limit(convertedParams.limit);
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -92,8 +92,8 @@ module.exports = {
 
   fetch: (params) => {
     return Notificationtypes
-      .findOne(_.pick(params, _.keys(Notificationtypes.schema.paths)))
-      // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .findOne(_.pick(params, _.keys(Notificationtypes.schema.paths)));
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**

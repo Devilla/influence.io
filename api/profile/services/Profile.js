@@ -25,8 +25,8 @@ module.exports = {
       .where(convertedParams.where)
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
-      .limit(convertedParams.limit)
-      // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .limit(convertedParams.limit);
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -39,8 +39,8 @@ module.exports = {
     const _id = params?params._id:null;
 
     return Profile
-      .findOne({_id: _id})
-      // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .findOne({_id: _id});
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -51,8 +51,8 @@ module.exports = {
 
   fetch: (params) => {
     return Profile
-      .findOne(_.pick(params, _.keys(Profile.schema.paths)))
-      // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .findOne(_.pick(params, _.keys(Profile.schema.paths)));
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**

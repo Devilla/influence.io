@@ -29,8 +29,8 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate('plan_payment')
-      // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan_payment');
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -48,8 +48,8 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate('plan_payment')
-      // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan_payment');
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -61,8 +61,8 @@ module.exports = {
   fetch: (params) => {
     return Plan
       .findOne(_.pick(params, _.keys(Plan.schema.paths)))
-      .populate('plan_payment')
-      // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan_payment');
+    // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
