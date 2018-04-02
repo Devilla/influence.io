@@ -271,9 +271,18 @@ module.exports = {
 
     try {
       const user = await strapi.query('user', 'users-permissions').create(params);
+      const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']))
+
+      // Send verification mail to user
+      // TODO: Update verification link and token generation technique
+      try {
+        const mailResponse = await strapi.controllers.mail.registered(user.email, jwt);
+        strapi.log.info(mailResponse);
+      } catch(err) {
+        strapi.log.error(err);
+      }
 
       ctx.send({
-        jwt: strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id'])),
         user: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken'])
       });
     } catch(err) {
