@@ -20,7 +20,6 @@ module.exports = async cb => {
   function heartbeat() {
     this.isAlive = true;
   }
-
   const eventHandler = function() {
     wsServer.on('connection', function(ws){
       ws.isAlive = true;
@@ -42,12 +41,8 @@ module.exports = async cb => {
       });
     }, 30000);
   };
-
   eventHandler();
-
   strapi.websocket = wsServer;
-
-
   cb();
 
 };

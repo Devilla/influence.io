@@ -15,20 +15,23 @@
 - Optimisation
 - Language
 
+
+
 ### Development 
 
-Install strapi  
+Install strapi  and docker.
 
 ``
 npm install strapi@alpha -g
 ``
 
-Install Docker if you dont have already. Configure mongo inside the `/docker` directory
+Install Docker if you dont have already. Configure docker instances inside the `/docker` directory
 
 
-``
-docker-compose run -d --service-ports db 
-``
+```
+cd docker
+docker-compose up -d  
+```
 
 Once you are finished with above and everything seems alright time to fire 
 

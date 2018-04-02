@@ -14,18 +14,6 @@ const client = elasticsearch.Client({
 });
 
 
-client.ping({
-  requestTimeout: 1000
-},function (error) {
-  if(error){
-    strapi.log.info('Elasticsearch has some problem but its okay ', error);
-
-  }else {
-    strapi.log.info('ES has started' );
-  }
-
-});
-
 module.exports = {
 
   health : async () => {
