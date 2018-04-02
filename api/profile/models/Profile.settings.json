@@ -41,11 +41,11 @@
       "plugin": ""
     },
     "profile_payments": {
-      "collection": "payment",
+      "model": "payment",
       "via": "profile"
     },
     "campaigns": {
-      "collection": "campaign",
+      "model": "campaign",
       "via": "profile"
     }
   }

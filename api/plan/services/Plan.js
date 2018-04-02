@@ -19,7 +19,7 @@ module.exports = {
 
   fetchUserPlan: (params) => {
     const query = {
-      plan_profile: params._id
+      plan_profile: params?params._id:null
     };
     const convertedParams = strapi.utils.models.convertParams('plan', query);
 
@@ -29,7 +29,8 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan_payment')
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -47,7 +48,8 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan_payment')
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -59,7 +61,8 @@ module.exports = {
   fetch: (params) => {
     return Plan
       .findOne(_.pick(params, _.keys(Plan.schema.paths)))
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan_payment')
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.plan.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**

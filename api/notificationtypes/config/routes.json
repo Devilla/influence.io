@@ -19,7 +19,7 @@
     {
       "method": "GET",
       "path": "/notificationtypes",
-      "handler": "Notificationtypes.findCampaignsNotificationTypes",
+      "handler": "Notificationtypes.find",
       "config": {
         "policies": []
       }

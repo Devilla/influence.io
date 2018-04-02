@@ -19,7 +19,7 @@ module.exports = {
 
   fetchAllUserPayments: (params) => {
     const query = {
-      profile: params._id
+      profile: params?params._id:null
     };
     const convertedParams = strapi.utils.models.convertParams('payment', query);
 
@@ -29,7 +29,8 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan')
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -50,7 +51,8 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan')
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -68,7 +70,8 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan')
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -80,7 +83,8 @@ module.exports = {
   fetch: (params) => {
     return Payment
       .findOne(_.pick(params, _.keys(Payment.schema.paths)))
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
+      .populate('plan')
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**

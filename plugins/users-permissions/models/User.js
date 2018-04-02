@@ -7,7 +7,8 @@
 module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
-  // beforeSave: async (model) => {},
+  // beforeSave: async (model) => {
+  // },
 
   // After saving a value.
   // Fired after an `insert` or `update` query.
@@ -30,7 +31,10 @@ module.exports = {
 
   // Before creating a value.
   // Fired before `insert` query.
-  // beforeCreate: async (model) => {},
+  // beforeCreate: async (model) => {
+  //     const role =  await strapi.query('role', 'users-permissions').findOne({ name: {$in:['customer', 'Customer']} }, ['users', 'permissions']);
+  //     model.role = role;
+  // },
 
   // After creating a value.
   // Fired after `insert` query.
