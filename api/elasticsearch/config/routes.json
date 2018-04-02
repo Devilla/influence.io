@@ -2,16 +2,16 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/es",
-      "handler": "Elasticsearch.index",
+      "path": "/es/health",
+      "handler": "Elasticsearch.health",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/es/health",
-      "handler": "Elasticsearch.health",
+      "path": "/es/search",
+      "handler": "Elasticsearch.searchWithQuery",
       "config": {
         "policies": []
       }

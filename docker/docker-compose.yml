@@ -63,7 +63,7 @@ services:
     # inside the container, where Filebeat can find them.
     # volumes: ['/var/log:/mnt/log:ro']
     volumes:
-        - /Users/saranshsharma/WebstormProjects/proof.io/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+        - ../config/filebeat.yml:/usr/share/filebeat/filebeat.yml
         - /tmp/log/:/var/logs/websocket.log
     networks: ['stack']
     depends_on: ['elasticsearch', 'setup_filebeat']

@@ -35,5 +35,24 @@ module.exports = {
     });
   },
 
+  searchWithQuery: async(ctx) => {
+
+    let index = 'clientwebsitedata';
+
+    let params = ctx.params;
+
+    if (!ctx.params){
+      ctx.send({
+        message: 'invalid params if you want to send data using body use other query type'
+      });
+    }
+
+    let data = await strapi.services.elasticsearch.searchWithQuery(index,params);
+
+    ctx.send({
+      message: data
+    });
+  },
+
 
 };

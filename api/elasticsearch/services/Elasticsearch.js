@@ -22,6 +22,18 @@ module.exports = {
   },
 
 
+  searchWithQuery: async (index,q) => {
+    let client = strapi.es;
+    return new Promise((resolve, reject)=> {
+      client.search({index: index, q: q}, function (err,resp,status) {
+        if (err) reject(err);
+        else resolve(resp);
+        strapi.log.info('---Client Search Returned--- ',resp);
+      });
+    });
+  };
+
+
 
 
 

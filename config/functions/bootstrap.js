@@ -36,9 +36,7 @@ client.indices.get({
     strapi.log.info(err);
     //
     createIndex();
-    //define Mapping
-
-
+    //define Mappin
   }else {
     strapi.log.info('get', resp);
   }
