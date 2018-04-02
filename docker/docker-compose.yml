@@ -46,7 +46,7 @@ services:
       - 'xpack.monitoring.elasticsearch.password=${ELASTIC_PASSWORD}'
     # Provide a simple pipeline configuration for Logstash with a bind-mounted file.
     volumes:
-      - /Users/saranshsharma/WebstormProjects/proof.io/config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ../config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     networks: ['stack']
     depends_on: ['elasticsearch', 'setup_logstash']
 
