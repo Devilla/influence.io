@@ -10,6 +10,8 @@
 const elasticsearch = require('elasticsearch');
 const Websocket = require('ws');
 
+const nodemailer = require('nodemailer');
+
 
 const client = elasticsearch.Client({
   host: strapi.config.elasticsearchNode,
@@ -21,27 +23,27 @@ const client = elasticsearch.Client({
 
 client.ping({
   requestTimeout: 1000
-},function (error) {
-  if(error){
+}, function (error) {
+  if (error) {
     strapi.log.info('Elasticsearch has some problem', error);
 
-  }else {
-    strapi.log.info('ES has started ' );
+  } else {
+    strapi.log.info('ES has started ');
   }
 
 });
 
 client.indices.get({
   index: 'clientwebsitedata',
-},function (err, resp, status) {
-  if(err) {
+}, function (err, resp, status) {
+  if (err) {
     strapi.log.info(err);
     //
     createIndex();
     //define Mapping
     createMapping();
 
-  }else {
+  } else {
     strapi.log.info('get', resp);
   }
 });
@@ -59,7 +61,7 @@ function createMapping() {
           'value': {
             'type': 'nested',
             'properties': {
-              'browser' :'string'
+              'browser': 'string'
             }
           },
           'your_double_field': {
@@ -79,17 +81,18 @@ function createIndex() {
   client.indices.create({
     index: 'clientwebsitedata',
     type: 'logs'
-  },function(err,resp,status) {
-    if(err) {
+  }, function (err, resp, status) {
+    if (err) {
       console.log(err);
     }
     else {
-      console.log('create',resp);
+      console.log('create', resp);
     }
   });
 }
 
 module.exports = async cb => {
+
   // const pluginStore = strapi.store({
   //   environment: strapi.config.environment,
   //   type: 'plugin',
@@ -113,16 +116,16 @@ module.exports = async cb => {
 
 
 
-  const wsServer = new Websocket.Server({server: strapi.server, path: strapi.config.socketsServerPath});
+  const wsServer = new Websocket.Server({ server: strapi.server, path: strapi.config.socketsServerPath });
 
-  function noop() {}
+  function noop() { }
 
   function heartbeat() {
     this.isAlive = true;
   }
 
-  const eventHandler = function() {
-    wsServer.on('connection', function(ws){
+  const eventHandler = function () {
+    wsServer.on('connection', function (ws) {
       ws.isAlive = true;
       ws.on('pong', heartbeat);
       strapi.log.info('Socket user/s connected!');
@@ -149,9 +152,23 @@ module.exports = async cb => {
   eventHandler();
 
 
+  // Setup Nodemailer
+  var mailer = nodemailer.createTransport(strapi.config.mail.config);
+
+
   strapi.es = client;
 
   strapi.websocket = wsServer;
+
+  strapi.mailer = mailer;
+
+  // // Email Test
+  // try {
+  //   var data = await strapi.controllers.mail.registered('manojbahugunamanoj@gmail.com', 'https://useinfluence.co/profile/');
+  //   console.log(data);
+  // } catch(err) {
+  //   console.log(err);
+  // }
 
 
   cb();
