@@ -1,0 +1,8 @@
+filebeat.prospectors:
+- type: log
+  enabled: true
+  paths:
+    - /var/logs/websocket.log
+
+output.logstash:
+  hosts: ["127.0.0.1:5044"]

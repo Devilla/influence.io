@@ -17,13 +17,11 @@ const client = elasticsearch.Client({
 });
 
 
-
-
 client.ping({
   requestTimeout: 1000
 },function (error) {
   if(error){
-    strapi.log.info('Elasticsearch has some problem', error);
+    strapi.log.info('Elasticsearch has some problem but its okay ', error);
 
   }else {
     strapi.log.info('ES has started ' );
@@ -39,41 +37,12 @@ client.indices.get({
     //
     createIndex();
     //define Mapping
-    createMapping();
+
 
   }else {
     strapi.log.info('get', resp);
   }
 });
-
-function createMapping() {
-  client.indices.putMapping({
-    'index': 'clientwebsitedata',
-    'type': 'logs',
-    'body': {
-      'logs': {
-        'properties': {
-          'path': {
-            'type': 'string'
-          },
-          'value': {
-            'type': 'nested',
-            'properties': {
-              'browser' :'string'
-            }
-          },
-          'your_double_field': {
-            'type': 'double'
-          },
-          // your other fields
-        }
-      }
-    }
-  }, function (err, response) {
-    // from this point on, if you don't get any error, you may call bulk.
-  });
-
-}
 
 function createIndex() {
   client.indices.create({
@@ -127,12 +96,9 @@ module.exports = async cb => {
       ws.on('pong', heartbeat);
       strapi.log.info('Socket user/s connected!');
       ws.on('message', function incoming(message) {
-        strapi.log.info('received: %s', JSON.stringify(message));
-        strapi.message = JSON.stringify(message);
-        strapi.log.info(JSON.parse(strapi.message));
-        strapi.services.elasticsearch.storeData(JSON.parse(strapi.message)).catch(function (err) {
-          if (err) throw err;
-        });
+        strapi.log.info('received: %s', message);
+        //trueLog(message);
+        strapi.services.websocket.log(message);
       });
       // listen for user diconnect
       ws.on('disconnect', () => console.log('Socket user disconnected!'));
