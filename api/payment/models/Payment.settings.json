@@ -10,7 +10,7 @@
   },
   "attributes": {
     "paymentProvider": {
-      "type": "string",
+      "type": "json",
       "multiple": false
     },
     "amount": {

@@ -35,7 +35,6 @@ module.exports = {
 
   me: async (ctx) => {
     const user = ctx.state.user;
-
     if (!user) {
       return ctx.badRequest(null, [{ messages: [{ id: 'No authorization header was found' }] }]);
     }
@@ -107,13 +106,13 @@ module.exports = {
         key: 'advanced'
       }).get();
 
-      if (advancedConfigs.unique_email && ctx.request.body.email) {
-        const users = await strapi.plugins['users-permissions'].services.user.fetchAll({ email: ctx.request.body.email });
-
-        if (users && _.find(users, user => (user.id || user._id).toString() !== ctx.params.id)) {
-          return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
-        }
-      }
+      // if (advancedConfigs.unique_email && ctx.request.body.email) {
+      //   const users = await strapi.plugins['users-permissions'].services.user.fetchAll({ email: ctx.request.body.email });
+      //
+      //   if (users && _.find(users, user => (user.id || user._id).toString() !== ctx.params.id)) {
+      //     return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
+      //   }
+      // }
 
       const user = await strapi.plugins['users-permissions'].services.user.fetch(ctx.params);
 
@@ -125,15 +124,15 @@ module.exports = {
         delete ctx.request.body.role;
       }
 
-      if (ctx.request.body.email && advancedConfigs.unique_email) {
-        const user = await strapi.query('user', 'users-permissions').findOne({
-          email: ctx.request.body.email
-        });
-
-        if ((user.id || user._id).toString() !== ctx.params.id) {
-          return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
-        }
-      }
+      // if (ctx.request.body.email && advancedConfigs.unique_email) {
+      //   const user = await strapi.query('user', 'users-permissions').findOne({
+      //     email: ctx.request.body.email
+      //   });
+      //
+      //   if ((user.id || user._id).toString() !== ctx.params.id) {
+      //     return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
+      //   }
+      // }
 
       const data = await strapi.plugins['users-permissions'].services.user.edit(ctx.params, ctx.request.body) ;
 

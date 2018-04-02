@@ -21,7 +21,7 @@ module.exports = {
 
     return Campaign
     .aggregate([
-      { $match : { profile : params._id } },
+      { $match : { profile : params?params._id:null } },
       { $group: { _id: '$_id' } }
     ])
     .exec()

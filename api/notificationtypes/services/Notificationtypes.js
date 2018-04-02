@@ -20,7 +20,7 @@ module.exports = {
   fetchAllCampaignsNotificationTypes: (params) => {
     return Campaign
     .aggregate([
-      { $match : { profile : params._id } },
+      { $match : { profile : params?params._id:null } },
       { $group: { _id: '$_id' } }
     ])
     .exec()
@@ -38,7 +38,7 @@ module.exports = {
           .sort(convertedParams.sort)
           .skip(convertedParams.start)
           .limit(convertedParams.limit)
-          .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
+          // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
       } else {
         return [];
       }
@@ -63,7 +63,7 @@ module.exports = {
         .sort(convertedParams.sort)
         .skip(convertedParams.start)
         .limit(convertedParams.limit)
-        .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
+        // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
     },
 
   /**
@@ -81,7 +81,7 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -93,7 +93,7 @@ module.exports = {
   fetch: (params) => {
     return Notificationtypes
       .findOne(_.pick(params, _.keys(Notificationtypes.schema.paths)))
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationtypes.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**

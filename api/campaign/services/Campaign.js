@@ -19,7 +19,7 @@ module.exports = {
 
   fetchUserCampaigns: (params) => {
     const query = {
-      profile: params._id
+      profile: params?params._id:null
     };
     const convertedParams = strapi.utils.models.convertParams('campaign', query);
 

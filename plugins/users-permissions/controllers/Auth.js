@@ -241,7 +241,7 @@ module.exports = {
     const hasAdmin = users.length > 0;
 
     // Check if the user is the first to register
-    const role = hasAdmin === false ? root : await strapi.query('role', 'users-permissions').findOne({ type: 'guest' }, []);
+    const role = hasAdmin === false ? root : await strapi.query('role', 'users-permissions').findOne({ type: 'customer' }, []);
 
     if (!role) {
       return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.role.notFound' }] }] : 'Impossible to find the root role.');

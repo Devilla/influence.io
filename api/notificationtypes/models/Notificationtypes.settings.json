@@ -23,8 +23,7 @@
     },
     "campaign": {
       "model": "campaign",
-      "via": "notification_Type",
-      "plugin": ""
+      "via": "notification_Type"
     }
   }
 }

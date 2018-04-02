@@ -21,6 +21,14 @@
       "type": "string",
       "multiple": false
     },
+    "utmSource": {
+      "type": "string",
+      "multiple": false
+    },
+    "utmMedium": {
+      "type": "string",
+      "multiple": false
+    },
     "isActive": {
       "type": "boolean",
       "multiple": false
