@@ -200,7 +200,6 @@ module.exports = {
 
   updatePermissions: async function (cb) {
     const actions = strapi.plugins['users-permissions'].config.actions || [];
-
     // Aggregate first level actions.
     const appActions = Object.keys(strapi.api || {}).reduce((acc, api) => {
       Object.keys(strapi.api[api].controllers)
@@ -211,7 +210,6 @@ module.exports = {
 
           acc = acc.concat(actions);
       });
-
       return acc;
     }, []);
 

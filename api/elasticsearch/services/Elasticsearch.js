@@ -37,5 +37,5 @@ module.exports = {
         strapi.log.info('---Client Search Returned--- ',resp);
       });
     });
-  }
+  },
 };

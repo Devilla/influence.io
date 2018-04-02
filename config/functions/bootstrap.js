@@ -18,7 +18,7 @@ module.exports = async cb => {
   function noop() {}
 
   function heartbeat() {
-    this.isAlive = true;
+    return true;
   }
   const eventHandler = function() {
     wsServer.on('connection', function(ws){

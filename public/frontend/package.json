@@ -36,7 +36,7 @@
     "react-rangeslider": "^2.2.0",
     "react-router": "^3.2.0",
     "react-router-redux": "^4.0.8",
-    "react-scripts": "1.0.10",
+    "react-scripts": "^1.0.10",
     "react-select": "^1.2.1",
     "react-slick": "^0.18.1",
     "react-stepzilla": "^4.7.0",
