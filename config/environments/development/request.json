@@ -12,7 +12,7 @@
     "rolling": false
   },
   "logger": {
-    "level": "debug",
+    "level": "trace",
     "exposeInContext": true,
     "requests": true
   },

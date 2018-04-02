@@ -21,22 +21,18 @@ module.exports = {
 
   },
 
-  storeData : async (params) => {
-    console.log('JSON',params);
 
-    let body = {};
-    body = {index: {_index: 'clientwebsitedata', _type:'logs'}};
-    body.body = params.replace(/"(\w+)"\s*:/g, '$1:');
-    console.log(body);
+  searchWithQuery: async (index,q) => {
     let client = strapi.es;
-    return new Promise((resolve,reject)=> {
-      client.index({body: body}, function (err, resp,status) {
-        if(err) reject(err);
+    return new Promise((resolve, reject)=> {
+      client.search({index: index, q: q}, function (err,resp,status) {
+        if (err) reject(err);
         else resolve(resp);
-        strapi.log.info('-- Client Response --', resp);
+        strapi.log.info('---Client Search Returned--- ',resp);
       });
     });
-  }
+  };
+
 
 
 
