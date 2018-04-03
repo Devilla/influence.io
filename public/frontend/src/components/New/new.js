@@ -119,7 +119,7 @@ export class NewUser extends Component{
     };
 
     this.props.createCampaign(data);
-
+    browserHistory.push('notifications')
     // if(!this.canBeSubmitted()){
     //         evt.preventDefault();
     //           return;
@@ -152,7 +152,7 @@ export class NewUser extends Component{
 
     //     }
 
-    this.props.callbackFromParent({'active': 2});
+    // this.props.callbackFromParent({'active': 2});
 
   }
 

@@ -23,7 +23,7 @@
     },
     "campaign": {
       "model": "campaign",
-      "via": "notification_Type"
+      "via": "notificationTypes"
     }
   }
 }

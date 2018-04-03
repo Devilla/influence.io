@@ -21,3 +21,4 @@ export { default as Notification } from './Notification';
 export { default as Analytics } from './Analytics';
 export { default as New } from './New';
 export { default as LoginFlow } from './LoginFlow/LoginFlow';
+export { default as SelectNotification } from './New/SelectNotification/SelectNotification';
