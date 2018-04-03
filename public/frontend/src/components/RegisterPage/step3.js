@@ -21,8 +21,8 @@ function paymentDone(userid,paymentid){
     alert(userid)
 
   }
- 
-var timer;         
+
+var timer;
 export default class Step3 extends Component {
   constructor(){
     super();
@@ -36,7 +36,7 @@ export default class Step3 extends Component {
        paymentid:'',
        nextState : 4
     }
-    
+
   }
 
    componentDidMount(){
@@ -128,7 +128,7 @@ export default class Step3 extends Component {
           evt.preventDefault();
           return;
       }else{
-        
+
         var reginfo = JSON.parse(localStorage.getItem("reginfo"));
         var cweb = JSON.parse(localStorage.getItem("cweb"));
         const data = {
@@ -162,8 +162,8 @@ export default class Step3 extends Component {
       }
    }
 
- 
-  
+
+
     payment(){
 
               let options = {
@@ -173,7 +173,7 @@ export default class Step3 extends Component {
                 "image": "/images/logo.png",
 
                 "handler": function (response){
-                  localStorage.setItem('tid',response.razorpay_payment_id);  
+                  localStorage.setItem('tid',response.razorpay_payment_id);
                 },
                 "prefill": {
                   "name": this.state.fname +' '+this.state.lname,
@@ -191,12 +191,12 @@ export default class Step3 extends Component {
                 }
               };
 
-              
+
               let rzp = new window.Razorpay(options);
               rzp.open();
-              timer = window.setInterval(this.checkforvalue, 5000) 
-       } 
-       
+              timer = window.setInterval(this.checkforvalue, 5000)
+       }
+
        checkforvalue(){
 
               if(localStorage.getItem("tid") === null){
@@ -205,7 +205,7 @@ export default class Step3 extends Component {
               {
                 clearInterval(timer)
                 let getpaymentid = localStorage.getItem('tid')
-                let getusertoken = localStorage.getItem('encryptedtoken')
+                let getusertoken = localStorage.getItem('authToken')
                // console.log(getpaymentid)
                 localStorage.setItem('tid','');
                 const data = {
@@ -226,8 +226,8 @@ export default class Step3 extends Component {
               }
             }
 
-   
-   
+
+
   render() {
     const errors = validate(
                     this.state.fname,
@@ -241,58 +241,58 @@ export default class Step3 extends Component {
         <div>
 
             <h3 className="dashed">Tell us about yourself</h3>
-           <div className="section-divider-line"></div>  
+           <div className="section-divider-line"></div>
             <div className="frmcntl col-6">
-                      <input 
+                      <input
                         className="field w-input"
                         name="fname"
                         id="fname"
                         value={this.state.fname}
                         onBlur={this.handleFNameAuth.bind(this)}
-                        onChange = {this.handleFNameChange.bind(this)} 
+                        onChange = {this.handleFNameChange.bind(this)}
                         placeholder="First name"
                         type="text" />
-                      <input 
+                      <input
                         className="field w-input"
                         name="lname"
                         id="lname"
                         value={this.state.lname}
                         onBlur={this.handleLNameAuth.bind(this)}
-                        onChange = {this.handleLNameChange.bind(this)} 
+                        onChange = {this.handleLNameChange.bind(this)}
                         placeholder="Last name"
                         type="text" />
                 </div>
                  <div className="frmcntl col-6 plancont">
 
-                    <input 
+                    <input
                       className="field w-input"
                       name="mobile"
-                      id="mobile" 
+                      id="mobile"
                       value={this.state.mobile}
                       onBlur={this.handleMobileAuth.bind(this)}
-                      onChange = {this.handleMobileChange.bind(this)} 
+                      onChange = {this.handleMobileChange.bind(this)}
                       placeholder="Phone Number"
-                      type="number" /> 
-                  
+                      type="number" />
+
                     <select className="field w-input col-6" id="planselect" value={this.state.plan} onChange={this.handleselect.bind(this)}>
                       <option value="100">Startups</option>
                       <option value="200">Small Businesses</option>
                       <option value="300">Advanced</option>
                       <option value="400">Pro</option>
                     </select>
-                                   
+
                   </div>
                  <div className="frmcntl">
-                      <input className="button submit-button w-button" 
+                      <input className="button submit-button w-button"
                        type="button"
                        value="Proceed to payment"
-                       id="rzp-button1"  
+                       id="rzp-button1"
                        onClick = {this.handleForm.bind(this)}
                        disabled={isDisabled}
-                       />    
+                       />
                     </div>
 
-                    
+
             <ToastContainer hideProgressBar ={true}
 
               />

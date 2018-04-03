@@ -1,15 +1,14 @@
 import { call, put, select, fork, takeLatest } from 'redux-saga/effects';
 import * as api from '../services/api';
-import * as actions from '../ducks/notification';
+import * as actions from '../ducks/rules';
 
 function* fetch(action) {
   try {
-    const res = yield call(api.GET, `notificationtypes`);
-    console.log(res, "==============res");
+    const res = yield call(api.GET, `rules`);
     if(res.error)
       console.log(res.error);
     else
-      yield put(actions.successNotification(res));
+      yield put(actions.fetchSuccess(res));
   } catch (error) {
     console.log('Failed to fetch doc', error);
   }
@@ -17,11 +16,11 @@ function* fetch(action) {
 
 function* create(action) {
   try {
-    const res = yield call(api.POST, `notificationtypes`, action.notification);
+    const res = yield call(api.POST, `rules`, action.rules);
     if(res.error)
       console.log(res.error);
     else
-      yield put(actions.createSuccess(res));
+      yield put(actions.successRules(res));
   } catch (error) {
     console.log('Failed to fetch doc', error);
   }
@@ -31,14 +30,14 @@ function* create(action) {
 function* update(action) {
   try {
     console.log(action);
-
-    const res = yield call(api.PUT, `notificationtypes/${action.notification.id}`);
+    delete action.rules['_id'];
+    const res = yield call(api.PUT, `rules/${action.rules.id}`);
     if(res.error)
       console.log(res.error);
     else {
-      let notification = action.notification;
-      notification["_id"] = notification.id;
-      yield put(actions.successNotification(action.notification));
+      let rules = action.rules;
+      rules["_id"] = rules.id;
+      yield put(actions.successRules(rules));
     }
 
   } catch (error) {

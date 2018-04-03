@@ -24,6 +24,7 @@ import {
   Analytics,
   New,
   LoginFlow,
+  SelectNotification
 } from './components';
 
 import {
@@ -43,6 +44,7 @@ const MyRoutes = ({routerHistory, store}) => (
       <Route path="/analytics" component={Analytics} />
       <Route path="/integration" component={Dashboard} />
       <Route path="/support" component={Dashboard} />
+      <Route path="/notifications" component={SelectNotification} />
     </Route>
     <Route path="/getting-started" component={LoginFlow} />
     <Route component={App}>

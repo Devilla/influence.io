@@ -5,12 +5,10 @@ import Card from '../utils/card'
 import { thArray, tdArray } from './data';
 import Switch from 'react-flexible-switch';
 import {getCookie} from '../../components/Common/function';
+import moment from 'moment';
 
 import { fetchNotification } from '../../ducks/notification';
 
-const apiURL = 'http://localhost:1337/notification';
-
-// const authorizationToken = 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJoamJqaGJqQGFhcy5jb20iLCJmdWxsTmFtZSI6InJhbWFuIHBhcmFzaGVyIiwiX2lkIjoiNWFhYjZkNWNkNzgzMGYzNWJjN2M0YzEyIiwiaWF0IjoxNTIxMTg0MDkzfQ.rbDvFV2hY7WoTrv5c8HZ-IZHLIMx1qNvZhGTjPeoTxg';
 
 const notificationFields = [ 'S.No', 'Campaign', 'Domain', 'Status', 'Tracking ID', 'Log', 'Modified', 'Created' ];
 
@@ -24,34 +22,15 @@ class Notification extends Component {
 
   componentDidMount() {
     this.props.fetchNotification();
-    // Fetch notifcations from api
-    // fetch(apiURL, {
-    //   headers: {
-    //     'authorization': this.state.authToken,
-    //     'content-type': 'application/json'
-    //   }
-    // }).then(
-    //   res => res.json()
-    // ).then(
-    //   notifications => {
-    //     if(!Array.isArray(notifications))
-    //       throw new Error('Could not fetch data!');
-    //     console.log(notifications);
-    //     this.setState({notifications});
-    //   }
-    // ).catch(
-    //   // TODO: Use better way for alerting user
-    //   err => alert('There was some error ' + err)
-    // );
   }
 
   // Map the notification data into table rows and return
   getNotificationRows = () => {
-    return this.state.notifications.map((notification, i) => (
+    return this.props.notifications.map((notification, i) => (
       <tr key={notification._id}>
         <td>{i + 1 /* S.No */}</td>
-        <td>{notification.campaignName}</td>
-        <td><i className="fas fa-globe"></i> <a href={notification.domain} target="_blank">{notification.domain}</a></td>
+        <td>{notification.campaign.campaignName}</td>
+        <td><i className="fas fa-globe"></i> <a href={notification.domain} target="_blank">{notification.campaign.websiteUrl}</a></td>
         <td>
           {
             notification.status ?
@@ -69,13 +48,14 @@ class Notification extends Component {
         </td>
         <td>{notification.trackingid}</td>
         <td>{notification.log}</td>
-        <td>{new Date(notification.modified).toLocaleDateString()}</td>
-        <td>{new Date(notification.created).toLocaleDateString()}</td>
+        <td>{moment(notification.updatedAt).format('MM/DD/YYYY')}</td>
+        <td>{moment(notification.createdAt).format('MM/DD/YYYY')}</td>
       </tr>
     ));
   }
 
   render() {
+    console.log(this.props.notifcations, "========notification");
     return (
       <div className="content">
         <Grid fluid>
@@ -121,7 +101,7 @@ class Notification extends Component {
 }
 
 const mapStateToProps = state => ({
-  notifications: state.getIn(['notification', 'notification'])
+  notifications: state.getIn(['notification', 'notifications'])
 });
 
 const mapDispatchToProps = {

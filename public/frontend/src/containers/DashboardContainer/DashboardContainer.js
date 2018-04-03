@@ -72,7 +72,6 @@ class DashboardContainer extends Component {
 
   componentDidMount() {
     this.setState({_notificationSystem: this.refs.notificationSystem});
-    this.handleCheckAuth();
 
   }
 
@@ -80,20 +79,6 @@ class DashboardContainer extends Component {
     if (!user.profile || !user.payments) {
       browserHistory.push('getting-started')
     }
-  }
-
-  handleCheckCookie() {
-    var usertoken = localStorage.getItem('authToken');
-    if (usertoken != "") {
-      return usertoken;
-    } else {
-      this.setState({render: false});
-      window.location.href = "http://localhost:3000/login";
-    }
-  }
-
-  handleCheckAuth() {
-    var tokenverify = this.handleCheckCookie();
   }
 
   componentDidUpdate(e) {

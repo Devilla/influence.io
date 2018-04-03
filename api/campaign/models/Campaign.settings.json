@@ -39,7 +39,7 @@
     },
     "profile": {
       "model": "profile",
-      "via": "campaigns"
+      "via": "campaign"
     },
     "notification_Type": {
       "collection": "notificationtypes",
