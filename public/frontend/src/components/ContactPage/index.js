@@ -89,7 +89,7 @@ export default class Contact extends Component {
                 "message": this.state.msg
 
             }
-            const urls = 'http://localhost:1337/contact';
+            const urls = 'http://strapi.useinfluence.co/contact';
 
             // toast.success('Thank you for your query', {
             //      position: toast.POSITION.BOTTOM_CENTER
