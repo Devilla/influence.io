@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import {Animated} from "react-animated-css";
 
+
+
 export default class Banner extends Component {
+
   componentDidMount(){
 
    }
+
   render() {
   	return (
-      <div className="hero">
+      <header className="header  h-fullscreen">
 	      <div id="stripes">
 	        <span></span>
 	        <span></span>
@@ -15,7 +19,7 @@ export default class Banner extends Component {
 	        <span></span>
 	        <span></span>
 	      </div>
-        <div className="hero-overlay">
+        <div className="overlay opacity-95" >
             <div className="hero-container w-container">
                 <div className="hero-text-block">
                     <Animated  className="hero-title word sm" animationIn="fadeInDown" animationOut="fadeOut" isVisible={true}>
@@ -34,7 +38,7 @@ export default class Banner extends Component {
 
             </div>
         </div>
-    </div>
+    </header>
   	)
   }
 }

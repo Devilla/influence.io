@@ -48,13 +48,13 @@ const data = {
 export default class Price extends Component {
  constructor() {
     super();
-    this.state = { 
-                checked: false, 
+    this.state = {
+                checked: false,
                 externalValue: true,
                 sprice : '',
                 sbprice : '',
                 advprice : '',
-                proprice : '' 
+                proprice : ''
             };
     this.handleChange = this.handleChange.bind(this);
 
@@ -64,7 +64,7 @@ export default class Price extends Component {
      window.scrollTo(0, 0)
      this.init('Yearly')
      this.accordian();
-   } 
+   }
 
   handleChange(checked) {
     this.setState({ checked });
@@ -73,7 +73,7 @@ export default class Price extends Component {
      this.setState({ externalValue: false })
      this.init('Monthly')
   }
-  handleYearChange(){    
+  handleYearChange(){
     this.setState({ externalValue: true })
     this.init('Yearly')
   }
@@ -92,17 +92,17 @@ export default class Price extends Component {
     $('.faq .faqwrap ul li .questions').on('click',function(){
         $('.faq .faqwrap ul li .questions').removeClass('active');
         $(this).parent().toggleClass('active');
-        $(this).next().slideToggle(300)   
-        
+        $(this).next().slideToggle(300)
+
     })
   }
-  init(mode){    
+  init(mode){
     let k = this;
 
     axios.get('https://geoip-db.com/json/geoip.php')
       .then(function (response) {
        // console.log(response)
-        if(response.data.country_code=='IN'){         
+        if(response.data.country_code=='IN'){
               switch(mode){
                 case 'Monthly':
                     k.setState({
@@ -112,14 +112,14 @@ export default class Price extends Component {
                         proprice : data.pro.inr.monthly
                     })
                  break;
-                 case 'Yearly':                 
+                 case 'Yearly':
                   k.setState({
                     sprice:  data.startups.inr.yearly,
                     sbprice : data.smallbusinesses.inr.yearly,
                     advprice : data.advanced.inr.yearly,
                     proprice : data.pro.inr.yearly
                  })
-                 break;    
+                 break;
 
               }
         }else{
@@ -132,14 +132,14 @@ export default class Price extends Component {
                         proprice : data.pro.usd.monthly
                     })
                  break;
-                 case 'Yearly':                 
+                 case 'Yearly':
                   k.setState({
                     sprice:  data.startups.usd.yearly,
                     sbprice : data.smallbusinesses.usd.yearly,
                     advprice : data.advanced.usd.yearly,
                     proprice : data.pro.usd.yearly
                  })
-                 break;  
+                 break;
              }
          }
       })
@@ -160,14 +160,14 @@ export default class Price extends Component {
         <div className="centered page-header-container w-container">
         <Animated className="page-header-title subtitle" animationIn="fadeInDown" animationOut="fadeOut" isVisible={true}>
                 Simple, honest & affordable pricing
-                
+
             </Animated></div></div>
            <Animated className="offerblurb" animationIn="zoomIn" animationOut="fadeOut" isVisible={true}>
             <div className="innerwrap">
                 You'll save <span>20%</span> with our <br/>Yearly Plan
             </div>
             </Animated>
-           
+
         </div>
 
         <div className="section innerpage">
@@ -177,11 +177,11 @@ export default class Price extends Component {
                       <ul>
                       <li>
                       <a href="javascript:;" className={
-                        !this.state.externalValue ? 'active' : 'hidden'
+                        !this.state.externalValue ? 'active' : 'active'
                       } onClick={this.handleMonthChange.bind(this)}>Monthly</a></li>
                       <li>
-                      <Switch 
-                        circleStyles={{ onColor: 'blue', offColor: 'blue',diameter: 18 }} 
+                      <Switch
+                        circleStyles={{ onColor: 'blue', offColor: 'blue',diameter: 18 }}
                         switchStyles={{ width: 50 }}
                          value={this.state.externalValue}
                          onChange={this.handleSwitchChange.bind(this)}
@@ -190,11 +190,11 @@ export default class Price extends Component {
                      <li>
                       <a href="javascript:;"
                         className={
-                        this.state.externalValue ? 'active' : 'hidden'
+                        this.state.externalValue ? 'active' : 'active'
                       }
                        onClick={this.handleYearChange.bind(this)}>Yearly</a>
                       </li></ul>
-                      </div>  
+                      </div>
                 </div>
 
                  <div className="pricing-row w-row">
@@ -206,7 +206,7 @@ export default class Price extends Component {
                                     {this.state.sprice}
                                 </h2>
                                 <h2 className="monthly pricing-title d1">{
-                                    this.state.externalValue ? 'Per month, billed annually' : 'Per month'  
+                                    this.state.externalValue ? 'Per month, billed annually' : 'Per month'
                                 }</h2>
                                 <div className="feature-divider section-divider-line"></div>
                             </div>
@@ -261,7 +261,7 @@ export default class Price extends Component {
                                     {this.state.sbprice}
                                 </h2>
                                 <h2 className="monthly pricing-title d1">{
-                                    this.state.externalValue ? 'Per month, billed annually' : 'Per month'  
+                                    this.state.externalValue ? 'Per month, billed annually' : 'Per month'
                                 }</h2>
                                 <div className="feature-divider section-divider-line"></div>
                             </div>
@@ -316,7 +316,7 @@ export default class Price extends Component {
                                     {this.state.advprice}
                                 </h2>
                                 <h2 className="monthly pricing-title d1">{
-                                    this.state.externalValue ? 'Per month, billed annually' : 'Per month'  
+                                    this.state.externalValue ? 'Per month, billed annually' : 'Per month'
                                 }</h2>
                                 <div className="feature-divider section-divider-line"></div>
                             </div>
@@ -371,7 +371,7 @@ export default class Price extends Component {
                                     {this.state.proprice}
                                 </h2>
                                 <h2 className="monthly pricing-title d1">{
-                                    this.state.externalValue ? 'Per month, billed annually' : 'Per month'  
+                                    this.state.externalValue ? 'Per month, billed annually' : 'Per month'
                                 }</h2>
                                 <div className="feature-divider section-divider-line"></div>
                             </div>
@@ -398,7 +398,7 @@ export default class Price extends Component {
                                 </li>
                                 <li className="pricing-feature-list-item">
                                     <div className="pricing-feature-text">
-                                      Priority support 
+                                      Priority support
                                     </div>
                                 </li>
                                 <li className="pricing-feature-list-item">
@@ -418,18 +418,18 @@ export default class Price extends Component {
                             </div>
                         </div>
                     </div>
-                     
+
                </div>
                <div className="pricing-row w-row msg-bb">
                     <div className="w-col w-col-12">
                         <h3><strong>24 x 7 email support</strong> and <strong> 24 x 5 phone support</strong> included with all plans</h3>
-                    </div>    
+                    </div>
                </div>
                <div className="pricing-row w-row msg-bb cta">
                     <div className="w-col w-col-12">
                         <h3><strong>Need a higher traffic plan?</strong> <a href="javascript:;" className="btn">Contact us</a></h3>
 
-                    </div>    
+                    </div>
                </div>
                <div className="pricing-row w-row pledge">
                     <div className="w-col w-col-4 logo">
@@ -491,7 +491,7 @@ export default class Price extends Component {
                                 Once you start inching closer to your traffic limit, we’ll send you notifications before you even actually hit that limit.  Once you go above your plan limit we’ll automatically upgrade you for the next plan.
                             </div>
                         </li>
-                        
+
                     </ul>
 
                 </div>
@@ -518,5 +518,5 @@ export default class Price extends Component {
         </div>
     );
   }
-  
+
 }
