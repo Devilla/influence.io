@@ -71,7 +71,7 @@ export default class Register extends Component {
       console.log(res);
       toast.info('Successfull', toastConfig);
       store.dispatch(loginSuccess(res));
-      browserHistory.push('/dashboard');
+      browserHistory.push('/getting-started');
       // TODO: check response before treating it as successfull
 
       this.setState({isRegistered: true});

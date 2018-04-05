@@ -2,8 +2,8 @@ import { call, put, select } from 'redux-saga/effects';
 
 export const base =
   process.env.NODE_ENV === 'production'
-    ? 'http://strapi.useinfluence.co/'
-    : 'http://strapi.useinfluence.co/'; // eslint-disable-line
+    ? 'http://localhost:1337/'
+    : 'http://localhost:1337/'; // eslint-disable-line
 
 // const getToken = state => state.getIn(['auth', 'token']);//state.auth.token;
 
@@ -23,7 +23,6 @@ export const GET = (url) => {
 
 export const GETFILE = (url) => {
   const token = JSON.parse(localStorage.getItem('authToken')).token;
-  console.log(token, "=========tokentokeoerwei");
   return fetch(base + url, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },

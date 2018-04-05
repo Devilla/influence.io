@@ -46,7 +46,7 @@ class Notification extends Component {
               />
           }
         </td>
-        <td>{notification.trackingid}</td>
+        <td>{notification.campaign.trackingId}</td>
         <td>{notification.log}</td>
         <td>{moment(notification.updatedAt).format('MM/DD/YYYY')}</td>
         <td>{moment(notification.createdAt).format('MM/DD/YYYY')}</td>

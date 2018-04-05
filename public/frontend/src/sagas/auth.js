@@ -14,6 +14,7 @@ import * as actions from '../ducks/auth';
 import { fetchProfile } from '../ducks/profile';
 import { fetchPlan } from '../ducks/plan';
 import { fetchPayment } from '../ducks/payment';
+import { load, loaded } from '../ducks/loading';
 
 import * as api from '../services/api';
 import moment from 'moment';
@@ -45,36 +46,45 @@ export function* logOut() {
 
 export function* fetchUser() {
   try {
+    yield put(load());
     const res = yield call(api.GET, `user/me`);
     if(res.error)
       console.log(res.error);
     else
       yield put(actions.fetchUserSuccess(res));
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     yield console.log(error);
   }
 }
 
 export function* updateUser(action) {
   try {
+    yield put(load());
     const res = yield call(api.PUT, `user/${action.user._id}`, action.user);
     if(res.error)
       console.log(res.error);
     else
       yield put(actions.fetchUserSuccess(action.user));
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     yield console.log(error);
   }
 }
 
 export function* fetchRoles() {
   try {
+    yield put(load());
     const res = yield call(api.GET, `users-permissions/roles`);
     if(res.error)
       console.log(res.error);
     else
       yield put(actions.fetchRolesSuccess(res));
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     yield console.log(error);
   }
 }

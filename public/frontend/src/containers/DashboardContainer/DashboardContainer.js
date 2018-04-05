@@ -3,12 +3,13 @@ import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 
 import {Redirect} from 'react-router'
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-import Sidebar from '../../components/Sidebar/Sidebar';
+// import Header from '../../components';
+// import Footer from '../../components';
+// import Sidebar from '../../components';
 import axios from 'axios';
 import $ from 'jquery';
 import {checkTokenExists} from '../../ducks/auth';
+import { Spinner, Header, Footer, Sidebar } from '../../components';
 
 // import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
 
@@ -50,7 +51,7 @@ class DashboardContainer extends Component {
 
   componentWillMount() {
     this.checkLogin();
-    this.checkUserDetails(this.props.user);
+    this.checkUserDetails(this.props.profile);
   }
 
   checkLogin() {
@@ -65,9 +66,8 @@ class DashboardContainer extends Component {
     }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.user != nextProps.user);
-      if (this.props.user != nextProps.user)
-        this.checkUserDetails(nextProps.user);
+    if (this.props.profile != nextProps.profile)
+      this.checkUserDetails(nextProps.profile);
   }
 
   componentDidMount() {
@@ -75,8 +75,8 @@ class DashboardContainer extends Component {
 
   }
 
-  checkUserDetails(user) {
-    if (!user.profile || !user.payments) {
+  checkUserDetails(profile) {
+    if (!profile || !profile.profile_payments) {
       browserHistory.push('getting-started')
     }
   }
@@ -88,22 +88,27 @@ class DashboardContainer extends Component {
   }
 
   render() {
-    return (<div className="wrapper">
-      {!this.state.render && <p>Please wait</p>}
-      {this.state.render && <Sidebar {...this.props}/>}
-      {
-        this.state.render && <div id="main-panel" className="main-panel">
-            <Header {...this.props}/> {this.props.children}
-            <Footer/>
-          </div>
-      }
-    </div>);
+    const { loading } = this.props;
+    return (
+      <div className="wrapper">
+        <Spinner loading={loading} />
+        {!this.state.render && <p>Please wait</p>}
+        {this.state.render && <Sidebar {...this.props}/>}
+        {
+          this.state.render && <div id="main-panel" className="main-panel">
+              <Header {...this.props}/> {this.props.children}
+              <Footer/>
+            </div>
+        }
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  profile: state.get('profile'),
-  user: state.getIn(['auth', 'user'])
+  profile: state.getIn(['profile', 'profile']),
+  user: state.getIn(['auth', 'user']),
+  loading: state.getIn(['loading', 'state']),
 });
 
 const mapDispatchToProps = {

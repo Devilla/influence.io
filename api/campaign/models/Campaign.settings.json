@@ -29,6 +29,10 @@
       "type": "string",
       "multiple": false
     },
+    "trackingId": {
+      "type": "string",
+      "multiple": false
+    },
     "isActive": {
       "type": "boolean",
       "multiple": false
