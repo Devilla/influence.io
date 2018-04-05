@@ -3,8 +3,6 @@
 /**
  * `Websocket` service.
  */
-
-
 const fs = require('fs');
 
 const webSocketStream = fs.createWriteStream('/tmp/log/websocket.log');
