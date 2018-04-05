@@ -5,45 +5,38 @@ import { Link } from 'react-router';
 export default class Header extends Component {
   render() {
     return (
-      	<nav className="navbar mr-auto navbar-expand-lg navbar-dark navbar-stick-dark" data-navbar="static"  data-animation="over-right" data-collapse="medium" data-contain="1" data-duration="400">
-        <div className="container">
-          <div className="navbar-left">
-            <button className="navbar-toggler" type="button">&#9776;</button>
-            <Link className="navbar-brand" to="/">
-               <img className="logo-dark" src="../../assets/img/logo.png"/>
+      	<div className="navbar w-nav" data-animation="over-right" data-collapse="medium" data-contain="1" data-duration="400">
+
+        <div className="w-container">
+            <Link className="logo-container w-nav-brand" to="/">
+               <img src="images/logo.png"/>
             </Link>
-          </div>
-          <section className="navbar-mobile">
-            <span className="navbar-divider d-mobile-none"/>
-            <ul className="nav nav-navbar">
-              <li className="nav-item">
+
+            <nav className="nav-menu w-nav-menu" role="navigation">
+
                 <Link className="nav-link w-nav-link" to="/how-it-works">How It Works</Link>
-              </li>
-              <li className="nav-item">
                 <Link className="nav-link w-nav-link" to="/pricing">Pricing</Link>
-              </li>
-              <li className="nav-item">
                 <a className="nav-link w-nav-link" href="javascript:;">Integrations</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/about">About <span className="arrow"/></a>
-                <nav className="nav">
-                  <a className="nav-link" href="/contact">Contact Us</a>
-                </nav>
-              </li>
-            </ul>
-            <div>
-              <Link className="btn btn-xl btn-round btn-light  ml-lg-12 mr-5 login" to="/login">Login <em className="ion-ios-arrow-thin-right"></em></Link>
-              <Link className="btn btn-xl btn-round btn-success ml-lg-5 mr-2 signup" to="/register">Signup <em className="ion-ios-arrow-thin-right"></em></Link>
-            </div>
-          </section>
+                <div className="dropdown w-dropdown" data-delay="0">
+                <div className="dropdown-toggle w-dropdown-toggle">
+                <div>About</div><div className="dropdown-icon w-icon-dropdown-toggle"></div>
+                </div>
+                <nav className="dropdown-list w-dropdown-list">
+                <Link className="dropdown-link w-dropdown-link" to="/about">About us</Link>
+                <Link className="dropdown-link w-dropdown-link" to="/contact">Contact Us</Link>
+                </nav></div>
+                &nbsp; &nbsp; &nbsp;
+                <Link className="nav-link w-nav-link btn-sm login" to="/login">Login <em className="ion-ios-arrow-thin-right"></em></Link>
+
+                <Link className="nav-link btn-sm w-nav-link signup" to="/register">Signup <em className="ion-ios-arrow-thin-right"></em></Link>
+            </nav>
 
 
-          <div className="menu-button w-nav-button">
+            <div className="menu-button w-nav-button">
                 <div className="w-icon-nav-menu"></div>
             </div>
         </div>
-    </nav>
+    </div>
     );
   }
 }
