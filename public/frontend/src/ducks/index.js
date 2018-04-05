@@ -8,6 +8,7 @@ import payment from './payment';
 import notification from './notification';
 import campaign from './campaign';
 import rules from './rules';
+import loading from './loading';
 
 const reducer = combineReducers({
   profile,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   notification,
   campaign,
   rules,
+  loading,
   router: routerReducer
 });
 

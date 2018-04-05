@@ -2,25 +2,29 @@ import { call, put, select, fork, takeLatest } from 'redux-saga/effects';
 import * as api from '../services/api';
 import * as actions from '../ducks/payment';
 import { updateProfile } from '../ducks/profile';
-
+import { load, loaded } from '../ducks/loading';
 
 const getProfile = state => state.getIn(['profile', 'profile']);
 
 
 function* fetch(action) {
   try {
+    yield put(load());
     const res = yield call(api.GET, `payment`);
     if(res.error)
       console.log(res.error);
     else
       yield put(actions.successPayment(res));
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     console.log('Failed to fetch doc', error);
   }
 }
 
 function* create(action) {
   try {
+    yield put(load());
     const res = yield call(api.POST, `payment`, action.payment);
     if(res.error)
       console.log(res.error);
@@ -32,8 +36,9 @@ function* create(action) {
       yield put(updateProfile(profile));
       yield put(actions.successPayment(res));
     }
-
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     console.log('Failed to fetch doc', error);
   }
 
@@ -41,12 +46,15 @@ function* create(action) {
 
 function* update(action) {
   try {
+    yield put(load());
     const res = yield call(api.PUT, `payment/${action.id}`);
     if(res.error)
       console.log(res.error);
     else
       yield put(actions.successPayment(res));
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     console.log('Failed to fetch doc', error);
   }
 

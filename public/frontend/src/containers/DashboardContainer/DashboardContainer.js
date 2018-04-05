@@ -3,12 +3,13 @@ import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 
 import {Redirect} from 'react-router'
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-import Sidebar from '../../components/Sidebar/Sidebar';
+// import Header from '../../components';
+// import Footer from '../../components';
+// import Sidebar from '../../components';
 import axios from 'axios';
 import $ from 'jquery';
 import {checkTokenExists} from '../../ducks/auth';
+import { Spinner, Header, Footer, Sidebar } from '../../components';
 
 // import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
 
@@ -88,22 +89,27 @@ class DashboardContainer extends Component {
   }
 
   render() {
-    return (<div className="wrapper">
-      {!this.state.render && <p>Please wait</p>}
-      {this.state.render && <Sidebar {...this.props}/>}
-      {
-        this.state.render && <div id="main-panel" className="main-panel">
-            <Header {...this.props}/> {this.props.children}
-            <Footer/>
-          </div>
-      }
-    </div>);
+    const { loading } = this.props;
+    return (
+      <div className="wrapper">
+        <Spinner loading={loading} />
+        {!this.state.render && <p>Please wait</p>}
+        {this.state.render && <Sidebar {...this.props}/>}
+        {
+          this.state.render && <div id="main-panel" className="main-panel">
+              <Header {...this.props}/> {this.props.children}
+              <Footer/>
+            </div>
+        }
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => ({
   profile: state.get('profile'),
-  user: state.getIn(['auth', 'user'])
+  user: state.getIn(['auth', 'user']),
+  loading: state.getIn(['loading', 'state']),
 });
 
 const mapDispatchToProps = {

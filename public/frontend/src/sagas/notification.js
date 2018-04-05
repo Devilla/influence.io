@@ -1,28 +1,34 @@
 import { call, put, select, fork, takeLatest } from 'redux-saga/effects';
 import * as api from '../services/api';
 import * as actions from '../ducks/notification';
+import { load, loaded } from '../ducks/loading';
 
 function* fetch(action) {
   try {
+    yield put(load());
     const res = yield call(api.GET, `notificationtypes`);
-    console.log(res, "==============res");
     if(res.error)
       console.log(res.error);
     else
       yield put(actions.successNotification(res));
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     console.log('Failed to fetch doc', error);
   }
 }
 
 function* create(action) {
   try {
+    yield put(load());
     const res = yield call(api.POST, `notificationtypes`, action.notification);
     if(res.error)
       console.log(res.error);
     else
       yield put(actions.createSuccess(res));
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     console.log('Failed to fetch doc', error);
   }
 
@@ -30,8 +36,7 @@ function* create(action) {
 
 function* update(action) {
   try {
-    console.log(action);
-
+    yield put(load());
     const res = yield call(api.PUT, `notificationtypes/${action.notification.id}`);
     if(res.error)
       console.log(res.error);
@@ -40,8 +45,9 @@ function* update(action) {
       notification["_id"] = notification.id;
       yield put(actions.successNotification(action.notification));
     }
-
+    yield put(loaded());
   } catch (error) {
+    yield put(loaded());
     console.log('Failed to fetch doc', error);
   }
 
