@@ -25,7 +25,6 @@ const PaymentPage = ({stripe, profile, user, plan, planList, username, setError,
 
     stripe.createToken(options).then((result) => {
       if (result.error) {
-        console.log("fgkasjgdksgdaksgdahsjdgajsherror");
         handleStateChange(result.error.message, 'stripeError');
       } else {
         const data = {

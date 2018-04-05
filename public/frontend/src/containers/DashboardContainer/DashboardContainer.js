@@ -51,7 +51,7 @@ class DashboardContainer extends Component {
 
   componentWillMount() {
     this.checkLogin();
-    this.checkUserDetails(this.props.user);
+    this.checkUserDetails(this.props.profile);
   }
 
   checkLogin() {
@@ -66,9 +66,8 @@ class DashboardContainer extends Component {
     }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.user != nextProps.user);
-      if (this.props.user != nextProps.user)
-        this.checkUserDetails(nextProps.user);
+    if (this.props.profile != nextProps.profile)
+      this.checkUserDetails(nextProps.profile);
   }
 
   componentDidMount() {
@@ -76,8 +75,8 @@ class DashboardContainer extends Component {
 
   }
 
-  checkUserDetails(user) {
-    if (!user.profile || !user.payments) {
+  checkUserDetails(profile) {
+    if (!profile || !profile.profile_payments) {
       browserHistory.push('getting-started')
     }
   }
@@ -107,7 +106,7 @@ class DashboardContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.get('profile'),
+  profile: state.getIn(['profile', 'profile']),
   user: state.getIn(['auth', 'user']),
   loading: state.getIn(['loading', 'state']),
 });
