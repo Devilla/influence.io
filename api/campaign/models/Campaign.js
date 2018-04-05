@@ -4,6 +4,8 @@
  * Lifecycle callbacks for the `Campaign` model.
  */
 
+var uniqid = require('uniqid');
+
 module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
@@ -30,7 +32,9 @@ module.exports = {
 
   // Before creating a value.
   // Fired before `insert` query.
-  // beforeCreate: async (model) => {},
+  beforeCreate: async (model) => {
+    model.trackingId = uniqid('INF-')
+  },
 
   // After creating a value.
   // Fired after `insert` query.
