@@ -3,8 +3,6 @@
 /**
  * `Websocket` service.
  */
-
-
 const fs = require('fs');
 
 const webSocketStream = fs.createWriteStream('/tmp/log/websocket.log');
@@ -16,7 +14,8 @@ module.exports =  {
    * @param msg
    */
   log : (msg) => {
-    let message = new Date().toISOString() + ': ' + msg + '\n';
+    const formatter = msg;
+    let message =  formatter + '\n';
     webSocketStream.write(message);
   }
 

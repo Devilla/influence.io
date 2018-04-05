@@ -290,7 +290,6 @@ class Price extends Component {
           </div>
 
         </div>
-
       </div>
       <div className="section innerpage faq">
         <div className="container  w-container  centered pb-30">
