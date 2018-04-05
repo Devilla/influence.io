@@ -2415,32 +2415,32 @@ html.w-mod-js *[data-ix="process-bar-fill-30"] {
 .newprice .pricing-row.w-row .w-col.w-col-3 .pricing-block:hover {
     transform:  none;
 }
-
+/*
 .newprice .pricing-row.w-row .w-col.w-col-3:nth-child(3) .pricing-block .pricing-feature-list-item:first-child,.pricing-block .pricing-feature-list-item:first-child {
     background: #f5f5f5;
     padding: 20px 23px;
-}
+} */
 
-.newprice .pricing-row.w-row .w-col.w-col-3:nth-child(3) .pricing-block {
+.newprice .pricing-row.w-row .pricing-block:hover {
     width: 104%;
     position:  absolute;
     z-index: 9;
     transform: scale(1.05);
 }
 
-.newprice .pricing-row.w-row .w-col.w-col-3:nth-child(3) .pricing-block .pricing-price-wrapper {background: #fff;padding: 29px 25px;}
+.newprice .pricing-row.w-row .pricing-block .pricing-price-wrapper:hover {background: #fff;padding: 29px 25px;}
 
-.newprice .pricing-row.w-row .w-col.w-col-3:nth-child(3) .pricing-block .pricing-price-wrapper h2._3.pricing-title {
+.newprice .pricing-row.w-row .pricing-block .pricing-price-wrapper h2._3.pricing-title:hover {
     color: #4553ff;
 }
 
-.newprice .pricing-row.w-row .w-col.w-col-3:nth-child(3) .pricing-block li.pricing-feature-list-item {
+.newprice .pricing-row.w-row .pricing-block li.pricing-feature-list-item:hover {
     background: #fff;
     padding: 10.8px 25px;
     color: rgba(51, 51, 51, 0.8117647058823529);
 }
 
-.newprice .pricing-row.w-row .w-col.w-col-3:nth-child(3) .pricing-block li.pricing-feature-list-item .pricing-feature-text {
+.newprice .pricing-row.w-row .pricing-block li.pricing-feature-list-item .pricing-feature-text:hover {
     background: transparent;
 }
 
@@ -2449,17 +2449,17 @@ html.w-mod-js *[data-ix="process-bar-fill-30"] {
     padding: 3px 0;
 }
 
-.newprice .pricing-row.w-row .w-col.w-col-3:nth-child(3) .pricing-block .pricing-feature-list-item:first-child {
+.newprice .pricing-row.w-row .pricing-block .pricing-feature-list-item:first-child:hover {
     padding: 19px 23px 16px;
     color: #333;
 }
 
-.newprice .pricing-row.w-row .w-col.w-col-3:nth-child(3) .pricing-block li.pricing-feature-list-item strong {
+.newprice .pricing-row.w-row .pricing-block li.pricing-feature-list-item strong:hover {
     color: rgba(51, 51, 51, 0.8117647058823529);
     font-size: 14px;
 }
 
-.newprice .w-col.w-col-3:nth-child(3) .pricing-button-wrapper {
+.newprice .pricing-button-wrapper:hover {
     background: #f6f8fa;
 }
 

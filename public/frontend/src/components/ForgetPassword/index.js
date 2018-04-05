@@ -58,7 +58,7 @@ export default class forget extends Component {
             const data = {
                 "email" :  this.state.email
             }
-            const urls = 'http://strapi.useinfluence.co/auth/forgot_password';
+            const urls = 'http://localhost:1337/auth/forgot_password';
           
           axios.post(urls ,data).then(function(response){
               console.log(response);
