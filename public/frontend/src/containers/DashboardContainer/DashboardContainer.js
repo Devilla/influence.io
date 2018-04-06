@@ -50,20 +50,27 @@ class DashboardContainer extends Component {
   }
 
   componentWillMount() {
-    this.checkLogin();
-    this.checkUserDetails(this.props.profile);
+    this.checkLogin((err) => {
+      if(err) {
+        browserHistory.push('login');
+      } else {
+        this.checkUserDetails(this.props.profile);
+      }
+    });
   }
 
-  checkLogin() {
+  checkLogin(callback) {
     const cookie = localStorage.getItem('authToken');
     const authToken = cookie
       ? JSON.parse(cookie)
       : null;
-    if (authToken)
-      this.props.checkTokenExists(authToken)
-    else
-      return browserHistory.push('login');
+    if (authToken) {
+      this.props.checkTokenExists(authToken);
+      callback()
+    } else {
+      callback("not logged in")
     }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.profile != nextProps.profile)
