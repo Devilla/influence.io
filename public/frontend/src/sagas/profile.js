@@ -3,6 +3,8 @@ import * as api from '../services/api';
 import * as actions from '../ducks/profile';
 import { load, loaded } from '../ducks/loading';
 
+const getUser = (state) => state.getIn(['auth', 'user']);
+
 function* fetch(action) {
   try {
     yield put(load());
@@ -22,10 +24,17 @@ function* create(action) {
   try {
     yield put(load());
     const res = yield call(api.POST, `profile`, action.profile);
-    if(res.error)
+    if(res.error) {
       console.log(res.error);
-    else
+    } else {
+      let user = yield select(getUser);
+      user['id'] = user._id;
+      delete user['_id'];
+      user['profile'] = res._id;
+      yield call(api.PUT, `user/${user.id}`, user);
       yield put(actions.successProfile(res));
+    }
+
     yield put(loaded());
   } catch (error) {
     yield put(loaded());

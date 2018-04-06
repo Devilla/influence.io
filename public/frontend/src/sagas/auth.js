@@ -30,7 +30,8 @@ export function* isLoggedIn(action) {
     ]);
 }
 
-export function* checkTokenExists(token) {
+export function* checkTokenExists(action) {
+  const token = action.token;
   if (token) {
     if(moment().isAfter(moment(token.expiresOn)))
       return yield call(logOut);

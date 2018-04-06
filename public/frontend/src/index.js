@@ -9,6 +9,9 @@ import './assets/css/animate.min.css';
 import './assets/css/demo.css';
 import './assets/css/pe-icon-7-stroke.css';
 import 'react-select/dist/react-select.css';
+// import './assets/stylesheets/style.css';
+// import './assets/assets/css/page.css';
+// import './assets/sass/light-bootstrap-dashboard.css';
 
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
