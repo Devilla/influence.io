@@ -10,7 +10,6 @@ import axios from 'axios';
 import $ from 'jquery';
 import {checkTokenExists} from '../../ducks/auth';
 import { Spinner, Header, Footer, Sidebar } from '../../components';
-
 // import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
 
 function getUrlVars() {
@@ -97,17 +96,21 @@ class DashboardContainer extends Component {
   render() {
     const { loading } = this.props;
     return (
-      <div className="wrapper">
-        <Spinner loading={loading} />
-        {!this.state.render && <p>Please wait</p>}
-        {this.state.render && <Sidebar {...this.props}/>}
-        {
-          this.state.render && <div id="main-panel" className="main-panel">
-              <Header {...this.props}/> {this.props.children}
-              <Footer/>
-            </div>
-        }
+      <div className="dashboard-container">
+        <div className="wrapper">
+          <Spinner loading={loading} />
+          {!this.state.render && <p>Please wait</p>}
+          {this.state.render && <Sidebar {...this.props}/>}
+          {
+            this.state.render && <div id="main-panel" className="main-panel">
+                <Header {...this.props}/>
+                {this.props.children}
+                <Footer/>
+              </div>
+          }
+        </div>
       </div>
+
     );
   }
 }

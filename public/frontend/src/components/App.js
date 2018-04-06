@@ -11,11 +11,12 @@ import Footer from './_common/Footer';
 import { checkTokenExists } from '../ducks/auth';
 import { store } from '../index.js';
 import { Spinner } from './index.js';
+// import '../assets/assets/css/page.css';
 
 class App extends Component {
   render(){
     return (
-        <div>
+        <div className="app-container">
           <Header />
           <Spinner loading={this.props.loading} />
           <div className="content">
