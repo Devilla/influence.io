@@ -30,7 +30,6 @@ export default class Login extends Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log(this.refs);
     const isEmailValid = validateEmail(this.refs.email.value);
     const isPwdValid = validatePassword(this.refs.password.value);
     this.setState({ [name]: value, isEmailValid, isPwdValid });
@@ -68,13 +67,11 @@ export default class Login extends Component {
 
     // TODO: Redirect to dashboard on successfull login.
     login(this.refs.email.value, this.refs.password.value).then(res => {
-      console.log(res, this.props);
-      store.dispatch(loginSuccess(res));
-      toast.info('Successfull', toastConfig);
-      browserHistory.push('/dashboard');
+        store.dispatch(loginSuccess(res));
+        toast.info('Successfull', toastConfig);
+        window.location.assign(window.location.origin+'/dashboard');
     }).catch(err => {
-      console.log(err);
-      toast.error('Wrong credentials.', toastConfig);
+      toast.error(err, toastConfig);
     });
 
   };

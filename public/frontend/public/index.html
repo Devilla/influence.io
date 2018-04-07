@@ -18,7 +18,9 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/react-rangeslider/umd/rangeslider.min.css" />
   <script src="https://js.stripe.com/v3/"></script>
-  <link rel="stylesheet" type="text/css" href="assets/css/page.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/page.css"> -->
   <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -41,6 +43,22 @@
         'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-5J2JQ55');</script>
   <!-- End Google Tag Manager -->
+
+  <script type="text/javascript">
+    var file = location.pathname.split( "/" ).pop();
+    const routes = ['dashboard', 'getting-started', 'notifcations', 'new', 'notification', 'analytics', 'integration', 'support'];
+    var link = document.createElement( "link" );
+    if(routes.indexOf(file) !== -1)
+      link.href = "style.css";
+    else if(routes.indexOf(file) == -1)
+      link.href = "assets/css/page.css";
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.media = "screen,print";
+    console.log(link, "======link");
+    document.getElementsByTagName( "head" )[0].appendChild( link );
+  </script>
+
 </head>
 
 <body>

@@ -8,6 +8,7 @@ import {
   race,
   all
 } from 'redux-saga/effects';
+import { ToastContainer, toast } from 'react-toastify';
 import { push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import * as actions from '../ducks/auth';
@@ -18,6 +19,11 @@ import { load, loaded } from '../ducks/loading';
 
 import * as api from '../services/api';
 import moment from 'moment';
+
+const toastConfig = {
+  position: toast.POSITION.BOTTOM_LEFT,
+  autoClose: 2000
+};
 
 export const removeAuthToken = () => localStorage.removeItem('authToken');
 
@@ -42,7 +48,8 @@ export function* checkTokenExists(action) {
 
 export function* logOut() {
   yield call(removeAuthToken);
-  yield call(browserHistory.push, '/login');
+  window.location.assign(window.location.origin+'/dashboard');
+  // yield call(browserHistory.push, '/login');
 }
 
 export function* fetchUser() {
@@ -50,7 +57,7 @@ export function* fetchUser() {
     yield put(load());
     const res = yield call(api.GET, `user/me`);
     if(res.error)
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     else
       yield put(actions.fetchUserSuccess(res));
     yield put(loaded());
@@ -65,12 +72,13 @@ export function* updateUser(action) {
     yield put(load());
     const res = yield call(api.PUT, `user/${action.user._id}`, action.user);
     if(res.error)
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     else
       yield put(actions.fetchUserSuccess(action.user));
     yield put(loaded());
   } catch (error) {
     yield put(loaded());
+    yield toast.error(error.message, toastConfig);
     yield console.log(error);
   }
 }
@@ -80,7 +88,7 @@ export function* fetchRoles() {
     yield put(load());
     const res = yield call(api.GET, `users-permissions/roles`);
     if(res.error)
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     else
       yield put(actions.fetchRolesSuccess(res));
     yield put(loaded());

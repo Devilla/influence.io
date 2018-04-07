@@ -68,16 +68,14 @@ export default class Register extends Component {
 
     // TODO: Show 'Check email for further instructions.' message on success
     register(this.state.email, this.state.password).then(res => {
-      console.log(res);
-      toast.info('Successfull', toastConfig);
-      store.dispatch(loginSuccess(res));
-      browserHistory.push('/getting-started');
+        toast.info('Successfull', toastConfig);
+        store.dispatch(loginSuccess(res));
+        window.location.assign(window.location.origin+'/getting-started');
+        // browserHistory.push('/getting-started');
+        this.setState({isRegistered: true});
       // TODO: check response before treating it as successfull
-
-      this.setState({isRegistered: true});
     }).catch(err => {
-      console.log(err);
-      toast.error('Signup Failed.', toastConfig);
+      toast.error(err, toastConfig);
     });
 
   };

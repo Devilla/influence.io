@@ -31,7 +31,8 @@ export const GETFILE = (url) => {
 };
 
 export const POST = (url, body) => {
-  const token = JSON.parse(localStorage.getItem('authToken')).token;
+  const authToken = JSON.parse(localStorage.getItem('authToken'))
+  const token = authToken?authToken.token:'';
   return fetch(base + url, {
     method: 'POST',
     headers: {
