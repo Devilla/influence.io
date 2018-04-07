@@ -2,6 +2,12 @@ import { call, put, select, fork, takeLatest } from 'redux-saga/effects';
 import * as api from '../services/api';
 import * as actions from '../ducks/profile';
 import { load, loaded } from '../ducks/loading';
+import { ToastContainer, toast } from 'react-toastify';
+
+const toastConfig = {
+  position: toast.POSITION.BOTTOM_LEFT,
+  autoClose: 2000
+};
 
 const getUser = (state) => state.getIn(['auth', 'user']);
 
@@ -10,13 +16,14 @@ function* fetch(action) {
     yield put(load());
     const res = yield call(api.GET, `profile`);
     if(res.error)
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     else
       yield put(actions.successProfile(res));
     yield put(loaded());
   } catch (error) {
     yield put(loaded());
     console.log('Failed to fetch doc', error);
+    // yield toast.error(error.message, toastConfig);
   }
 }
 
@@ -25,7 +32,7 @@ function* create(action) {
     yield put(load());
     const res = yield call(api.POST, `profile`, action.profile);
     if(res.error) {
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     } else {
       let user = yield select(getUser);
       user['id'] = user._id;
@@ -39,6 +46,7 @@ function* create(action) {
   } catch (error) {
     yield put(loaded());
     console.log('Failed to fetch doc', error);
+    yield toast.error(error.message, toastConfig);
   }
 }
 
@@ -48,7 +56,7 @@ function* update(action) {
     delete action.profile['_id'];
     const res = yield call(api.PUT, `profile/${action.profile.id}`);
     if(res.error)
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     else {
       let profile = action.profile;
       profile["_id"] = profile.id;
@@ -58,6 +66,7 @@ function* update(action) {
   } catch (error) {
     yield put(loaded());
     console.log('Failed to fetch doc', error);
+    yield toast.error(error.message, toastConfig);
   }
 
 }

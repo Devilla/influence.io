@@ -18,7 +18,7 @@ const PaymentPage = ({stripe, profile, user, plan, planList, username, setError,
     const options = {
       name: username,
     };
-    const plans = profile &&
+    const plans =
         planList?findObjectByKey(planList, '_id', plan)
       :
         {};

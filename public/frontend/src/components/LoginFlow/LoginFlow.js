@@ -65,11 +65,11 @@ class LoginFlow extends Component {
   checkLogin() {
     const cookie = localStorage.getItem('authToken');
     const authToken = cookie?JSON.parse(cookie):null;
-    var d = new Date(authToken.expiresOn);
+    // var d = new Date(authToken.expiresOn);
     if(authToken)
       store.dispatch(checkTokenExists(authToken));
     else
-      return browserHistory.push('login');
+      return window.location.assign(window.location.origin+'/login');
   }
 
   handleStateChange(state, stateName) {

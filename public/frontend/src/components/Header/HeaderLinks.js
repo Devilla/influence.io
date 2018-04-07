@@ -5,7 +5,8 @@ import {browserHistory} from 'react-router';
 class HeaderLinks extends Component {
   logout() {
     localStorage.removeItem('authToken');
-    browserHistory.push('/');
+    window.location.assign(window.location.origin+'/');
+    // browserHistory.push('/');
   }
   render() {
     return (<div>

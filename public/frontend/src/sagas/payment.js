@@ -3,6 +3,12 @@ import * as api from '../services/api';
 import * as actions from '../ducks/payment';
 import { updateProfile } from '../ducks/profile';
 import { load, loaded } from '../ducks/loading';
+import { ToastContainer, toast } from 'react-toastify';
+
+const toastConfig = {
+  position: toast.POSITION.BOTTOM_LEFT,
+  autoClose: 2000
+};
 
 const getProfile = state => state.getIn(['profile', 'profile']);
 
@@ -12,13 +18,14 @@ function* fetch(action) {
     yield put(load());
     const res = yield call(api.GET, `payment`);
     if(res.error)
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     else
       yield put(actions.successPayment(res));
     yield put(loaded());
   } catch (error) {
     yield put(loaded());
     console.log('Failed to fetch doc', error);
+    // yield toast.error(error.message, toastConfig);
   }
 }
 
@@ -27,7 +34,7 @@ function* create(action) {
     yield put(load());
     const res = yield call(api.POST, `payment`, action.payment);
     if(res.error)
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     else {
       let profile = yield select(getProfile);
       profile['id'] = profile._id;
@@ -40,6 +47,7 @@ function* create(action) {
   } catch (error) {
     yield put(loaded());
     console.log('Failed to fetch doc', error);
+    yield toast.error(error.message, toastConfig);
   }
 
 }
@@ -49,13 +57,14 @@ function* update(action) {
     yield put(load());
     const res = yield call(api.PUT, `payment/${action.id}`);
     if(res.error)
-      console.log(res.error);
+      yield toast.error(res.message, toastConfig);
     else
       yield put(actions.successPayment(res));
     yield put(loaded());
   } catch (error) {
     yield put(loaded());
     console.log('Failed to fetch doc', error);
+    yield toast.error(error.message, toastConfig);
   }
 
 }

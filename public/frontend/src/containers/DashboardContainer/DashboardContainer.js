@@ -51,7 +51,7 @@ class DashboardContainer extends Component {
   componentWillMount() {
     this.checkLogin((err) => {
       if(err) {
-        browserHistory.push('login');
+        window.location.assign(window.location.origin+'/login');
       } else {
         this.checkUserDetails(this.props.profile);
       }
