@@ -8,22 +8,22 @@ class ConfigNotification extends Component{
   constructor(){
     super();
     this.state = {
-       
+
     }
-   
-  }  
+
+  }
    activeState(val){
-      var data = {'tab' : val}  
+      var data = {'tab' : val}
       this.props.callbackFromParent(data)
    }
-    render(){      
+    render(){
         return (
             <div className="content">
-                <Grid fluid>  
-                 <Tabs active="3" callbackFromParent ={this.activeState.bind(this)}/> 
+                <Grid fluid>
+                 <Tabs active="4" callbackFromParent ={this.activeState.bind(this)}/>
                   <InnerTabs/>  
-                      
-                 </Grid>   
+
+                 </Grid>
             </div>
         );
     }
@@ -31,4 +31,3 @@ class ConfigNotification extends Component{
 
 
 export default ConfigNotification;
-

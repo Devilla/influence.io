@@ -84,7 +84,7 @@ export default class forget extends Component{
                 "token": token
 
             }
-            const urls = 'http://strapi.useinfluence.co/auth/reset_password';
+            const urls = 'http://localhost:1337/auth/reset_password';
           
           axios.post(urls ,data).then(function(response){
               toast.info(response['data']['message'], {

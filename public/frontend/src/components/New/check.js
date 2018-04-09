@@ -3,6 +3,7 @@ import NewUser from './new'
 import InstallPixel from './install-pixel'
 import ConfigLeads from './capture-leads'
 import ConfigNotification from './configure-notification'
+import Notifications from './Notifications/Notifications';
 
 export default class Check extends Component {
 
@@ -34,13 +35,14 @@ export default class Check extends Component {
 		switch (this.state.active) {
 			case 1:
 			   return <NewUser  callbackFromParent ={this.activeState}/>
-			case 2:
+      case 2:
 			   return <InstallPixel  callbackFromParent ={this.activeState}/>
 			case 3:
+			   return <Notifications  callbackFromParent ={this.activeState}/>
+      case 4:
+			   return <ConfigNotification  callbackFromParent ={this.activeState}/>
+      case 5:
 			   return <ConfigLeads  callbackFromParent ={this.activeState}/>
-			case 4:
-				return <ConfigNotification callbackFromParent ={this.activeState}/>
 		}
 	}
-
 }

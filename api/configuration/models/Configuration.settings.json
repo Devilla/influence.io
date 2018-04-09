@@ -1,0 +1,34 @@
+{
+  "connection": "default",
+  "collectionName": "configuration",
+  "info": {
+    "name": "configuration",
+    "description": "Notification configurations"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "activity": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "notificationType": {
+      "model": "notificationtypes",
+      "via": "configuration"
+    },
+    "panelStyle": {
+      "type": "json",
+      "multiple": false
+    },
+    "contentText": {
+      "type": "string",
+      "multiple": false
+    },
+    "campaign": {
+      "model": "campaign",
+      "via": "configuration",
+      "plugin": ""
+    }
+  }
+}

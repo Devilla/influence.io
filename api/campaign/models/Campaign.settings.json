@@ -45,8 +45,12 @@
       "model": "profile",
       "via": "campaign"
     },
-    "notification_Type": {
-      "collection": "notificationtypes",
+    "notificationTypes": {
+      "model": "notificationtypes",
+      "via": "campaign"
+    },
+    "configuration": {
+      "model": "configuration",
       "via": "campaign"
     }
   }
