@@ -24,6 +24,14 @@
     "campaign": {
       "model": "campaign",
       "via": "notificationTypes"
+    },
+    "notificationType": {
+      "type": "string",
+      "multiple": false
+    },
+    "configuration": {
+      "model": "configuration",
+      "via": "notificationType"
     }
   }
 }

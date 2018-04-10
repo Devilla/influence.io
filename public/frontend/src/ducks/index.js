@@ -9,6 +9,7 @@ import notification from './notification';
 import campaign from './campaign';
 import rules from './rules';
 import loading from './loading';
+import configuration from './configuration';
 
 const reducer = combineReducers({
   profile,
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   campaign,
   rules,
   loading,
+  configuration,
   router: routerReducer
 });
 

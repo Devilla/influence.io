@@ -6,6 +6,7 @@ import payment from './payment';
 import notification from './notification';
 import campaign from './campaign';
 import rules from './rules';
+import configuration from './configuration';
 
   export default function* rootSaga() {
     yield [
@@ -15,6 +16,7 @@ import rules from './rules';
       fork(payment),
       fork(notification),
       fork(campaign),
-      fork(rules)
+      fork(rules),
+      fork(configuration)
     ];
   }

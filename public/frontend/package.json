@@ -46,6 +46,7 @@
     "react-text-loop": "^1.1.0",
     "react-toastify": "^3.4.2",
     "reactcss": "^1.2.3",
+    "reactjs-popup": "^1.0.5",
     "recharts": "^1.0.0-beta.10",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",

@@ -7,7 +7,7 @@ import Switch from 'react-flexible-switch';
 import {getCookie} from '../../components/Common/function';
 import moment from 'moment';
 
-import { fetchNotification } from '../../ducks/notification';
+import { fetchCampaign } from '../../ducks/campaign';
 
 
 const notificationFields = [ 'S.No', 'Campaign', 'Domain', 'Status', 'Tracking ID', 'Log', 'Modified', 'Created' ];
@@ -21,41 +21,43 @@ class Notification extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchNotification();
+    this.props.fetchCampaign();
   }
 
   // Map the notification data into table rows and return
   getNotificationRows = () => {
-    return this.props.notifications.map((notification, i) => (
-      <tr key={notification._id}>
+    return this.props.campaigns?this.props.campaigns.map((campaign, i) => (
+      <tr key={campaign._id}>
         <td>{i + 1 /* S.No */}</td>
-        <td>{notification.campaign.campaignName}</td>
-        <td><i className="fas fa-globe"></i> <a href={notification.domain} target="_blank">{notification.campaign.websiteUrl}</a></td>
+        <td>{campaign.campaignName}</td>
+        <td><i className="fas fa-globe"></i> <a href={campaign.websiteUrl} target="_blank">{campaign.websiteUrl}</a></td>
         <td>
           {
-            notification.status ?
+            campaign.isActive ?
               <Switch switchStyles={{ width: 50 }}
-                value={notification.status}
+                value={campaign.isActive}
                 locked
                 circleStyles={{ onColor: 'blue', offColor: 'blue', diameter: 18 }}
               />
               : <Switch switchStyles={{ width: 50 }}
-                value={notification.status}
+                value={campaign.isActive}
                 locked
                 circleStyles={{ onColor: 'gray', offColor: 'gray', diameter: 18 }}
               />
           }
         </td>
-        <td>{notification.campaign.trackingId}</td>
-        <td>{notification.log}</td>
-        <td>{moment(notification.updatedAt).format('MM/DD/YYYY')}</td>
-        <td>{moment(notification.createdAt).format('MM/DD/YYYY')}</td>
+        <td>{campaign.trackingId}</td>
+        <td>{campaign.log}</td>
+        <td>{moment(campaign.updatedAt).format('MM/DD/YYYY')}</td>
+        <td>{moment(campaign.createdAt).format('MM/DD/YYYY')}</td>
       </tr>
-    ));
+    ))
+    :
+      <div></div>
   }
 
   render() {
-    console.log(this.props.notifcations, "========notification");
+    console.log(this.props, "========notification");
     return (
       <div className="content">
         <Grid fluid>
@@ -101,11 +103,11 @@ class Notification extends Component {
 }
 
 const mapStateToProps = state => ({
-  notifications: state.getIn(['notification', 'notifications'])
+  campaigns: state.getIn(['campaign', 'campaigns'])
 });
 
 const mapDispatchToProps = {
-  fetchNotification
+  fetchCampaign
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

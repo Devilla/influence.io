@@ -44,7 +44,7 @@
       "model": "payment",
       "via": "profile"
     },
-    "campaigns": {
+    "campaign": {
       "model": "campaign",
       "via": "profile"
     }

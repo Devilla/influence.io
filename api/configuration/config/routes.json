@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/configuration",
+      "handler": "Configuration.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/configuration/campaign/:campId/:notifId",
+      "handler": "Configuration.findCampaignConfig",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/configuration/:_id",
+      "handler": "Configuration.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/configuration",
+      "handler": "Configuration.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/configuration/:_id",
+      "handler": "Configuration.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/configuration/:_id",
+      "handler": "Configuration.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

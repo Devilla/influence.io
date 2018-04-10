@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "rules",
   "info": {
     "name": "rules",
     "description": "Notification rules."
@@ -36,6 +36,51 @@
     "notificationTypes": {
       "model": "notificationtypes",
       "via": "rules"
+    },
+    "hideNotification": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "loopNotification": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "delayNotification": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "closeNotification": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "hideAnonymous": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "displayNotifications": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "initialDelay": {
+      "type": "integer",
+      "multiple": false
+    },
+    "displayTime": {
+      "type": "integer",
+      "multiple": false
+    },
+    "delayBetween": {
+      "type": "integer",
+      "multiple": false
+    },
+    "displayPosition": {
+      "type": "string",
+      "multiple": false
+    },
+    "campaign": {
+      "model": "campaign",
+      "via": "rule",
+      "plugin": ""
     }
   }
 }

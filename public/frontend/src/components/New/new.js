@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
-    Grid, Row, Col,
-    FormGroup, ControlLabel, FormControl
+  Grid,
+  Row,
+  Col,
+  FormGroup,
+  ControlLabel,
+  FormControl
 } from 'react-bootstrap';
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 import CardHeader from './template/card-with-header'
 import FormInputs from './template/FormTemp';
 import Button from './template/customButton';
 import Switch from 'react-flexible-switch';
 import $ from 'jquery';
-import { ToastContainer, toast } from 'react-toastify';
-import { css } from 'glamor';
-import {validatewebsite,validateemail,validphone,getCookie} from '../../components/Common/function';
-import { createCampaign } from '../../ducks/campaign';
-
-
-
+import {ToastContainer, toast} from 'react-toastify';
+import {css} from 'glamor';
+import {validatewebsite, validateemail, validphone, getCookie} from '../../components/Common/function';
+import {createCampaign} from '../../ducks/campaign';
 
 function validate(campaignname, website) {
   // true means invalid, so our conditions got reversed
@@ -26,89 +27,79 @@ function validate(campaignname, website) {
   };
 }
 
-export class NewUser extends Component{
-  constructor(){
+export class NewUser extends Component {
+  constructor() {
     super();
     this.state = {
-        campaignname : '',
-        website:'',
-        source: '',
-        medium: '',
-        cobrand: false,
-        status: {}
+      campaignname: '',
+      website: '',
+      source: '',
+      medium: '',
+      cobrand: false,
+      status: {}
     }
 
     this.handleNextButton = this.handleNextButton.bind(this)
   }
-  handleCampaignNameChange(evt){
-    this.setState({campaignname : evt.target.value})
+  handleCampaignNameChange(evt) {
+    this.setState({campaignname: evt.target.value})
   }
-  handleWebsiteChange(evt){
-    this.setState({website:  evt.target.value})
+  handleWebsiteChange(evt) {
+    this.setState({website: evt.target.value})
   }
-  handleSourceChange(evt){
-    this.setState({source:  evt.target.value})
+  handleSourceChange(evt) {
+    this.setState({source: evt.target.value})
   }
-  handleMediumChange(evt){
-    this.setState({medium:  evt.target.value})
+  handleMediumChange(evt) {
+    this.setState({medium: evt.target.value})
   }
-  handleCampaignAuth(evt){
-    if(evt.target.value == ''){
-        $('#'+evt.target.id).addClass('has-error');
-        toast("Enter campaign name", {
-            position: toast.POSITION.BOTTOM_LEFT,
-            className: css({
-              background: "#dd5258",
-              color: '#fff'
-            }),
-            autoClose: 2000
-          });
-    }else{
-        $('#'+evt.target.id).removeClass('has-error')
+  handleCampaignAuth(evt) {
+    if (evt.target.value == '') {
+      $('#' + evt.target.id).addClass('has-error');
+      toast("Enter campaign name", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        className: css({background: "#dd5258", color: '#fff'}),
+        autoClose: 2000
+      });
+    } else {
+      $('#' + evt.target.id).removeClass('has-error')
     }
   }
-  handleWebsiteAuth(evt){
-      if(!validatewebsite(evt.target.value)){
-        toast("Enter valid website name", {
-            position: toast.POSITION.BOTTOM_LEFT,
-            className: css({
-              background: "#dd5258",
-              color: '#fff'
-            }),
-            autoClose: 2000
-          });
+  handleWebsiteAuth(evt) {
+    if (!validatewebsite(evt.target.value)) {
+      toast("Enter valid website name", {
+        position: toast.POSITION.BOTTOM_LEFT,
+        className: css({background: "#dd5258", color: '#fff'}),
+        autoClose: 2000
+      });
 
-      }else{
-           $('.error-bg').fadeOut().html('')
-            $('#'+evt.target.id).removeClass('has-error')
+    } else {
+      $('.error-bg').fadeOut().html('')
+      $('#' + evt.target.id).removeClass('has-error')
 
-       }
     }
-
-
-    canBeSubmitted() {
-    const errors = validate(
-                    this.state.campaignname,
-                    this.state.website);
-
-      const isDisabled = Object.keys(errors).some(x => errors[x]);
-      return !isDisabled;
-    }
-  handleBrandingChnage(){
-
   }
-   handleCheckCookie(){
 
+  canBeSubmitted() {
+    const errors = validate(this.state.campaignname, this.state.website);
+
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return !isDisabled;
+  }
+
+  handleBrandingChnage() {}
+
+  handleCheckCookie() {
     var usertoken = localStorage.getItem("authToken");
-     if (usertoken != "") {
-        return usertoken;
-     }else{
-        this.setState({render: false});
-        browserHistory.push('/login');
-     }
-
+    if (usertoken != "") {
+      return usertoken;
+    } else {
+      this.setState({render: false});
+      browserHistory.push('/login');
     }
-  handleNextButton(evt){
+  }
+
+  handleNextButton(evt) {
     var tokenverify = this.handleCheckCookie();
     const data = {
       campaignName: this.state.campaignname,
@@ -117,9 +108,9 @@ export class NewUser extends Component{
       utmMedium: this.state.medium,
       profile: this.props.profile._id
     };
-
+    console.log(data, "======datat");
     this.props.createCampaign(data);
-    browserHistory.push('notifications')
+    // browserHistory.push('notifications')
     // if(!this.canBeSubmitted()){
     //         evt.preventDefault();
     //           return;
@@ -129,7 +120,7 @@ export class NewUser extends Component{
     //         var settings = {
     //           "async": true,
     //           "crossDomain": true,
-    //           "url": "http://strapi.useinfluence.co/website",
+    //           "url": "http://localhost:1337/website",
     //           "method": "POST",
     //           "headers": {
     //             "authorization": "JWT "+tokenverify,
@@ -147,30 +138,23 @@ export class NewUser extends Component{
     //           console.log(response);
     //           var data = {'active' : 2}
     //           console.log(k.props.callbackFromParent(data))
-    //           // alert('yes');
+    //            alert('yes');
     //         });
 
     //     }
 
-    // this.props.callbackFromParent({'active': 2});
+    this.props.callbackFromParent({'active': 2});
 
   }
 
-    render(){
-        const errors = validate(
-                    this.state.campaignname,
-                    this.state.website
-
-                    );
-        const isDisabled = Object.keys(errors).some(x => errors[x]);
-        return (
-            <div className="content fill">
-                <Grid fluid>
-                    <Row>
-                        <Col md={12}>
-                          <CardHeader
-                            title = "Website"
-                            content = {
+  render() {
+    const errors = validate(this.state.campaignname, this.state.website);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return (<div className="content fill">
+      <Grid fluid="fluid">
+        <Row>
+          <Col md={12}>
+            <CardHeader title="Website" content={
                                 <form onSubmit={this.handleNextButton}>
 
                                         <FormInputs
@@ -252,21 +236,17 @@ export class NewUser extends Component{
                                         <div className="clearfix"></div>
 
                                     </form>
-                            }
-                          />
-                        </Col>
-                    </Row>
-                 </Grid>
-                 <ToastContainer hideProgressBar ={true}
-
-              />
-            </div>
-        );
-    }
+                            }/>
+          </Col>
+        </Row>
+      </Grid>
+      <ToastContainer hideProgressBar={true}/>
+    </div>);
+  }
 }
 
 const mapStateToProps = state => ({
-  profile: state.get('profile')
+  profile: state.getIn(['profile', 'profile'])
 });
 
 const mapDispatchToProps = {

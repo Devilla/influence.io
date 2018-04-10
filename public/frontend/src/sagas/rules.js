@@ -25,14 +25,33 @@ function* fetch(action) {
   }
 }
 
+function* fetchOne(action) {
+  try {
+    yield put(load());
+    const res = yield call(api.GET, `rules/campaign/${action.campId}`, );
+    if(res.error)
+      yield toast.error(res.message, toastConfig);
+    else
+      yield put(actions.successRules(res));
+    yield put(loaded());
+  } catch (error) {
+    yield put(loaded());
+    console.log('Failed to fetch doc', error);
+    // yield toast.error(error.message, toastConfig);
+  }
+}
+
 function* create(action) {
   try {
     yield put(load());
     const res = yield call(api.POST, `rules`, action.rules);
     if(res.error)
       yield toast.error(res.message, toastConfig);
-    else
+    else {
+      // yield toast.success("Rule added", toastConfig);
       yield put(actions.successRules(res));
+    }
+
     yield put(loaded());
   } catch (error) {
     yield put(loaded());
@@ -46,7 +65,7 @@ function* update(action) {
   try {
     yield put(load());
     delete action.rules['_id'];
-    const res = yield call(api.PUT, `rules/${action.rules.id}`);
+    const res = yield call(api.PUT, `rules/${action.rules.id}`, action.rules);
     if(res.error)
       yield toast.error(res.message, toastConfig);
     else {
@@ -67,6 +86,10 @@ export function* watchFetch() {
   yield takeLatest(actions.FETCH, fetch);
 }
 
+export function* watchFetchOne() {
+  yield takeLatest(actions.FETCH_ONE, fetchOne);
+}
+
 export function* watchCreate() {
   yield takeLatest(actions.CREATE, create);
 }
@@ -78,6 +101,7 @@ export function* watchUpdate() {
 export default function* rootSaga() {
   yield [
     fork(watchFetch),
+    fork(watchFetchOne),
     fork(watchCreate),
     fork(watchUpdate)
   ];

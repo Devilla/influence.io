@@ -100,17 +100,23 @@ export class Setting extends Component {
   };
 
   handleFontWeightChange = () => {
-    let fontWeight = this.state.fontWeight;
+    let fontWeight = this.props.notificationPanelStyle.fontWeight;
     if(fontWeight === FONT_WEIGHT_BOLD)
       fontWeight = FONT_WEIGHT_NORMAL;
     else
       fontWeight = FONT_WEIGHT_BOLD;
-    
+
     this.setState({fontWeight});
     this.props.onConfigChange({ prop: 'fontWeight', value: fontWeight });
   }
 
+  componentWillReceiveProps(nextProps) {
+      if(nextProps != this.props)
+        Object.assign(this.state, this.props.notificationPanelStyle);
+  }
+
   render() {
+    const notificationPanelStyle = this.props.notificationPanelStyle;
     const styles = reactCSS({
       'default': {
         colorSwatch: {
@@ -119,13 +125,13 @@ export class Setting extends Component {
           borderRadius: '2px',
         },
         border: {
-          backgroundColor: `rgba(${this.state.borderColor.r}, ${this.state.borderColor.g}, ${this.state.borderColor.b}, ${this.state.borderColor.a})`
+          backgroundColor: `rgba(${notificationPanelStyle.borderColor.r}, ${notificationPanelStyle.borderColor.g}, ${notificationPanelStyle.borderColor.b}, ${notificationPanelStyle.borderColor.a})`
         },
         background: {
-          backgroundColor: `rgba(${this.state.backgroundColor.r}, ${this.state.backgroundColor.g}, ${this.state.backgroundColor.b}, ${this.state.backgroundColor.a})`
+          backgroundColor: `rgba(${notificationPanelStyle.backgroundColor.r}, ${notificationPanelStyle.backgroundColor.g}, ${notificationPanelStyle.backgroundColor.b}, ${notificationPanelStyle.backgroundColor.a})`
         },
         textColor: {
-          backgroundColor: `rgb(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b})`
+          backgroundColor: `rgb(${notificationPanelStyle.color.r}, ${notificationPanelStyle.color.g}, ${notificationPanelStyle.color.b})`
         },
         swatch: {
           padding: '0px',
@@ -148,7 +154,6 @@ export class Setting extends Component {
         },
       },
     });
-
     return (
       <div className="setting" style={{ backgroundColor: 'white' }}>
         <Tabs justified defaultActiveKey={1} id="uncontrolled-tab-example">
@@ -161,7 +166,7 @@ export class Setting extends Component {
                     tooltip={false}
                     min={0}
                     max={50}
-                    value={this.state.radius}
+                    value={notificationPanelStyle.radius}
                     onChange={this.handleRadiusChange}
                   />
                 </div>
@@ -178,7 +183,7 @@ export class Setting extends Component {
                     </div>
                     {this.state.isBorderColorSwatchOpen ? <div style={styles.popover}>
                       <div style={styles.cover} onClick={this.hideBorderSwatch} />
-                      <ChromePicker color={this.state.borderColor} onChange={this.handleBorderColorChange} />
+                      <ChromePicker color={notificationPanelStyle.borderColor} onChange={this.handleBorderColorChange} />
                     </div> : null}
                   </Col>
                   <Col md={9}>
@@ -187,7 +192,7 @@ export class Setting extends Component {
                         tooltip={false}
                         min={0}
                         max={10}
-                        value={this.state.borderWidth}
+                        value={notificationPanelStyle.borderWidth}
                         onChange={this.handleBorderWidthChange}
                       />
                     </div>
@@ -205,7 +210,7 @@ export class Setting extends Component {
                         tooltip={false}
                         min={0}
                         max={10}
-                        value={this.state.shadow}
+                        value={notificationPanelStyle.shadow}
                         onChange={this.handleShadowChange}
                       />
                       <small>stroke</small>
@@ -217,7 +222,7 @@ export class Setting extends Component {
                         tooltip={false}
                         min={0}
                         max={25}
-                        value={this.state.blur}
+                        value={notificationPanelStyle.blur}
                         onChange={this.handleBlurChange}
                       />
                       <small>blur</small>
@@ -234,7 +239,7 @@ export class Setting extends Component {
                     </div>
                     {this.state.isBgColorSwatchOpen ? <div style={styles.popover}>
                       <div style={styles.cover} onClick={this.hideBgSwatch} />
-                      <ChromePicker color={this.state.backgroundColor} onChange={this.handleBgColorChange} />
+                      <ChromePicker color={notificationPanelStyle.backgroundColor} onChange={this.handleBgColorChange} />
                     </div> : null}
                   </Col>
                 </Row>
@@ -252,16 +257,16 @@ export class Setting extends Component {
                     </div>
                     {this.state.isTextColorSwatchOpen ? <div style={styles.popover}>
                       <div style={styles.cover} onClick={this.hideTextColorSwatch} />
-                      <ChromePicker color={this.state.color} onChange={this.handleTextColorChange} />
+                      <ChromePicker color={notificationPanelStyle.color} onChange={this.handleTextColorChange} />
                     </div> : null}
                   </Col>
                   <Col md={4}>
-                    <Button bsSize="small" block active={this.state.fontWeight == FONT_WEIGHT_BOLD} onClick={this.handleFontWeightChange}>
+                    <Button bsSize="small" block active={notificationPanelStyle.fontWeight == FONT_WEIGHT_BOLD} onClick={this.handleFontWeightChange}>
                       Bold
                     </Button>
                   </Col>
                   <Col md={4}>
-                    <FormControl componentClass="select" bsSize="small" value={this.state.fontFamily} onChange={this.handleFontChange}>
+                    <FormControl componentClass="select" bsSize="small" value={notificationPanelStyle.fontFamily} onChange={this.handleFontChange}>
                       <option value="arial">Arial</option>
                       <option value="monospace">Monospace</option>
                       <option value="georgia">Georgia</option>
@@ -281,7 +286,7 @@ export class Setting extends Component {
                     </div>
                     {this.state.displayColorPicker ? <div style={styles.popover}>
                       <div style={styles.cover} onClick={this.handleClose} />
-                      <ChromePicker color={this.state.color} onChange={this.handleChange} />
+                      <ChromePicker color={notificationPanelStyle.color} onChange={this.handleChange} />
                     </div> : null}
                   </Col>
                   <Col md={4}>
