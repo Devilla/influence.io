@@ -16,7 +16,7 @@ function* fetch(action) {
     if(res.error)
       yield toast.error(res.message, toastConfig);
     else
-      yield put(actions.successCampaign(res));
+      yield put(actions.fetchSuccess(res));
     yield put(loaded());
   } catch (error) {
     yield put(loaded());

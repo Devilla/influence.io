@@ -108,7 +108,7 @@ export class NewUser extends Component {
       utmMedium: this.state.medium,
       profile: this.props.profile._id
     };
-
+    console.log(data, "======datat");
     this.props.createCampaign(data);
     // browserHistory.push('notifications')
     // if(!this.canBeSubmitted()){
@@ -245,7 +245,9 @@ export class NewUser extends Component {
   }
 }
 
-const mapStateToProps = state => ({profile: state.get('profile')});
+const mapStateToProps = state => ({
+  profile: state.getIn(['profile', 'profile'])
+});
 
 const mapDispatchToProps = {
   createCampaign

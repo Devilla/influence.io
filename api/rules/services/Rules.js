@@ -70,43 +70,18 @@ module.exports = {
 
   fetchAllCampaignRules: (params) => {
 
-    return Campaign
-      .findOne({ _id: params.id })
-      .exec()
-      .then(campaign => {
+    const query = {
+      campaign: params?params.id:null
+    };
 
-        if(campaign) {
+    const convertedParams = strapi.utils.models.convertParams('rules', query);
 
-          return Notificationtypes
-            .aggregate([
-              { $match : { campaign : campaign._id } },
-              { $group: { _id: '$_id' } }
-            ])
-            .exec()
-            .then(notificationIds => {
-
-              if(notificationIds) {
-                notificationIds = notificationIds.map(notificationId => notificationId._id );
-
-                const query = {
-                  notificationTypes: { $in: notificationIds }
-                };
-
-                const convertedParams = strapi.utils.models.convertParams('notificationtypes', query);
-
-                return Rules
-                  .find()
-                  .where(convertedParams.where)
-                  .sort(convertedParams.sort)
-                  .skip(convertedParams.start)
-                  .limit(convertedParams.limit)
-                  .populate(_.keys(_.groupBy(_.reject(strapi.models.rules.associations, {autoPopulate: false}), 'alias')).join(' '));
-              } else {
-                return [];
-              }
-            });
-        }
-      });
+    return Rules
+      .findOne()
+      .where(convertedParams.where)
+      .sort(convertedParams.sort)
+      .skip(convertedParams.start)
+      .limit(convertedParams.limit);
   },
 
   /**

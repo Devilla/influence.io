@@ -3,7 +3,7 @@ import {
     Grid, Row, Col
 } from 'react-bootstrap';
 import Tabs from './template/tab'
-import InnerTabs from './notification/innertab'
+import Display from './notification/display'
 class ConfigNotification extends Component{
   constructor(){
     super();
@@ -21,7 +21,9 @@ class ConfigNotification extends Component{
             <div className="content">
                 <Grid fluid>
                  <Tabs active="4" callbackFromParent ={this.activeState.bind(this)}/>
-                  <InnerTabs/>  
+                  <Row>
+                    <Display/>
+                  </Row>
 
                  </Grid>
             </div>

@@ -27,8 +27,7 @@
     },
     "campaign": {
       "model": "campaign",
-      "via": "configuration",
-      "plugin": ""
+      "via": "configuration"
     }
   }
 }
