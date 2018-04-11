@@ -11,6 +11,7 @@ services:
 
 before_script:
     -  docker info
+    -  sudo apt-get install software-properties-common python-software-properties
     -  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     -  sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-trusty main'
     -  sudo apt-get update
