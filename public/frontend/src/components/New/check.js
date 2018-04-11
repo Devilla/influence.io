@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import NewUser from './new'
 import InstallPixel from './install-pixel'
 import ConfigLeads from './capture-leads'
 import ConfigNotification from './configure-notification'
 import Notifications from './Notifications/Notifications';
 
-export default class Check extends Component {
+class Check extends Component {
 
  constructor(props){
  	super(props)
@@ -36,7 +37,7 @@ export default class Check extends Component {
 			case 1:
 			   return <NewUser  callbackFromParent ={this.activeState}/>
       case 2:
-			   return <InstallPixel  callbackFromParent ={this.activeState}/>
+			   return <InstallPixel campaign={this.props.campaign} callbackFromParent ={this.activeState}/>
 			case 3:
 			   return <Notifications  callbackFromParent ={this.activeState}/>
       case 4:
@@ -46,3 +47,9 @@ export default class Check extends Component {
 		}
 	}
 }
+
+const mapStateToProps = state => ({
+  campaign: state.getIn(['campaign', 'campaign'])
+});
+
+export default connect(mapStateToProps)(Check);

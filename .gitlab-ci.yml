@@ -24,3 +24,5 @@ deploy_prod:
     name: deploying
   only:
   - master
+
+include: '/public/frontend/.gitlab-ci.yml'
