@@ -2,11 +2,22 @@
 
 import { POST, TOKEN_KEY, storeToken } from './Request';
 
-
 // TODO: Set correct login api url
-const LOGIN_API_URL = 'http://localhost:1337/auth/local';
-const REGISTER_API_URL = 'http://localhost:1337/auth/local/register';
-const COMPANY_DETAILS_API_URL = 'http://localhost:1337/company-details'
+let LOGIN_API_URL;
+let REGISTER_API_URL;
+let COMPANY_DETAILS_API_URL;
+
+if (process.env.NODE_ENV === 'production') {
+  LOGIN_API_URL = `${process.env.REACT_APP_PRODUCTION_URL}auth/local`;
+  REGISTER_API_URL = `${process.env.REACT_APP_PRODUCTION_URL}auth/local/register`;
+  COMPANY_DETAILS_API_URL = `${process.env.REACT_APP_PRODUCTION_URL}company-details`
+
+}
+else {
+  LOGIN_API_URL = `${process.env.REACT_APP_DEVELOPMENT_URL}auth/local`;
+  REGISTER_API_URL = `${process.env.REACT_APP_DEVELOPMENT_URL}auth/local/register`;
+  COMPANY_DETAILS_API_URL = `${process.env.REACT_APP_DEVELOPMENT_URL}company-details`
+}
 
 
 // Email regexp taken from http://emailregex.com/ (W3C standard)

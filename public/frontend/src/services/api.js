@@ -2,8 +2,8 @@ import { call, put, select } from 'redux-saga/effects';
 
 export const base =
   process.env.NODE_ENV === 'production'
-    ? 'http://strapi.useinfluence.co/'
-    : 'http://strapi.useinfluence.co/'; // eslint-disable-line
+    ? process.env.REACT_APP_PRODUCTION_URL
+    : process.env.REACT_APP_DEVELOPMENT_URL; // eslint-disable-line
 
 // const getToken = state => state.getIn(['auth', 'token']);//state.auth.token;
 

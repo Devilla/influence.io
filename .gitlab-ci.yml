@@ -1,24 +1,30 @@
-sudo: required
+image: keymetrics/pm2:6
 
-git:
-  depth: 1
+stages:
+  - deploy
 
-language: node_js
-
-node_js:
-  - "9"
-
-before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
-  - npm cache clean --force
-  - rm -rf node_modules/
-
-install:
-  - npm run setup --debug
-
-script:
-  - npm run doc
-  - npm run test
+deploy_prod:
+  stage: deploy
+  script:
+    - echo "====== Deploy to production server ======"
+    - apk update && apk upgrade
+    - apk add git openssh bash
+    # Add target server`s secret key
+    - mkdir ~/.ssh
+    - echo $TARGET_SERVER_SECRET_KEY_BASE64 | base64 -d > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+    - echo "Test ssh connection"
+    - ssh -o StrictHostKeyChecking=no -T "ubuntu@$TARGET_SERVER_HOST"
+    # Delploy
+    - echo "Setup tagget server directories"
+    - pm2 deploy ecosystem.config.js production setup 2>&1 || true
+    - echo "make deploy"
+    - pm2 deploy ecosystem.config.js production
+    - echo "Setup target frontend directories"
+    - pm2 deploy ecosystem.config.js staging setup 2>&1 || true
+    - echo "make frontend deploy"
+    - pm2 deploy ecosystem.config.js staging
+  environment:
+    name: deploying
+  only:
+  - master
