@@ -6,26 +6,16 @@ cache:
 
 stages:
   - test
-  - build
+  - deploy
 
-before_script:
-  - npm install strapi@alpha -g
 
 test_backend:
   stage: test
   script:
-   - npm install
+   - npm install strapi@alpha -g
   tags:
     - docker
 
-test_db:
-  stage: test
-  services:
-    - mongo
-  script:
-   - strapi start
-  tags:
-    - docker
 
 test_frontend:
   stage: test
@@ -33,4 +23,5 @@ test_frontend:
     - cd public/frontend
     - npm install
     - npn run test
+
 
