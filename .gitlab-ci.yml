@@ -1,38 +1,36 @@
-image: docker:dind
-
-# Use the OverlayFS driver for improved performance.
-variables:
-  DOCKER_DRIVER: overlay
-
-services:
-  - docker:dind
-
-
-
-before_script:
-    -  docker info
-    -  docker-compose -f stack-docker/docker-compose.yml up -d
+image: node:9
 
 cache:
   paths:
-    - node_modules/
+  - node_modules/
 
 stages:
-  - build
   - test
-  - release
-  - deploy
+  - build
 
+before_script:
+  - npm install strapi@alpha -g
 
-build:
-  stage: build
-  variables:
-    NODE_ENV: "development"
+test_backend:
+  stage: test
   script:
-    -  npm install
-    -  npm install strapi@alpha -g
-    -  cd public/frontend && npm install
-    -  cd public/frontend && npm run build
+   - npm install
+  tags:
+    - docker
 
+test_db:
+  stage: test
+  services:
+    - mongo
+  script:
+   - strapi start
+  tags:
+    - docker
 
+test_frontend:
+  stage: test
+  script:
+    - cd public/frontend
+    - npm install
+    - npn run test
 
