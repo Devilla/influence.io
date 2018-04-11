@@ -8,6 +8,11 @@ services:
   - docker:dind
 
 
+
+before_script:
+    -  docker info
+    -  docker-compose -f stack-docker/docker-compose.yml up -d
+
 cache:
   paths:
     - node_modules/
@@ -23,13 +28,11 @@ build:
   stage: build
   variables:
     NODE_ENV: "development"
-  before_script:
-    -  docker info
-    -  docker-compose -f stack-docker/docker-compose.yml up -d
+  script:
     -  npm install
     -  npm install strapi@alpha -g
     -  cd public/frontend && npm install
-  script:
     -  cd public/frontend && npm run build
+
 
 
