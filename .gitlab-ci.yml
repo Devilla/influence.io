@@ -1,33 +1,24 @@
-image: node:9
-
 cache:
   paths:
     - node_modules/
 
 stages:
+  - build
   - test
-  - development
-  - production
+  - release
+  - deploy
 
 
-before_script:
-  - 'cd stack-docker'
-  - 'docker-compose up -d'
-
-setup_strapi:
-  stage: test
+build:
+  stage: build
+  image: node:9
+  variables:
+    NODE_ENV: "development"
+  before_script:
+    -  docker info
+    -  docker-compose -f stack-docker/docker-compose.yml up -d
+    -  npm install
+    -  npm install strapi@alpha -g
+    -  cd public/frontend && npm install
   script:
-   - npm install
-   - npm install strapi@alpha -g
-  tags:
-    - docker
-
-setup_frontend:
-  stage: test
-  script:
-   - 'cd public/frontend'
-   - npm install
-   - npm run build
-  tags:
-    - docker
-
+    -  cd public/frontend && npm run build
