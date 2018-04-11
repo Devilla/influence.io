@@ -1,4 +1,12 @@
-image: docker:latest
+image: gitlab/dind
+
+# Use the OverlayFS driver for improved performance.
+variables:
+  DOCKER_DRIVER: overlay
+
+services:
+  - docker:dind
+
 
 cache:
   paths:
@@ -13,7 +21,6 @@ stages:
 
 build:
   stage: build
-  image: node:9
   variables:
     NODE_ENV: "development"
   before_script:
@@ -24,3 +31,5 @@ build:
     -  cd public/frontend && npm install
   script:
     -  cd public/frontend && npm run build
+
+
