@@ -1,7 +1,7 @@
 image: node:9
 
 cache:
-  path:
+  paths:
     - node_modules/
 
 stages:
