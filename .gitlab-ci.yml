@@ -1,4 +1,4 @@
-image: gitlab/dind
+image: docker:latest
 
 # Use the OverlayFS driver for improved performance.
 variables:
