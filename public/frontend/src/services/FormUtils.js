@@ -4,9 +4,9 @@ import { POST, TOKEN_KEY, storeToken } from './Request';
 
 
 // TODO: Set correct login api url
-const LOGIN_API_URL = 'http://localhost:1337/auth/local';
-const REGISTER_API_URL = 'http://localhost:1337/auth/local/register';
-const COMPANY_DETAILS_API_URL = 'http://localhost:1337/company-details'
+const LOGIN_API_URL = 'http://strapi.useinfluence.co/auth/local';
+const REGISTER_API_URL = 'http://strapi.useinfluence.co/auth/local/register';
+const COMPANY_DETAILS_API_URL = 'http://strapi.useinfluence.co/company-details'
 
 
 // Email regexp taken from http://emailregex.com/ (W3C standard)
