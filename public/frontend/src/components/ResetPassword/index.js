@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Animated} from "react-animated-css";
 import $ from 'jquery';
-import { ToastContainer, toast } from 'react-toastify'; 
+import { ToastContainer, toast } from 'react-toastify';
 import Ionicon from 'react-ionicons';
 import { css } from 'glamor';
 import axios from 'axios';
@@ -75,7 +75,7 @@ export default class forget extends Component{
               evt.preventDefault();
               return;
           }else{
-            
+
             evt.preventDefault();
             var token = document.location.href.split('token=')[1];
             const data = {
@@ -84,8 +84,13 @@ export default class forget extends Component{
                 "token": token
 
             }
-            const urls = 'http://strapi.useinfluence.co/auth/reset_password';
-          
+
+            let urls;
+            if (process.env.NODE_ENV === 'production')
+              urls = `${process.env.REACT_APP_PRODUCTION_URL}auth/reset_password`;
+            else
+              urls = `${process.env.REACT_APP_DEVELOPMENT_URL}auth/reset_password`
+
           axios.post(urls ,data).then(function(response){
               toast.info(response['data']['message'], {
                  position: toast.POSITION.BOTTOM_CENTER,
@@ -100,7 +105,7 @@ export default class forget extends Component{
                  position: toast.POSITION.BOTTOM_CENTER
               });
           });
-            
+
             this.setState({
                newPassword:'',
                verifyPassword: ''
@@ -128,12 +133,12 @@ export default class forget extends Component{
 			<div>
             <div className="authpage section innerpage">
         <div className="container">
-            <div className="wrapper">    
+            <div className="wrapper">
             <Animated className="leftwrap center" animationIn="fadeIn" animationOut="fadeOut" isVisible={true}>
                  <form onSubmit={this.handleSubmit.bind(this)} method="POST" data-name="Login Form"  className="loginfrm">
                     <h3 className="dashed">Reset your password</h3>
                     <div className="section-divider-line"></div>
-                   
+
                     <div className="frmcntl">
                       <input className="field w-input"
                          id="newPassword"
@@ -154,31 +159,31 @@ export default class forget extends Component{
                          onChange = {this.handlePasswordverifyChange.bind(this)}
                          type="password" />
                     </div>
-                    
-                                        
+
+
 
                     <div className="frmcntl">
                       <input className="button submit-button w-button"
                        type="submit"
                        disabled={isDisabled}
-                        value="Reset Password Now" />    
+                        value="Reset Password Now" />
                     </div>
-                   
+
                     </form>
 
                     <div className="support">
-                      <h4>Trouble logging in?</h4> 
-                      <a href="javascript:;"><Ionicon icon="ios-call-outline" className="svgicons btn" fontSize="25px" color="#fff"/> Talk to our Support</a> 
+                      <h4>Trouble logging in?</h4>
+                      <a href="javascript:;"><Ionicon icon="ios-call-outline" className="svgicons btn" fontSize="25px" color="#fff"/> Talk to our Support</a>
                     </div>
 
             </Animated>
-           
+
         </div>
         </div>
-    </div> 
+    </div>
     <ToastContainer hideProgressBar ={true}
 
-              /> 
+              />
         </div>
 		);
 	}

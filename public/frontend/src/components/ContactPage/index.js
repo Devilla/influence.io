@@ -89,7 +89,12 @@ export default class Contact extends Component {
                 "message": this.state.msg
 
             }
-            const urls = 'http://strapi.useinfluence.co/contact';
+            
+            let urls;
+            if (process.env.NODE_ENV === 'production')
+              urls = `${process.env.REACT_APP_PRODUCTION_URL}contact`;
+            else
+              urls = `${process.env.REACT_APP_DEVELOPMENT_URL}contact`
 
             // toast.success('Thank you for your query', {
             //      position: toast.POSITION.BOTTOM_CENTER

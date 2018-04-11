@@ -23,7 +23,7 @@ export default class forget extends Component {
   }
    componentDidMount(){
      window.scrollTo(0, 0)
-   } 
+   }
    handleEmailChange(evt){
     this.setState({email:  evt.target.value})
   }
@@ -58,8 +58,14 @@ export default class forget extends Component {
             const data = {
                 "email" :  this.state.email
             }
-            const urls = 'http://strapi.useinfluence.co/auth/forgot_password';
-          
+
+            let urls;
+
+            if (process.env.NODE_ENV === 'production')
+              urls = `${process.env.REACT_APP_PRODUCTION_URL}auth/forgot_password`;
+            else
+              urls = `${process.env.REACT_APP_DEVELOPMENT_URL}auth/forgot_password`
+
           axios.post(urls ,data).then(function(response){
               console.log(response);
               toast.info(response['data']['message'], {
@@ -75,7 +81,7 @@ export default class forget extends Component {
                   })
               });
           });
-            
+
             this.setState({
                email:'',
             })
@@ -101,14 +107,14 @@ export default class forget extends Component {
         <div>
             <div className="authpage section innerpage">
         <div className="container">
-            <div className="wrapper">    
+            <div className="wrapper">
             <Animated className="leftwrap center" animationIn="fadeIn" animationOut="fadeOut" isVisible={true}>
                  <form onSubmit={this.handleSubmit.bind(this)} method="POST" data-name="Login Form"  className="loginfrm">
                     <h3 className="dashed">Forgot your password</h3>
                     <div className="section-divider-line"></div>
                     <div className="frmcntl">
                     Enter your email address below and we'll send you a link to reset your password.
-                    </div>  
+                    </div>
                     <div className="frmcntl">
 
                       <input
@@ -122,25 +128,25 @@ export default class forget extends Component {
                        type="email" />
 
                     </div>
-                    
-                                        
+
+
 
                     <div className="frmcntl">
-                      <input className="button submit-button w-button" type="submit" value="Send reset password email" />    
+                      <input className="button submit-button w-button" type="submit" value="Send reset password email" />
                     </div>
-                   
+
                     </form>
 
                     <div className="support">
-                      <h4>Trouble logging in?</h4> 
-                      <a href="javascript:;"><Ionicon icon="ios-call-outline" className="svgicons btn" fontSize="25px" color="#fff"/> Talk to our Support</a> 
+                      <h4>Trouble logging in?</h4>
+                      <a href="javascript:;"><Ionicon icon="ios-call-outline" className="svgicons btn" fontSize="25px" color="#fff"/> Talk to our Support</a>
                     </div>
 
             </Animated>
-           
+
         </div>
         </div>
-    </div>  
+    </div>
     <ToastContainer hideProgressBar ={true}
 
               />

@@ -37,11 +37,10 @@ sagaMiddleware.run(rootSaga);
 
 const rootEl = document.getElementById('root');
 
-
 const render = Component =>
   ReactDOM.render(
     <Provider store={store}>
-      <StripeProvider apiKey="pk_test_He989Wakdl6zrKH5zU7QEZaj">
+      <StripeProvider apiKey={process.env.REACT_APP_STRIPE_KEY}>
         <Component routerHistory={routerHistory} />
       </StripeProvider>
     </Provider>,
