@@ -1,24 +1,33 @@
-sudo: required
+image: node:9
 
-git:
-  depth: 1
+cache:
+  path:
+    - node_modules/
 
-language: node_js
+stages:
+  - test
+  - development
+  - production
 
-node_js:
-  - "9"
 
-before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
-  - npm cache clean --force
-  - rm -rf node_modules/
+before_script:
+  - 'cd stack-docker'
+  - 'docker-compose up -d'
 
-install:
-  - npm run setup --debug
+setup_strapi:
+  stage: test
+  script:
+   - npm install
+   - npm install strapi@alpha -g
+  tags:
+    - docker
 
-script:
-  - npm run doc
-  - npm run test
+setup_frontend:
+  stage: test
+  script:
+   - 'cd public/frontend'
+   - npm install
+   - npm run build
+  tags:
+    - docker
+
