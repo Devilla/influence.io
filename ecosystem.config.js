@@ -55,13 +55,9 @@ module.exports = {
       'post-deploy': 'npm install --production'
       + ' && pm2 startOrRestart ecosystem.config.js --env=production'
       + ' && pm2 save'
-    },
-    staging: {
-      user: TARGET_SERVER_USER,
-      host: TARGET_SERVER_HOST,
-      path: TARGET_SERVER_APP_PATH,
-      ssh_options: 'StrictHostKeyChecking=no',
-      'post-deploy': 'cd /public/frontend && npm install && pm2 startOrRestart ecosystem.config.js  --only frontend --env production'
-    },
+      + ' && cd public/frontend '
+      + ' && npm install'
+      + ' && pm2 startOrRestart ecosystem.config.js  --only frontend --env production'
+    }
   }
 };
