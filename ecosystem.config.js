@@ -5,7 +5,7 @@ const TARGET_SERVER_USER = process.env.TARGET_SERVER_USER ? process.env.TARGET_S
 // Target server application path
 const TARGET_SERVER_APP_PATH = `/home/${TARGET_SERVER_USER}/app`;
 // Target frontend application path
-const TARGET_FRONTEND_APP_PATH = `/home/${TARGET_SERVER_USER}/proof.io/public/frontend`;
+const TARGET_FRONTEND_APP_PATH = `/home/${TARGET_SERVER_USER}/app/public/frontend`;
 // Your repository
 const REPO = 'git@gitlab.com:useinfluence/proof.io.git';
 
@@ -59,11 +59,9 @@ module.exports = {
     staging: {
       user: TARGET_SERVER_USER,
       host: TARGET_SERVER_HOST,
-      ref: 'origin/master',
-      repo: REPO,
       path: TARGET_FRONTEND_APP_PATH,
       ssh_options: 'StrictHostKeyChecking=no',
-      'post-deploy': 'cd /public/frontend && npm install && pm2 startOrRestart ecosystem.config.js  --only frontend --env production'
+      'post-deploy': 'cd public/frontend && npm install && pm2 startOrRestart ecosystem.config.js  --only frontend --env production'
     },
   }
 };
