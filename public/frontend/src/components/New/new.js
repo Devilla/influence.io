@@ -120,7 +120,7 @@ export class NewUser extends Component {
     //         var settings = {
     //           "async": true,
     //           "crossDomain": true,
-    //           "url": "http://strapi.useinfluence.co/website",
+    //           "url": "http://localhost:1337/website",
     //           "method": "POST",
     //           "headers": {
     //             "authorization": "JWT "+tokenverify,
