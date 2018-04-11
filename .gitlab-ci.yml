@@ -21,7 +21,7 @@ deploy_prod:
     - echo "make deploy"
     - pm2 deploy ecosystem.config.js production
     - echo "Setup target frontend directories"
-    - pm2 deploy ecosystem.config.js staging setup
+    - pm2 deploy ecosystem.config.js staging setup 2>&1 || true
     - echo "make frontend deploy"
     - pm2 deploy ecosystem.config.js staging
   environment:
