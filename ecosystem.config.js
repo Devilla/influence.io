@@ -63,7 +63,7 @@ module.exports = {
       repo: REPO,
       path: TARGET_FRONTEND_APP_PATH,
       ssh_options: 'StrictHostKeyChecking=no',
-      'post-deploy': 'npm install && pm2 startOrRestart ecosystem.config.js  --only frontend --env production'
+      'post-deploy': 'cd /public/frontend && npm install && pm2 startOrRestart ecosystem.config.js  --only frontend --env production'
     },
   }
 };
