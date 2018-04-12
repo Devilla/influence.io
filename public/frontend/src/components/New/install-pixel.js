@@ -3,22 +3,22 @@ import {
     Grid, Row, Col,  FormGroup, ControlLabel, FormControl,ButtonToolbar,Button
 } from 'react-bootstrap';
 
-import Tabs from './template/tab'
+import Tabs from './template/tab';
 import Highlight from 'react-highlight';
 class InstallPixel extends Component{
   constructor(){
     super();
     this.state = {
 
-    }
+    };
 
   }
   activeState(val){
-      var data = {'tab' : val}
-      this.props.callbackFromParent(data)
+    var data = {'tab' : val};
+    this.props.callbackFromParent(data);
   }
-    render(){
-        return (
+  render(){
+    return (
             <div className="content">
                 <Grid fluid>
                        <Tabs active="2" callbackFromParent ={this.activeState.bind(this)}/>
@@ -41,11 +41,11 @@ class InstallPixel extends Component{
                             <FormGroup controlId="formstep1">
                                <ControlLabel>Add Code:  Copy & Paste this code into The Header. Add this to every page of your website that you plan to track, display or capture.</ControlLabel>
                               <Highlight innerHTML={false}>
-                                {`<script src="https://cdninfluence.nyc3.digitaloceanspaces.com/influence-analytics.js">
-  new Influence({
-  trackingId:   ${this.props.campaign?this.props.campaign.trackingId:'INF-XXXXXXX'}
-  });
-</script>`}
+                                {`<script src="https://cdninfluence.nyc3.digitaloceanspaces.com/influence-analytics.js"></script>
+                                  <script> new Influence({
+                                trackingId:   ${this.props.campaign?this.props.campaign.trackingId:'INF-XXXXXXX'}
+                                    });
+                                  </script>` }
                               </Highlight>
                               <ButtonToolbar>
                                 <Button bsStyle="default" className="blue" bsSize="small">
@@ -84,8 +84,8 @@ class InstallPixel extends Component{
 
                  </Grid>
             </div>
-        );
-    }
+    );
+  }
 }
 
 
