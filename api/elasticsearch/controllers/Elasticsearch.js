@@ -37,7 +37,7 @@ module.exports = {
 
   searchWithQuery: async(ctx) => {
 
-    let index = 'clientwebsitedata';
+    let index = 'filebeat-6.2.1-2018.04.10';
 
     let params = ctx.params;
 
