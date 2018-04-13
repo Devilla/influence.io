@@ -23,7 +23,7 @@ function validate(campaignname, website) {
   // true means invalid, so our conditions got reversed
   return {
     name: campaignname.length === 0,
-    email: website.length === 0
+    email: !validatewebsite(website)
   };
 }
 
@@ -82,7 +82,6 @@ export class NewUser extends Component {
 
   canBeSubmitted() {
     const errors = validate(this.state.campaignname, this.state.website);
-
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
   }
@@ -168,7 +167,8 @@ export class NewUser extends Component {
                                                  placeholder : "example: Acme Co, Blog, Online Store",
                                                  onChange: this.handleCampaignNameChange.bind(this),
                                                  onBlur : this.handleCampaignAuth.bind(this),
-                                                 value: this.state.campaignname
+                                                 value: this.state.campaignname,
+                                                 required: true
                                                 },
                                                  {
                                                  label : "Website URL",
@@ -178,8 +178,8 @@ export class NewUser extends Component {
                                                  id:"website",
                                                  onChange: this.handleWebsiteChange.bind(this),
                                                  onBlur : this.handleWebsiteAuth.bind(this),
-                                                 value: this.state.website
-
+                                                 value: this.state.website,
+                                                 required: true
                                                 }
 
                                             ]}
