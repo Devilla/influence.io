@@ -12,7 +12,7 @@ const toastConfig = {
 function* fetch(action) {
   try {
     yield put(load());
-    const res = yield call(api.GET, `es/search?${action.query}`);
+    const res = yield call(api.GET, `es/search?trackingId=${action.query}`);
     if(res.error)
       yield toast.error(res.message, toastConfig);
     else

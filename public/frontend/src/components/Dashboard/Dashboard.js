@@ -26,7 +26,7 @@ class Dashboard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    console.log(nextProps.elastic.message, "====elasticsearch");
   }
 
   createLegend(json) {
