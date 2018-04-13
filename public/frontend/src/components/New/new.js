@@ -99,6 +99,7 @@ export class NewUser extends Component {
   }
 
   handleNextButton(evt) {
+    evt.preventDefault();
     var tokenverify = this.handleCheckCookie();
     const data = {
       campaignName: this.state.campaignname,
@@ -107,8 +108,7 @@ export class NewUser extends Component {
       utmMedium: this.state.medium,
       profile: this.props.profile._id
     };
-    console.log(data, "======datat");
-    this.props.createCampaign(data);
+    return this.props.createCampaign(data)
     // browserHistory.push('notifications')
     // if(!this.canBeSubmitted()){
     //         evt.preventDefault();
@@ -142,8 +142,13 @@ export class NewUser extends Component {
 
     //     }
 
-    this.props.callbackFromParent({'active': 2});
+    // this.props.callbackFromParent({'active': 2});
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.campaign != this.props.campaign)
+      this.props.callbackFromParent({'active': 2});
   }
 
   render() {
@@ -246,7 +251,8 @@ export class NewUser extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.getIn(['profile', 'profile'])
+  profile: state.getIn(['profile', 'profile']),
+  campaign: state.getIn(['campaign', 'campaign'])
 });
 
 const mapDispatchToProps = {

@@ -33,7 +33,7 @@ module.exports = {
   // Before creating a value.
   // Fired before `insert` query.
   beforeCreate: async (model) => {
-    model.trackingId = uniqid('INF-')
+    model.trackingId = uniqid('INF-');
   },
 
   // After creating a value.
