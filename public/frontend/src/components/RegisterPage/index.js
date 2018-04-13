@@ -6,9 +6,9 @@ import {ToastContainer, toast} from 'react-toastify';
 import Ionicon from 'react-ionicons';
 import {css} from 'glamor';
 import {Alert} from 'react-bootstrap';
-import {validateEmail, validatePassword, register, PASSWORD_MAX_LENGTH} from '../../services/FormUtils';
-import {store} from '../../index.js';
-import {loginSuccess, fetchRoles} from '../../ducks/auth';
+import {validateEmail, validatePassword, register, PASSWORD_MAX_LENGTH} from 'services/FormUtils';
+import {store} from 'index.js';
+import {loginSuccess, fetchRoles} from 'ducks/auth';
 import {browserHistory} from 'react-router';
 
 

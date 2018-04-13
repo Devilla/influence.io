@@ -5,7 +5,7 @@ import {Animated} from "react-animated-css";
 import $ from 'jquery';
 import axios from 'axios';
 import Switch from 'react-flexible-switch';
-import { fetchPlan } from '../../ducks/plan';
+import { fetchPlan } from 'ducks/plan';
 
 const data = {
   "startups": {

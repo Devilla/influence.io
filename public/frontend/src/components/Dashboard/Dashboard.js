@@ -7,9 +7,9 @@ import StatsCard from './Stats'
 import Website from './Website'
 import Card from './Card'
 import {Scrollbars} from 'react-custom-scrollbars';
-import {dataSales, optionsSales, responsiveSales, legendSales} from '../utils/variable.jsx';
-import {getCookie, ajaxgetrequest} from '../../components/Common/function';
-import { fetchElastic } from '../../ducks/elastic';
+import {dataSales, optionsSales, responsiveSales, legendSales} from 'components/utils/variable.jsx';
+import { getCookie, ajaxgetrequest } from 'components';
+import { fetchElastic } from 'ducks/elastic';
 
 class Dashboard extends Component {
   constructor() {
@@ -22,7 +22,7 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchElastic("trackingId:INF-azg2fhewkjfwstxof");
+    this.props.fetchElastic("json.value.trackingId:INF-azg2fhewkjfwstxof");
   }
 
   componentWillReceiveProps(nextProps) {

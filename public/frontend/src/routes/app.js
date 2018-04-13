@@ -8,7 +8,7 @@ import {
   Notification,
   Analytics,
   New
-} from '../components'
+} from 'components'
 
 const appRoutes = [
     { upgrade: true, path: "/new", name: "New", icon: "", component: New },

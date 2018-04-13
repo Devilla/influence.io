@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import CommonCard from '../template/common-card';
 import {Templates} from '../notification/template/message-template/template'
-import { fetchNotification, createNotification } from '../../../ducks/notification';
-import { createRules } from '../../../ducks/rules';
+import { fetchNotification, createNotification } from 'ducks/notification';
+import { createRules } from 'ducks/rules';
 import NotificationContent from './NotificationContent';
 
 const notificationList = [

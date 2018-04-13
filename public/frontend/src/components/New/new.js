@@ -16,8 +16,8 @@ import Switch from 'react-flexible-switch';
 import $ from 'jquery';
 import {ToastContainer, toast} from 'react-toastify';
 import {css} from 'glamor';
-import {validatewebsite, validateemail, validphone, getCookie} from '../../components/Common/function';
-import {createCampaign} from '../../ducks/campaign';
+import {validatewebsite, validateemail, validphone, getCookie} from 'components/Common/function';
+import {createCampaign} from 'ducks/campaign';
 
 function validate(campaignname, website) {
   // true means invalid, so our conditions got reversed

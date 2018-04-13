@@ -3,14 +3,10 @@ import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 
 import {Redirect} from 'react-router'
-// import Header from '../../components';
-// import Footer from '../../components';
-// import Sidebar from '../../components';
 import axios from 'axios';
 import $ from 'jquery';
-import {checkTokenExists} from '../../ducks/auth';
-import { Spinner, Header, Footer, Sidebar } from '../../components';
-// import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
+import {checkTokenExists} from 'ducks/auth';
+import { Spinner, Header, Footer, Sidebar } from 'components';
 
 function getUrlVars() {
   var vars = [],

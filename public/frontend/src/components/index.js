@@ -10,7 +10,7 @@ export { default as HowItWorks } from "./HowitWorks";
 export { default as LoginPage } from "./LoginPage";
 export { default as PricePage } from "./PricePage";
 export { default as PrivacyPage } from "./PrivacyPage";
-// export { default as Profile } from "./Profile/Profile";
+export { default as Common } from "./Common/function";
 export { default as RegisterPage } from "./RegisterPage";
 export { default as ResetPassword } from "./ResetPassword";
 export { default as Sidebar } from "./Sidebar/Sidebar";
