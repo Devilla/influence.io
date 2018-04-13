@@ -10,6 +10,7 @@ import campaign from './campaign';
 import rules from './rules';
 import loading from './loading';
 import configuration from './configuration';
+import elastic from './elastic';
 
 const reducer = combineReducers({
   profile,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   rules,
   loading,
   configuration,
+  elastic,
   router: routerReducer
 });
 

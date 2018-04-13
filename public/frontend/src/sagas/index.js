@@ -7,6 +7,7 @@ import notification from './notification';
 import campaign from './campaign';
 import rules from './rules';
 import configuration from './configuration';
+import elastic from './elastic';
 
   export default function* rootSaga() {
     yield [
@@ -17,6 +18,7 @@ import configuration from './configuration';
       fork(notification),
       fork(campaign),
       fork(rules),
-      fork(configuration)
+      fork(configuration),
+      fork(elastic)
     ];
   }

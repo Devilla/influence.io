@@ -57,6 +57,7 @@ module.exports = {
       + ' && pm2 save'
       + ' && cd public/frontend '
       + ' && npm install'
+      + ` && cd ~${TARGET_SERVER_APP_PATH}`
       + ' && pm2 startOrRestart ecosystem.config.js  --only frontend --env production'
     }
   }
