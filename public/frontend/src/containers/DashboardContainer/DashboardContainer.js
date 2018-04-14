@@ -42,9 +42,7 @@ class DashboardContainer extends Component {
     this.state = {
       render: true
     };
-  }
 
-  componentWillMount() {
     this.checkLogin((err) => {
       if(err) {
         window.location.assign(window.location.origin+'/login');
@@ -78,7 +76,8 @@ class DashboardContainer extends Component {
   }
 
   checkUserDetails(profile) {
-    if (!profile || !profile.profile_payments) {
+    const user = this.props.user;
+    if (user && user.size !== 0 && (!profile || !profile.profile_payments)) {
       browserHistory.push('getting-started')
     }
   }
