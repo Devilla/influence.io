@@ -94,7 +94,7 @@ export default class Register extends Component {
       : (<div>
         <h3 className="dashed">Let's get started</h3>
         <div className="section-divider-line"></div>
-        <p>Enter your work email to access your account</p>
+        <p>Enter your email to access your account</p>
         <div className="frmcntl">
           <input className="field w-input" name="email" value={this.state.email} onBlur={this.handleEmailBlur} onChange={this.handleInputChange} placeholder="Email Address" type="email"/>
         </div>
