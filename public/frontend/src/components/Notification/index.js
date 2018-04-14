@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
-import Card from '../utils/card'
-import { thArray, tdArray } from './data';
+import Card from 'components/utils/card'
+// import { thArray, tdArray } from './data';
 import Switch from 'react-flexible-switch';
-import {getCookie} from '../../components/Common/function';
+import {getCookie} from 'components/Common/function';
 import moment from 'moment';
 
-import { fetchCampaign } from '../../ducks/campaign';
+import { fetchCampaign } from 'ducks/campaign';
 
 
 const notificationFields = [ 'S.No', 'Campaign', 'Domain', 'Status', 'Tracking ID', 'Log', 'Modified', 'Created' ];
@@ -57,7 +57,6 @@ class Notification extends Component {
   }
 
   render() {
-    console.log(this.props, "========notification");
     return (
       <div className="content">
         <Grid fluid>
@@ -88,13 +87,13 @@ class Notification extends Component {
               />
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col md={12}>
               <p className="text-center">
                 Get one of our experts to do it all for you! &nbsp; <a href="javascript:;">Click here</a>
               </p>
             </Col>
-          </Row>
+          </Row> */}
 
         </Grid>
       </div>

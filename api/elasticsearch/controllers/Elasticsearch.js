@@ -37,17 +37,17 @@ module.exports = {
 
   searchWithQuery: async(ctx) => {
 
-    let index = 'filebeat-6.2.1-2018.04.10';
+    let index = 'filebeat-*';
 
-    let params = '"'+ctx.params+'"';
+    let query = ctx.query.trackingId;
 
-    if (!ctx.params){
+    if (!ctx.query){
       ctx.send({
-        message: 'invalid params if you want to send data using body use other query type'
+        message: 'invalid query if you want to send data using body use other query type'
       });
     }
 
-    let data = await strapi.services.elasticsearch.searchWithQuery(index,params);
+    let data = await strapi.services.elasticsearch.searchWithQuery(index,query);
 
     ctx.send({
       message: data

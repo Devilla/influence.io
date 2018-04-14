@@ -3,14 +3,10 @@ import {connect} from 'react-redux';
 import {browserHistory, Link} from 'react-router';
 
 import {Redirect} from 'react-router'
-// import Header from '../../components';
-// import Footer from '../../components';
-// import Sidebar from '../../components';
 import axios from 'axios';
 import $ from 'jquery';
-import {checkTokenExists} from '../../ducks/auth';
-import { Spinner, Header, Footer, Sidebar } from '../../components';
-// import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
+import {checkTokenExists} from 'ducks/auth';
+import { Spinner, Header, Footer, Sidebar } from 'components';
 
 function getUrlVars() {
   var vars = [],
@@ -46,9 +42,7 @@ class DashboardContainer extends Component {
     this.state = {
       render: true
     };
-  }
 
-  componentWillMount() {
     this.checkLogin((err) => {
       if(err) {
         window.location.assign(window.location.origin+'/login');
@@ -82,7 +76,8 @@ class DashboardContainer extends Component {
   }
 
   checkUserDetails(profile) {
-    if (!profile || !profile.profile_payments) {
+    const user = this.props.user;
+    if (user && user.size !== 0 && (!profile || !profile.profile_payments)) {
       browserHistory.push('getting-started')
     }
   }
@@ -105,7 +100,7 @@ class DashboardContainer extends Component {
             this.state.render && <div id="main-panel" className="main-panel">
                 <Header {...this.props}/>
                 {this.props.children}
-                <Footer/>
+                {/* <Footer/> */}
               </div>
           }
         </div>

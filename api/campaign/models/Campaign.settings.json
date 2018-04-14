@@ -19,7 +19,8 @@
     },
     "websiteUrl": {
       "type": "string",
-      "multiple": false
+      "multiple": false,
+      "unique": true
     },
     "utmSource": {
       "type": "string",

@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router';
-
+import { Link, browserHistory } from 'react-router';
 import HeaderLinks from '../Header/HeaderLinks';
-import logo from '../../assets/img/logo.png';
+import logo from 'assets/img/logo.png';
 
-import appRoutes from '../../routes/app';
+import appRoutes from 'routes/app';
 
 class Sidebar extends Component{
     constructor(props){
@@ -27,9 +26,8 @@ class Sidebar extends Component{
 
         return (
             <div id="sidebar" className="sidebar" data-color="gray">
-                 <div className="logo">
+                 <div className="logo" style={{cursor: 'pointer'}} onClick={() => browserHistory.push('/dashboard')}>
                        <img src={logo} alt="logo_image"/>
-
                     </div>
 
 

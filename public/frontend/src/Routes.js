@@ -25,11 +25,11 @@ import {
   New,
   LoginFlow,
   SelectNotification
-} from './components';
+} from 'components';
 
 import {
   DashboardContainer
-} from './containers';
+} from 'containers';
 
 
 

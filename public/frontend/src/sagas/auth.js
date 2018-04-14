@@ -11,13 +11,13 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import { push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
-import * as actions from '../ducks/auth';
-import { fetchProfile } from '../ducks/profile';
-import { fetchPlan } from '../ducks/plan';
-import { fetchPayment } from '../ducks/payment';
-import { load, loaded } from '../ducks/loading';
+import * as actions from 'ducks/auth';
+import { fetchProfile } from 'ducks/profile';
+import { fetchPlan } from 'ducks/plan';
+import { fetchPayment } from 'ducks/payment';
+import { load, loaded } from 'ducks/loading';
 
-import * as api from '../services/api';
+import * as api from 'services/api';
 import moment from 'moment';
 
 const toastConfig = {

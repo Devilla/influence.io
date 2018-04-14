@@ -42,10 +42,11 @@ class InstallPixel extends Component{
                                <ControlLabel>Add Code:  Copy & Paste this code into The Header. Add this to every page of your website that you plan to track, display or capture.</ControlLabel>
                               <Highlight innerHTML={false}>
                                 {`<script src="https://cdninfluence.nyc3.digitaloceanspaces.com/influence-analytics.js"></script>
-                                  <script> new Influence({
-                                trackingId:   ${this.props.campaign?this.props.campaign.trackingId:'INF-XXXXXXX'}
-                                    });
-                                  </script>` }
+<script>
+  new Influence({
+    trackingId:   '${this.props.campaign?this.props.campaign.trackingId:'INF-XXXXXXX'}'
+  });
+</script>` }
                               </Highlight>
                               <ButtonToolbar>
                                 <Button bsStyle="default" className="blue" bsSize="small">

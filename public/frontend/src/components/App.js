@@ -8,8 +8,8 @@ import  '../assets/stylesheets/style.css'
 
 import Header from './_common/Header';
 import Footer from './_common/Footer';
-import { checkTokenExists } from '../ducks/auth';
-import { store } from '../index.js';
+import { checkTokenExists } from 'ducks/auth';
+import { store } from 'index.js';
 import { Spinner } from './index.js';
 // import '../assets/assets/css/page.css';
 

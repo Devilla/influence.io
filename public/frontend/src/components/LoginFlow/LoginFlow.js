@@ -6,12 +6,12 @@ import CompanyInfo from './CompanyInfo';
 import AboutYourself from './AboutYourself';
 import TrailPayment from './TrailPayment';
 
-import { updateUser, checkTokenExists } from '../../ducks/auth';
-import { createProfile, updateProfile } from '../../ducks/profile';
-import { createPayment } from '../../ducks/payment';
+import { updateUser, checkTokenExists } from 'ducks/auth';
+import { createProfile, updateProfile } from 'ducks/profile';
+import { createPayment } from 'ducks/payment';
 import './LoginFlow.css';
 
-import { store } from '../../index.js';
+import { store } from 'index.js';
 
 class LoginFlow extends Component {
   constructor(props) {
