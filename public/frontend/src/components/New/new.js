@@ -33,9 +33,9 @@ export class NewUser extends Component {
     this.state = {
       campaignname: '',
       website: '',
-      source: '',
-      medium: '',
-      cobrand: false,
+      // source: '',
+      // medium: '',
+      // cobrand: false,
       status: {}
     }
 
@@ -47,12 +47,12 @@ export class NewUser extends Component {
   handleWebsiteChange(evt) {
     this.setState({website: evt.target.value})
   }
-  handleSourceChange(evt) {
-    this.setState({source: evt.target.value})
-  }
-  handleMediumChange(evt) {
-    this.setState({medium: evt.target.value})
-  }
+  // handleSourceChange(evt) {
+  //   this.setState({source: evt.target.value})
+  // }
+  // handleMediumChange(evt) {
+  //   this.setState({medium: evt.target.value})
+  // }
   handleCampaignAuth(evt) {
     if (evt.target.value == '') {
       $('#' + evt.target.id).addClass('has-error');
@@ -104,8 +104,8 @@ export class NewUser extends Component {
     const data = {
       campaignName: this.state.campaignname,
       websiteUrl: this.state.website,
-      utmSource: this.state.source,
-      utmMedium: this.state.medium,
+      // utmSource: this.state.source,
+      // utmMedium: this.state.medium,
       profile: this.props.profile._id
     };
     return this.props.createCampaign(data)
@@ -189,7 +189,7 @@ export class NewUser extends Component {
 
                                             ]}
                                         />
-                                        <FormInputs
+                                        {/* <FormInputs
                                             ncols = {["col-md-6" , "col-md-6"]}
                                             proprieties = {[
                                                 {
@@ -207,11 +207,11 @@ export class NewUser extends Component {
                                                  placeholder : "UTM Medium"
                                                 }
                                             ]}
-                                        />
+                                        /> */}
 
 
 
-                                        <Row>
+                                        {/* <Row>
                                             <Col md={1}>
                                                       <Switch
                                                         circleStyles={{ onColor: 'blue', offColor: 'gray',diameter: 18 }}
@@ -227,7 +227,7 @@ export class NewUser extends Component {
                                                 <span className="mt-5">Enable Custom 'POWERED BY' CO-Branding </span>
                                             </Col>
 
-                                        </Row>
+                                        </Row> */}
                                         <Button
                                             bsStyle="info"
                                             pullRight
