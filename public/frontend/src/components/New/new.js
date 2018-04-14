@@ -16,14 +16,14 @@ import Switch from 'react-flexible-switch';
 import $ from 'jquery';
 import {ToastContainer, toast} from 'react-toastify';
 import {css} from 'glamor';
-import {validatewebsite, validateemail, validphone, getCookie} from '../../components/Common/function';
-import {createCampaign} from '../../ducks/campaign';
+import {validatewebsite, validateemail, validphone, getCookie} from 'components/Common/function';
+import {createCampaign} from 'ducks/campaign';
 
 function validate(campaignname, website) {
   // true means invalid, so our conditions got reversed
   return {
     name: campaignname.length === 0,
-    email: website.length === 0
+    email: !validatewebsite(website)
   };
 }
 
@@ -33,9 +33,9 @@ export class NewUser extends Component {
     this.state = {
       campaignname: '',
       website: '',
-      source: '',
-      medium: '',
-      cobrand: false,
+      // source: '',
+      // medium: '',
+      // cobrand: false,
       status: {}
     }
 
@@ -47,12 +47,12 @@ export class NewUser extends Component {
   handleWebsiteChange(evt) {
     this.setState({website: evt.target.value})
   }
-  handleSourceChange(evt) {
-    this.setState({source: evt.target.value})
-  }
-  handleMediumChange(evt) {
-    this.setState({medium: evt.target.value})
-  }
+  // handleSourceChange(evt) {
+  //   this.setState({source: evt.target.value})
+  // }
+  // handleMediumChange(evt) {
+  //   this.setState({medium: evt.target.value})
+  // }
   handleCampaignAuth(evt) {
     if (evt.target.value == '') {
       $('#' + evt.target.id).addClass('has-error');
@@ -82,7 +82,6 @@ export class NewUser extends Component {
 
   canBeSubmitted() {
     const errors = validate(this.state.campaignname, this.state.website);
-
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
   }
@@ -100,16 +99,16 @@ export class NewUser extends Component {
   }
 
   handleNextButton(evt) {
+    evt.preventDefault();
     var tokenverify = this.handleCheckCookie();
     const data = {
       campaignName: this.state.campaignname,
       websiteUrl: this.state.website,
-      utmSource: this.state.source,
-      utmMedium: this.state.medium,
+      // utmSource: this.state.source,
+      // utmMedium: this.state.medium,
       profile: this.props.profile._id
     };
-    console.log(data, "======datat");
-    this.props.createCampaign(data);
+    return this.props.createCampaign(data)
     // browserHistory.push('notifications')
     // if(!this.canBeSubmitted()){
     //         evt.preventDefault();
@@ -143,8 +142,13 @@ export class NewUser extends Component {
 
     //     }
 
-    this.props.callbackFromParent({'active': 2});
+    // this.props.callbackFromParent({'active': 2});
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.campaign != this.props.campaign)
+      this.props.callbackFromParent({'active': 2});
   }
 
   render() {
@@ -168,7 +172,8 @@ export class NewUser extends Component {
                                                  placeholder : "example: Acme Co, Blog, Online Store",
                                                  onChange: this.handleCampaignNameChange.bind(this),
                                                  onBlur : this.handleCampaignAuth.bind(this),
-                                                 value: this.state.campaignname
+                                                 value: this.state.campaignname,
+                                                 required: true
                                                 },
                                                  {
                                                  label : "Website URL",
@@ -178,13 +183,13 @@ export class NewUser extends Component {
                                                  id:"website",
                                                  onChange: this.handleWebsiteChange.bind(this),
                                                  onBlur : this.handleWebsiteAuth.bind(this),
-                                                 value: this.state.website
-
+                                                 value: this.state.website,
+                                                 required: true
                                                 }
 
                                             ]}
                                         />
-                                        <FormInputs
+                                        {/* <FormInputs
                                             ncols = {["col-md-6" , "col-md-6"]}
                                             proprieties = {[
                                                 {
@@ -202,11 +207,11 @@ export class NewUser extends Component {
                                                  placeholder : "UTM Medium"
                                                 }
                                             ]}
-                                        />
+                                        /> */}
 
 
 
-                                        <Row>
+                                        {/* <Row>
                                             <Col md={1}>
                                                       <Switch
                                                         circleStyles={{ onColor: 'blue', offColor: 'gray',diameter: 18 }}
@@ -222,7 +227,7 @@ export class NewUser extends Component {
                                                 <span className="mt-5">Enable Custom 'POWERED BY' CO-Branding </span>
                                             </Col>
 
-                                        </Row>
+                                        </Row> */}
                                         <Button
                                             bsStyle="info"
                                             pullRight
@@ -246,7 +251,8 @@ export class NewUser extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.getIn(['profile', 'profile'])
+  profile: state.getIn(['profile', 'profile']),
+  campaign: state.getIn(['campaign', 'campaign'])
 });
 
 const mapDispatchToProps = {

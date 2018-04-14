@@ -1,8 +1,8 @@
 import { call, put, select, fork, takeLatest } from 'redux-saga/effects';
-import * as api from '../services/api';
-import * as actions from '../ducks/payment';
-import { updateProfile } from '../ducks/profile';
-import { load, loaded } from '../ducks/loading';
+import * as api from 'services/api';
+import * as actions from 'ducks/payment';
+import { updateProfile } from 'ducks/profile';
+import { load, loaded } from 'ducks/loading';
 import { ToastContainer, toast } from 'react-toastify';
 
 const toastConfig = {

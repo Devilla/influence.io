@@ -6,9 +6,9 @@ import {ToastContainer, toast} from 'react-toastify';
 import Ionicon from 'react-ionicons';
 import {css} from 'glamor';
 import {Alert} from 'react-bootstrap';
-import {validateEmail, validatePassword, register, PASSWORD_MAX_LENGTH} from '../../services/FormUtils';
-import {store} from '../../index.js';
-import {loginSuccess, fetchRoles} from '../../ducks/auth';
+import {validateEmail, validatePassword, register, PASSWORD_MAX_LENGTH} from 'services/FormUtils';
+import {store} from 'index.js';
+import {loginSuccess, fetchRoles} from 'ducks/auth';
 import {browserHistory} from 'react-router';
 
 
@@ -94,7 +94,7 @@ export default class Register extends Component {
       : (<div>
         <h3 className="dashed">Let's get started</h3>
         <div className="section-divider-line"></div>
-        <p>Enter your work email to access your account</p>
+        <p>Enter your email to access your account</p>
         <div className="frmcntl">
           <input className="field w-input" name="email" value={this.state.email} onBlur={this.handleEmailBlur} onChange={this.handleInputChange} placeholder="Email Address" type="email"/>
         </div>

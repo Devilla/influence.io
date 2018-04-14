@@ -11,13 +11,13 @@ class HeaderLinks extends Component {
   render() {
     return (<div>
       <div className="brodcastmsg">
-        <span>Welcome to useinfluence.co</span>
+        {/* <span>Welcome to useinfluence.co</span> */}
 
       </div>
       <Nav pullRight="pullRight">
-        <NavItem eventKey={1} href="#">Help Guide</NavItem>
-        <NavItem eventKey={2} href="#">Video Tutorials</NavItem>
-        <NavItem eventKey={3} href="#">Refer & Get Free Months</NavItem>
+        {/* <NavItem eventKey={1} href="#">Help Guide</NavItem> */}
+        {/* <NavItem eventKey={2} href="#">Video Tutorials</NavItem> */}
+        {/* <NavItem eventKey={3} href="#">Refer & Get Free Months</NavItem> */}
         <NavDropdown eventKey={4} title="Account" id="basic-nav-dropdown-right">
           <MenuItem eventKey={4.1}>Upgrade</MenuItem>
           <MenuItem eventKey={4.2} onClick={this.logout}>Logout</MenuItem>

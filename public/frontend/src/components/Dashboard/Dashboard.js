@@ -7,9 +7,9 @@ import StatsCard from './Stats'
 import Website from './Website'
 import Card from './Card'
 import {Scrollbars} from 'react-custom-scrollbars';
-import {dataSales, optionsSales, responsiveSales, legendSales} from '../utils/variable.jsx';
-import {getCookie, ajaxgetrequest} from '../../components/Common/function';
-import { fetchElastic } from '../../ducks/elastic';
+import {dataSales, optionsSales, responsiveSales, legendSales} from 'components/utils/variable.jsx';
+import { getCookie, ajaxgetrequest } from 'components';
+import { fetchElastic } from 'ducks/elastic';
 
 class Dashboard extends Component {
   constructor() {
@@ -22,11 +22,11 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchElastic("trackingId:INF-azg2fhewkjfwstxof");
+    this.props.fetchElastic("json.value.trackingId:INF-azg2fhewkjfwstxof");
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    console.log(nextProps.elastic.message, "====elasticsearch");
   }
 
   createLegend(json) {
@@ -79,7 +79,7 @@ class Dashboard extends Component {
                     </div>}/>
                   </Col>
                 </Row>
-                <Row>
+                {/* <Row>
                   <Col lg={12}>
                     <div className="card card-stats ga-connect">
                       <div className="content">
@@ -96,7 +96,7 @@ class Dashboard extends Component {
                       </div>
                     </div>
                   </Col>
-                </Row>
+                </Row> */}
               </Col>
               <Col lg={6} sm={6}>
 
@@ -148,7 +148,7 @@ class Dashboard extends Component {
           <Col md={12}>
             <p className="text-center">
               Get one of our experts to do it all for you! &nbsp;
-              <a href="javascript:;">Click here</a>
+              {/* <a href="javascript:;">Click here</a> */}
             </p>
           </Col>
         </Row>
