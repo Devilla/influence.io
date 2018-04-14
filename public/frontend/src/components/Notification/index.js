@@ -57,7 +57,6 @@ class Notification extends Component {
   }
 
   render() {
-    console.log(this.props, "========notification");
     return (
       <div className="content">
         <Grid fluid>
@@ -88,13 +87,13 @@ class Notification extends Component {
               />
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col md={12}>
               <p className="text-center">
                 Get one of our experts to do it all for you! &nbsp; <a href="javascript:;">Click here</a>
               </p>
             </Col>
-          </Row>
+          </Row> */}
 
         </Grid>
       </div>

@@ -101,7 +101,7 @@ class DashboardContainer extends Component {
             this.state.render && <div id="main-panel" className="main-panel">
                 <Header {...this.props}/>
                 {this.props.children}
-                <Footer/>
+                {/* <Footer/> */}
               </div>
           }
         </div>

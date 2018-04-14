@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { Link, browserHistory } from 'react-router';
 import HeaderLinks from '../Header/HeaderLinks';
-import logo from '../../assets/img/logo.png';
+import logo from 'assets/img/logo.png';
 
-import appRoutes from '../../routes/app';
+import appRoutes from 'routes/app';
 
 class Sidebar extends Component{
     constructor(props){

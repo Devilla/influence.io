@@ -79,7 +79,7 @@ class Dashboard extends Component {
                     </div>}/>
                   </Col>
                 </Row>
-                <Row>
+                {/* <Row>
                   <Col lg={12}>
                     <div className="card card-stats ga-connect">
                       <div className="content">
@@ -96,7 +96,7 @@ class Dashboard extends Component {
                       </div>
                     </div>
                   </Col>
-                </Row>
+                </Row> */}
               </Col>
               <Col lg={6} sm={6}>
 
@@ -148,7 +148,7 @@ class Dashboard extends Component {
           <Col md={12}>
             <p className="text-center">
               Get one of our experts to do it all for you! &nbsp;
-              <a href="javascript:;">Click here</a>
+              {/* <a href="javascript:;">Click here</a> */}
             </p>
           </Col>
         </Row>
