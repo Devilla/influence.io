@@ -68,6 +68,10 @@ export class Display extends Component{
     }
   }
 
+  componentWillUnmount() {
+      this.props.clearRules();
+  }
+
   render(){
     return (
       <div className="card plain inner-display" style={{width:'95%'}}>

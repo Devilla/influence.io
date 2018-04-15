@@ -18,8 +18,8 @@
     },
     {
       "method": "GET",
-      "path": "/es/live",
-      "handler": "Elasticsearch.searchLiveUsers",
+      "path": "/es/notifications/:trackingId",
+      "handler": "Elasticsearch.searchForNotification",
       "config": {
         "policies": []
       }

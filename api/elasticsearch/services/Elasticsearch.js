@@ -39,38 +39,58 @@ module.exports = {
     });
   },
 
-  searchLiveUsers: async (index,q) => {
-    return new Promise((resolve, reject)=> {
-      client.count({
+  searchForNotification: async (index, trackingId, type) => {
+    let query;
+    switch(type) {
+      case 'live' :
+        query = {
+          "range" : {
+            "timestamp" : {
+                "gte": "now-5m",
+                "lte": "now",
+                "time_zone": "+01:00"
+            }
+          }
+        };
+        break;
+      case 'identification' :
+        query = null;
+        break;
+      case 'journey' :
+        query = null;
+        break;
+      default:
+        break;
+    }
+
+    const rule = await Campaign.findOne({trackingId: trackingId})
+    .populate('rule')
+    .exec()
+    .then(result => result.rule);
+
+    const response = await new Promise((resolve, reject)=> {
+      client.search({
         index: index,
-        // q: q
         body: {
           query: {
             "bool": {
               "must": [
                 {
                   "match": {
-                    "json.value.trackingId": q
-                  },
-                },
-                {
-                  "range" : {
-                    "timestamp" : {
-                        "gte": "now-5m",
-                        "lte": "now",
-                        "time_zone": "+01:00"
-                    }
+                    "json.value.trackingId": trackingId
                   }
-                }
+                },
+                query
               ]
             }
           }
         }
-      }, function (err,resp,status) {
+      }, function (err, resp, status) {
         if (err) reject(err);
         else resolve(resp);
-        strapi.log.info('---Client Search Returned--- ',resp);
+        strapi.log.info('---Client Notification Search Returned--- ',resp);
       });
-    });
+    })
+    return {response, rule};
   },
 };

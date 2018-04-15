@@ -42,7 +42,7 @@ const rules = (state = initialState, action) => {
     case CREATE_SUCCESS:
       return state.set("rule", action.rules);
     case CLEAR_RULES:
-      return state.set("rule", initialRules);
+      return state.set("rule", null);
     default:
       return state
   }

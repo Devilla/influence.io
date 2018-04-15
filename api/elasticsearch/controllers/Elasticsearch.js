@@ -54,24 +54,23 @@ module.exports = {
     });
   },
 
+  searchForNotification: async(ctx) => {
 
-    searchLiveUsers: async(ctx) => {
+    let index = 'filebeat-*';
+    let trackingId = ctx.params.trackingId;
+    let type = ctx.query.type;
 
-      let index = 'filebeat-*';
-
-      let query = ctx.query.trackingId;
-
-      if (!ctx.query){
-        ctx.send({
-          message: 'invalid query if you want to send data using body use other query type'
-        });
-      }
-
-      let data = await strapi.services.elasticsearch.searchLiveUsers(index,query);
-
+    if (!ctx.params){
       ctx.send({
-        message: data
+        message: 'invalid params if you want to send data using body use other params type'
       });
-    },
+    }
+
+    let data = await strapi.services.elasticsearch.searchForNotification(index, trackingId, type);
+
+    ctx.send({
+      message: data
+    });
+  }
 
 };
