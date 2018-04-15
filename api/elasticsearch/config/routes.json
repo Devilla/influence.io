@@ -15,6 +15,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/es/live",
+      "handler": "Elasticsearch.searchLiveUsers",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

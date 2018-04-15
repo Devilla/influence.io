@@ -38,4 +38,39 @@ module.exports = {
       });
     });
   },
+
+  searchLiveUsers: async (index,q) => {
+    return new Promise((resolve, reject)=> {
+      client.count({
+        index: index,
+        // q: q
+        body: {
+          query: {
+            "bool": {
+              "must": [
+                {
+                  "match": {
+                    "json.value.trackingId": q
+                  },
+                },
+                {
+                  "range" : {
+                    "timestamp" : {
+                        "gte": "now-5m",
+                        "lte": "now",
+                        "time_zone": "+01:00"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }, function (err,resp,status) {
+        if (err) reject(err);
+        else resolve(resp);
+        strapi.log.info('---Client Search Returned--- ',resp);
+      });
+    });
+  },
 };
