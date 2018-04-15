@@ -33,6 +33,7 @@ function* fetchOne(action) {
       yield toast.error(res.message, toastConfig);
     else
       yield put(actions.successRules(res));
+
     yield put(loaded());
   } catch (error) {
     yield put(loaded());
