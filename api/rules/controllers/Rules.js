@@ -42,7 +42,6 @@ module.exports = {
    */
 
   findAllNotificationTypesRules: async (ctx) => {
-    console.log(ctx, '==========');
     const data = await strapi.services.rules.fetchAllNotificationTypesRules(ctx.params);
 
     // Send 200 `ok`

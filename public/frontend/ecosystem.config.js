@@ -6,8 +6,8 @@ module.exports = {
   apps: [
     {
       name      : 'frontend',
-      script    : 'npm',
-      args      : 'run start:production',
+      script    : 'npm run start:production',
+      // args      : '',
       env: {
         NODE_ENV: 'development'
       },
