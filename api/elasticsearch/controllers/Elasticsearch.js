@@ -55,4 +55,23 @@ module.exports = {
   },
 
 
+    searchLiveUsers: async(ctx) => {
+
+      let index = 'filebeat-*';
+
+      let query = ctx.query.trackingId;
+
+      if (!ctx.query){
+        ctx.send({
+          message: 'invalid query if you want to send data using body use other query type'
+        });
+      }
+
+      let data = await strapi.services.elasticsearch.searchLiveUsers(index,query);
+
+      ctx.send({
+        message: data
+      });
+    },
+
 };
