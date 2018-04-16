@@ -17,7 +17,8 @@ export const GET = (url) => {
       .then(res => res.json())
       .then(res => res)
   };
-  const token = JSON.parse(localStorage.getItem('authToken')).token;
+  const authToken = JSON.parse(localStorage.getItem('authToken'));
+  const token = authToken?authToken.token:null;
 
   return fetch(base + url, {
     method: 'GET',
@@ -29,7 +30,8 @@ export const GET = (url) => {
 
 
 export const GETFILE = (url) => {
-  const token = JSON.parse(localStorage.getItem('authToken')).token;
+  const authToken = JSON.parse(localStorage.getItem('authToken'));
+  const token = authToken?authToken.token:null;
   return fetch(base + url, {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` },
@@ -38,8 +40,9 @@ export const GETFILE = (url) => {
 };
 
 export const POST = (url, body) => {
-  const authToken = JSON.parse(localStorage.getItem('authToken'))
-  const token = authToken?authToken.token:'';
+  const authToken = JSON.parse(localStorage.getItem('authToken'));
+  const token = authToken?authToken.token:null;
+
   return fetch(base + url, {
     method: 'POST',
     headers: {
@@ -54,7 +57,9 @@ export const POST = (url, body) => {
 };
 
 export const PUT = (url, body) => {
-  const token = JSON.parse(localStorage.getItem('authToken')).token;
+  const authToken = JSON.parse(localStorage.getItem('authToken'));
+  const token = authToken?authToken.token:null;
+
   return fetch(base + url, {
     method: 'PUT',
     headers: {
@@ -69,7 +74,9 @@ export const PUT = (url, body) => {
 };
 
 export const DELETE = (url) => {
-  const token = JSON.parse(localStorage.getItem('authToken')).token;
+  const authToken = JSON.parse(localStorage.getItem('authToken'));
+  const token = authToken?authToken.token:null;
+
   return fetch(base + url, {
     method: 'DELETE',
     headers: {
@@ -81,7 +88,9 @@ export const DELETE = (url) => {
 
 // TODO refactor
 export const POSTFILE = (url, body) => {
-  const token = JSON.parse(localStorage.getItem('authToken')).token;
+  const authToken = JSON.parse(localStorage.getItem('authToken'));
+  const token = authToken?authToken.token:null;
+  
   return fetch(base + url, {
     method: 'POST',
     headers: {

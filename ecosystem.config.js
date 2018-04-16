@@ -15,7 +15,7 @@ module.exports = {
   apps: [
     {
       name: 'proof.io',
-      script: 'server.js',
+      script: 'api.sh',
       env: {
         NODE_ENV: 'development'
       },
@@ -44,6 +44,7 @@ module.exports = {
       + ' && pm2 save'
       + ' && cd public/frontend '
       + ' && npm install'
+      + ' && npm run build'
       + ' && pm2 startOrRestart ecosystem.config.js --env=production'
     }
   }
