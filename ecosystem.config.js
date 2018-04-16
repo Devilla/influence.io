@@ -3,7 +3,7 @@ const TARGET_SERVER_HOST = process.env.TARGET_SERVER_HOST ? process.env.TARGET_S
 // Target server username
 const TARGET_SERVER_USER = process.env.TARGET_SERVER_USER ? process.env.TARGET_SERVER_USER.trim() : '';
 // Target server application path
-const TARGET_SERVER_APP_PATH = `/home/${TARGET_SERVER_USER}/app`;
+const TARGET_SERVER_APP_PATH = `~/proof.io`;
 // Your repository
 const REPO = 'git@gitlab.com:useinfluence/proof.io.git';
 
