@@ -6,7 +6,7 @@ module.exports = {
   apps: [
     {
       name      : 'frontend',
-      script    : 'npm run start:production',
+      script    : 'frontend.sh',
       // args      : '',
       env: {
         NODE_ENV: 'development'
