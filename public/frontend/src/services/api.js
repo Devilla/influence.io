@@ -11,12 +11,12 @@ export const base =
 
 export const GET = (url) => {
   if (url.valueOf('plan')){
-    return fetch('strapi.useinfluence.co' + url, {
+    return fetch(base + url, {
       method: 'GET'
     })
       .then(res => res.json())
       .then(res => res)
-  }
+  };
   const token = JSON.parse(localStorage.getItem('authToken')).token;
 
   return fetch(base + url, {
