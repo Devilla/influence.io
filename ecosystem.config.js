@@ -3,7 +3,7 @@ const TARGET_SERVER_HOST = process.env.TARGET_SERVER_HOST ? process.env.TARGET_S
 // Target server username
 const TARGET_SERVER_USER = process.env.TARGET_SERVER_USER ? process.env.TARGET_SERVER_USER.trim() : '';
 // Target server application path
-const TARGET_SERVER_APP_PATH = `~`;
+const TARGET_SERVER_APP_PATH = `/home/${TARGET_SERVER_USER}/app`;
 // Your repository
 const REPO = 'git@gitlab.com:useinfluence/proof.io.git';
 
@@ -40,12 +40,12 @@ module.exports = {
       ssh_options: 'StrictHostKeyChecking=no',
       path: TARGET_SERVER_APP_PATH,
       'post-deploy': 'npm install --production'
-      + ' && pm2 startOrRestart ecosystem.config.js --env=production'
-      + ' && pm2 save'
+      + ' && PM2_HOME=/root/.pm2 pm2 startOrRestart ecosystem.config.js --env=production'
+      + ' && PM2_HOME=/root/.pm2 pm2 save'
       + ' && cd public/frontend '
       + ' && npm install'
       + ' && npm run build'
-      + ' && pm2 startOrRestart ecosystem.config.js --env=production'
+      + ' && PM2_HOME=/root/.pm2 pm2 startOrRestart ecosystem.config.js --env=production'
     }
   }
 };
