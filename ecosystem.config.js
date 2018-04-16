@@ -40,12 +40,12 @@ module.exports = {
       ssh_options: 'StrictHostKeyChecking=no',
       path: TARGET_SERVER_APP_PATH,
       'post-deploy': 'npm install --production'
-      + ' && PM2_HOME=/root/.pm2 pm2 startOrRestart ecosystem.config.js --env=production'
-      + ' && PM2_HOME=/root/.pm2 pm2 save'
+      + ' && pm2 startOrRestart ecosystem.config.js --env=production'
+      + ' && pm2 save'
       + ' && cd public/frontend '
       + ' && npm install'
       + ' && npm run build'
-      + ' && PM2_HOME=/root/.pm2 pm2 startOrRestart ecosystem.config.js --env=production'
+      + ' && pm2 startOrRestart ecosystem.config.js --env=production'
     }
   }
 };
