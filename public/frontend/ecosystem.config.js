@@ -7,7 +7,6 @@ module.exports = {
     {
       name      : 'frontend',
       script    : 'frontend.sh',
-      // args      : '',
       env: {
         NODE_ENV: 'development'
       },
