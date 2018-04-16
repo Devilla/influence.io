@@ -14,15 +14,6 @@ module.exports = {
    * @return {Object}
    */
 
-  index: async (ctx) => {
-    // Add your own logic here.
-
-    // Send 200 `ok`
-    ctx.send({
-      message: 'ok'
-    });
-  },
-
   health: async(ctx) =>{
     //Our logic
 
@@ -35,7 +26,7 @@ module.exports = {
     });
   },
 
-  searchWithQuery: async(ctx) => {
+  query: async(ctx) => {
 
     let index = 'filebeat-*';
 
@@ -47,14 +38,14 @@ module.exports = {
       });
     }
 
-    let data = await strapi.services.elasticsearch.searchWithQuery(index,query);
+    let data = await strapi.services.elasticsearch.query(index,query);
 
     ctx.send({
       message: data
     });
   },
 
-  searchForNotification: async(ctx) => {
+  notification: async(ctx) => {
 
     let index = 'filebeat-*';
     let trackingId = ctx.params.trackingId;
@@ -66,7 +57,7 @@ module.exports = {
       });
     }
 
-    let data = await strapi.services.elasticsearch.searchForNotification(index, trackingId, type);
+    let data = await strapi.services.elasticsearch.notification(index, trackingId, type);
 
     ctx.send({
       message: data

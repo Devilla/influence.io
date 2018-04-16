@@ -17,10 +17,14 @@ module.exports =  {
     const formatter = msg;
     let message =  formatter + '\n';
     webSocketStream.write(message);
+  },
+  health: () => {
+    if (strapi.websocket){
+      return true;
+    }else {
+      return false;
+    }
   }
-
-
-
 
 
 };

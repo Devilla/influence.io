@@ -11,15 +11,15 @@
     {
       "method": "GET",
       "path": "/es/search",
-      "handler": "Elasticsearch.searchWithQuery",
+      "handler": "Elasticsearch.query",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/es/notifications/:trackingId",
-      "handler": "Elasticsearch.searchForNotification",
+      "path": "/es/search/:_id",
+      "handler": "Elasticsearch.Notification",
       "config": {
         "policies": []
       }

@@ -29,7 +29,7 @@ module.exports = {
   },
 
 
-  searchWithQuery: async (index,q) => {
+  query: async (index,q) => {
     return new Promise((resolve, reject)=> {
       client.search({index: index, q: q}, function (err,resp,status) {
         if (err) reject(err);
@@ -39,7 +39,7 @@ module.exports = {
     });
   },
 
-  searchForNotification: async (index, trackingId, type) => {
+  notification: async (index, trackingId, type) => {
     let query;
     switch(type) {
       case 'live' :
