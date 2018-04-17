@@ -3,7 +3,7 @@
     {
       "method": "GET",
       "path": "/ws/health",
-      "handler": "Elasticsearch.health",
+      "handler": "Websocket.health",
       "config": {
         "policies": []
       }
