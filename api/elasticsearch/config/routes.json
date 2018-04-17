@@ -19,7 +19,7 @@
     {
       "method": "GET",
       "path": "/es/search/:_id",
-      "handler": "Elasticsearch.Notification",
+      "handler": "Elasticsearch.notification",
       "config": {
         "policies": []
       }
