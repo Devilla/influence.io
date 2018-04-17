@@ -5,7 +5,9 @@
       "path": "/es/health",
       "handler": "Elasticsearch.health",
       "config": {
-        "policies": []
+        "policies": [
+          "plugins.users-permissions.permissions"
+        ]
       }
     },
     {
@@ -13,7 +15,9 @@
       "path": "/es/search",
       "handler": "Elasticsearch.searchWithQuery",
       "config": {
-        "policies": []
+        "policies": [
+          "plugins.users-permissions.permissions"
+        ]
       }
     },
     {
@@ -21,7 +25,9 @@
       "path": "/es/notifications/:trackingId",
       "handler": "Elasticsearch.searchForNotification",
       "config": {
-        "policies": []
+        "policies": [
+          "plugins.users-permissions.permissions"
+        ]
       }
     }
   ]

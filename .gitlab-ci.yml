@@ -1,3 +1,4 @@
+image: keymetrics/pm2:6
 
 stages:
   - deploy
