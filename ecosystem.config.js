@@ -40,7 +40,7 @@ module.exports = {
       ssh_options: 'StrictHostKeyChecking=no',
       path: TARGET_SERVER_APP_PATH,
       'post-deploy': 'npm install pm2 -g'
-      + 'npm install --production'
+      + ' && npm install --production'
       + ' && pm2 startOrRestart ecosystem.config.js --env=production'
       + ' && pm2 save'
       + ' && cd public/frontend '
