@@ -8,8 +8,6 @@ export const UPDATE = action('UPDATE');
 export const SUCCESS = action('SUCCESS');
 
 export const fetchPlan = () => ({ type: FETCH });
-export const createPlan = (plan) => ({ type: CREATE, plan });
-export const updatePlan = (plan) => ({ type: UPDATE, plan });
 export const successPlan = (plan) => ({ type: SUCCESS, plan });
 
 const initialState = fromJS({});

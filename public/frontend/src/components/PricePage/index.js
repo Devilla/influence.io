@@ -1,51 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import {Animated} from "react-animated-css";
+import {Animated} from 'react-animated-css';
 import $ from 'jquery';
 import axios from 'axios';
 import Switch from 'react-flexible-switch';
 import { fetchPlan } from 'ducks/plan';
 
 const data = {
-  "startups": {
-    "inr": {
-      "monthly": "INR 950",
-      "yearly": "INR 780"
+  'startups': {
+    'inr': {
+      'monthly': 'INR 950',
+      'yearly': 'INR 780'
     },
-    "usd": {
-      "monthly": "$25",
-      "yearly": "$19"
+    'usd': {
+      'monthly': '$25',
+      'yearly': '$19'
     }
   },
-  "smallbusinesses": {
-    "inr": {
-      "monthly": "INR 2250",
-      "yearly": "INR 1800"
+  'smallbusinesses': {
+    'inr': {
+      'monthly': 'INR 2250',
+      'yearly': 'INR 1800'
     },
-    "usd": {
-      "monthly": "$55",
-      "yearly": "$45"
+    'usd': {
+      'monthly': '$55',
+      'yearly': '$45'
     }
   },
-  "advanced": {
-    "inr": {
-      "monthly": "INR 3800",
-      "yearly": "INR 3100"
+  'advanced': {
+    'inr': {
+      'monthly': 'INR 3800',
+      'yearly': 'INR 3100'
     },
-    "usd": {
-      "monthly": "$90",
-      "yearly": "$73"
+    'usd': {
+      'monthly': '$90',
+      'yearly': '$73'
     }
   },
-  "pro": {
-    "inr": {
-      "monthly": "INR 8900",
-      "yearly": "INR 7200"
+  'pro': {
+    'inr': {
+      'monthly': 'INR 8900',
+      'yearly': 'INR 7200'
     },
-    "usd": {
-      "monthly": "$210",
-      "yearly": "$180"
+    'usd': {
+      'monthly': '$210',
+      'yearly': '$180'
     }
   }
 };
@@ -68,13 +68,13 @@ class Price extends Component {
   }
 
   componentWillMount() {
-      this.props.fetchPlan();
-      this.initCountry();
-      this.currencyRates();
+    this.props.fetchPlan();
+    this.initCountry();
+    this.currencyRates();
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     this.accordian();
   }
 
@@ -83,18 +83,18 @@ class Price extends Component {
   }
 
   handleMonthChange() {
-    this.setState({externalValue: false, planPeriod: 1})
+    this.setState({externalValue: false, planPeriod: 1});
   }
 
   handleYearChange() {
-    this.setState({externalValue: true, planPeriod: 12})
+    this.setState({externalValue: true, planPeriod: 12});
   }
 
   handleSwitchChange(value) {
     if (value) {
-      this.setState({externalValue: true, planPeriod: 12})
+      this.setState({externalValue: true, planPeriod: 12});
     } else {
-      this.setState({externalValue: false, planPeriod: 1})
+      this.setState({externalValue: false, planPeriod: 1});
     }
   }
 
@@ -102,18 +102,19 @@ class Price extends Component {
     $('.faq .faqwrap ul li .questions').on('click', function() {
       $('.faq .faqwrap ul li .questions').removeClass('active');
       $(this).parent().toggleClass('active');
-      $(this).next().slideToggle(300)
-    })
+      $(this).next().slideToggle(300);
+    });
   }
 
   currencyRates() {
     axios.get('https://openexchangerates.org/api/latest.json?app_id=95df1c8c28bb434cbdee931132592e21&base=USD').then((response) => {
-      this.setState({rate: response.data.rates.INR})
+      this.setState({rate: response.data.rates.INR});
     })
     .catch(err => {
       console.log(err);
-    })
+    });
   }
+
 
   initCountry(price) {
     axios.get('https://geoip-db.com/json/geoip.php').then((response) => {
@@ -128,7 +129,7 @@ class Price extends Component {
   }
 
   returnRates(price) {
-    if(this.state.country_code=="IN") {
+    if(this.state.country_code=='IN') {
       return '₹'+Math.floor(price*this.state.rate*this.state.planPeriod);
     } else {
       return '$'+Math.floor(price*this.state.planPeriod);
@@ -137,11 +138,11 @@ class Price extends Component {
 
   renderPriceList() {
     const planList = this.props.planList;
-      return planList?planList.map((plan, index) =>
+    return planList?planList.map((plan, index) =>
         <div className={index%2==0?
-          "pricing-column w-col w-col-3"
+          'pricing-column w-col w-col-3'
           :
-          "last pricing-titlecolumn w-col w-col-3"}
+          'last pricing-titlecolumn w-col w-col-3'}
           >
           <div className="pricing-block">
             <div className="pricing-price-wrapper">
@@ -201,7 +202,7 @@ class Price extends Component {
         </div>
       )
       :
-      <div>No Plan to select from.</div>
+      <div>No Plan to select from.</div>;
   }
 
   render() {
@@ -239,12 +240,12 @@ class Price extends Component {
                 </li>
                 <li>
                   <Switch circleStyles={{
-                      onColor: 'blue',
-                      offColor: 'blue',
-                      diameter: 18
-                    }} switchStyles={{
-                      width: 50
-                    }} value={this.state.externalValue} onChange={this.handleSwitchChange.bind(this)}/>
+                    onColor: 'blue',
+                    offColor: 'blue',
+                    diameter: 18
+                  }} switchStyles={{
+                    width: 50
+                  }} value={this.state.externalValue} onChange={this.handleSwitchChange.bind(this)}/>
                 </li>
                 <li>
                   <a href="javascript:;" className={this.state.externalValue
@@ -366,6 +367,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchPlan
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Price);
