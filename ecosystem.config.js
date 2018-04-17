@@ -39,7 +39,8 @@ module.exports = {
       repo: REPO,
       ssh_options: 'StrictHostKeyChecking=no',
       path: TARGET_SERVER_APP_PATH,
-      'post-deploy': 'npm install --production'
+      'post-deploy': 'npm install pm2 -g'
+      + 'npm install --production'
       + ' && pm2 startOrRestart ecosystem.config.js --env=production'
       + ' && pm2 save'
       + ' && cd public/frontend '
