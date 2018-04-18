@@ -1,8 +1,10 @@
 # Proof : UseInfluence
 
+We are building an AI powered social media analytics tool for next generation.
+
 ## Introduction
 
-- Use influence allows website owners to increase website conversion using social proof using methods.
+- Use influence allows website owners to increase website conversion using social proof  methods.
 - Live activity notifications 
 - Live visitor count
 - Visitor identification
@@ -15,6 +17,14 @@
 - Optimisation
 - Language
 
+## Tech Stack 
+
+- NodeJS
+- Mongo
+- Strapi
+- Elastic Stack - Kibana and Logstash 
+- Deep Learning
+ 
 
 
 ### Development 
@@ -51,9 +61,9 @@ Thanks
 Authors 
    
    Saransh Sharma
+   Shanky Rana
    
 Founders
-   
    Raman Parashar , Kirti Prakash 
  ```
 

@@ -2,14 +2,16 @@
   "name": "proof.io",
   "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application.",
+  "description": "Useinfluence : AI powered social proofs.",
   "main": "./server.js",
   "scripts": {
     "setup": "cd admin && npm run setup",
     "start": "node server.js",
     "strapi": "node_modules/strapi/bin/strapi.js",
     "lint": "node_modules/.bin/eslint api/**/*.js config/**/*.js plugins/**/*.js",
-    "postinstall": "node node_modules/strapi/lib/utils/post-install.js"
+    "postinstall": "node node_modules/strapi/lib/utils/post-install.js",
+    "frontend": "cd public/frontend && npm install  && npm run build",
+    "moveui":"mv public/frontend/build public"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -31,13 +33,13 @@
     "ws": "^5.1.0"
   },
   "author": {
-    "name": "saranshsharma",
-    "email": "",
-    "url": ""
+    "name": "maektwain",
+    "email": "saransh@theupscale.in",
+    "url": "https://saranshsharma.me"
   },
   "maintainers": [
     {
-      "name": "saranshsharma",
+      "name": "shankyrana",
       "email": "",
       "url": ""
     }
