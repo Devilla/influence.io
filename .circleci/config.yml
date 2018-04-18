@@ -1,35 +1,35 @@
-machine:
-  environment:
-      PROJECT_ID: influence-197607
-      CLUSTER_NAME: influence-cluster
-      COMPUTE_ZONE: us-central1-a
-      #As specified in Deployment.yml
-      DEPLOYMENT_NAME: influence-dep
-      CONTAINER_NAME: node-app
-
-
-dependencies:
-  pre:
-    - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update --version 120.0.0
-    - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update --version 120.0.0 kubectl
-
-deployment:
-    production:
-        branch: master
-        commands:
-        # Save the string to a text file
-        - echo $SERVICE_KEY > key.txt
-        # Decode the Service Account
-        - base64 -i key.txt -d > ${HOME}/gcloud-service-key.json
-        # Authenticate CircleCI with the service account file
-        - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account ${ACCOUNT_ID} --key-file ${HOME}/gcloud-service-key.json
-        # Set the default project
-        - sudo /opt/google-cloud-sdk/bin/gcloud config set project $PROJECT_ID
-        # Set the default container
-        - sudo /opt/google-cloud-sdk/bin/gcloud --quiet config set container/cluster $CLUSTER_NAME
-        # Set the compute zone
-        - sudo /opt/google-cloud-sdk/bin/gcloud config set compute/zone $COMPUTE_ZONE
-        # Get the cluster credentials.
-        - sudo /opt/google-cloud-sdk/bin/gcloud --quiet container clusters get-credentials $CLUSTER_NAME
-        # Start good old Docker
-        - sudo service docker start
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    working_directory: ~/mern-starter # directory where steps will run
+    docker: # run the steps with Docker
+      - image: circleci/node:8 # ...with this image as the primary container; this is where all `steps` will run
+      - image: mongo:3.4.4 # and this image as the secondary service container
+    steps: # a collection of executable commands
+      - checkout # special step to check out source code to working directory
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache: # special step to restore the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-strapi
+          command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: # run frontend
+          name: frontend
+          command: npm run frontend
+      - run: # run coverage report
+          name: move-ui
+          command: npm run moveui
+      - store_artifacts: # special step to save test results as as artifact
+          path: test-results.xml
+          prefix: tests
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+      - store_test_results: # special step to upload test results for display in Test Summary
+          path: test-results.xml
