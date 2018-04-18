@@ -1,0 +1,35 @@
+machine:
+  environment:
+      PROJECT_ID: influence-197607
+      CLUSTER_NAME: influence-cluster
+      COMPUTE_ZONE: us-central1-a
+      #As specified in Deployment.yml
+      DEPLOYMENT_NAME: influence-dep
+      CONTAINER_NAME: node-app
+
+
+dependencies:
+  pre:
+    - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update --version 120.0.0
+    - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update --version 120.0.0 kubectl
+
+deployment:
+    production:
+        branch: master
+        commands:
+        # Save the string to a text file
+        - echo $SERVICE_KEY > key.txt
+        # Decode the Service Account
+        - base64 -i key.txt -d > ${HOME}/gcloud-service-key.json
+        # Authenticate CircleCI with the service account file
+        - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account ${ACCOUNT_ID} --key-file ${HOME}/gcloud-service-key.json
+        # Set the default project
+        - sudo /opt/google-cloud-sdk/bin/gcloud config set project $PROJECT_ID
+        # Set the default container
+        - sudo /opt/google-cloud-sdk/bin/gcloud --quiet config set container/cluster $CLUSTER_NAME
+        # Set the compute zone
+        - sudo /opt/google-cloud-sdk/bin/gcloud config set compute/zone $COMPUTE_ZONE
+        # Get the cluster credentials.
+        - sudo /opt/google-cloud-sdk/bin/gcloud --quiet container clusters get-credentials $CLUSTER_NAME
+        # Start good old Docker
+        - sudo service docker start

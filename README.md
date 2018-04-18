@@ -29,11 +29,14 @@ We are building an AI powered social media analytics tool for next generation.
 
 ### Development 
 
-Install strapi  and docker.
+Install using npm.
 
-``
-npm install strapi@alpha -g
-``
+```
+npm i 
+
+npm run frontend
+
+```
 
 Install Docker if you dont have already. Configure docker instances inside the `/docker` directory
 
@@ -45,13 +48,16 @@ docker-compose up -d
 
 Once you are finished with above and everything seems alright time to fire 
 
-``
-strapi start
-``
+```
+npm run start
 
-Then go at ``localhost:1337/admin`` and create your super user. You are good to go.
+```
 
-Please read  [strapi document](https://strapi.io/documentation/)
+You will see the ui on the ``localhost:1337`` and then you can go create admin at  ``localhost:1337/admin`` and create your super user.
+
+You are good to go
+
+Please read  [influence document](https://github.com/)
 
 Thanks
 
