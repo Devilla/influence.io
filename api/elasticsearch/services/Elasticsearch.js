@@ -5,6 +5,9 @@
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
+
+// Public dependencies.
+
 const elasticsearch = require('elasticsearch');
 
 
@@ -16,7 +19,8 @@ const client = elasticsearch.Client({
 
 module.exports = {
 
-  health : async () => {
+
+health : async () => {
     return new Promise((resolve, reject)=> {
       client.cluster.health({}, function (err,resp,status) {
         if(err) reject(err);
@@ -92,5 +96,6 @@ module.exports = {
       });
     })
     return {response, rule};
-  },
+  }
+
 };

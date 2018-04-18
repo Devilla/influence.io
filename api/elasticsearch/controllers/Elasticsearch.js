@@ -3,18 +3,12 @@
 /**
  * Elasticsearch.js controller
  *
- * @description: A set of functions called "actions" of the `elasticsearch` plugin.
+ * @description: A set of functions called "actions" for managing `Elasticsearch`.
  */
 
 module.exports = {
 
-  /**
-   * Default action.
-   *
-   * @return {Object}
-   */
-
-  health: async(ctx) =>{
+health: async(ctx) =>{
     //Our logic
 
     //Send cluster health
@@ -63,5 +57,8 @@ module.exports = {
       message: data
     });
   }
+
+
+
 
 };

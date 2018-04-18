@@ -1,8 +1,8 @@
-  {
+{
   "routes": [
     {
       "method": "GET",
-      "path": "/es/health",
+      "path": "/elasticsearch/health",
       "handler": "Elasticsearch.health",
       "config": {
         "policies": []
@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/es/search",
+      "path": "/elasticsearch/query",
       "handler": "Elasticsearch.query",
       "config": {
         "policies": []
@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/es/search/:_id",
+      "path": "/elasticsearch/search/:_id",
       "handler": "Elasticsearch.notification",
       "config": {
         "policies": []
