@@ -1,5 +1,9 @@
 # Proof : UseInfluence
 
+[![codebeat badge](https://codebeat.co/badges/14c00570-434e-48e2-aae9-04f15670d299)](https://codebeat.co/projects/github-com-influenceio-influence-io-master)
+
+[![CircleCI](https://circleci.com/gh/InfluenceIO/influence.io.svg?style=svg)](https://circleci.com/gh/InfluenceIO/influence.io)
+
 We are building an AI powered social media analytics tool for next generation.
 
 ## Introduction
