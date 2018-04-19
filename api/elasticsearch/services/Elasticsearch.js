@@ -70,32 +70,38 @@ health : async () => {
     const rule = await Campaign.findOne({trackingId: trackingId})
     .populate('rule')
     .exec()
-    .then(result => result.rule);
+    .then(result => result?result.rule:null);
 
-    const response = await new Promise((resolve, reject)=> {
-      client.search({
-        index: index,
-        body: {
-          query: {
-            "bool": {
-              "must": [
-                {
-                  "match": {
-                    "json.value.trackingId": trackingId
-                  }
-                },
-                query
-              ]
+    if(rule) {
+      const response = await new Promise((resolve, reject) => {
+        client.search({
+          index: index,
+          body: {
+            query: {
+              "bool": {
+                "must": [
+                  {
+                    "match": {
+                      "json.value.trackingId": trackingId
+                    }
+                  },
+                  query
+                ]
+              }
             }
           }
-        }
-      }, function (err, resp, status) {
-        if (err) reject(err);
-        else resolve(resp);
-        strapi.log.info('---Client Notification Search Returned--- ',resp);
+        }, function (err, resp, status) {
+          if (err) reject(err);
+          else resolve(resp);
+          strapi.log.info('---Client Notification Search Returned--- ',resp);
+        });
       });
-    })
-    return {response, rule};
+      return {response, rule};
+    } else {
+      return {error: "Tracking Id not found"};
+    }
+
+
   }
 
 };
