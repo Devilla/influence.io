@@ -6,12 +6,14 @@
   "main": "./server.js",
   "scripts": {
     "setup": "cd admin && npm run setup",
+    "start-dev-backend": "npm install && strapi start",
+    "start-dev-frontend": "cd public/frontend && npm install  && npm start",
     "start": "node server.js",
     "strapi": "node_modules/strapi/bin/strapi.js",
     "lint": "node_modules/.bin/eslint api/**/*.js config/**/*.js plugins/**/*.js",
     "postinstall": "node node_modules/strapi/lib/utils/post-install.js",
     "frontend": "cd public/frontend && npm install  && npm run build",
-    "moveui":"rm -rf public/build && mv public/frontend/build public"
+    "moveui": "rm -rf public/build && mv public/frontend/build public"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

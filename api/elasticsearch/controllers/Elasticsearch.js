@@ -42,7 +42,7 @@ health: async(ctx) =>{
   notification: async(ctx) => {
 
     let index = 'filebeat-*';
-    let trackingId = ctx.params.trackingId;
+    let trackingId = ctx.params._id;
     let type = ctx.query.type;
 
     if (!ctx.params){
