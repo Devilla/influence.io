@@ -4,6 +4,8 @@
 
 [![CircleCI](https://circleci.com/gh/InfluenceIO/influence.io.svg?style=svg)](https://circleci.com/gh/InfluenceIO/influence.io)
 
+[![Build Status](https://semaphoreci.com/api/v1/ramanparashar/influence-io-2/branches/master/badge.svg)](https://semaphoreci.com/ramanparashar/influence-io-2)
+
 We are building an AI powered social media analytics tool for next generation.
 
 ## Introduction
