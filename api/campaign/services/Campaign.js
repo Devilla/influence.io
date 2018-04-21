@@ -72,7 +72,7 @@ module.exports = {
   add: async (values) => {
     values.websiteUrl = values.websiteUrl.replace(/(^\w+:|^)\/\//, '');
     var checkDomain = new Promise((resolve, reject) => {
-      domainPing(values.websiteUrl) // Insert the domain you want to ping
+      domainPing(values.websiteUrl)
        .then((res) => {
            resolve(res);
        })
@@ -109,7 +109,7 @@ module.exports = {
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
     await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
-    return Campaign.update(params, values, { multi: true });
+    return Campaign.update(params, values, { upsert:false, multi: true });
   },
 
   /**
