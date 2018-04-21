@@ -70,15 +70,16 @@ module.exports = {
    */
 
   add: async (values) => {
+    values.websiteUrl = values.websiteUrl.replace(/(^\w+:|^)\/\//, '');
     var checkDomain = new Promise((resolve, reject) => {
-      domainPing(values.websiteUrl.replace(/(^\w+:|^)\/\//, '')) // Insert the domain you want to ping
+      domainPing(values.websiteUrl) // Insert the domain you want to ping
        .then((res) => {
            resolve(res);
        })
        .catch((error) => {
          reject(error)
        });
-    })
+    });
 
     var dom = await checkDomain
     .then((result) => {
