@@ -4,7 +4,7 @@ jobs: # a collection of steps
     working_directory: ~/mern-starter # directory where steps will run
     docker: # run the steps with Docker
       - image: circleci/node:8 # ...with this image as the primary container; this is where all `steps` will run
-      - image: mongo:3.4.4 # and this image as the secondary service container
+       # and this image as the secondary service container
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
       - run:
@@ -20,11 +20,11 @@ jobs: # a collection of steps
           paths:
             - ./node_modules
       - run: # run frontend
-          name: frontend
-          command: npm run frontend
-      - run: # run coverage report
-          name: move-ui
-          command: npm run moveui
+          name: setup
+          command: npm run setup
+       - run: # run frontend
+          name: lint
+          command: npm run lint
       - store_artifacts: # special step to save test results as as artifact
           path: test-results.xml
           prefix: tests

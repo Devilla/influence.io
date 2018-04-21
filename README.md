@@ -39,10 +39,9 @@ Install using npm.
 
 ```
 npm i 
+npm run start-dev-backend
+npm run start-dev-frontend
 
-npm run frontend
-
-npm run moveui
 ```
 
 Install Docker if you dont have already. Configure docker instances inside the `/docker` directory
