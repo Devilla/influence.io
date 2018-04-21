@@ -60,7 +60,6 @@ module.exports = {
 
   create: async (ctx) => {
     const data = await strapi.services.campaign.add(ctx.request.body);
-
     // Send 201 `created`
     ctx.created(data);
   },
