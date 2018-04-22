@@ -31,10 +31,10 @@ module.exports = {
 
   // Before creating a value.
   // Fired before `insert` query.
-  // beforeCreate: async (model) => {
-  //     const role =  await strapi.query('role', 'users-permissions').findOne({ name: {$in:['customer', 'Customer']} }, ['users', 'permissions']);
-  //     model.role = role;
-  // },
+  beforeCreate: async (model) => {
+      const role =  await strapi.query('role', 'users-permissions').findOne({ name: {$in:['customer', 'Customer']} }, ['users', 'permissions']);
+      model.role = role;
+  },
 
   // After creating a value.
   // Fired after `insert` query.
