@@ -17,7 +17,7 @@ module.exports = {
   find: async (ctx) => {
     const profile = ctx.state.user.profile;
     const _id = profile?profile._id:null;
-    let params;
+    let params = {};
     if(_id)
       params['_id'] = _id;
     else
