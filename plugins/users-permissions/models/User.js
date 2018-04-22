@@ -38,7 +38,21 @@ module.exports = {
 
   // After creating a value.
   // Fired after `insert` query.
-  // afterCreate: async (model, result) => {},
+  afterCreate: async (model, result) => {
+    strapi.plugins.email.services.email.send({
+      from: 'no-reply@strapi.io', // Sender (defaults to `strapi.config.smtp.from`).
+      to: result.email, // Recipients list.
+      html: '<p>Hello John</p>', // HTML version of the email content.
+      text: 'Hello John' // Text version of the email content.
+    }, function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(data);
+      }
+      return;
+    });
+  },
 
   // Before updating a value.
   // Fired before an `update` query.
