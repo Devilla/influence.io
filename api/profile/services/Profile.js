@@ -36,10 +36,10 @@ module.exports = {
    */
 
   fetchUserProfile: (params) => {
-    const _id = params?params._id:null;
-
+    // const _id = params?params._id:null;
+    const query = params._id?{_id: params._id}:{user: params.userId}
     return Profile
-      .findOne({_id: _id});
+      .findOne(query);
     // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
