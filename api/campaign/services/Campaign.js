@@ -8,6 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
+const domainPing = require("domain-ping");
 
 module.exports = {
 
@@ -69,9 +70,32 @@ module.exports = {
    */
 
   add: async (values) => {
-    const data = await Campaign.create(_.omit(values, _.keys(_.groupBy(strapi.models.campaign.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(data), { values }));
-    return data;
+    values.websiteUrl = values.websiteUrl.replace(/(^\w+:|^)\/\//, '');
+    var checkDomain = new Promise((resolve, reject) => {
+      domainPing(values.websiteUrl)
+       .then((res) => {
+           resolve(res);
+       })
+       .catch((error) => {
+         reject(error)
+       });
+    });
+
+    var dom = await checkDomain
+    .then((result) => {
+      return result;
+    })
+    .catch(err => {
+      return {error: true, message: "Invalid domain"};
+    });
+
+    if(dom.error) {
+      return dom;
+    } else {
+      const data = await Campaign.create(_.omit(values, _.keys(_.groupBy(strapi.models.campaign.associations, 'alias'))));
+      await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(data), { values }));
+      return data;
+    }
   },
 
   /**
@@ -85,7 +109,7 @@ module.exports = {
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
     await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
-    return Campaign.update(params, values, { multi: true });
+    return Campaign.update(params, values, { upsert:false, multi: true });
   },
 
   /**

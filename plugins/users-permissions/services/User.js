@@ -54,6 +54,7 @@ module.exports = {
       return await strapi.plugins['content-manager'].services['contentmanager'].edit(params, values, 'users-permissions');
     }
 
+    // return User.findOneOrUpdate({_id: params.id}, {$set: values}, { new : true, upsert: true, multi: true });
     return strapi.query('user', 'users-permissions').update(_.assign(params, values));
   },
 

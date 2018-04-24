@@ -23,6 +23,7 @@
     "eslint-plugin-react": "^6.8.0"
   },
   "dependencies": {
+    "domain-ping": "^0.1.9",
     "elasticsearch": "^14.2.1",
     "json-formatter-js": "^2.2.0",
     "lodash": "4.x.x",
