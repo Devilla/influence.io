@@ -12,15 +12,18 @@
     "strapi": "node_modules/strapi/bin/strapi.js",
     "lint": "node_modules/.bin/eslint api/**/*.js config/**/*.js plugins/**/*.js",
     "postinstall": "node node_modules/strapi/lib/utils/post-install.js",
-    "frontend": "cd public/frontend && npm install  && npm run build"
+    "frontend": "cd public/frontend && npm install  && npm run build",
+    "test": "mocha"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
+    "chai": "^4.1.2",
     "eslint": "^3.12.2",
-    "eslint-plugin-babel": "^4.0.0",
     "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-react": "^6.8.0"
+    "eslint-plugin-react": "^6.8.0",
+    "mocha": "^5.1.1"
   },
   "dependencies": {
     "domain-ping": "^0.1.9",
@@ -33,7 +36,9 @@
     "strapi": "3.0.0-alpha.11.1",
     "strapi-mongoose": "3.0.0-alpha.11.1",
     "uniqid": "^4.1.1",
-    "ws": "^5.1.0"
+    "ws": "^5.1.0",
+    "fetch": "1.1.0",
+    "gravatar": "1.6.0"
   },
   "author": {
     "name": "maektwain",
