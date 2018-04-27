@@ -59,7 +59,7 @@ health : async () => {
         // };
         break;
       case 'identification' :
-        query = null;
+        query = `json.value.trackingId:${trackingId} AND json.value.source.url.pathname:('/register' OR '/sign-up' OR '/signup') AND json.value.event: 'formsubmit'`;
         break;
       case 'journey' :
         query = null;
