@@ -102,6 +102,7 @@ health : async () => {
 
 
     if(rule) {
+      var userDetails;
       const response = await new Promise((resolve, reject) => {
         client.search(query, function (err, resp, status) {
           if (err) reject(err);
@@ -111,6 +112,7 @@ health : async () => {
 
       if(type == 'journey') {
         let email = response.hits.hits[0]._source.json.value.form.email;
+        let timestamp = response.hits.hits[0]._source.json.value.timestamp;
         try {
           userDetails = await strapi.services.enrichment.picasaWeb(email);
         } catch(err) {
@@ -122,6 +124,7 @@ health : async () => {
             };
           }
         }
+        userDetails['timestamp'] = timestamp;
       }
 
       return {response, rule, userDetails};
