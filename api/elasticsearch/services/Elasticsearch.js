@@ -111,14 +111,11 @@ health : async () => {
       });
 
       if(type == 'journey') {
-        let email = response.hits.hits._source.json.value.form.email;
+        let email = response.hits.hits[0]._source.json.value.form.email;
         var userDetails;
-
         userDetails = await strapi.services.enrichment.picasaWeb(email);
         if(userDetails)
           userDetails = await strapi.services.enrichment.gravatr(email);
-
-        console.log(userDetails);
       }
 
       return {response, rule, userDetails};
