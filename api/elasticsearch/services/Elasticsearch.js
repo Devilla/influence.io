@@ -55,25 +55,51 @@ health : async () => {
       case 'identification' :
         query = {
           index: index,
-          q: `json.value.trackingId:${trackingId} AND json.value.source.url.pathname:('/register' OR '/sign-up' OR '/signup') AND json.value.event: 'formsubmit'`
+          body: {
+            query: {
+              "bool": {
+                "must": [
+                  { "match": { "json.value.trackingId":  trackingId }},
+                  { "terms": { "json.value.source.url.pathname": [ '/register', '/sign-up', '/signup' ]   }},
+                  { "match": { "json.value.event": 'formsubmit' }}
+                ]
+              }
+            }
+          }
         };
         break;
       case 'journey' :
         query = {
           index: index,
-          q: query,
-          sort: '@timestamp:desc',
-          size: 1
+          body: {
+            query: {
+              "bool": {
+                "must": [
+                  { "match": { "json.value.trackingId":  trackingId }},
+                  { "terms": { "json.value.source.url.pathname": [ '/register', '/sign-up', '/signup' ]   }},
+                  { "match": { "json.value.event": 'formsubmit' }}
+                ]
+              }
+            },
+            "sort" : [
+              { "@timestamp" : {"order" : "desc", "mode" : "max"}}
+            ],
+            size: 1
+          }
         };
         break;
       default:
         break;
     }
 
+
+
     const rule = await Campaign.findOne({trackingId: trackingId})
     .populate('rule')
     .exec()
     .then(result => result?result.rule:null);
+
+
 
     if(rule) {
       const response = await new Promise((resolve, reject) => {
@@ -83,7 +109,19 @@ health : async () => {
           strapi.log.info('---Client Notification Search Returned--- ',resp);
         });
       });
-      return {response, rule};
+
+      if(type == 'journey') {
+        let email = response.hits.hits._source.json.value.form.email;
+        var userDetails;
+
+        userDetails = await strapi.services.enrichment.picasaWeb(email);
+        if(userDetails)
+          userDetails = await strapi.services.enrichment.gravatr(email);
+
+        console.log(userDetails);
+      }
+
+      return {response, rule, userDetails};
     } else {
       return {error: "Tracking Id not found"};
     }
