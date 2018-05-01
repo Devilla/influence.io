@@ -28,6 +28,8 @@
   "dependencies": {
     "domain-ping": "^0.1.9",
     "elasticsearch": "^14.2.1",
+    "fetch": "^1.1.0",
+    "gravatar": "^1.6.0",
     "json-formatter-js": "^2.2.0",
     "lodash": "4.x.x",
     "nodemailer": "^4.6.3",
@@ -36,9 +38,7 @@
     "strapi": "3.0.0-alpha.11.1",
     "strapi-mongoose": "3.0.0-alpha.11.1",
     "uniqid": "^4.1.1",
-    "ws": "^5.1.0",
-    "fetch": "1.1.0",
-    "gravatar": "1.6.0"
+    "ws": "^5.1.0"
   },
   "author": {
     "name": "maektwain",

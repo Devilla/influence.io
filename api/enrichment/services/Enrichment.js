@@ -1,23 +1,22 @@
 'use strict';
 
 /**
- * `Enrichment` service.
+ * Enrichment.js service
+ *
+ * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
 
+// Public dependencies.
 const fetch = require('fetch').fetchUrl;
 const gravatar = require('gravatar');
 
 module.exports = {
-  // exampleService: (arg1, arg2) => {
-  //   return isUserOnline(arg1, arg2);
-  // }
-
 
   picasaWeb: async(email) => {
     return new Promise((resolve, reject) => {
       let URI = "http://picasaweb.google.com/data/entry/api/user/" + email.trim() + "?alt=json";
       fetch(URI,(error, meta, body) => {
-        if (!error){
+        if (!error) {
           try {
             let emailEnrichmentJSON = JSON.parse(body.toString());
             let returnJson = {
@@ -25,14 +24,14 @@ module.exports = {
               profile_pic: emailEnrichmentJSON.entry.gphoto$thumbnail.$t
             }
             resolve(returnJson)
-          }catch (errorFromTry){
+          } catch (errorFromTry) {
             reject(errorFromTry)
           }
         } else {
           reject(error);
         }
-      })
-    })
+      });
+    });
   },
 
   gravatr: async(email) => {
@@ -49,14 +48,13 @@ module.exports = {
               username: username,
               profile_pic: profile_pic
             };
-          }catch (errorForTry) {
+          } catch (errorForTry) {
             reject(errorForTry)
           }
-        }else {
+        } else {
           reject(error)
         }
-      })
-    })
+      });
+    });
   }
-
 };

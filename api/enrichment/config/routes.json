@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/enrichment/picasa/:email",
+      "handler": "Enrichment.picasaWeb",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/enrichment/gravatr/:email",
+      "handler": "Enrichment.gravatr",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
