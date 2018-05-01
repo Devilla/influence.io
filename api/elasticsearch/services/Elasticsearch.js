@@ -44,25 +44,27 @@ health : async () => {
   },
 
   notification: async (index, trackingId, type) => {
-    let query;
+    var query;
     switch(type) {
       case 'live' :
-        query = `json.value.trackingId:${trackingId} AND @timestamp:[${moment().subtract(3, 'minutes').format()} TO ${moment().format()}]`;
-        // {
-        //   "range" : {
-        //     "timestamp" : {
-        //         "gte": "now-5m",
-        //         "lte": "now",
-        //         "time_zone": "+01:00"
-        //     }
-        //   }
-        // };
+      query = {
+        index: index,
+        q: `json.value.trackingId:${trackingId} AND @timestamp:[${moment().subtract(3, 'minutes').format()} TO ${moment().format()}]`
+      }
         break;
       case 'identification' :
-        query = `json.value.trackingId:${trackingId} AND json.value.source.url.pathname:('/register' OR '/sign-up' OR '/signup') AND json.value.event: 'formsubmit'`;
+        query = {
+          index: index,
+          q: `json.value.trackingId:${trackingId} AND json.value.source.url.pathname:('/register' OR '/sign-up' OR '/signup') AND json.value.event: 'formsubmit'`
+        };
         break;
       case 'journey' :
-        query = null;
+        query = {
+          index: index,
+          q: query,
+          sort: '@timestamp:desc',
+          size: 1
+        };
         break;
       default:
         break;
@@ -75,24 +77,7 @@ health : async () => {
 
     if(rule) {
       const response = await new Promise((resolve, reject) => {
-        client.search({
-          index: index,
-          q: query
-          // body: {
-          //   query: {
-          //     "bool": {
-          //       "must": [
-          //         {
-          //           "match": {
-          //             "json.value.trackingId": trackingId
-          //           }
-          //         },
-          //         query
-          //       ]
-          //     }
-          //   }
-          // }
-        }, function (err, resp, status) {
+        client.search(query, function (err, resp, status) {
           if (err) reject(err);
           else resolve(resp);
           strapi.log.info('---Client Notification Search Returned--- ',resp);
@@ -102,8 +87,6 @@ health : async () => {
     } else {
       return {error: "Tracking Id not found"};
     }
-
-
   }
 
 };
