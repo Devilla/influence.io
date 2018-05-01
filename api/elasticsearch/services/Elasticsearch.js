@@ -106,16 +106,22 @@ health : async () => {
         client.search(query, function (err, resp, status) {
           if (err) reject(err);
           else resolve(resp);
-          strapi.log.info('---Client Notification Search Returned--- ',resp);
         });
       });
 
       if(type == 'journey') {
         let email = response.hits.hits[0]._source.json.value.form.email;
-        var userDetails;
-        userDetails = await strapi.services.enrichment.picasaWeb(email);
-        if(userDetails)
-          userDetails = await strapi.services.enrichment.gravatr(email);
+        try {
+          userDetails = await strapi.services.enrichment.picasaWeb(email);
+        } catch(err) {
+          try {
+            userDetails = await strapi.services.enrichment.gravatr(email);
+          } catch(err) {
+            userDetails = {
+              username: email.replace(/@.*$/,"")
+            };
+          }
+        }
       }
 
       return {response, rule, userDetails};
