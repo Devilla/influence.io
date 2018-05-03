@@ -92,14 +92,66 @@ health : async () => {
         break;
     }
 
-
-
-    const rule = await Campaign.findOne({trackingId: trackingId})
-    .populate('rule')
+    const rule = await Campaign.findOne(
+      {
+        trackingId: trackingId
+      },
+      {
+        rule: 1
+      }
+    )
+    .populate({
+      path: 'rule',
+      select: {
+        hideNotification: 1,
+        loopNotification: 1,
+        delayNotification: 1,
+        closeNotification: 1,
+        hideAnonymous: 1,
+        displayNotifications: 1,
+        initialDelay: 1,
+        displayTime: 1,
+        delayBetween: 1,
+        displayPosition: 1,
+        campaign: 1
+      }
+    })
     .exec()
     .then(result => result?result.rule:null);
 
+    let notificationType = () => {
+      if(type == 'live')
+        return 'Live Visitor Count';
+      else if(type == 'identification')
+        return 'Bulk Activity';
+      else if(type == 'journey')
+        return 'Recent Activity';
+    }
 
+    const notification = await Notificationtypes.findOne(
+      {
+        notificationName: notificationType()
+      },
+      {
+        _id: 1
+      }
+    )
+    .exec()
+    .then(data => data?data.id:null);
+
+    const configuration = await Configuration.findOne(
+      {
+        notificationType: notification,
+        campaign: rule.campaign
+      },
+      {
+        contentText: 1,
+        panelStyle: 1,
+        activity: 1
+      }
+    )
+    .exec()
+    .then(result => result);
 
     if(rule) {
       var userDetails;
@@ -111,23 +163,27 @@ health : async () => {
       });
 
       if(type == 'journey') {
-        let email = response.hits.hits[0]._source.json.value.form.email;
-        let timestamp = response.hits.hits[0]._source.json.value.timestamp;
-        try {
-          userDetails = await strapi.services.enrichment.picasaWeb(email);
-        } catch(err) {
+        if(response.hits.hits[0]) {
+          let email = response.hits.hits[0]._source.json.value.form.email;
+          let timestamp = response.hits.hits[0]._source.json.value.timestamp;
           try {
-            userDetails = await strapi.services.enrichment.gravatr(email);
+            userDetails = await strapi.services.enrichment.picasaWeb(email);
           } catch(err) {
-            userDetails = {
-              username: email.replace(/@.*$/,"")
-            };
+            try {
+              userDetails = await strapi.services.enrichment.gravatr(email);
+            } catch(err) {
+              userDetails = {
+                username: email.replace(/@.*$/,"")
+              };
+            }
           }
+          userDetails['timestamp'] = timestamp;
+        } else {
+          userDetails = null;
         }
-        userDetails['timestamp'] = timestamp;
       }
 
-      return {response, rule, userDetails};
+      return {response, rule, configuration, userDetails};
     } else {
       return {error: "Tracking Id not found"};
     }
