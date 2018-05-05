@@ -7,8 +7,23 @@
  */
 
 const _ = require('lodash');
-const sendmail = require('sendmail')({
-  silent: true
+// const sendmail = require('sendmail')({
+//   silent: true
+// });
+
+const nodemailer = require('nodemailer');
+
+// Create reusable transporter object using SMTP transport.
+const transporter = nodemailer.createTransport({
+  host: 'smtp.zoho.com',
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  requiresAuth: true,
+  auth: {
+      user: "info@useinfluence.co", // generated ethereal user
+      pass: "rXwEypHew8ic" // generated ethereal password
+  },
+  debug: true
 });
 
 module.exports = {
@@ -16,20 +31,20 @@ module.exports = {
     return new Promise((resolve, reject) => {
       // Default values.
       options = _.isObject(options) ? options : {};
-      options.from = options.from || '"Administration Panel" <no-reply@strapi.io>';
-      options.replyTo = options.replyTo || '"Administration Panel" <no-reply@strapi.io>';
+      options.from = options.from || '"Info Useinfluence" <info@useinfluence.co>';
+      options.replyTo = options.replyTo || '"Info Useinfluence" <info@useinfluence.co>';
       options.text = options.text || options.html;
       options.html = options.html || options.text;
 
       // Send the email.
-      sendmail({
+      transporter.sendMail({
         from: options.from,
         to: options.to,
         replyTo: options.replyTo,
         subject: options.subject,
         text: options.text,
         html: options.html
-      }, function (err) {
+      }, function (err, info) {
         if (err) {
           reject([{ messages: [{ id: 'Auth.form.error.email.invalid' }] }]);
         } else {

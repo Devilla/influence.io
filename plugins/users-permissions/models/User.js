@@ -40,9 +40,9 @@ module.exports = {
   // Fired after `insert` query.
   afterCreate: async (model, result) => {
     strapi.plugins.email.services.email.send({
-      from: 'no-reply@strapi.io', // Sender (defaults to `strapi.config.smtp.from`).
+      from: 'noreply@useinfluence.co', // Sender (defaults to `strapi.config.smtp.from`).
       to: result.email, // Recipients list.
-      html: '<p>Hello John</p>', // HTML version of the email content.
+      html: '<p>Account created</p>', // HTML version of the email content.
       text: 'Hello John' // Text version of the email content.
     }, function (err, data) {
       if (err) {
