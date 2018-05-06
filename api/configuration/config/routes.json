@@ -18,8 +18,8 @@
     },
     {
       "method": "GET",
-      "path": "/configuration/:_id",
-      "handler": "Configuration.findOne",
+      "path": "/configuration/:campId",
+      "handler": "Configuration.findCampaign",
       "config": {
         "policies": []
       }

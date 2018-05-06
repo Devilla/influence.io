@@ -42,13 +42,12 @@ module.exports = {
    * @return {Object}
    */
 
-  findOne: async (ctx) => {
-    if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+  findCampaign: async (ctx) => {
+    if (!ctx.params.campId.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
 
-    const data = await strapi.services.configuration.fetch(ctx.params);
-
+    const data = await strapi.services.configuration.fetchCampaign(ctx.params);
     // Send 200 `ok`
     ctx.send(data);
   },

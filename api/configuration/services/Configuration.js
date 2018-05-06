@@ -60,9 +60,18 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetch: (params) => {
+  fetchCampaign: (params) => {
+    const query = {
+      campaign: params?params.campId:null,
+    };
+    const convertedParams = strapi.utils.models.convertParams('configuration', query);
+
     return Configuration
-      .findOne(_.pick(params, _.keys(Configuration.schema.paths)))
+      .find()
+      .where(convertedParams.where)
+      .sort(convertedParams.sort)
+      .skip(convertedParams.start)
+      .limit(convertedParams.limit)
       .populate(_.keys(_.groupBy(_.reject(strapi.models.configuration.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
