@@ -1,6 +1,5 @@
 {
-  "protocol": "https",
-  "host": "localhost",
+  "host": "strapi.useinfluence.co",
   "port": "${process.env.PORT || 1337}",
   "autoReload": {
     "enabled": false

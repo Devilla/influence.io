@@ -133,12 +133,22 @@ module.exports = {
       key: 'grant'
     }).get();
 
-    _.defaultsDeep(grantConfig, {
-      server: {
-        protocol: 'http',
-        host: `${strapi.config.currentEnvironment.server.host}:${strapi.config.currentEnvironment.server.port}`
-      }
-    });
+    if(strapi.config.currentEnvironment.server.host == 'localhost') {
+      _.defaultsDeep(grantConfig, {
+        server: {
+          protocol: 'http',
+          host: `${strapi.config.currentEnvironment.server.host}:${strapi.config.currentEnvironment.server.port}`
+        }
+      });
+    } else {
+      _.defaultsDeep(grantConfig, {
+        server: {
+          protocol: 'https',
+          host: `${strapi.config.currentEnvironment.server.host}`
+        }
+      });
+    }
+
 
     const provider = ctx.request.url.split('/')[2];
     const config = grantConfig[provider];
