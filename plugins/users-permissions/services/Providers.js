@@ -33,6 +33,7 @@ exports.connect = (provider, query) => {
 
     // Get the profile.
     getProfile(provider, query, async (err, profile) => {
+
       if (err) {
         return reject(err);
       }
@@ -46,7 +47,7 @@ exports.connect = (provider, query) => {
 
       try {
         const users = await strapi.query('user', 'users-permissions').find({
-          email: profile.email
+          where: {email: profile.email}
         });
 
         const advanced = await strapi.store({
@@ -71,7 +72,7 @@ exports.connect = (provider, query) => {
         }
 
         // Retrieve role `guest`.
-        const guest = await strapi.query('role', 'users-permissions').findOne({ type: 'guest' }, []);
+        const guest = await strapi.query('role', 'users-permissions').findOne({ type: 'customer' }, []);
 
         // Create the new user.
         const params = _.assign(profile, {

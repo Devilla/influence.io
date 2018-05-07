@@ -78,15 +78,15 @@ module.exports = {
       if (!_.get(await store.get({key: 'grant'}), [provider, 'enabled'])) {
         return ctx.badRequest(null, 'This provider is disabled.');
       }
-
       // Connect the user thanks to the third-party provider.
       let user, error;
       try {
         [user, error] = await strapi.plugins['users-permissions'].services.providers.connect(provider, ctx.query);
       } catch([user, error]) {
+        console.log(user, error);
         return ctx.badRequest(null, (error === 'array') ? (ctx.request.admin ? error[0] : error[1]) : error);
       }
-
+      console.log(user,error,  "========================>");
       if (!user) {
         return ctx.badRequest(null, (error === 'array') ? (ctx.request.admin ? error[0] : error[1]) : error);
       }
