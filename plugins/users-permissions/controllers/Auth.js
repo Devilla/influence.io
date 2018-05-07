@@ -83,10 +83,8 @@ module.exports = {
       try {
         [user, error] = await strapi.plugins['users-permissions'].services.providers.connect(provider, ctx.query);
       } catch([user, error]) {
-        console.log(user, error);
         return ctx.badRequest(null, (error === 'array') ? (ctx.request.admin ? error[0] : error[1]) : error);
       }
-      console.log(user,error,  "========================>");
       if (!user) {
         return ctx.badRequest(null, (error === 'array') ? (ctx.request.admin ? error[0] : error[1]) : error);
       }
@@ -144,14 +142,11 @@ module.exports = {
 
     const provider = ctx.request.url.split('/')[2];
     const config = grantConfig[provider];
-
     if (!_.get(config, 'enabled')) {
       return ctx.badRequest(null, 'This provider is disabled.');
     }
-
     const Grant = require('grant-koa');
     const grant = new Grant(grantConfig);
-
     return strapi.koaMiddlewares.compose(grant.middleware)(ctx, next);
   },
 
