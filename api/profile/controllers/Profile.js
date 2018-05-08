@@ -15,8 +15,8 @@ module.exports = {
    */
 
   find: async (ctx) => {
-    const profile = ctx.state.user.profile;
-    const data = await strapi.services.profile.fetchUserProfile(profile);
+    const user = ctx.state.user;
+    const data = await strapi.services.profile.fetchUserProfile(user);
 
     // Send 200 `ok`
     ctx.send(data);
