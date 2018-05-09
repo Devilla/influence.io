@@ -195,14 +195,15 @@ module.exports = {
 
     try {
       // Send an email to the user.
-      await strapi.plugins['email'].services.email.send({
-        to: user.email,
-        from: (settings.from.email || settings.from.name) ? `"${settings.from.name}" <${settings.from.email}>` : undefined,
-        replyTo: settings.response_email,
-        subject: settings.object,
-        text: settings.message,
-        html: settings.message
-      });
+      await strapi.plugins['email'].services.email.resetPassword(user.email, user.username, resetPasswordToken);
+      //   {
+      //   to: user.email,
+      //   from: (settings.from.email || settings.from.name) ? `"${settings.from.name}" <${settings.from.email}>` : undefined,
+      //   replyTo: settings.response_email,
+      //   subject: settings.object,
+      //   text: settings.message,
+      //   html: settings.message
+      // });
     } catch (err) {
       return ctx.badRequest(null, err);
     }

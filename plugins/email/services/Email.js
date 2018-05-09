@@ -65,7 +65,8 @@ module.exports = {
       });
     });
   },
-  accountCreated: (email, mailSub, name) =>  {
+  accountCreated: (email, name) =>  {
+      const mailSub = "Account has been created"
       const content =`
       This is a confirmation email to let you know that your account has been cancelled and you won’t be billed in the future for it.
 
@@ -93,7 +94,31 @@ module.exports = {
         subject: mailSub || 'Your Account has been created',
         html: mytemp
       };
+      return sendMail(mailOptions);
+  },
+  resetPassword: (email, name, resetPasswordToken) =>  {
+      const mailSub = "Reset Password"
+      const content =`
+      Please click here to set a new password for your account. If you’re unable to setup a new password please reply via this email and we’ll fix it for you.
 
+      Thanks!
+      `;
+
+      const body = "<pre style='font-size:12px;color:black'>" + content + "</pre><br/><br/><pre>Please click on the button below to reset your password</pre><br/><br/><br/>";
+      var button = `<a href="https://useinfluence.co/reset-password?code=${resetPasswordToken}">
+        <button type="button" style="color: white; background-color:#A3A3A3; border-radius: 4px; width: 180px; height: 46px; font-size: 14px; font-weight: bold; border-color: #22AAEE;">
+          Reset Password
+        </button>
+      </a>`;
+
+      var mytemp = template.commontemp(mailSub, name, body, button)
+
+      let mailOptions = {
+        from: 'noreply@useinfluence.co',
+        to: email,
+        subject: mailSub || 'Your Account has been created',
+        html: mytemp
+      };
       return sendMail(mailOptions);
   }
 };
