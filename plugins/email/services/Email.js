@@ -35,7 +35,7 @@ var sendMail = function(mailOptions) {
         resolve();
       }
     });
-  }
+  });
 }
 
 module.exports = {

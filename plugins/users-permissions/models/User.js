@@ -42,6 +42,7 @@ module.exports = {
     const email = result.email;
     const subject = "Account Created";
     const name = result.name;
+    console.log(result, "===============>result");
     strapi.plugins.email.services.email.accountCreated(email, subject, name);
   },
 
