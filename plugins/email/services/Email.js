@@ -12,19 +12,31 @@ const _ = require('lodash');
 // });
 
 const nodemailer = require('nodemailer');
+var template = require('../libs/template');
 
-// Create reusable transporter object using SMTP transport.
 const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.com',
   port: 465,
-  secure: true, // true for 465, false for other ports
+  secure: true,
   requiresAuth: true,
   auth: {
-      user: "info@useinfluence.co", // generated ethereal user
-      pass: "rXwEypHew8ic" // generated ethereal password
+      user: "info@useinfluence.co",
+      pass: "rXwEypHew8ic"
   },
   debug: true
 });
+
+var sendMail = function(mailOptions) {
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        reject([{ messages: [{ id: 'Auth.form.error.email.invalid' }] }]);
+      } else {
+        resolve();
+      }
+    });
+  }
+}
 
 module.exports = {
   send: (options, cb) => {
@@ -52,5 +64,36 @@ module.exports = {
         }
       });
     });
+  },
+  accountCreated: (email, mailSub, name) =>  {
+      const content =`
+      This is a confirmation email to let you know that your account has been cancelled and you won’t be billed in the future for it.
+
+      You will still have access to your influence account for the rest of the billing cycle, then your account will go on auto delete.
+
+      Thanks for investing your faith in us.
+
+      See you soon.
+
+      Thanks!
+      `;
+
+      const body = "<pre style='font-size:12px;color:black'>" + content + "</pre><br/><br/>Please click on the link below to login<br/><br/><br/>";
+      var button = `<a href="https://useinfluence.co/login">
+        <button type="button" style="color: 'black'; background-color: #22AAEE; border-radius: 4px; width: 180px; height: 46px; font-size: 14px; font-weight: bold; border-color: #22AAEE;">
+          Login
+        </button>
+      </a>`;
+
+      var mytemp = template.commontemp(mailSub, name, body, button)
+
+      let mailOptions = {
+        from: 'noreply@useinfluence.co',
+        to: email,
+        subject: mailSub || 'Your Account has been created',
+        html: mytemp
+      };
+
+      return sendMail(mailOptions);
   }
 };

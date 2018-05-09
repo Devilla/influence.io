@@ -39,19 +39,10 @@ module.exports = {
   // After creating a value.
   // Fired after `insert` query.
   afterCreate: async (model, result) => {
-    strapi.plugins.email.services.email.send({
-      from: 'noreply@useinfluence.co', // Sender (defaults to `strapi.config.smtp.from`).
-      to: result.email, // Recipients list.
-      html: '<p>Account created</p>', // HTML version of the email content.
-      text: 'Hello John' // Text version of the email content.
-    }, function (err, data) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(data);
-      }
-      return;
-    });
+    const email = result.email;
+    const subject = "Account Created";
+    const name = result.name;
+    strapi.plugins.email.services.email.accountCreated(email, subject, name);
   },
 
   // Before updating a value.
