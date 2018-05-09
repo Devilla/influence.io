@@ -78,9 +78,9 @@ module.exports = {
       Thanks!
       `;
 
-      const body = "<pre style='font-size:12px;color:black'>" + content + "</pre><br/><br/>Please click on the link below to login<br/><br/><br/>";
+      const body = "<pre style='font-size:12px;color:black'>" + content + "</pre><br/><br/><pre>Please click on the link below to login</pre><br/><br/><br/>";
       var button = `<a href="https://useinfluence.co/login">
-        <button type="button" style="color: 'black'; background-color: #22AAEE; border-radius: 4px; width: 180px; height: 46px; font-size: 14px; font-weight: bold; border-color: #22AAEE;">
+        <button type="button" style="color: white; background-color:#A3A3A3; border-radius: 4px; width: 180px; height: 46px; font-size: 14px; font-weight: bold; border-color: #22AAEE;">
           Login
         </button>
       </a>`;

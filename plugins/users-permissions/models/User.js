@@ -41,8 +41,7 @@ module.exports = {
   afterCreate: async (model, result) => {
     const email = result.email;
     const subject = "Account Created";
-    const name = result.name;
-    console.log(result, "===============>result");
+    const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
     strapi.plugins.email.services.email.accountCreated(email, subject, name);
   },
 
