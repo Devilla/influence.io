@@ -77,7 +77,7 @@ module.exports = {
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
     await strapi.hook.mongoose.manageRelations('profile', _.merge(_.clone(params), { values }));
-    return Profile.update(params, values, { upsert:false,  multi: true });
+    return Profile.update(params, values, { multi: true });
   },
 
   /**

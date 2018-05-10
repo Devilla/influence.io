@@ -19,6 +19,14 @@
       "type": "boolean",
       "multiple": false
     },
+    "firstName": {
+      "type": "string",
+      "multiple": false
+    },
+    "lastName": {
+      "type": "string",
+      "multiple": false
+    },
     "state": {
       "type": "string",
       "multiple": false
