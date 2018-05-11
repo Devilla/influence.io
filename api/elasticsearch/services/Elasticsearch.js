@@ -120,9 +120,9 @@ health : async () => {
     .exec()
     .then(result => {
       if(result) {
-        let rule = result.rule;
-        rule['companyName'] = result.campaignName;
-        return rule;
+        let newRule = result.rule;
+        newRule['companyName'] = result.campaignName;
+        return newRule;
       } else {
         return null;
       }
