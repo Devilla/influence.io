@@ -97,6 +97,7 @@ health : async () => {
         trackingId: trackingId
       },
       {
+        campaignName: 1,
         rule: 1
       }
     )
@@ -117,7 +118,15 @@ health : async () => {
       }
     })
     .exec()
-    .then(result => result?result.rule:null);
+    .then(result => {
+      if(result) {
+        let rule = result.rule;
+        rule['companyName'] = result.campaignName;
+        return rule;
+      } else {
+        return null;
+      }
+    });
 
     let notificationType = () => {
       if(type == 'live')
