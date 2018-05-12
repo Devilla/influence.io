@@ -10,6 +10,49 @@
 const _ = require('lodash');
 const domainPing = require("domain-ping");
 
+let ruleDefault = {
+	"hideNotification" : false,
+	"loopNotification" : true,
+	"delayNotification" : true,
+	"closeNotification" : false,
+	"hideAnonymous" : false,
+	"displayNotifications" : true,
+	"initialDelay" : 1,
+	"displayTime" : 3,
+	"delayBetween" : 10,
+	"displayPosition" : "Bottom Left",
+};
+
+let configurationDefault = {
+  "activity" : true,
+  "panelStyle" : {
+    "radius" : 35,
+    "borderWidth" : 0,
+    "borderColor" : {
+      "r" : 200,
+      "g" : 200,
+      "b" : 200,
+      "a" : 1
+    },
+    "shadow" : 0,
+    "blur" : 2,
+    "color" : {
+      "r" : 0,
+      "g" : 0,
+      "b" : 0
+    },
+    "backgroundColor" : {
+      "r" : 255,
+      "g" : 255,
+      "b" : 255,
+      "a" : 1
+    },
+    "fontFamily" : "inherit",
+    "fontWeight" : "normal"
+  },
+  "contentText" : ""
+};
+
 module.exports = {
 
   /**
@@ -94,6 +137,28 @@ module.exports = {
     } else {
       const data = await Campaign.create(_.omit(values, _.keys(_.groupBy(strapi.models.campaign.associations, 'alias'))));
       await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(data), { values }));
+
+      await Notificationtypes.find()
+        .exec()
+        .then(notifications => {
+          notifications.map(notification => {
+            let newConfiguration = configurationDefault;
+            newConfiguration['campaign'] = data._id;
+            newConfiguration['notificationType'] = notification._id;
+            Configuration.create(newConfiguration, (err, result) => {
+              if(err)
+                return err;
+            });
+          });
+        });
+
+      let newRules = ruleDefault;
+      newRules['campaign'] = data._id;
+      rule = await Rules.create(newRules, (err, result) => {
+        if(err)
+          return err;
+      });
+
       return data;
     }
   },
