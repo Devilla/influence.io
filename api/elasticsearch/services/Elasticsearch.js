@@ -117,6 +117,7 @@ health : async () => {
         campaign: 1
       }
     })
+    .lean()
     .exec()
     .then(result => {
       if(result) {
@@ -151,7 +152,7 @@ health : async () => {
     const configuration = await Configuration.findOne(
       {
         notificationType: notification,
-        campaign: rule.campaign
+        campaign: rule?rule.campaign:null
       },
       {
         contentText: 1,
