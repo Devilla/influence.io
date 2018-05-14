@@ -88,5 +88,19 @@ module.exports = {
 
     // Send 200 `ok`
     ctx.send(data);
-  }
+  },
+
+  /**
+   * Retrieve user's campaign info.
+   *
+   * @return {Object|Array}
+   */
+
+  findUserCampaignsInfo: async (ctx) => {
+    const user = ctx.state.user;
+    const data = await strapi.services.campaign.fetchUserCampaignsInfo(user._id);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
 };

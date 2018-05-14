@@ -204,5 +204,44 @@ module.exports = {
     });
 
     return data;
-  }
+  },
+
+  /**
+   * Promise to fetch user's campaigns info.
+   *
+   * @return {Promise}
+   */
+
+  fetchUserCampaignsInfo: async (params) => {
+    let countConfig = 0;
+
+    const profile = await Profile.findOne({user: params?params:null})
+      .exec()
+      .then(data => data?data._id:null);
+
+    const query = {
+      profile: profile?profile:null
+    };
+
+    const convertedParams = strapi.utils.models.convertParams('campaign', query);
+
+    const campaign = await Campaign
+      .find()
+      .where(convertedParams.where)
+      .sort(convertedParams.sort)
+      .skip(convertedParams.start)
+      .limit(convertedParams.limit);
+
+    const campaignFilter = await campaign.filter(camp => camp.trackingId);
+    const campaignWebsites = await campaignFilter.map(camp => camp.websiteUrl);
+    const campaignIds = await campaignFilter.map(camp => camp._id);
+
+    await Configuration.count({ campaign: {$in: campaignIds}, activity: true})
+        .exec()
+        .then(counts => {
+          countConfig = counts;
+        });
+
+    return {websiteLive: campaignWebsites, notificationCount: countConfig};
+  },
 };

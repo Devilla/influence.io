@@ -39,6 +39,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/campaign/user/info",
+      "handler": "Campaign.findUserCampaignsInfo",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
