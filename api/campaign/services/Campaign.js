@@ -50,7 +50,7 @@ let configurationDefault = {
     "fontFamily" : "inherit",
     "fontWeight" : "normal"
   },
-  "contentText" : ""
+  "contentText" : "Recently signed up for Company Name"
 };
 
 module.exports = {
