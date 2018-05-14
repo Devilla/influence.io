@@ -68,10 +68,8 @@ module.exports = {
   accountCreated: (email, name) =>  {
       const mailSub = "Account has been created"
       const content =`
-      This is a confirmation email to let you know that your account has been cancelled and you won’t be billed in the future for it.
-
-      You will still have access to your influence account for the rest of the billing cycle, then your account will go on auto delete.
-
+      This is a confirmation email to let you know that your account has been created.
+      
       Thanks for investing your faith in us.
 
       See you soon.
