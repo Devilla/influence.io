@@ -15,8 +15,8 @@ module.exports = {
    */
 
   findUserCampaigns: async (ctx) => {
-    const profile = ctx.state.user.profile;
-    const data = await strapi.services.campaign.fetchUserCampaigns(profile);
+    const user = ctx.state.user;
+    const data = await strapi.services.campaign.fetchUserCampaigns(user._id);
 
     // Send 200 `ok`
     ctx.send(data);

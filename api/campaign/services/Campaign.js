@@ -61,9 +61,13 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchUserCampaigns: (params) => {
+  fetchUserCampaigns: async (params) => {
+    const profile = await Profile.findOne({user: params?params:null})
+      .exec()
+      .then(data => data?data._id:null);
+
     const query = {
-      profile: params?params._id:null
+      profile: profile?profile:null
     };
     const convertedParams = strapi.utils.models.convertParams('campaign', query);
 
