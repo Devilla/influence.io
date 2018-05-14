@@ -8,8 +8,8 @@
 
 module.exports = {
 
-health: async(ctx) =>{
-    //Our logic
+  health: async(ctx) =>{
+      //Our logic
 
     //Send cluster health
     let data = await strapi.services.elasticsearch.health();
@@ -56,9 +56,25 @@ health: async(ctx) =>{
     ctx.send({
       message: data
     });
+  },
+
+  uniqueUsers: async(ctx) => {
+
+    let index = 'filebeat-*';
+    let trackingId = ctx.params._id;
+    let type = ctx.query.type;
+
+    if (!ctx.params){
+      ctx.send({
+        message: 'invalid params if you want to send data using body use other params type'
+      });
+    }
+
+    let data = await strapi.services.elasticsearch.uniqueUsers(index, trackingId);
+
+    ctx.send({
+      message: data
+    });
   }
-
-
-
 
 };

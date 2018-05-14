@@ -197,6 +197,33 @@ health : async () => {
     } else {
       return {error: "Tracking Id not found"};
     }
+  },
+
+  uniqueUsers: async (index, trackingId) => {
+    const query = {
+      index: index,
+      body: {
+        query: {
+          "bool": {
+            "must": [
+              { "match": { "json.value.trackingId":  trackingId }}
+            ]
+          }
+        },
+        "aggs" : {
+          "users" : {
+            "terms" : { "field" : "json.value.visitorId" }
+          }
+        }
+      }
+    };
+
+    const response = await new Promise((resolve, reject) => {
+      client.search(query, function (err, resp, status) {
+        if (err) reject(err);
+        else resolve(resp);
+      });
+    });
   }
 
 };
