@@ -241,7 +241,11 @@ module.exports = {
         .then(counts => {
           countConfig = counts;
         });
+    // let pica;
+    // await campaignFilter.map(camp => {
+    //     pica = strapi.services.elasticsearch.uniqueUsers('filebeat-*', camp.trackingId);
+    // });
 
-    return {websiteLive: campaignWebsites, notificationCount: countConfig};
+    return {websiteLive: campaignWebsites, notificationCount: countConfig };
   },
 };

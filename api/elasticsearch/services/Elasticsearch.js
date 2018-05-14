@@ -224,6 +224,8 @@ health : async () => {
         else resolve(resp);
       });
     });
+
+    return response;
   }
 
 };
