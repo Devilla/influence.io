@@ -41,6 +41,12 @@ let configurationDefault = {
       "g" : 0,
       "b" : 0
     },
+		linkColor: {
+	    r: 0,
+	    g: 137,
+	    b: 216,
+	    a: 1
+	  },
     "backgroundColor" : {
       "r" : 255,
       "g" : 255,
@@ -48,7 +54,9 @@ let configurationDefault = {
       "a" : 1
     },
     "fontFamily" : "inherit",
-    "fontWeight" : "normal"
+    "fontWeight" : "normal",
+		linkFontFamily: 'inherit',
+	  linkFontWeight: 'normal'
   },
   "contentText" : "Recently signed up for Company Name"
 };
