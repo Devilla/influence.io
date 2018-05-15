@@ -125,7 +125,9 @@ module.exports = {
    */
 
   add: async (values) => {
-    values.websiteUrl = values.websiteUrl.replace(/(^\w+:|^)\/\//, '');
+		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+		console.log(values.websiteUrl, "==================>");
+    // values.websiteUrl = values.websiteUrl.replace(/(^\w+:|^)\/\//, '');
     var checkDomain = new Promise((resolve, reject) => {
       domainPing(values.websiteUrl)
        .then((res) => {
