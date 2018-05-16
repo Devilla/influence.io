@@ -33,11 +33,11 @@
     "json-formatter-js": "^2.2.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
-    "mongoose": "^5.1.1",
     "nodemailer": "^4.6.4",
     "pino-multi-stream": "^3.1.2",
     "pino-tee": "^0.2.0",
-    "strapi-mongoose": "file:packages/strapi-mongoose",
+    "strapi": "^3.0.0-alpha.11.1",
+    "strapi-mongoose": "^3.0.0-alpha.11.1",
     "uniqid": "^4.1.1",
     "ws": "^5.1.0"
   },
