@@ -22,7 +22,7 @@ module.exports = {
   },
 
   /**
-   * Retrieve notificationpath records.
+   * Retrieve rules notificationpath records.
    *
    * @return {Object|Array}
    */
