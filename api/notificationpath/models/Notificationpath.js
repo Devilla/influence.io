@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Lifecycle callbacks for the `Lead` model.
+ * Lifecycle callbacks for the `Notificationpath` model.
  */
 
 module.exports = {

@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/lead",
-      "handler": "Lead.find",
+      "path": "/notificationpath",
+      "handler": "Notificationpath.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/lead/rules/:_id",
-      "handler": "Lead.findRulesLead",
+      "path": "/notificationpath/rules/:type/:_id",
+      "handler": "Notificationpath.findRulesPath",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/lead/:_id",
-      "handler": "Lead.findOne",
+      "path": "/notificationpath/:_id",
+      "handler": "Notificationpath.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/lead",
-      "handler": "Lead.create",
+      "path": "/notificationpath",
+      "handler": "Notificationpath.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/lead/:_id",
-      "handler": "Lead.update",
+      "path": "/notificationpath/:_id",
+      "handler": "Notificationpath.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/lead/:_id",
-      "handler": "Lead.destroy",
+      "path": "/notificationpath/:_id",
+      "handler": "Notificationpath.destroy",
       "config": {
         "policies": []
       }

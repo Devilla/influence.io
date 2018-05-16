@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "lead",
   "info": {
-    "name": "lead",
+    "name": "notificationpath",
     "description": ""
   },
   "options": {
@@ -24,6 +24,10 @@
     "rule": {
       "model": "rules",
       "via": "leads"
+    },
+    "type": {
+      "type": "string",
+      "multiple": false
     }
   }
 }

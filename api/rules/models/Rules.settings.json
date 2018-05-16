@@ -82,7 +82,7 @@
       "via": "rule"
     },
     "leads": {
-      "collection": "lead",
+      "collection": "notificationpath",
       "via": "rule"
     }
   }
