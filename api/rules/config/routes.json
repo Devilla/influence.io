@@ -26,6 +26,14 @@
     },
     {
       "method": "GET",
+      "path": "/rules/configuration/path/:trackingId",
+      "handler": "Rules.findNotificationConfigurationPath",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/rules",
       "handler": "Rules.find",
       "config": {

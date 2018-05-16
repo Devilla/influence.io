@@ -36,6 +36,19 @@ module.exports = {
   },
 
   /**
+   * Retrieve campaign rules records.
+   *
+   * @return {Object|Array}
+   */
+
+  findNotificationConfigurationPath: async (ctx) => {
+    const data = await strapi.services.rules.findNotificationConfigurationPath(ctx.params);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
    * Retrieve notificationtype rules records.
    *
    * @return {Object|Array}

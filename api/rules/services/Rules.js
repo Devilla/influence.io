@@ -137,6 +137,65 @@ module.exports = {
   },
 
   /**
+   * Promise to fetch all rules notification configuration and path.
+   *
+   * @return {Promise}
+   */
+
+  findNotificationConfigurationPath: async (params) => {
+
+    const rule = await Campaign.findOne(
+      {
+        trackingId: params?params.trackingId:null
+      },
+      {
+        campaignName: 1,
+        rule: 1
+      }
+    )
+    .populate({
+      path: 'rule',
+      select: {
+        hideNotification: 1,
+        loopNotification: 1,
+        delayNotification: 1,
+        closeNotification: 1,
+        hideAnonymous: 1,
+        displayNotifications: 1,
+        initialDelay: 1,
+        displayTime: 1,
+        delayBetween: 1,
+        displayPosition: 1,
+        campaign: 1
+      }
+    })
+    .lean()
+    .exec()
+    .then(result => {
+      if(result) {
+        let newRule = result.rule;
+        newRule['companyName'] = result.campaignName;
+        return newRule;
+      } else {
+        return null;
+      }
+    });
+
+    const notificationPath = await Notificationpath.find({
+      rule: rule?rule._id:null
+    })
+    .exec()
+    .then(result => result);
+
+    const data = {
+      rule: rule,
+      notificationPath: notificationPath
+    }
+
+    return data;
+  },
+
+  /**
    * Promise to fetch a/an rules.
    *
    * @return {Promise}
