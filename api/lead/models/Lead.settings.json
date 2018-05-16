@@ -1,0 +1,29 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "lead",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "url": {
+      "type": "string",
+      "multiple": false
+    },
+    "class": {
+      "type": "string",
+      "multiple": false
+    },
+    "status": {
+      "type": "string",
+      "multiple": false
+    },
+    "rule": {
+      "model": "rules",
+      "via": "leads"
+    }
+  }
+}

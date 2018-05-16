@@ -79,8 +79,11 @@
     },
     "campaign": {
       "model": "campaign",
-      "via": "rule",
-      "plugin": ""
+      "via": "rule"
+    },
+    "leads": {
+      "collection": "lead",
+      "via": "rule"
     }
   }
 }

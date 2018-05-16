@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/lead",
+      "handler": "Lead.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/lead/rules/:_id",
+      "handler": "Lead.findRulesLead",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/lead/:_id",
+      "handler": "Lead.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/lead",
+      "handler": "Lead.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/lead/:_id",
+      "handler": "Lead.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/lead/:_id",
+      "handler": "Lead.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
