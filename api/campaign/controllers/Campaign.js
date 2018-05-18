@@ -59,7 +59,7 @@ module.exports = {
    */
 
   findOneTrackingId: async (ctx) => {
-    if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+    if (!ctx.params.trackingId.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
 

@@ -42,8 +42,7 @@
       "multiple": false
     },
     "profile": {
-      "model": "profile",
-      "via": "campaign"
+      "model": "profile"
     },
     "notificationTypes": {
       "model": "notificationtypes",

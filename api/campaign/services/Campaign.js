@@ -19,7 +19,7 @@ let ruleDefault = {
 	"displayNotifications" : true,
 	"initialDelay" : 1,
 	"displayTime" : 3,
-	"delayBetween" : 10,
+	"delayBetween" : 3,
 	"displayPosition" : "Bottom Left",
 };
 
@@ -70,6 +70,7 @@ module.exports = {
    */
 
   fetchUserCampaigns: async (params) => {
+
     const profile = await Profile.findOne({user: params?params:null})
       .exec()
       .then(data => data?data._id:null);
@@ -95,6 +96,7 @@ module.exports = {
    */
 
   fetchAll: (params) => {
+
     const convertedParams = strapi.utils.models.convertParams('campaign', params);
 
     return Campaign
@@ -228,10 +230,9 @@ module.exports = {
       const search = (_.endsWith(association.nature, 'One')) ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
       const update = (_.endsWith(association.nature, 'One')) ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
-      await strapi.models[association.model || association.collection].update(
-        search,
-        update,
-        { multi: true });
+      await strapi.models[association.model || association.collection].remove(
+        search
+     	);
     });
 
     return data;
