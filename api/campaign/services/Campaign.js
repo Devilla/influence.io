@@ -118,6 +118,28 @@ module.exports = {
       .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
+	/**
+   * Promise to fetch a campaign with Tracking Id.
+   *
+   * @return {Promise}
+   */
+
+  fetchTrackingId: (params) => {
+    return Campaign
+      .findOne(
+				{
+					trackingId: params?params.trackingId:null
+				},
+				{
+					isActive: 1,
+					websiteUrl: 1,
+					_id: 0
+				}
+			)
+			.exec()
+			.then(data => data);
+		},
+
   /**
    * Promise to add a/an campaign.
    *

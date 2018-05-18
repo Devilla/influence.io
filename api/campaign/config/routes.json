@@ -17,6 +17,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/campaign/track/:trackingId",
+      "handler": "Campaign.findOneTrackingId",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/campaign",
       "handler": "Campaign.create",

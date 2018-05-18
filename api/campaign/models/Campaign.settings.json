@@ -19,8 +19,7 @@
     },
     "websiteUrl": {
       "type": "string",
-      "multiple": false,
-      "unique": true
+      "multiple": false
     },
     "utmSource": {
       "type": "string",

@@ -53,6 +53,23 @@ module.exports = {
   },
 
   /**
+   * Retrieve a campaign record with tracking id.
+   *
+   * @return {Object}
+   */
+
+  findOneTrackingId: async (ctx) => {
+    if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+      return ctx.notFound();
+    }
+
+    const data = await strapi.services.campaign.fetchTrackingId(ctx.params);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
    * Create a/an campaign record.
    *
    * @return {Object}
