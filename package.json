@@ -40,6 +40,7 @@
     "strapi-mongoose": "^3.0.0-alpha.11.1",
     "uniqid": "^4.1.1",
     "stream-to-array": "^2.3.0",
+    "jsonwebtoken": "^8.1.0",
     "ws": "^5.1.0"
   },
   "author": {
