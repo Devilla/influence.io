@@ -202,7 +202,15 @@
         "prefix": ""
       }
     },
-
+    {
+      "method": "POST",
+      "path": "/auth/verify/:code",
+      "handler": "Auth.verifyUser",
+      "config": {
+        "policies": [],
+        "prefix": ""
+      }
+    },
     {
       "method": "GET",
       "path": "/user",

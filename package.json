@@ -38,6 +38,7 @@
     "pino-tee": "^0.2.0",
     "strapi": "^3.0.0-alpha.11.1",
     "strapi-mongoose": "^3.0.0-alpha.11.1",
+    "stream-to-array": "^2.3.0",
     "uniqid": "^4.1.1",
     "ws": "^5.1.0"
   },

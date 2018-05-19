@@ -125,6 +125,37 @@ module.exports = {
     }
   },
 
+  /**
+   * Verify a/an user email.
+   *
+   * @return {Object}
+   */
+  verifyUser: async (ctx, next) => {
+    const params = ctx.params;
+    if(!params.code) {
+      const user = await strapi.query('user', 'users-permissions').findOne({ verificationToken: params.code });
+
+      if (!user) {
+        return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.code.provide' }] }] : 'Incorrect code provided.');
+      }
+
+      // Delete the current code
+      user.verificationToken = null;
+
+      user.verified = true;
+
+      // Update the user.
+      await strapi.query('user', 'users-permissions').update(user);
+
+      ctx.send({
+        jwt: strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id'])),
+        user: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken'])
+      });
+    } else {
+       return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.params.provide' }] }] : 'Incorrect params provided.');
+     }
+  }
+
   connect: async (ctx, next) => {
     const grantConfig = await strapi.store({
       environment: '',
