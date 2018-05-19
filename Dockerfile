@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+RUN npm run setup
 RUN npm install --production
 
 COPY . .
