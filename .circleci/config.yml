@@ -22,7 +22,7 @@ jobs: # a collection of steps
       - run: # run frontend
           name: setup
           command: npm run setup
-       - run: # run frontend
+      - run: # run frontend
           name: lint
           command: npm run lint
       - store_artifacts: # special step to save test results as as artifact
