@@ -41,6 +41,12 @@
     "uniqid": "^4.1.1",
     "stream-to-array": "^2.3.0",
     "jsonwebtoken": "^8.1.0",
+    "purest": "^2.0.1",
+    "request": "^2.83.0",
+    "uuid": "^3.1.0",
+    "bcryptjs": "^2.4.3",
+    "grant-koa": "^3.8.1",
+    "koa": "^2.1.0",
     "ws": "^5.1.0"
   },
   "author": {
