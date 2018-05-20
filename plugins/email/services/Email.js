@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 /**
  * Email.js service
  *
@@ -7,66 +9,83 @@
  */
 
 const _ = require('lodash');
+const env = require('dotenv').config()
 // const sendmail = require('sendmail')({
 //   silent: true
 // });
+const sgMail = require('@sendgrid/mail');
 
-const nodemailer = require('nodemailer');
-var template = require('../libs/template');
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.zoho.com',
-  port: 465,
-  secure: true,
-  requiresAuth: true,
-  auth: {
-      user: "info@useinfluence.co",
-      pass: "rXwEypHew8ic"
-  },
-  debug: true
-});
 
-var sendMail = function(mailOptions) {
-  return new Promise((resolve, reject) => {
-    transporter.sendMail(mailOptions, function(error, info) {
-      if (error) {
-        reject([{ messages: [{ id: 'Auth.form.error.email.invalid' }] }]);
-      } else {
-        resolve();
-      }
-    });
-  });
+const template = require('../libs/template');
+
+
+/**
+ * Final Service Call From Here.
+ * @param mailOptions
+ * @returns {Promise<*>}
+ */
+
+ async function sendEmail(mailOptions) {
+    
+   let v;
+   try {
+
+     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+     v = await sgMail.send(mailOptions);
+
+   }catch (e) {
+     return e;
+   }
+
+   return v;
+
+
+}
+
+/**
+ * We should use this inside from the service.
+ * @param options
+ * @returns {Promise<*>}
+ */
+
+async function send(options) {
+  options.from = options.from || '"Info Useinfluence" <info@useinfluence.co>';
+  options.replyTo = options.replyTo || '"Info Useinfluence" <info@useinfluence.co>';
+  options.text = options.text || options.html;
+  options.html = options.html || options.text;
+
+  let send;
+
+  // Send the email.
+  send = await sendEmail(options);
+
+  return send;
+
 }
 
 module.exports = {
-  send: (options, cb) => {
-    return new Promise((resolve, reject) => {
-      // Default values.
-      options = _.isObject(options) ? options : {};
-      options.from = options.from || '"Info Useinfluence" <info@useinfluence.co>';
-      options.replyTo = options.replyTo || '"Info Useinfluence" <info@useinfluence.co>';
-      options.text = options.text || options.html;
-      options.html = options.html || options.text;
 
-      // Send the email.
-      transporter.sendMail({
-        from: options.from,
-        to: options.to,
-        replyTo: options.replyTo,
-        subject: options.subject,
-        text: options.text,
-        html: options.html
-      }, function (err, info) {
-        if (err) {
-          reject([{ messages: [{ id: 'Auth.form.error.email.invalid' }] }]);
-        } else {
-          resolve();
-        }
-      });
-    });
+  /**
+   * We should use this outside from this as a service.
+   * @param options
+   * @returns {Promise<send>}
+   */
+  send: async (options) => {
+      // Default values
+    await send(options);
+    return send;
   },
-  accountCreated: (email, name) =>  {
-      const mailSub = "Account has been created"
+
+  /**
+   * Final Account Created Template.
+   * @param email
+   * @param name
+   * @returns {Promise<*>}
+   */
+  accountCreated: async (email, name) =>  {
+      const mailSub = "Account has been created";
       const content =`
       This is a confirmation email to let you know that your account has been created.
       
@@ -92,9 +111,19 @@ module.exports = {
         subject: mailSub || 'Your Account has been created',
         html: mytemp
       };
-      return sendMail(mailOptions);
+      return send(mailOptions);
+
+
   },
-  resetPassword: (email, name, resetPasswordToken) =>  {
+
+  /**
+   * Password Reset Email.
+   * @param email
+   * @param name
+   * @param resetPasswordToken
+   * @returns {Promise<*>}
+   */
+  resetPassword: async (email, name, resetPasswordToken) =>  {
       const mailSub = "Reset Password"
       const content =`
       Please click here to set a new password for your account. If you’re unable to setup a new password please reply via this email and we’ll fix it for you.
@@ -117,6 +146,7 @@ module.exports = {
         subject: mailSub || 'Your Account has been created',
         html: mytemp
       };
-      return sendMail(mailOptions);
+      return send(mailOptions);
   }
 };
+
