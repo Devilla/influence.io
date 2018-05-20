@@ -51,10 +51,6 @@
     "profile_payments": {
       "model": "payment",
       "via": "profile"
-    },
-    "campaign": {
-      "model": "campaign",
-      "via": "profile"
     }
   }
 }

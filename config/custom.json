@@ -1,17 +1,5 @@
 {
   "myCustomConfiguration": "This configuration is accessible through strapi.config.myCustomConfiguration",
   "socketsServerPath": "/web",
-  "elasticsearchNode": "localhost:9200",
-  "mail": {
-    "config": {
-      "host": "smtp.zoho.com",
-      "port": 465,
-      "secure": true,
-      "auth": {
-        "user": "info@useinfluence.co",
-        "pass": "Maruti123"
-      }
-    },
-    "sender": "info@useinfluence.co"
-  }
+  "elasticsearchNode": "localhost:9200"
 }
