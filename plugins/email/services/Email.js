@@ -65,11 +65,12 @@ module.exports = {
       });
     });
   },
-  accountCreated: (email, name) =>  {
+  accountCreated: (email, subject, name, verificationToken) =>  {
       const mailSub = "Account has been created"
       const content =`
       This is a confirmation email to let you know that your account has been created.
-      
+      Please follow the link below to verify your account:
+      https://useinfluence.co/verify/${verificationToken}
       Thanks for investing your faith in us.
 
       See you soon.

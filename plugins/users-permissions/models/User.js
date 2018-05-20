@@ -3,6 +3,7 @@
 /**
  * Lifecycle callbacks for the `User` model.
  */
+ const crypto = require('crypto');
 
 module.exports = {
   // Before saving a value.
@@ -31,10 +32,11 @@ module.exports = {
 
   // Before creating a value.
   // Fired before `insert` query.
-  // beforeCreate: async (model) => {
-  //     const role =  await strapi.query('role', 'users-permissions').findOne({ name: {$in:['customer', 'Customer']} }, ['users', 'permissions']);
-  //     model.role = role;
-  // },
+  beforeCreate: async (model) => {
+    const verificationToken = crypto.randomBytes(64).toString('hex');
+    model.verificationToken = verificationToken
+    model.verified = false;
+  },
 
   // After creating a value.
   // Fired after `insert` query.
@@ -42,7 +44,10 @@ module.exports = {
     const email = result.email;
     const subject = "Account Created";
     const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
-    strapi.plugins.email.services.email.accountCreated(email, subject, name);
+    const verificationToken = result.verificationToken;
+    // Generate random token.
+
+    strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
   },
 
   // Before updating a value.

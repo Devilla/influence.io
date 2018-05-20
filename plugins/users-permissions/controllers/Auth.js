@@ -132,9 +132,8 @@ module.exports = {
    */
   verifyUser: async (ctx, next) => {
     const params = ctx.params;
-    if(!params.code) {
+    if(params.code) {
       const user = await strapi.query('user', 'users-permissions').findOne({ verificationToken: params.code });
-
       if (!user) {
         return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.code.provide' }] }] : 'Incorrect code provided.');
       }
@@ -154,7 +153,7 @@ module.exports = {
     } else {
        return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.params.provide' }] }] : 'Incorrect params provided.');
      }
-  }
+  },
 
   connect: async (ctx, next) => {
     const grantConfig = await strapi.store({

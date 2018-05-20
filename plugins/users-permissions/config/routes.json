@@ -203,7 +203,7 @@
       }
     },
     {
-      "method": "POST",
+      "method": "GET",
       "path": "/auth/verify/:code",
       "handler": "Auth.verifyUser",
       "config": {

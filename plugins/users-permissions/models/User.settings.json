@@ -17,6 +17,16 @@
       "unique": true,
       "required": true
     },
+    "verified": {
+      "type": "string",
+      "configurable": false,
+      "private": true
+    },
+    "verificationToken": {
+      "type": "string",
+      "configurable": false,
+      "private": true
+    },
     "provider": {
       "type": "string",
       "configurable": false
