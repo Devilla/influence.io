@@ -101,6 +101,5 @@ node_modules
 
 testApp
 coverage
-sendgrid.env
-sendgrid.env
-sendgrid.env
+.env
+
