@@ -59,9 +59,9 @@ module.exports = {
    */
 
   findOneTrackingId: async (ctx) => {
-    if (!ctx.params.trackingId.match(/^[0-9a-fA-F]{24}$/)) {
-      return ctx.notFound();
-    }
+    // if (!ctx.params.trackingId.match(/^[0-9a-fA-F]{24}$/)) {
+    //   return ctx.notFound();
+    // }
 
     const data = await strapi.services.campaign.fetchTrackingId(ctx.params);
 
