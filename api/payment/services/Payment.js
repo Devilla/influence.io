@@ -8,6 +8,64 @@
 
 // Public dependencies.
 const _ = require('lodash');
+const env = require('dotenv').config()
+
+let stripe = require('stripe')(process.env.STRIPE_KEY || 'sk_test_hIHBmEAcq9nzEIGICQ6gjFmY');
+
+let createCustomer = (info) => {
+  return stripe.customers.create({
+    email: info.user.email,
+    source: info.source,
+  }).then(function(customer) {
+    let params = { _id: info.user._id };
+    let updatedValue = { stripe: customer.id };
+    strapi.plugins['users-permissions'].services.user.edit(params, updatedValue);
+    return customer;
+  })
+  .catch(error => {
+    return error;
+  });
+}
+
+let chargeCustomer = (info) => {
+  return stripe.charges.create({
+   amount: info.amount,
+   currency: info.currency,
+   customer: info.customer.id,
+  })
+  .then(charge => {
+     if(charge.status !== 'succeeded')
+       return { message: "payment not successfull", error: true};
+     const chargeValues = {
+       user: info.user,
+       plan: info.plan,
+       charge_id: charge.id,
+       amount: charge.amount/100 ,
+       amount_refunded: charge.amount_refunded ,
+       balance_transaction: charge.balance_transaction ,
+       captured: charge.captured ,
+       created: charge.created ,
+       currency: charge.currency ,
+       customer: charge.customer ,
+       description: charge.description ,
+       on_behalf_of: charge.on_behalf_of ,
+       outcome: charge.outcome ,
+       paid: charge.paid ,
+       receipt_email: charge.receipt_email ,
+       refunds: charge.refunds,
+       source: charge.source,
+       status: charge.status
+    };
+     return chargeValues;
+   })
+  .catch(err => {
+    return err
+  });
+}
+
+let createPayment = (charge) => {
+  return Payment.create(charge);
+}
 
 module.exports = {
 
@@ -93,9 +151,28 @@ module.exports = {
    * @return {Promise}
    */
 
-  add: async (values) => {
-    const data = await Payment.create(_.omit(values, _.keys(_.groupBy(strapi.models.payment.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('payment', _.merge(_.clone(data), { values }));
+  add: async (user, values) => {
+    let token = values.paymentProvider.id;
+    let amount = values.amount*100;
+    let customerId, accountObject, accountId, accountType, chargeValues;
+
+    const customer = await createCustomer({
+      user: user,
+      source: token,
+    });
+
+    const charge = await chargeCustomer({
+      customer,
+      amount,
+      user: values.user,
+      plan: values.plan,
+      currency: values.currency?values.currency:'usd'
+    });
+
+    if(charge.message)
+      return charge;
+
+    const data = await createPayment(charge);
     return data;
   },
 

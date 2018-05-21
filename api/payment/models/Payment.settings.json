@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "payment",
   "info": {
     "name": "payment",
     "description": "Payment collected from user and customer"
@@ -17,19 +17,6 @@
       "type": "integer",
       "multiple": false
     },
-    "status": {
-      "type": "boolean",
-      "multiple": false
-    },
-    "paymentType": {
-      "type": "string",
-      "multiple": false
-    },
-    "user": {
-      "model": "user",
-      "via": "payments",
-      "plugin": "users-permissions"
-    },
     "profile": {
       "model": "profile",
       "via": "profile_payments"
@@ -38,6 +25,71 @@
       "model": "plan",
       "via": "plan_payment",
       "dominant": true
+    },
+    "status": {
+      "type": "string",
+      "multiple": false
+    },
+    "balance_transaction": {
+      "type": "string",
+      "multiple": false
+    },
+    "currency": {
+      "type": "string",
+      "multiple": false
+    },
+    "customer": {
+      "type": "string",
+      "multiple": false
+    },
+    "description": {
+      "type": "string",
+      "multiple": false
+    },
+    "on_behalf_of": {
+      "type": "string",
+      "multiple": false
+    },
+    "outcome": {
+      "type": "json",
+      "multiple": false
+    },
+    "receipt_email": {
+      "type": "string",
+      "multiple": false
+    },
+    "refunds": {
+      "type": "json",
+      "multiple": false
+    },
+    "source": {
+      "type": "json",
+      "multiple": false
+    },
+    "charge_id": {
+      "type": "string",
+      "multiple": false
+    },
+    "amount_refunded": {
+      "type": "integer",
+      "multiple": false
+    },
+    "captured": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "created": {
+      "type": "integer",
+      "multiple": false
+    },
+    "paid": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "user": {
+      "model": "user",
+      "via": "payments",
+      "plugin": "users-permissions"
     }
   }
 }

@@ -12,7 +12,6 @@
     "user": {
       "model": "user",
       "via": "profile",
-      "dominant": true,
       "plugin": "users-permissions"
     },
     "isActive": {

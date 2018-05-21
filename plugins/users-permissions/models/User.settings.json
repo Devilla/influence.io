@@ -52,9 +52,14 @@
       "model": "profile",
       "via": "user"
     },
+    "stripeId": {
+      "type": "string",
+      "multiple": false
+    },
     "payments": {
       "collection": "payment",
       "via": "user"
     }
-  }
+  },
+  "collectionName": "users-permissions_user"
 }
