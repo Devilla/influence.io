@@ -173,7 +173,7 @@ module.exports = {
 			const data = await Campaign.create(_.omit(values, _.keys(_.groupBy(strapi.models.campaign.associations, 'alias'))));
 			await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(data), { values }));
 
-			const notif = await Notificationtypes.find()
+			await Notificationtypes.find()
       .exec()
       .then(notifications => {
         notifications.map(notification => {
@@ -189,7 +189,7 @@ module.exports = {
 
       let newRules = ruleDefault;
       newRules['campaign'] = data._id;
-      const rule = await Rules.create(newRules, (err, result) => {
+      await Rules.create(newRules, (err, result) => {
         if(err)
           return err;
       });

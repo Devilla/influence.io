@@ -39,7 +39,8 @@ module.exports = {
     let values = { rule: result._id };
     let params = result.campaign;
     await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
-  },
+    return;
+  }
 
   // Before updating a value.
   // Fired before an `update` query.
