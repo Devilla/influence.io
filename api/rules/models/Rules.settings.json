@@ -53,14 +53,6 @@
       "type": "boolean",
       "multiple": false
     },
-    "hideAnonymous": {
-      "type": "boolean",
-      "multiple": false
-    },
-    "displayNotifications": {
-      "type": "boolean",
-      "multiple": false
-    },
     "initialDelay": {
       "type": "integer",
       "multiple": false

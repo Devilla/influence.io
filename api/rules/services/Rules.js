@@ -143,7 +143,6 @@ module.exports = {
    */
 
   findNotificationConfigurationPath: async (params) => {
-
     const rule = await Campaign.findOne(
       {
         trackingId: params?params.trackingId:null
@@ -160,8 +159,6 @@ module.exports = {
         loopNotification: 1,
         delayNotification: 1,
         closeNotification: 1,
-        hideAnonymous: 1,
-        displayNotifications: 1,
         initialDelay: 1,
         displayTime: 1,
         delayBetween: 1,

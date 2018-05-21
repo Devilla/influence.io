@@ -3,6 +3,7 @@
 /**
  * Lifecycle callbacks for the `Rules` model.
  */
+ const _ = require('lodash');
 
 module.exports = {
   // Before saving a value.
@@ -34,7 +35,11 @@ module.exports = {
 
   // After creating a value.
   // Fired after `insert` query.
-  // afterCreate: async (model, result) => {},
+  afterCreate: async (model, result) => {
+    let values = { rule: result._id };
+    let params = result.campaign;
+    await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
+  },
 
   // Before updating a value.
   // Fired before an `update` query.

@@ -11,12 +11,10 @@ const _ = require('lodash');
 const domainPing = require("domain-ping");
 
 let ruleDefault = {
-	"hideNotification" : false,
+	"hideNotification" : true,
 	"loopNotification" : true,
-	"delayNotification" : true,
+	"delayNotification" : false,
 	"closeNotification" : false,
-	"hideAnonymous" : false,
-	"displayNotifications" : true,
 	"initialDelay" : 1,
 	"displayTime" : 3,
 	"delayBetween" : 3,
@@ -172,26 +170,26 @@ module.exports = {
     if(dom.error) {
       return dom;
     } else {
-      const data = await Campaign.create(_.omit(values, _.keys(_.groupBy(strapi.models.campaign.associations, 'alias'))));
-      await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(data), { values }));
+			const data = await Campaign.create(_.omit(values, _.keys(_.groupBy(strapi.models.campaign.associations, 'alias'))));
+			await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(data), { values }));
 
-      await Notificationtypes.find()
-        .exec()
-        .then(notifications => {
-          notifications.map(notification => {
-            let newConfiguration = configurationDefault;
-            newConfiguration['campaign'] = data._id;
-            newConfiguration['notificationType'] = notification._id;
-            Configuration.create(newConfiguration, (err, result) => {
-              if(err)
-                return err;
-            });
+			const notif = await Notificationtypes.find()
+      .exec()
+      .then(notifications => {
+        notifications.map(notification => {
+          let newConfiguration = configurationDefault;
+          newConfiguration['campaign'] = data._id;
+          newConfiguration['notificationType'] = notification._id;
+          Configuration.create(newConfiguration, (err, result) => {
+            if(err)
+              return err;
           });
         });
+      });
 
       let newRules = ruleDefault;
       newRules['campaign'] = data._id;
-      await Rules.create(newRules, (err, result) => {
+      const rule = await Rules.create(newRules, (err, result) => {
         if(err)
           return err;
       });
