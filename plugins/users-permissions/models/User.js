@@ -4,6 +4,7 @@
  * Lifecycle callbacks for the `User` model.
  */
  const crypto = require('crypto');
+ const request = require('request');
 
 module.exports = {
   // Before saving a value.
@@ -45,9 +46,19 @@ module.exports = {
     const subject = "Account Created";
     const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
     const verificationToken = result.verificationToken;
-    // Generate random token.
-
     strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
+    const user = {
+      id: result._id,
+      name: result.username,
+      email: result.email,
+      password: result.password,
+      provider: result.provider,
+      customer_id: result._id,
+    }
+    request.post({
+      url: 'http://206.81.0.120/api/v1/users/register',
+      form: user
+    });
   },
 
   // Before updating a value.
