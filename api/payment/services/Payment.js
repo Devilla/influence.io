@@ -72,6 +72,20 @@ module.exports = {
     // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
+
+  userInvoices: async (user) => {
+    var auth_token = await doRequest({method: 'POST', url:'http://206.81.0.120/api/v1/auth/token', form: { email: user.email, password: user.password }});
+
+    var invoices = await doRequest({
+      method: 'GET',
+      url:'http://206.81.0.120/api/v1/invoices/own',
+      headers: {
+        Authorization: 'JWT ' + JSON.parse(auth_token).token,
+        'Content-Type': 'application/json'
+      }
+    });
+    return invoices;
+  },
   /**
    * Promise to fetch all payments.
    *
@@ -172,7 +186,7 @@ module.exports = {
       created_at: payment_subscription.created_at,
       updated_at: payment_subscription.updated_at,
     };
-    
+
     const data = await Payment.create(payment_values);;
     return data;
   },

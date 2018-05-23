@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/payment/servicebot/invoice",
+      "handler": "Payment.findUsersInvoice",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/payment",
       "handler": "Payment.find",
       "config": {

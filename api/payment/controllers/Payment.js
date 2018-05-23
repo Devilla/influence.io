@@ -36,6 +36,18 @@ module.exports = {
   },
 
   /**
+   * Retrieve payment invoices.
+   *
+   * @return {Object|Array}
+   */
+  findUsersInvoice: async (ctx) => {
+    const data = await strapi.services.payment.userInvoices(ctx.state.user);
+
+    // Send 201 `created`
+    ctx.created(data);
+  },
+
+  /**
    * Retrieve payment records.
    *
    * @return {Object|Array}
