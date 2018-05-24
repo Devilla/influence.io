@@ -36,6 +36,18 @@ module.exports = {
   },
 
   /**
+   * Retrieve payment invoices.
+   *
+   * @return {Object|Array}
+   */
+  findUsersInvoice: async (ctx) => {
+    const data = await strapi.services.payment.userInvoices(ctx.state.user);
+
+    // Send 200 `ok`
+    ctx.created(data);
+  },
+
+  /**
    * Retrieve payment records.
    *
    * @return {Object|Array}
@@ -90,6 +102,20 @@ module.exports = {
     // Send 200 `ok`
     ctx.send(data);
   },
+
+  /**
+   * Upgrade a/an payment servicebot card details.
+   *
+   * @return {Object}
+   */
+
+  upgradeCard: async (ctx, next) => {
+    const data = await strapi.services.payment.upgradeCard(ctx.state.user, ctx.request.body) ;
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
 
   /**
    * Destroy a/an payment record.
