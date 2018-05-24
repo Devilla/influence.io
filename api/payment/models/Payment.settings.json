@@ -9,32 +9,36 @@
     "timestamps": true
   },
   "attributes": {
-    "user": {
-      "model": "user",
-      "via": "payments",
-      "plugin": "users-permissions"
-    },
-    "service_id": {
-      "type": "integer",
-      "multiple": false
-    },
-    "service_id": {
-      "type": "integer",
-      "multiple": false
-    },
-    "user_id": {
-      "type": "integer",
-      "multiple": false
-    },
-    "requested_by": {
-      "type": "integer",
-      "multiple": false
-    },
-    "payment_plan": {
+    "paymentProvider": {
       "type": "json",
       "multiple": false
     },
-    "name": {
+    "amount": {
+      "type": "integer",
+      "multiple": false
+    },
+    "profile": {
+      "model": "profile",
+      "via": "profile_payments"
+    },
+    "plan": {
+      "model": "plan",
+      "via": "plan_payment",
+      "dominant": true
+    },
+    "status": {
+      "type": "string",
+      "multiple": false
+    },
+    "balance_transaction": {
+      "type": "string",
+      "multiple": false
+    },
+    "currency": {
+      "type": "string",
+      "multiple": false
+    },
+    "customer": {
       "type": "string",
       "multiple": false
     },
@@ -42,33 +46,50 @@
       "type": "string",
       "multiple": false
     },
-    "subscription_id": {
+    "on_behalf_of": {
       "type": "string",
       "multiple": false
     },
-    "subscribed_at":  {
+    "outcome": {
+      "type": "json",
+      "multiple": false
+    },
+    "receipt_email": {
+      "type": "string",
+      "multiple": false
+    },
+    "refunds": {
+      "type": "json",
+      "multiple": false
+    },
+    "source": {
+      "type": "json",
+      "multiple": false
+    },
+    "charge_id": {
+      "type": "string",
+      "multiple": false
+    },
+    "amount_refunded": {
       "type": "integer",
       "multiple": false
     },
-    "trial_end":  {
+    "captured": {
+      "type": "boolean",
+      "multiple": false
+    },
+    "created": {
       "type": "integer",
       "multiple": false
     },
-    "status": {
-      "type": "string",
+    "paid": {
+      "type": "boolean",
       "multiple": false
     },
-    "type": {
-      "type": "string",
-      "multiple": false
-    },
-    "created_at": {
-      "type": "string",
-      "multiple": false
-    },
-    "updated_at": {
-      "type": "string",
-      "multiple": false
+    "user": {
+      "model": "user",
+      "via": "payments",
+      "plugin": "users-permissions"
     }
   }
 }

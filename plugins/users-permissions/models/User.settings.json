@@ -59,10 +59,6 @@
     "payments": {
       "collection": "payment",
       "via": "user"
-    },
-    "servicebot": {
-      "type": "json",
-      "multiple": false
     }
   },
   "collectionName": "users-permissions_user"
