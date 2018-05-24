@@ -123,10 +123,15 @@ describe("Should Upgrade User's Card details", function() {
   it("should upgrade and get user's new card", function *() {
     yield createNewToken;
     yield request(strapi.config.url)
-    .post('/payment/servicebot/card')
+    .put('/payment/servicebot/card')
     .set('Authorization', `Bearer ${Token}`)
     .set('Accept', 'application/json')
-    .expect(201)
+    .send({
+      "paymentProvider": {
+        "id":stripe_token
+      }
+    })
+    .expect(200)
     .expect('Content-Type', /json/)
     .then((data, err) => {
       if(data.error)

@@ -215,7 +215,7 @@ module.exports = {
       add_funds = await doRequest({
         method: 'POST',
         url:'https://servicebot.useinfluence.co/api/v1/funds',
-        json: funds_details,
+        form: funds_details,
         headers: {
           Authorization: 'JWT ' + JSON.parse(auth_token).token,
           'Content-Type': 'application/json'
@@ -224,7 +224,6 @@ module.exports = {
     } else {
       return { message: "user not found", err: true };
     }
-    console.log(add_funds, "========funds");
     return JSON.parse(add_funds);
   },
 

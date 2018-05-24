@@ -27,21 +27,16 @@ const template = require('../libs/template');
  */
 
  async function sendEmail(mailOptions) {
-
    let v;
    try {
-
-     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+     sgMail.setApiKey('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');
 
      v = await sgMail.send(mailOptions);
-
-   }catch (e) {
+   } catch (e) {
      return e;
    }
 
    return v;
-
-
 }
 
 /**
