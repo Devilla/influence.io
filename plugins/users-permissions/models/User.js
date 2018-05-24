@@ -84,6 +84,25 @@ module.exports = {
     const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
     const verificationToken = result.verificationToken;
     strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
+    const state = {
+      past_state: {
+        state: null,
+        created_at: null,
+        updated_at: null
+      },
+      present_state: {
+        state: "User Created",
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      future_state: {
+        state: "Add card and payment",
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      user: result._id
+    };
+    strapi.api.state.services.state.add(state);
   },
 
   // Before updating a value.

@@ -63,6 +63,10 @@
     "servicebot": {
       "type": "json",
       "multiple": false
+    },
+    "state": {
+      "model": "state",
+      "via": "user"
     }
   },
   "collectionName": "users-permissions_user"
