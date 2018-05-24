@@ -73,7 +73,7 @@ module.exports = {
       model.servicebot = {
         client_id: userDetails[0].id,
         status: userDetails[0].status,
-      };
+      }
   },
 
   // After creating a value.
@@ -83,7 +83,7 @@ module.exports = {
     const subject = "Account Created";
     const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
     const verificationToken = result.verificationToken;
-    strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
+    // strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
   },
 
   // Before updating a value.

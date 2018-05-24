@@ -17,7 +17,7 @@ function doRequest(options) {
       if (!error && res.statusCode == 200) {
         resolve(body);
       } else {
-        reject(error);
+        reject(body);
       }
     });
   });
@@ -72,20 +72,27 @@ module.exports = {
     // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
+  /**
+   * Promise to fetch all payments invoices.
+   *
+   * @return {Promise}
+   */
 
   userInvoices: async (user) => {
-    var auth_token = await doRequest({method: 'POST', url:'http://206.81.0.120/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
 
     var invoices = await doRequest({
       method: 'GET',
-      url:'http://206.81.0.120/api/v1/invoices/own',
+      url:'https://servicebot.useinfluence.co/api/v1/invoices/own',
       headers: {
         Authorization: 'JWT ' + JSON.parse(auth_token).token,
         'Content-Type': 'application/json'
       }
     });
-    return invoices;
+    return JSON.parse(invoices);
   },
+
+
   /**
    * Promise to fetch all payments.
    *
@@ -126,39 +133,38 @@ module.exports = {
 
   add: async (user, values) => {
     let token = values.paymentProvider.id;
-
-    var auth_token = await doRequest({method: 'POST', url:'http://206.81.0.120/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    var payment_subscription;
+    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    const subscription = {
+      "id":14,
+      "category_id":1,
+      "created_by":1,
+      "name":"Paid",
+      "description":"monthly",
+      "details":null,
+      "published":true,
+      "statement_descriptor":
+      "Useinfluence",
+      "trial_period_days":0,
+      "amount":1000,
+      "overhead":null,
+      "currency":"usd",
+      "interval":"day",
+      "interval_count":1,
+      "type":"subscription",
+      "subscription_prorate":true,
+      "split_configuration":null,
+      "created_at":"2018-05-23T10:04:22.813Z",
+      "updated_at":"2018-05-23T10:04:22.813Z",
+      "references":{"service_template_properties":[]},
+      "token_id": token,
+      "client_id": user.servicebot.client_id
+    };
 
     if(auth_token) {
-      const subscription = {
-        "id":14,
-        "category_id":1,
-        "created_by":1,
-        "name":"Paid",
-        "description":"monthly",
-        "details":null,
-        "published":true,
-        "statement_descriptor":
-        "Useinfluence",
-        "trial_period_days":0,
-        "amount":1000,
-        "overhead":null,
-        "currency":"usd",
-        "interval":"day",
-        "interval_count":1,
-        "type":"subscription",
-        "subscription_prorate":true,
-        "split_configuration":null,
-        "created_at":"2018-05-23T10:04:22.813Z",
-        "updated_at":"2018-05-23T10:04:22.813Z",
-        "references":{"service_template_properties":[]},
-        "token_id": token,
-        "client_id": user.servicebot.client_id
-      };
-
-      var payment_subscription = await doRequest({
+      payment_subscription = await doRequest({
         method: 'POST',
-        url:'http://206.81.0.120/api/v1/service-templates/14/request',
+        url:'https://servicebot.useinfluence.co/api/v1/service-templates/14/request',
         json: subscription,
         headers: {
           Authorization: 'JWT ' + JSON.parse(auth_token).token,
@@ -168,7 +174,6 @@ module.exports = {
     } else {
       return { message: "user not found", err: true };
     }
-
     const payment_values = {
       user: user._id,
       service_id: payment_subscription.service_id,
@@ -187,7 +192,7 @@ module.exports = {
       updated_at: payment_subscription.updated_at,
     };
 
-    const data = await Payment.create(payment_values);;
+    const data = await Payment.create(payment_values);
     return data;
   },
 

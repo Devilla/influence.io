@@ -43,7 +43,7 @@ module.exports = {
   findUsersInvoice: async (ctx) => {
     const data = await strapi.services.payment.userInvoices(ctx.state.user);
 
-    // Send 201 `created`
+    // Send 200 `ok`
     ctx.created(data);
   },
 
