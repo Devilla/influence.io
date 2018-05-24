@@ -15,7 +15,7 @@ const stripe = require("stripe")(
 );
 var Token, user, stripe_token;
 
-before(function (done) {
+function createNewToken(done) {
   stripe.tokens.create({
     card: {
       "number": '4242424242424242',
@@ -27,7 +27,7 @@ before(function (done) {
     stripe_token = token.id;
     done();
   });
-});
+};
 
 /*
  * Test the login user
@@ -78,6 +78,7 @@ before(function (done) {
  */
 describe('Should Create Payment', function() {
   it('should create and return payment info', function *() {
+    yield createNewToken;
     yield request(strapi.config.url)
      .post('/payment')
      .set('Authorization', `Bearer ${Token}`)
@@ -107,7 +108,26 @@ describe('Should Get Payment Invoices', function() {
     .set('Authorization', `Bearer ${Token}`)
     .set('Accept', 'application/json')
     .expect(201)
-    .expect('Content-Type', "text/plain; charset=utf-8")
+    .expect('Content-Type', /json/)
+    .then((data, err) => {
+      if(data.error)
+        throw data.error;
+    });
+  });
+});
+
+/*
+ * Test the adding new card details to servicebot
+ */
+describe("Should Upgrade User's Card details", function() {
+  it("should upgrade and get user's new card", function *() {
+    yield createNewToken;
+    yield request(strapi.config.url)
+    .post('/payment/servicebot/card')
+    .set('Authorization', `Bearer ${Token}`)
+    .set('Accept', 'application/json')
+    .expect(201)
+    .expect('Content-Type', /json/)
     .then((data, err) => {
       if(data.error)
         throw data.error;

@@ -57,6 +57,14 @@
       }
     },
     {
+      "method": "PUT",
+      "path": "/payment/servicebot/card",
+      "handler": "Payment.upgradeCard",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "DELETE",
       "path": "/payment/:_id",
       "handler": "Payment.destroy",

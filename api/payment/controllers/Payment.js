@@ -104,6 +104,20 @@ module.exports = {
   },
 
   /**
+   * Upgrade a/an payment servicebot card details.
+   *
+   * @return {Object}
+   */
+
+  upgradeCard: async (ctx, next) => {
+    const data = await strapi.services.payment.upgradeCard(ctx.state.user, ctx.request.body) ;
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+
+  /**
    * Destroy a/an payment record.
    *
    * @return {Object}

@@ -25,7 +25,6 @@ function doRequest(options) {
 
 let stripe = require('stripe')(process.env.STRIPE_KEY || 'sk_test_hIHBmEAcq9nzEIGICQ6gjFmY');
 
-
 module.exports = {
 
   /**
@@ -194,6 +193,39 @@ module.exports = {
 
     const data = await Payment.create(payment_values);
     return data;
+  },
+
+  /**
+   * Promise to upgrade a/an servicebot payment card.
+   *
+   * @return {Promise}
+   */
+
+  upgradeCard: async (user, values) => {
+    var add_funds;
+    let token = values.paymentProvider.id;
+    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+
+    const funds_details = {
+      "user_id": user.servicebot.client_id,
+      "token_id": token
+    };
+
+    if(auth_token) {
+      add_funds = await doRequest({
+        method: 'POST',
+        url:'https://servicebot.useinfluence.co/api/v1/funds',
+        json: funds_details,
+        headers: {
+          Authorization: 'JWT ' + JSON.parse(auth_token).token,
+          'Content-Type': 'application/json'
+        }
+      });
+    } else {
+      return { message: "user not found", err: true };
+    }
+    console.log(add_funds, "========funds");
+    return JSON.parse(add_funds);
   },
 
   /**
