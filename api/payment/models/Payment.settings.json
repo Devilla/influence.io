@@ -9,36 +9,32 @@
     "timestamps": true
   },
   "attributes": {
-    "paymentProvider": {
-      "type": "json",
-      "multiple": false
+    "user": {
+      "model": "user",
+      "via": "payments",
+      "plugin": "users-permissions"
     },
-    "amount": {
+    "service_id": {
       "type": "integer",
       "multiple": false
     },
-    "profile": {
-      "model": "profile",
-      "via": "profile_payments"
-    },
-    "plan": {
-      "model": "plan",
-      "via": "plan_payment",
-      "dominant": true
-    },
-    "status": {
-      "type": "string",
+    "service_id": {
+      "type": "integer",
       "multiple": false
     },
-    "balance_transaction": {
-      "type": "string",
+    "user_id": {
+      "type": "integer",
       "multiple": false
     },
-    "currency": {
-      "type": "string",
+    "requested_by": {
+      "type": "integer",
       "multiple": false
     },
-    "customer": {
+    "payment_plan": {
+      "type": "json",
+      "multiple": false
+    },
+    "name": {
       "type": "string",
       "multiple": false
     },
@@ -46,50 +42,33 @@
       "type": "string",
       "multiple": false
     },
-    "on_behalf_of": {
+    "subscription_id": {
       "type": "string",
       "multiple": false
     },
-    "outcome": {
-      "type": "json",
-      "multiple": false
-    },
-    "receipt_email": {
-      "type": "string",
-      "multiple": false
-    },
-    "refunds": {
-      "type": "json",
-      "multiple": false
-    },
-    "source": {
-      "type": "json",
-      "multiple": false
-    },
-    "charge_id": {
-      "type": "string",
-      "multiple": false
-    },
-    "amount_refunded": {
+    "subscribed_at":  {
       "type": "integer",
       "multiple": false
     },
-    "captured": {
-      "type": "boolean",
-      "multiple": false
-    },
-    "created": {
+    "trial_end":  {
       "type": "integer",
       "multiple": false
     },
-    "paid": {
-      "type": "boolean",
+    "status": {
+      "type": "string",
       "multiple": false
     },
-    "user": {
-      "model": "user",
-      "via": "payments",
-      "plugin": "users-permissions"
+    "type": {
+      "type": "string",
+      "multiple": false
+    },
+    "created_at": {
+      "type": "string",
+      "multiple": false
+    },
+    "updated_at": {
+      "type": "string",
+      "multiple": false
     }
   }
 }

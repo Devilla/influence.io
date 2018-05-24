@@ -18,16 +18,18 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "chai": "^4.1.2",
+    "co-mocha": "^1.2.2",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.8.0",
-    "mocha": "^5.1.1"
+    "mocha": "^5.2.0"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "bcryptjs": "^2.4.3",
+    "co-supertest": "0.0.10",
     "domain-ping": "^0.1.9",
     "dotenv": "^5.0.1",
     "elasticsearch": "^14.2.1",
@@ -47,6 +49,7 @@
     "strapi-mongoose": "^3.0.0-alpha.11.1",
     "stream-to-array": "^2.3.0",
     "stripe": "^6.0.0",
+    "supertest": "^3.1.0",
     "uniqid": "^4.1.1",
     "uuid": "^3.1.0",
     "ws": "^5.1.0"
