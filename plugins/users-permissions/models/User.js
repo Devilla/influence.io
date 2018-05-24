@@ -83,7 +83,7 @@ module.exports = {
     const subject = "Account Created";
     const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
     const verificationToken = result.verificationToken;
-    // strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
+    strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
   },
 
   // Before updating a value.
