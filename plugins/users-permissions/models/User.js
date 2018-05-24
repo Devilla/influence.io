@@ -61,9 +61,9 @@ module.exports = {
       customer_id: model._id,
     };
 
-    var data = await doRequest({method: 'POST', url:'http://206.81.0.120/api/v1/users/register', form: user});
-    var token = await doRequest({method: 'POST', url:'http://206.81.0.120/api/v1/auth/token', form: { email: model.email, password: model.password }});
-    var userDetails = await doRequest({method: 'GET', url:'http://206.81.0.120/api/v1/users/own', headers: {
+    var data = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/users/register', form: user});
+    var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: model.email, password: model.password }});
+    var userDetails = await doRequest({method: 'GET', url:'https://servicebot.useinfluence.co/api/v1/users/own', headers: {
       Authorization: 'JWT ' + JSON.parse(token).token,
       'Content-Type': 'application/json'
     }});
