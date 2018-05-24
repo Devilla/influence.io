@@ -18,14 +18,6 @@
     },
     {
       "method": "GET",
-      "path": "/payment/servicebot/invoice",
-      "handler": "Payment.findUsersInvoice",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
       "path": "/payment",
       "handler": "Payment.find",
       "config": {
@@ -52,14 +44,6 @@
       "method": "PUT",
       "path": "/payment/:_id",
       "handler": "Payment.update",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "PUT",
-      "path": "/payment/servicebot/card",
-      "handler": "Payment.upgradeCard",
       "config": {
         "policies": []
       }
