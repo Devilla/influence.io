@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
+    "agentkeepalive": "^3.4.1",
     "bcryptjs": "^2.4.3",
     "co-supertest": "0.0.10",
     "domain-ping": "^0.1.9",
@@ -51,6 +52,7 @@
     "stripe": "^6.0.0",
     "supertest": "^3.1.0",
     "uniqid": "^4.1.1",
+    "util": "^0.10.3",
     "uuid": "^3.1.0",
     "ws": "^5.1.0"
   },
