@@ -4,21 +4,6 @@
  * Lifecycle callbacks for the `User` model.
  */
  const crypto = require('crypto');
- const request = require('request');
-
-
- function doRequest(options) {
-   return new Promise(function (resolve, reject) {
-     request(options , function (error, res, body) {
-       if (!error && res.statusCode == 200) {
-         resolve(body);
-       } else {
-         reject(error);
-       }
-     });
-   });
- }
-
 
 module.exports = {
   // Before saving a value.
@@ -51,29 +36,6 @@ module.exports = {
     const verificationToken = crypto.randomBytes(64).toString('hex');
     model.verificationToken = verificationToken
     model.verified = false;
-
-    const user = {
-      id: model._id,
-      name: model.username,
-      email: model.email,
-      password: model.password,
-      provider: model.provider,
-      customer_id: model._id,
-    };
-
-    var data = await doRequest({method: 'POST', url:'http://206.81.0.120/api/v1/users/register', form: user});
-    var token = await doRequest({method: 'POST', url:'http://206.81.0.120/api/v1/auth/token', form: { email: model.email, password: model.password }});
-    var userDetails = await doRequest({method: 'GET', url:'http://206.81.0.120/api/v1/users/own', headers: {
-      Authorization: 'JWT ' + JSON.parse(token).token,
-      'Content-Type': 'application/json'
-    }});
-
-    userDetails = userDetails?JSON.parse(userDetails):[];
-    if(userDetails.length)
-      model.servicebot = {
-        client_id: userDetails[0].id,
-        status: userDetails[0].status,
-      }
   },
 
   // After creating a value.
@@ -83,6 +45,8 @@ module.exports = {
     const subject = "Account Created";
     const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
     const verificationToken = result.verificationToken;
+    // Generate random token.
+
     strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
   },
 
