@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "state",
   "info": {
     "name": "state",
     "description": "Manages user state"
@@ -25,6 +25,15 @@
       "model": "user",
       "via": "state",
       "plugin": "users-permissions"
+    },
+    "profile": {
+      "model": "profile",
+      "via": "user_state"
+    },
+    "campaign": {
+      "collection": "campaign",
+      "via": "campaign_state",
+      "plugin": ""
     }
   }
 }

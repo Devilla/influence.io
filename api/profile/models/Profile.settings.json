@@ -50,6 +50,10 @@
     "profile_payments": {
       "model": "payment",
       "via": "profile"
+    },
+    "user_state": {
+      "model": "state",
+      "via": "profile"
     }
   }
 }

@@ -55,6 +55,10 @@
     "rule": {
       "model": "rules",
       "via": "campaign"
+    },
+    "campaign_state": {
+      "model": "state",
+      "via": "campaign"
     }
   }
 }

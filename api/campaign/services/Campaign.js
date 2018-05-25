@@ -141,14 +141,19 @@ module.exports = {
 		},
 
   /**
-   * Promise to add a/an campaign.
+   * Promise to add a/an new campaign with default configuration and rules.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
-		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]; //filter website url from https/http and www
 
+		/**
+		* Function to check whether the website url is valid or not
+		*
+		*@return {Promise}
+		*/
     var checkDomain = new Promise((resolve, reject) => {
       domainPing(values.websiteUrl)
        .then((res) => {
@@ -159,6 +164,11 @@ module.exports = {
        });
     });
 
+		/**
+		*	Calls checkDomain function
+		*
+		*@return {Promise}
+		*/
     var dom = await checkDomain
     .then((result) => {
       return result;
@@ -172,6 +182,11 @@ module.exports = {
     } else {
 			const data = await Campaign.create(values);
 
+			/**
+			* Find Notificationtypes and create new configuration for campaign related to notificationType
+			*
+			*@return {Null}
+			*/
 			await Notificationtypes.find()
       .exec()
       .then(notifications => {
@@ -186,6 +201,11 @@ module.exports = {
         });
       });
 
+			/**
+			* Creates new default Rules for campaign
+			*
+			*@return {Promise}
+			*/
       let newRules = ruleDefault;
       newRules['campaign'] = data._id;
       await Rules.create(newRules, (err, result) => {
@@ -193,7 +213,7 @@ module.exports = {
           return err;
       });
 
-      return data;
+      return data; // return new campaign
     }
   },
 

@@ -11,6 +11,12 @@ const _ = require('lodash');
 const env = require('dotenv').config()
 const request = require('request');
 
+/**
+* Function for http requests
+*
+*@param{{method, url, headers, form}}
+*@return {Promise}
+*/
 function doRequest(options) {
   return new Promise(function (resolve, reject) {
     request(options , function (error, res, body) {
@@ -23,6 +29,10 @@ function doRequest(options) {
   });
 }
 
+/**
+* Initialize stripe with live/development api key
+*
+*/
 let stripe = require('stripe')(process.env.STRIPE_KEY || 'sk_test_hIHBmEAcq9nzEIGICQ6gjFmY');
 
 module.exports = {
@@ -78,7 +88,14 @@ module.exports = {
    */
 
   userInvoices: async (user) => {
-    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    var auth_token = await doRequest({
+      method: 'POST',
+      url:'https://servicebot.useinfluence.co/api/v1/auth/token',
+      form: {
+        email: user.email,
+        password: user.password
+      }
+    }); //retrieve auth token for logged in user from service bot
 
     var invoices = await doRequest({
       method: 'GET',
@@ -87,8 +104,9 @@ module.exports = {
         Authorization: 'JWT ' + JSON.parse(auth_token).token,
         'Content-Type': 'application/json'
       }
-    });
-    return JSON.parse(invoices);
+    }); //retrieve user invoices from service bot
+
+    return JSON.parse(invoices); //returns parsed user's invoices
   },
 
 
@@ -133,7 +151,17 @@ module.exports = {
   add: async (user, values) => {
     let token = values.paymentProvider.id;
     var payment_subscription;
-    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    var subscription_id = 14;
+    var auth_token = await doRequest({
+      method: 'POST',
+      url:'https://servicebot.useinfluence.co/api/v1/auth/token',
+      form: {
+        email: user.email,
+        password: user.password
+      }
+    }); // retrieve logged in user's auth token from servicebot
+
+    //default subscription plan(need to add a dynamic one)
     const subscription = {
       "id":14,
       "category_id":1,
@@ -160,10 +188,15 @@ module.exports = {
       "client_id": user.servicebot.client_id
     };
 
+    /**
+		*	subscribe to subscription plan and make payment
+		*
+		*@return {Promise}
+		*/
     if(auth_token) {
       payment_subscription = await doRequest({
         method: 'POST',
-        url:'https://servicebot.useinfluence.co/api/v1/service-templates/14/request',
+        url:`https://servicebot.useinfluence.co/api/v1/service-templates/${subscription_id}/request`,
         json: subscription,
         headers: {
           Authorization: 'JWT ' + JSON.parse(auth_token).token,
@@ -173,6 +206,8 @@ module.exports = {
     } else {
       return { message: "user not found", err: true };
     }
+
+    //created payments object for storing
     const payment_values = {
       user: user._id,
       service_id: payment_subscription.service_id,
@@ -191,6 +226,7 @@ module.exports = {
       updated_at: payment_subscription.updated_at,
     };
 
+    //Create new payment document
     const data = await Payment.create(payment_values);
     return data;
   },
@@ -204,13 +240,25 @@ module.exports = {
   upgradeCard: async (user, values) => {
     var add_funds;
     let token = values.paymentProvider.id;
-    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    var auth_token = await doRequest({
+      method: 'POST',
+      url:'https://servicebot.useinfluence.co/api/v1/auth/token',
+      form: {
+        email: user.email,
+        password: user.password
+      }
+    }); // retrieve auth token for logged in user from service bot
 
     const funds_details = {
       "user_id": user.servicebot.client_id,
       "token_id": token
     };
 
+    /**
+		*	Add new card to the servicebot
+		*
+		*@return {Promise}
+		*/
     if(auth_token) {
       add_funds = await doRequest({
         method: 'POST',
@@ -224,7 +272,7 @@ module.exports = {
     } else {
       return { message: "user not found", err: true };
     }
-    return JSON.parse(add_funds);
+    return JSON.parse(add_funds); //return updated card details
   },
 
   /**

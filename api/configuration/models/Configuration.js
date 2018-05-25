@@ -42,7 +42,46 @@ module.exports = {
 
   // After updating a value.
   // Fired after an `update` query.
-  // afterUpdate: async (model, result) => {},
+  afterUpdate: async (model, result) => {
+    //find configuration campaign
+    const configurationId = await Configuration
+    .findOne({
+      _id: model._update.id
+    }, {
+      campaign: 1,
+      _id: 0
+    });
+
+    //find saved_state related to campaign
+    if(configurationId) {
+      const saved_state = JSON.parse(
+        JSON.stringify(
+          await strapi.api.state.services.state.fetch(
+            {campaign: configurationId.campaign}
+          )
+        )
+      );
+
+      if(saved_state) {
+        const present_state = saved_state.present_state;
+        const future_state = saved_state.future_state;
+
+        saved_state.past_state = {
+          state: present_state.state,
+          created_at: present_state.created_at,
+          updated_at: present_state.updated_at
+        };
+
+        saved_state.present_state['state'] = "Payment Made";
+        saved_state.present_state['updated_at'] = new Date();
+
+        saved_state.future_state['state'] = "Create Campaign";
+        saved_state.future_state['updated_at'] = new Date();
+
+        await strapi.api.state.services.state.edit({_id: saved_state._id}, saved_state); //update saved_state with new state
+      }
+    }
+  },
 
   // Before destroying a value.
   // Fired before a `delete` query.
