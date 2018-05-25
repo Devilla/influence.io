@@ -14,9 +14,8 @@ var http = require('http')
 
 const client = elasticsearch.Client({
   host: strapi.config.elasticsearchNode,
-  createNodeAgent(connection, config) {
-    return http.globalAgent;
-  },
+  requestTimeout: Infinity, // Tested
+  keepAlive: true, // Tested
   log: 'trace'
 });
 
