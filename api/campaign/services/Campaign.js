@@ -187,7 +187,7 @@ module.exports = {
       });
 
       let newRules = ruleDefault;
-      newRules['campaign'] = data._id;
+      newRules['campaign'] = data.id;
       await Rules.create(newRules, (err, result) => {
         if(err)
           return err;
