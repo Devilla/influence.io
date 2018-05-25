@@ -10,9 +10,13 @@
 
 const elasticsearch = require('elasticsearch');
 const moment = require('moment');
+var http = require('http')
 
 const client = elasticsearch.Client({
   host: strapi.config.elasticsearchNode,
+  createNodeAgent(connection, config) {
+    return http.globalAgent;
+  },
   log: 'trace'
 });
 
