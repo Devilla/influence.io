@@ -179,6 +179,8 @@ health : async () => {
         if(response.hits.hits[0]) {
           let email = response.hits.hits[0]._source.json.value.form.email;
           let timestamp = response.hits.hits[0]._source.json.value.timestamp;
+          let city = response.hits.hits[0]._source.json.value.geo.city;
+          let country response.hits.hits[0]._source.json.value.geo.country;
           try {
             userDetails = await strapi.services.enrichment.picasaWeb(email);
           } catch(err) {
@@ -191,6 +193,8 @@ health : async () => {
             }
           }
           userDetails['timestamp'] = timestamp;
+          userDetails['city'] = city;
+          userDetails['country'] = country;
         } else {
           userDetails = null;
         }
