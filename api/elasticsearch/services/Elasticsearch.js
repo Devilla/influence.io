@@ -13,7 +13,7 @@ const moment = require('moment');
 var http = require('http')
 
 const client = elasticsearch.Client({
-  host: 'elasticsearch:9200', // Remove this Should get it from the strapi.config.elasticsearchNode 
+  host: 'elasticsearch:9200', // Remove this Should get it from the strapi.config.elasticsearchNode
   requestTimeout: Infinity, // Tested
   keepAlive: true, // Tested
   log: 'trace'
@@ -180,7 +180,7 @@ health : async () => {
           let email = response.hits.hits[0]._source.json.value.form.email;
           let timestamp = response.hits.hits[0]._source.json.value.timestamp;
           let city = response.hits.hits[0]._source.json.value.geo.city;
-          let country response.hits.hits[0]._source.json.value.geo.country;
+          let country = response.hits.hits[0]._source.json.value.geo.country;
           try {
             userDetails = await strapi.services.enrichment.picasaWeb(email);
           } catch(err) {
