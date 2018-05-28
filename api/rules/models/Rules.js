@@ -36,8 +36,9 @@ module.exports = {
   // After creating a value.
   // Fired after `insert` query.
   afterCreate: async (model, result) => {
-    let values = { rule: result._id };
-    let params = result.campaign;
+    let values = { rule: model._id };
+    let params = model.campaign;
+    console.log(params);
     await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
     return;
   }

@@ -148,7 +148,7 @@ module.exports = {
 
   add: async (values) => {
 		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
-
+		values.isActive = true;
     var checkDomain = new Promise((resolve, reject) => {
       domainPing(values.websiteUrl)
        .then((res) => {
@@ -187,13 +187,11 @@ module.exports = {
       });
 
       let newRules = ruleDefault;
-			console.log(data, "======data");
-      newRules['campaign'] = data.id;
-      await Rules.create(newRules, (err, result) => {
+			newRules['campaign'] = data._id;
+			await Rules.create(newRules, (err, result) => {
         if(err)
           return err;
       });
-
       return data;
     }
   },
