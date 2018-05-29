@@ -139,3 +139,39 @@ describe("Should Upgrade User's Card details", function() {
     });
   });
 });
+
+/*
+ * Cancel the payment subscription
+ */
+describe('Should Cancel Payment Subscription', function() {
+  it("should cancel user's payment subscription", function *() {
+    yield request(strapi.config.url)
+    .post('/payment/servicebot/cancel')
+    .set('Authorization', `Bearer ${Token}`)
+    .set('Accept', 'application/json')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .then((data, err) => {
+      if(data.error)
+        throw data.error;
+    });
+  });
+});
+
+/*
+ * Delete the payment subscription
+ */
+describe('Should Delete Payment Subscription', function() {
+  it("should delete user's payment subscription", function *() {
+    yield request(strapi.config.url)
+    .delete('/payment/servicebot/delete')
+    .set('Authorization', `Bearer ${Token}`)
+    .set('Accept', 'application/json')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .then((data, err) => {
+      if(data.error)
+        throw data.error;
+    });
+  });
+});
