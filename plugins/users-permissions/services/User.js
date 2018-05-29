@@ -9,6 +9,19 @@
 // Public dependencies.
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
+const request = require('request');
+
+function doRequest(options) {
+  return new Promise(function (resolve, reject) {
+    request(options , function (error, res, body) {
+      if (!error && res.statusCode == 200) {
+        resolve(body);
+      } else {
+        reject(error);
+      }
+    });
+  });
+}
 
 module.exports = {
   /**
@@ -104,7 +117,7 @@ module.exports = {
    * @return {Promise}
    */
 
-  remove: async params => {
+  remove: async (params, user) => {
     // Use Content Manager business logic to handle relation.
     if (strapi.plugins['content-manager']) {
       params.model = 'user';
@@ -112,6 +125,12 @@ module.exports = {
 
       await strapi.plugins['content-manager'].services['contentmanager'].delete(params, {source: 'users-permissions'});
     }
+
+    var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    await doRequest({method: 'DELETE', url:`https://servicebot.useinfluence.co/api/v1/users/${user.servicebot.client_id}`, headers: {
+      Authorization: 'JWT ' + JSON.parse(token).token,
+      'Content-Type': 'application/json'
+    }});
 
     return strapi.query('user', 'users-permissions').delete(params);
   },

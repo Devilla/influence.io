@@ -10,10 +10,11 @@
  function doRequest(options) {
    return new Promise(function (resolve, reject) {
      request(options , function (error, res, body) {
-       if (!error && res.statusCode == 200) {
+       const response = JSON.parse(body);
+       if (!error && res.statusCode == 200 || !response.error) {
          resolve(body);
        } else {
-         reject(error);
+         reject(response.error);
        }
      });
    });
@@ -61,19 +62,25 @@ module.exports = {
       customer_id: model._id,
     };
 
-    var data = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/users/register', form: user});
-    var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: model.email, password: model.password }});
-    var userDetails = await doRequest({method: 'GET', url:'https://servicebot.useinfluence.co/api/v1/users/own', headers: {
-      Authorization: 'JWT ' + JSON.parse(token).token,
-      'Content-Type': 'application/json'
-    }});
-
-    userDetails = userDetails?JSON.parse(userDetails):[];
-    if(userDetails.length)
-      model.servicebot = {
-        client_id: userDetails[0].id,
-        status: userDetails[0].status,
-      }
+    try {
+      var data = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/users/register', form: user});
+      var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: model.email, password: model.password }});
+      var userDetails = await doRequest({method: 'GET', url:'https://servicebot.useinfluence.co/api/v1/users/own', headers: {
+        Authorization: 'JWT ' + JSON.parse(token).token,
+        'Content-Type': 'application/json'
+      }});
+      userDetails = userDetails?JSON.parse(userDetails):[];
+      if(userDetails.length)
+        model.servicebot = {
+          client_id: userDetails[0].id,
+          status: userDetails[0].status,
+        }
+    } catch(error) {
+      const err = {
+        message: "Email already taken"
+      };
+      return err;
+    }
   },
 
   // After creating a value.
