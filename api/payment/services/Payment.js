@@ -236,7 +236,7 @@ module.exports = {
   cancelSubscription: async (user) => {
     var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
 
-    const payment_info = await Payment.findOne({user_id: user._id})
+    const payment_info = await Payment.findOne({user: user._id})
       .sort({created_at: -1})
       .exec((err, res) => {
         if(err)
@@ -272,7 +272,7 @@ module.exports = {
   deleteSubscription: async (user) => {
     var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
 
-    const payment_info = await Payment.findOne({user_id: user._id})
+    const payment_info = await Payment.findOne({user: user._id})
       .sort({created_at: -1})
       .exec((err, res) => {
         if(err)

@@ -127,10 +127,32 @@ module.exports = {
     }
 
     var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
-    await doRequest({method: 'DELETE', url:`https://servicebot.useinfluence.co/api/v1/users/${user.servicebot.client_id}`, headers: {
+
+    if(token) {
+      const payment_info = await Payment.findOne({user: user._id})
+        .sort({created_at: -1})
+        .exec((err, res) => {
+          if(err)
+            throw err;
+          else
+            return res;
+        })
+
+      if(payment_info)
+        await doRequest({
+          method: 'DELETE',
+          url:`https://servicebot.useinfluence.co/service-instances/${payment_info.service_id}`,
+          headers: {
+            Authorization: 'JWT ' + JSON.parse(auth_token).token,
+            'Content-Type': 'application/json'
+          }
+        });
+
+      await doRequest({method: 'DELETE', url:`https://servicebot.useinfluence.co/api/v1/users/${user.servicebot.client_id}`, headers: {
       Authorization: 'JWT ' + JSON.parse(token).token,
       'Content-Type': 'application/json'
     }});
+    }
 
     return strapi.query('user', 'users-permissions').delete(params);
   },
