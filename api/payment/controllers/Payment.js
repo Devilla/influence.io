@@ -130,7 +130,7 @@ module.exports = {
   },
 
   /**
-   * Cancel a/an payment subscription servicebot.
+   * Delete a/an payment subscription servicebot.
    *
    * @return {Object}
    */

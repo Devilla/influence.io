@@ -228,12 +228,12 @@ module.exports = {
   },
 
   /**
-   * Promise to cancel a/an servicebot payment.
+   * Promise to cancel a/an servicebot payment subscription.
    *
    * @return {Promise}
    */
 
-  cancelSubscription: async (user, values) => {
+  cancelSubscription: async (user) => {
     var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
 
     const payment_info = await Payment.findOne({user_id: user._id})
@@ -264,12 +264,12 @@ module.exports = {
   },
 
   /**
-   * Promise to cancel a/an servicebot payment.
+   * Promise to delete a/an servicebot payment subscription.
    *
    * @return {Promise}
    */
 
-  deleteSubscription: async (user, values) => {
+  deleteSubscription: async (user) => {
     var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
 
     const payment_info = await Payment.findOne({user_id: user._id})
