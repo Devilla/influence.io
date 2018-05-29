@@ -228,6 +228,78 @@ module.exports = {
   },
 
   /**
+   * Promise to cancel a/an servicebot payment.
+   *
+   * @return {Promise}
+   */
+
+  cancelSubscription: async (user, values) => {
+    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+
+    const payment_info = await Payment.findOne({user_id: user._id})
+      .sort({created_at: -1})
+      .exec((err, res) => {
+        if(err)
+          throw err;
+        else
+          return res;
+      })
+
+    console.log(payment_info, "========paymnet");
+
+    if(auth_token) {
+      await doRequest({
+        method: 'POST',
+        url:`https://servicebot.useinfluence.co/service-instances/${payment_info.service_id}/cancel`,
+        headers: {
+          Authorization: 'JWT ' + JSON.parse(auth_token).token,
+          'Content-Type': 'application/json'
+        }
+      });
+    } else {
+      return { message: "user not found", err: true };
+    }
+
+    return { message: "Subscription cancelled", err: false};
+  },
+
+  /**
+   * Promise to cancel a/an servicebot payment.
+   *
+   * @return {Promise}
+   */
+
+  deleteSubscription: async (user, values) => {
+    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+
+    const payment_info = await Payment.findOne({user_id: user._id})
+      .sort({created_at: -1})
+      .exec((err, res) => {
+        if(err)
+          throw err;
+        else
+          return res;
+      })
+
+    console.log(payment_info, "========paymnet");
+
+    if(auth_token) {
+      await doRequest({
+        method: 'DELETE',
+        url:`https://servicebot.useinfluence.co/service-instances/${payment_info.service_id}`,
+        headers: {
+          Authorization: 'JWT ' + JSON.parse(auth_token).token,
+          'Content-Type': 'application/json'
+        }
+      });
+    } else {
+      return { message: "user not found", err: true };
+    }
+
+    return { message: "Subscription cancelled", err: false};
+  },
+
+  /**
    * Promise to edit a/an payment.
    *
    * @return {Promise}
