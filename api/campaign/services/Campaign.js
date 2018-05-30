@@ -24,20 +24,26 @@ let ruleDefault = {
 let configurationDefault = {
   "activity" : true,
   "panelStyle" : {
-    "radius" : 35,
+    "radius" : 50,
     "borderWidth" : 0,
     "borderColor" : {
       "r" : 200,
       "g" : 200,
       "b" : 200,
-      "a" : 1
+      "a" : 0.80
     },
-    "shadow" : 0,
-    "blur" : 2,
+    "shadow" : {
+	    r: 0,
+	    g: 0,
+	    b: 0,
+	    color: 'lightgrey'
+	  },
+    "blur" : 0,
     "color" : {
       "r" : 0,
       "g" : 0,
-      "b" : 0
+      "b" : 0,
+			"a" : 1
     },
 		"linkColor": {
 	    "r": 0,
@@ -54,7 +60,12 @@ let configurationDefault = {
     "fontFamily" : "inherit",
     "fontWeight" : "normal",
 		"linkFontFamily": "inherit",
-	  "linkFontWeight": "normal"
+	  "linkFontWeight": "normal",
+		"bulkData" : 5,
+	  "recentNumber" : 5,
+	  "recentConv" : 5,
+	  "hideAnonymousConversion" : true,
+	  "onlyDisplayNotification" : false
   },
   "contentText" : "Recently signed up for Company Name"
 };
@@ -184,7 +195,7 @@ module.exports = {
 					if(notification.notificationName == 'Bulk Activity')
 						newConfiguration['contentText'] = 'Company';
 					if(notification.notificationName == 'Live Visitor Count')
-						newConfiguration['contentText'] = 'Company';			
+						newConfiguration['contentText'] = 'Company';
           Configuration.create(newConfiguration, (err, result) => {
             if(err)
               return err;
