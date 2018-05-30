@@ -175,3 +175,21 @@ describe('Should Delete Payment Subscription', function() {
     });
   });
 });
+
+/*
+ * Delete the user
+ */
+describe('Should Delete User', function() {
+  it("should delete user", function *() {
+    yield request(strapi.config.url)
+    .delete('/user/:_id')
+    .set('Authorization', `Bearer ${Token}`)
+    .set('Accept', 'application/json')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .then((data, err) => {
+      if(data.error)
+        throw data.error;
+    });
+  });
+});

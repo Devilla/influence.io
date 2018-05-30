@@ -14,10 +14,11 @@ const request = require('request');
 function doRequest(options) {
   return new Promise(function (resolve, reject) {
     request(options , function (error, res, body) {
-      if (!error && res.statusCode == 200) {
+      const response = typeof body == 'string'?JSON.parse(body): body;
+      if (!error && res.statusCode == 200 || !response.error) {
         resolve(body);
       } else {
-        reject(body);
+        reject(response.error);
       }
     });
   });
@@ -176,7 +177,7 @@ module.exports = {
     const payment_values = {
       user: user._id,
       service_id: payment_subscription.service_id,
-      service_id: payment_subscription.service_id,
+      service_instance_id: payment_subscription.id,
       user_id: payment_subscription.user_id,
       requested_by: payment_subscription.requested_by,
       payment_plan: payment_subscription.payment_plan,
@@ -235,32 +236,32 @@ module.exports = {
 
   cancelSubscription: async (user) => {
     var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
-
-    const payment_info = await Payment.findOne({user: user._id})
-      .sort({created_at: -1})
+    var payment_info;
+    if(auth_token)
+      return await Payment.findOne({user: user._id})
+      .sort({ field: 'asc', _id: -1 })
       .exec((err, res) => {
         if(err)
           throw err;
-        else
-          return res;
-      })
-
-    console.log(payment_info, "========paymnet");
-
-    if(auth_token) {
-      await doRequest({
-        method: 'POST',
-        url:`https://servicebot.useinfluence.co/service-instances/${payment_info.service_id}/cancel`,
-        headers: {
-          Authorization: 'JWT ' + JSON.parse(auth_token).token,
-          'Content-Type': 'application/json'
+        else {
+          return doRequest({
+              method: 'POST',
+              url:`https://servicebot.useinfluence.co/service-instances/${res.service_instance_id}/cancel`,
+              headers: {
+                Authorization: 'JWT ' + JSON.parse(auth_token).token,
+                'Content-Type': 'application/json'
+              }
+            })
+            .then(result => {
+              return result;
+            })
+            .catch(error => {
+              throw error;
+            })
         }
       });
-    } else {
-      return { message: "user not found", err: true };
-    }
-
-    return { message: "Subscription cancelled", err: false};
+    else
+      return { err: true, message: "No user found"};
   },
 
   /**
@@ -272,31 +273,33 @@ module.exports = {
   deleteSubscription: async (user) => {
     var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
 
-    const payment_info = await Payment.findOne({user: user._id})
-      .sort({created_at: -1})
+    var payment_info;
+
+    if(auth_token)
+      return await Payment.findOne({user: user._id})
+      .sort({ field: 'asc', _id: -1 })
       .exec((err, res) => {
         if(err)
           throw err;
-        else
-          return res;
-      })
-
-    console.log(payment_info, "========paymnet");
-
-    if(auth_token) {
-      await doRequest({
-        method: 'DELETE',
-        url:`https://servicebot.useinfluence.co/service-instances/${payment_info.service_id}`,
-        headers: {
-          Authorization: 'JWT ' + JSON.parse(auth_token).token,
-          'Content-Type': 'application/json'
+        else {
+          return doRequest({
+            method: 'DELETE',
+            url:`https://servicebot.useinfluence.co/service-instances/${res.service_instance_id}`,
+            headers: {
+              Authorization: 'JWT ' + JSON.parse(auth_token).token,
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(result => {
+            return result;
+          })
+          .catch(error => {
+            throw error;
+          })
         }
       });
-    } else {
-      return { message: "user not found", err: true };
-    }
-
-    return { message: "Subscription cancelled", err: false};
+    else
+      return { err: true, message: "No user found"};
   },
 
   /**
