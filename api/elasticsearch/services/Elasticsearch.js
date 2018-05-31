@@ -79,7 +79,7 @@ health : async () => {
               "bool": {
                 "must": [
                   { "match": { "json.value.trackingId":  trackingId }},
-                  { "terms": { "json.value.source.url.pathname": [ '/register', '/sign-up', '/signup' ]   }},
+                  { "terms": { "json.value.source.url.pathname": [ '/signup', '/register', '/sign-up' ]   }},
                   { "match": { "json.value.event": 'formsubmit' }}
                 ]
               }
@@ -201,6 +201,7 @@ health : async () => {
           userDetails['timestamp'] = timestamp;
           userDetails['city'] = city;
           userDetails['country'] = country;
+          userDetails['response'] = response.hits.hits[0]._source;
         } else {
           userDetails = null;
         }
