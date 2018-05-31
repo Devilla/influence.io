@@ -43,9 +43,8 @@
       "multiple": false
     },
     "plan": {
-      "model": "plan",
-      "via": "plan_profile",
-      "plugin": ""
+      "type": "json",
+      "multiple": false
     },
     "profile_payments": {
       "model": "payment",

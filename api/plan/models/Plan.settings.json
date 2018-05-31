@@ -28,14 +28,6 @@
     "configs": {
       "type": "json",
       "multiple": false
-    },
-    "plan_profile": {
-      "model": "profile",
-      "via": "plan"
-    },
-    "plan_payment": {
-      "model": "payment",
-      "via": "plan"
     }
   }
 }
