@@ -133,39 +133,17 @@ module.exports = {
 
   add: async (user, values) => {
     let token = values.paymentProvider.id;
+    let plan = values.plan;
     var payment_subscription;
     var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
-    const subscription = {
-      "id":14,
-      "category_id":1,
-      "created_by":1,
-      "name":"Paid",
-      "description":"monthly",
-      "details":null,
-      "published":true,
-      "statement_descriptor":
-      "Useinfluence",
-      "trial_period_days":0,
-      "amount":1000,
-      "overhead":null,
-      "currency":"usd",
-      "interval":"day",
-      "interval_count":1,
-      "type":"subscription",
-      "subscription_prorate":true,
-      "split_configuration":null,
-      "created_at":"2018-05-23T10:04:22.813Z",
-      "updated_at":"2018-05-23T10:04:22.813Z",
-      "references":{"service_template_properties":[]},
-      "token_id": token,
-      "client_id": user.servicebot.client_id
-    };
+    plan["token_id"] = token;
+    plan["client_id"] = user.servicebot.client_id;
 
     if(auth_token) {
       payment_subscription = await doRequest({
         method: 'POST',
         url:'https://servicebot.useinfluence.co/api/v1/service-templates/14/request',
-        json: subscription,
+        json: plan,
         headers: {
           Authorization: 'JWT ' + JSON.parse(auth_token).token,
           'Content-Type': 'application/json'
