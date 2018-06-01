@@ -236,7 +236,7 @@ module.exports = {
 
 
     if(rule) {
-      // let userDetails = [];
+      let userDetails = [];
       const response = await new Promise((resolve, reject) => {
         client.search(query, function (err, resp, status) {
           if (err) reject(err);
@@ -246,7 +246,8 @@ module.exports = {
 
       if(type == 'journey') {
         if(response.aggregations.users.buckets.length) {
-          let userDetails = await Promise.map(response.aggregations.users.buckets, async(details) => {
+          console.log(response.aggregations.users.buckets, "============");
+          await response.aggregations.users.buckets.map(details => {
             details = details.user_docs.hits.hits[0];
             let email = details._source.json.value.form.email;
             let timestamp = details._source.json.value.timestamp;
@@ -258,21 +259,25 @@ module.exports = {
                 details._source.json.value.geo.country
               :
                 null;
-            let infoDetails;
-            await getUser(email, (err, userDetail) => {
+            let userDetail;
+            userDetail['email'] = email;
+            userDetail['timestamp'] = timestamp;
+            userDetail['city'] = city;
+            userDetail['country'] = country;
+            userDetail['response'] = details._source;
+            userDetails.push(userDetail);
+          });
+
+          await userDetails.map(user => {
+            getUser(email, (err, userDetail) => {
               if(err)
                 throw err;
               else {
-                userDetail['timestamp'] = timestamp;
-                userDetail['city'] = city;
-                userDetail['country'] = country;
-                userDetail['response'] = details._source;
-                // userDetails.push(userDetail);
-                return userDetail;
+                user[info] = userDetail;
               }
-              return infoDetails;
             });
-          });
+          })
+
           console.log(userDetails, "=============>userDetails");
           return { response, rule, configuration, userDetails };
         } else {
