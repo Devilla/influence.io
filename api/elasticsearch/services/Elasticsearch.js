@@ -48,52 +48,6 @@ health : async () => {
 
   notification: async (index, trackingId, type) => {
     var query;
-    switch(type) {
-      case 'live' :
-      query = {
-        index: index,
-        q: `json.value.trackingId:${trackingId} AND @timestamp:[${moment().subtract(3, 'minutes').format()} TO ${moment().format()}]`
-      }
-        break;
-      case 'identification' :
-        query = {
-          index: index,
-          body: {
-            query: {
-              "bool": {
-                "must": [
-                  { "match": { "json.value.trackingId":  trackingId }},
-                  { "terms": { "json.value.source.url.pathname": [ '/register', '/sign-up', '/signup' ]   }},
-                  { "match": { "json.value.event": 'formsubmit' }}
-                ]
-              }
-            }
-          }
-        };
-        break;
-      case 'journey' :
-        query = {
-          index: index,
-          body: {
-            query: {
-              "bool": {
-                "must": [
-                  { "match": { "json.value.trackingId":  trackingId }},
-                  { "terms": { "json.value.source.url.pathname": [ '/signup', '/register', '/sign-up' ]   }},
-                  { "match": { "json.value.event": 'formsubmit' }}
-                ]
-              }
-            },
-            "sort" : [
-              { "@timestamp" : {"order" : "desc", "mode" : "max"}}
-            ],
-            size: 1
-          }
-        };
-        break;
-      default:
-        break;
-    }
 
     const rule = await Campaign.findOne(
       {
@@ -166,8 +120,72 @@ health : async () => {
     .exec()
     .then(result => result);
 
+    let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: rule._id, type: 'lead'});
+    captureLeads = captureLeads.map(lead => lead.url);
+
+    switch(type) {
+      case 'live' :
+        query = {
+          index: index,
+          body: {
+            query: {
+              "bool": {
+                "must": [
+                  { "match": { "json.value.trackingId":  trackingId }},
+                  { "terms": { "field" : "visitorId" }},
+                  { "match": { "@timestamp": { "gte": moment().subtract(3, 'minutes').format(), "lt": moment().format() }}}
+                ]
+              }
+            }
+          }
+        };
+        break;
+      case 'identification' :
+        query = {
+          index: index,
+          body: {
+            query: {
+              "bool": {
+                "must": [
+                  { "match": { "json.value.trackingId":  trackingId }},
+                  { "terms": { "json.value.source.url.pathname": captureLeads }},
+                  { "match": { "json.value.event": 'formsubmit' }},
+                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}},
+                  { "terms": { "field": "json.value.email" }}
+                ]
+              }
+            }
+          }
+        };
+        break;
+      case 'journey' :
+        query = {
+          index: index,
+          body: {
+            query: {
+              "bool": {
+                "must": [
+                  { "match": { "json.value.trackingId":  trackingId }},
+                  { "terms": { "json.value.source.url.pathname": captureLeads }},
+                  { "match": { "json.value.event": 'formsubmit' }},
+                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`, "lt" :  "now" }}}
+                ]
+              }
+            },
+            "sort" : [
+              { "@timestamp" : {"order" : "desc", "mode" : "max"}}
+            ],
+            size: Number(configuration.panelStyle.recentNumber)
+          }
+        };
+        break;
+      default:
+        break;
+    }
+
+
     if(rule) {
-      var userDetails;
+      var userDetails = [];
       const response = await new Promise((resolve, reject) => {
         client.search(query, function (err, resp, status) {
           if (err) reject(err);
@@ -175,41 +193,47 @@ health : async () => {
         });
       });
 
+      console.log(response, "===============respnse");
+
       if(type == 'journey') {
-        if(response.hits.hits[0]) {
-          let email = response.hits.hits[0]._source.json.value.form.email;
-          let timestamp = response.hits.hits[0]._source.json.value.timestamp;
-          let city = response.hits.hits[0]._source.json.value.geo?
-              response.hits.hits[0]._source.json.value.geo.city
-            :
-              null;
-          let country = response.hits.hits[0]._source.json.value.geo?
-              response.hits.hits[0]._source.json.value.geo.country
-            :
-              null;
-          try {
-            userDetails = await strapi.services.enrichment.picasaWeb(email);
-          } catch(err) {
+        if(response.hits.hits.length) {
+          await response.hits.hits.map(details => {
+            let userDetail;
+            let email = details._source.json.value.form.email;
+            let timestamp = details._source.json.value.timestamp;
+            let city = details._source.json.value.geo?
+                details._source.json.value.geo.city
+              :
+                null;
+            let country = details._source.json.value.geo?
+                details._source.json.value.geo.country
+              :
+                null;
             try {
-              userDetails = await strapi.services.enrichment.gravatr(email);
+              userDetail = strapi.services.enrichment.picasaWeb(email);
             } catch(err) {
-              userDetails = {
-                username: email.replace(/@.*$/,"")
-              };
+              try {
+                userDetail = strapi.services.enrichment.gravatr(email);
+              } catch(err) {
+                userDetail = {
+                  username: email.replace(/@.*$/,"")
+                };
+              }
             }
-          }
-          userDetails['timestamp'] = timestamp;
-          userDetails['city'] = city;
-          userDetails['country'] = country;
-          userDetails['response'] = response.hits.hits[0]._source;
+            userDetail['timestamp'] = timestamp;
+            userDetail['city'] = city;
+            userDetail['country'] = country;
+            userDetail['response'] = details._source;
+            userDetails.push(userDetail);
+          });
         } else {
           userDetails = null;
         }
       }
 
-      return {response, rule, configuration, userDetails};
+      return { response, rule, configuration, userDetails };
     } else {
-      return {error: "Tracking Id not found"};
+      return { error: "Tracking Id not found" };
     }
   },
 
