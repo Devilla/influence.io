@@ -19,6 +19,35 @@ const client = elasticsearch.Client({
   log: 'trace'
 });
 
+let getBucketData = async function(buckets, callback) {
+  return buckets.map(details => {
+    details = details.user_docs.hits.hits[0];
+    let email = details._source.json.value.form.email;
+    let timestamp = details._source.json.value.timestamp;
+    let city = details._source.json.value.geo?
+        details._source.json.value.geo.city
+      :
+        null;
+    let country = details._source.json.value.geo?
+        details._source.json.value.geo.country
+      :
+        null;
+
+    return getUser(email, (err, userDetail) => {
+      if(err)
+        throw err;
+      else {
+        userDetail['timestamp'] = timestamp;
+        userDetail['city'] = city;
+        userDetail['country'] = country;
+        userDetail['response'] = details._source;
+        // userDetails.push(userDetail);
+        return userDetail;
+      }
+    });
+  });
+}
+
 let getUser = async function(email, callback) {
   let userDetail;
   try {
@@ -246,34 +275,9 @@ module.exports = {
 
       if(type == 'journey') {
         if(response.aggregations.users.buckets.length) {
-          let userDetails = await response.aggregations.users.buckets.map(details => {
-            details = details.user_docs.hits.hits[0];
-            let email = details._source.json.value.form.email;
-            let timestamp = details._source.json.value.timestamp;
-            let city = details._source.json.value.geo?
-                details._source.json.value.geo.city
-              :
-                null;
-            let country = details._source.json.value.geo?
-                details._source.json.value.geo.country
-              :
-                null;
-
-            return getUser(email, (err, userDetail) => {
-              if(err)
-                throw err;
-              else {
-                userDetail['timestamp'] = timestamp;
-                userDetail['city'] = city;
-                userDetail['country'] = country;
-                userDetail['response'] = details._source;
-                // userDetails.push(userDetail);
-                return userDetail;
-              }
-            });
-          });
-          console.log(userDetails, "=============>userDetails");
-          return { response, rule, configuration, userDetails };
+            return getBucketData(response.aggregations.users.buckets, (err, userDetails) => {
+              return { response, rule, configuration, userDetails };
+            })
         } else {
           return { response, rule, configuration, userDetails:null };
         }
