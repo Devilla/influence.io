@@ -7,6 +7,181 @@
  */
 
 // Public dependencies.
+const tempData = [
+  { key: 'raman.parashar.dce@gmail.com',
+    doc_count: 10,
+    user_docs: { hits:
+      { hits: [{
+        _index: "filebeat-6.2.4-2018.05.31",
+        _type: "doc",
+        _id:"mBwAtmMBUs7cPjShvsG0",
+        _index:"filebeat-6.2.4-2018.05.31",
+        _score:8.906459,
+        _source:{
+          '@timestamp': "2018-05-31T11:41:31.208Z",
+          json: {
+            value: {
+              form: {
+                email: "raman.parashar.dce@gmail.com"
+              },
+              source : {
+                url: {
+                  pathname: "/signup"
+                }
+              },
+              timestamp:"2018-05-31T11:36:43.945Z",
+              trackingId:"INF-406busijhro4e81"
+            }
+          }
+         }
+       }]
+      }
+    }
+  },
+  { key: 'rajugautam45@gmail.com',
+    doc_count: 8,
+    user_docs: { hits:
+      { hits: [{
+        _index: "filebeat-6.2.4-2018.05.31",
+        _type: "doc",
+        _id:"mBwAtmMBUs7cPjShvsG0",
+        _index:"filebeat-6.2.4-2018.05.31",
+        _score:8.906459,
+        _source:{
+          '@timestamp': "2018-05-31T11:41:31.208Z",
+          json: {
+            value: {
+              form: {
+                email: "rajugautam45@gmail.com"
+              },
+              source : {
+                url: {
+                  pathname: "/signup"
+                }
+              },
+              timestamp:"2018-05-31T11:36:43.945Z",
+              trackingId:"INF-406busijhro4e81"
+            }
+          }
+        }
+      }
+    ]} } },
+  { key: 'shankyrana@hotmail.com',
+    doc_count: 1,
+    user_docs: { hits:
+      { hits: [{
+        _index: "filebeat-6.2.4-2018.05.31",
+        _type: "doc",
+        _id:"mBwAtmMBUs7cPjShvsG0",
+        _index:"filebeat-6.2.4-2018.05.31",
+        _score:8.906459,
+        _source:{
+          '@timestamp': "2018-05-31T11:41:31.208Z",
+          json: {
+            value: {
+              form: {
+                email: "shankyrana@hotmail.com"
+              },
+              source : {
+                url: {
+                  pathname: "/signup"
+                }
+              },
+              timestamp:"2018-05-31T11:36:43.945Z",
+              trackingId:"INF-406busijhro4e81"
+            }
+          }
+         }
+       }]
+     }
+   } },
+  { key: 'skr0009@outlook.com',
+    doc_count: 1,
+    user_docs: { hits:
+      { hits: [{
+        _index: "filebeat-6.2.4-2018.05.31",
+        _type: "doc",
+        _id:"mBwAtmMBUs7cPjShvsG0",
+        _index:"filebeat-6.2.4-2018.05.31",
+        _score:8.906459,
+        _source:{
+          '@timestamp': "2018-05-31T11:41:31.208Z",
+          json: {
+            value: {
+              form: {
+                email: "skr0009@outlook.com"
+              },
+              source : {
+                url: {
+                  pathname: "/signup"
+                }
+              },
+              timestamp:"2018-05-31T11:36:43.945Z",
+              trackingId:"INF-406busijhro4e81"
+            }
+          }
+         }
+       }
+     ] }} },
+  { key: 'test40@test.com',
+    doc_count: 1,
+    user_docs: { hits:
+      { hits: [{
+        _index: "filebeat-6.2.4-2018.05.31",
+        _type: "doc",
+        _id:"mBwAtmMBUs7cPjShvsG0",
+        _index:"filebeat-6.2.4-2018.05.31",
+        _score:8.906459,
+        _source:{
+          '@timestamp': "2018-05-31T11:41:31.208Z",
+          json: {
+            value: {
+              form: {
+                email: "test40@test.com"
+              },
+              source : {
+                url: {
+                  pathname: "/signup"
+                }
+              },
+              timestamp:"2018-05-31T11:36:43.945Z",
+              trackingId:"INF-406busijhro4e81"
+            }
+          }
+         }
+       }]
+     }
+   } },
+  { key: 'test90@test.com',
+    doc_count: 1,
+    user_docs: { hits:
+      { hits:  [{
+        _index: "filebeat-6.2.4-2018.05.31",
+        _type: "doc",
+        _id:"mBwAtmMBUs7cPjShvsG0",
+        _index:"filebeat-6.2.4-2018.05.31",
+        _score:8.906459,
+        _source:{
+          '@timestamp': "2018-05-31T11:41:31.208Z",
+          json: {
+            value: {
+              form: {
+                email: "test90@test.com"
+              },
+              source : {
+                url: {
+                  pathname: "/signup"
+                }
+              },
+              timestamp:"2018-05-31T11:36:43.945Z",
+              trackingId:"INF-406busijhro4e81"
+            }
+          }
+         }
+       }]
+     }
+    } }
+];
 
 const elasticsearch = require('elasticsearch');
 const moment = require('moment');
@@ -259,27 +434,30 @@ module.exports = {
                 details._source.json.value.geo.country
               :
                 null;
-            let userDetail;
+            let userDetail = {};
             userDetail['email'] = email;
             userDetail['timestamp'] = timestamp;
             userDetail['city'] = city;
             userDetail['country'] = country;
-            userDetail['response'] = details._source;
             userDetails.push(userDetail);
           });
 
-          await userDetails.map(user => {
-            getUser(email, (err, userDetail) => {
+          const userList = userDetails.map(async user => {
+            await getUser(user.email, (err, userDetail) => {
               if(err)
                 throw err;
               else {
-                user[info] = userDetail;
+                user['username'] = userDetail.username;
+                user['profile_pic'] = userDetail.profile_pic;
               }
+              return user;
             });
-          })
+            return user;
+          });
 
-          console.log(userDetails, "=============>userDetails");
-          return { response, rule, configuration, userDetails };
+          await Promise.all(userList);
+
+          return { rule, configuration, userDetails };
         } else {
           return { response, rule, configuration, userDetails:null };
         }
