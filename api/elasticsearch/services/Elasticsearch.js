@@ -22,15 +22,15 @@ const client = elasticsearch.Client({
 let getUser = async function(email, callback) {
   let userDetail;
   try {
-    userDetail =  await strapi.services.enrichment.picasaWeb(email).then(res=>{
+    await strapi.services.enrichment.picasaWeb(email).then(res=>{
       console.log(res, "=======");
+      callback(null, res);
     });
-    console.log(userDetail, "======userDetail");
-    callback(null, userDetail);
   } catch(err) {
     try {
-      userDetail = await strapi.services.enrichment.gravatr(email);
-      callback(null, userDetail);
+      await strapi.services.enrichment.gravatr(email).then(res => {
+        callback(null, res);
+      });
     } catch(err) {
       userDetail = {
         username: email.replace(/@.*$/,"")
