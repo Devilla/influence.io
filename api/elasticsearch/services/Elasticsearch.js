@@ -20,6 +20,7 @@ const client = elasticsearch.Client({
 });
 
 function getUser(email, callback) {
+  let userDetail;
   try {
     userDetail =  strapi.services.enrichment.picasaWeb(email);
     callback(null, userDetail);
