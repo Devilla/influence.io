@@ -19,14 +19,14 @@ const client = elasticsearch.Client({
   log: 'trace'
 });
 
-function getUser(email, callback) {
+let getUser = async function(email, callback) {
   let userDetail;
   try {
-    userDetail =  strapi.services.enrichment.picasaWeb(email);
+    userDetail =  await strapi.services.enrichment.picasaWeb(email);
     callback(null, userDetail);
   } catch(err) {
     try {
-      userDetail = strapi.services.enrichment.gravatr(email);
+      userDetail = await strapi.services.enrichment.gravatr(email);
       callback(null, userDetail);
     } catch(err) {
       userDetail = {
