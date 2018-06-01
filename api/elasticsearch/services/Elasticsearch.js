@@ -22,7 +22,10 @@ const client = elasticsearch.Client({
 let getUser = async function(email, callback) {
   let userDetail;
   try {
-    userDetail =  await strapi.services.enrichment.picasaWeb(email);
+    userDetail =  await strapi.services.enrichment.picasaWeb(email).then(res=>{
+      console.log(res, "=======");
+    });
+    console.log(userDetail, "======userDetail");
     callback(null, userDetail);
   } catch(err) {
     try {
