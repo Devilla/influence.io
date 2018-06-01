@@ -236,7 +236,7 @@ module.exports = {
 
 
     if(rule) {
-      let userDetails = [];
+      // let userDetails = [];
       const response = await new Promise((resolve, reject) => {
         client.search(query, function (err, resp, status) {
           if (err) reject(err);
@@ -246,7 +246,7 @@ module.exports = {
 
       if(type == 'journey') {
         if(response.aggregations.users.buckets.length) {
-          await response.aggregations.users.buckets.map(details => {
+          let userDetails = await Promise.map(response.aggregations.users.buckets, async(details) => {
             details = details.user_docs.hits.hits[0];
             let email = details._source.json.value.form.email;
             let timestamp = details._source.json.value.timestamp;
@@ -258,8 +258,8 @@ module.exports = {
                 details._source.json.value.geo.country
               :
                 null;
-
-            getUser(email, (err, userDetail) => {
+            let infoDetails;
+            await getUser(email, (err, userDetail) => {
               if(err)
                 throw err;
               else {
@@ -267,8 +267,10 @@ module.exports = {
                 userDetail['city'] = city;
                 userDetail['country'] = country;
                 userDetail['response'] = details._source;
-                userDetails.push(userDetail);
+                // userDetails.push(userDetail);
+                return userDetail;
               }
+              return infoDetails;
             });
           });
           console.log(userDetails, "=============>userDetails");
