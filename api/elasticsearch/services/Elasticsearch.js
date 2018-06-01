@@ -188,7 +188,24 @@ health : async () => {
             "size": Number(configuration.panelStyle.recentNumber),
             "aggs" : {
               "users" : {
-                "terms" : { "script" : "[json.value.form.email, json.value.form.name, json.value.timestamp, json.value.geo].join('-')", "size" : Number(configuration.panelStyle.recentNumber) }
+                "terms" : { "field" : "json.value.form.email", "size" : Number(configuration.panelStyle.recentNumber) },
+                "aggs": {
+                  "user_docs": {
+                    "top_hits": {
+                        "sort": [
+                          {
+                            "date": {
+                                "order": "desc"
+                            }
+                          }
+                        ],
+                        "_source": {
+                          "includes": [ "json" ]
+                        },
+                        "size" : 1
+                    }
+                  }
+                }
               }
             }
           }
