@@ -23,7 +23,6 @@ let getUser = async function(email, callback) {
   let userDetail;
   try {
     await strapi.services.enrichment.picasaWeb(email).then(res=>{
-      console.log(res, "=======");
       callback(null, res);
     });
   } catch(err) {
@@ -152,7 +151,7 @@ module.exports = {
               "bool": {
                 "must": [
                   { "match": { "json.value.trackingId":  trackingId }},
-                  { "range": { "@timestamp": { "gte": moment().subtract(3, 'minutes').format(), "lt": moment().format() }}}
+                  { "range": { "@timestamp": { "gte": moment().subtract(7, 'minutes').format(), "lt": moment().format() }}}
                 ]
               }
             },
@@ -249,7 +248,6 @@ module.exports = {
         if(response.aggregations.users.buckets.length) {
           await response.aggregations.users.buckets.map(details => {
             details = details.user_docs.hits.hits[0];
-            console.log(details, "=======details");
             let email = details._source.json.value.form.email;
             let timestamp = details._source.json.value.timestamp;
             let city = details._source.json.value.geo?
@@ -265,7 +263,6 @@ module.exports = {
               if(err)
                 throw err;
               else {
-                console.log(userDetail, "===========>delayBetween");
                 userDetail['timestamp'] = timestamp;
                 userDetail['city'] = city;
                 userDetail['country'] = country;
@@ -274,12 +271,16 @@ module.exports = {
               }
             });
           });
+          console.log(userDetails, "=============>userDetails");
+          return { response, rule, configuration, userDetails };
         } else {
-          userDetails = null;
+          return { response, rule, configuration, userDetails:null };
         }
+      } else {
+        return { response, rule, configuration };
       }
 
-      return { response, rule, configuration, userDetails };
+
     } else {
       return { error: "Tracking Id not found" };
     }
