@@ -19,11 +19,27 @@ const client = elasticsearch.Client({
   log: 'trace'
 });
 
+function getUser(email, callback) {
+  try {
+    userDetail =  strapi.services.enrichment.picasaWeb(email);
+    callback(null, userDetail);
+  } catch(err) {
+    try {
+      userDetail = strapi.services.enrichment.gravatr(email);
+      callback(null, userDetail);
+    } catch(err) {
+      userDetail = {
+        username: email.replace(/@.*$/,"")
+      };
+      callback(null, userDetail);
+    }
+  }
+}
 
 module.exports = {
 
 
-health : async () => {
+  health : async () => {
     return new Promise((resolve, reject)=> {
       client.cluster.health({}, function (err,resp,status) {
         if(err) reject(err);
@@ -227,10 +243,9 @@ health : async () => {
 
       if(type == 'journey') {
         if(response.aggregations.users.buckets.length) {
-          await response.aggregations.users.buckets.map(details => {
+          response.aggregations.users.buckets.map(details => {
             details = details.user_docs.hits.hits[0];
             console.log(details, "=======details");
-            let userDetail;
             let email = details._source.json.value.form.email;
             let timestamp = details._source.json.value.timestamp;
             let city = details._source.json.value.geo?
@@ -241,22 +256,18 @@ health : async () => {
                 details._source.json.value.geo.country
               :
                 null;
-            try {
-              userDetail = strapi.services.enrichment.picasaWeb(email);
-            } catch(err) {
-              try {
-                userDetail = strapi.services.enrichment.gravatr(email);
-              } catch(err) {
-                userDetail = {
-                  username: email.replace(/@.*$/,"")
-                };
+
+            getUser(email, (err, userDetail) => {
+              if(err)
+                throw err;
+              else {
+                userDetail['timestamp'] = timestamp;
+                userDetail['city'] = city;
+                userDetail['country'] = country;
+                userDetail['response'] = details._source;
+                userDetails.push(userDetail);
               }
-            }
-            userDetail['timestamp'] = timestamp;
-            userDetail['city'] = city;
-            userDetail['country'] = country;
-            userDetail['response'] = details._source;
-            userDetails.push(userDetail);
+            });
           });
         } else {
           userDetails = null;
