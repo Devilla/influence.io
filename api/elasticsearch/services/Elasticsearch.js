@@ -262,6 +262,7 @@ module.exports = {
               if(err)
                 throw err;
               else {
+                console.log(userDetail, "===========>delayBetween");
                 userDetail['timestamp'] = timestamp;
                 userDetail['city'] = city;
                 userDetail['country'] = country;
