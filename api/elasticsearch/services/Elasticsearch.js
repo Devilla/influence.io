@@ -243,7 +243,7 @@ module.exports = {
 
       if(type == 'journey') {
         if(response.aggregations.users.buckets.length) {
-          response.aggregations.users.buckets.map(details => {
+          await response.aggregations.users.buckets.map(details => {
             details = details.user_docs.hits.hits[0];
             console.log(details, "=======details");
             let email = details._source.json.value.form.email;
