@@ -194,7 +194,7 @@ health : async () => {
                     "top_hits": {
                         "sort": [
                           {
-                            "date": {
+                            "@timestamp": {
                                 "order": "desc"
                             }
                           }
