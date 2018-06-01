@@ -132,9 +132,13 @@ health : async () => {
               "bool": {
                 "must": [
                   { "match": { "json.value.trackingId":  trackingId }},
-                  { "terms": { "field" : "visitorId" }},
                   { "match": { "@timestamp": { "gte": moment().subtract(3, 'minutes').format(), "lt": moment().format() }}}
                 ]
+              }
+            },
+            "aggs" : {
+              "users" : {
+                "terms" : { "field" : "visitorId" }
               }
             }
           }
@@ -151,8 +155,13 @@ health : async () => {
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
                   { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}},
-                  { "terms": { "field": "json.value.email" }}
+                  { "exists" : { "field" : "json.value.form.email" }}
                 ]
+              }
+            },
+            "aggs" : {
+              "users" : {
+                "terms" : { "field" : "json.value.email" }
               }
             }
           }
@@ -168,7 +177,8 @@ health : async () => {
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
-                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`, "lt" :  "now" }}}
+                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`, "lt" :  "now" }}},
+                  { "exists" : { "field" : "json.value.form.email" }}
                 ]
               }
             },
