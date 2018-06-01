@@ -132,13 +132,13 @@ health : async () => {
               "bool": {
                 "must": [
                   { "match": { "json.value.trackingId":  trackingId }},
-                  { "match": { "@timestamp": { "gte": moment().subtract(3, 'minutes').format(), "lt": moment().format() }}}
+                  { "range": { "@timestamp": { "gte": moment().subtract(3, 'minutes').format(), "lt": moment().format() }}}
                 ]
               }
             },
             "aggs" : {
               "users" : {
-                "terms" : { "field" : "visitorId" }
+                "terms" : { "field" : "json.value.visitorId" }
               }
             }
           }
@@ -161,7 +161,7 @@ health : async () => {
             },
             "aggs" : {
               "users" : {
-                "terms" : { "field" : "json.value.email" }
+                "terms" : { "field" : "json.value.form.email" }
               }
             }
           }
@@ -185,7 +185,12 @@ health : async () => {
             "sort" : [
               { "@timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
-            size: Number(configuration.panelStyle.recentNumber)
+            "size": Number(configuration.panelStyle.recentNumber),
+            "aggs" : {
+              "users" : {
+                "terms" : { "field" : "json.value.form.email" }
+              }
+            }
           }
         };
         break;
