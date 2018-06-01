@@ -226,8 +226,9 @@ health : async () => {
       });
 
       if(type == 'journey') {
-        if(response.hits.hits.length) {
-          await response.hits.hits.map(details => {
+        if(response.aggregations.users.buckets.length) {
+          await response.aggregations.users.buckets.map(details => {
+            details = details.user_docs.hits.hits[0];
             console.log(details, "=======details");
             let userDetail;
             let email = details._source.json.value.form.email;
