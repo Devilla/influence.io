@@ -193,11 +193,10 @@ health : async () => {
         });
       });
 
-      console.log(response, "===============respnse");
-
       if(type == 'journey') {
         if(response.hits.hits.length) {
           await response.hits.hits.map(details => {
+            console.log(details, "=======details");
             let userDetail;
             let email = details._source.json.value.form.email;
             let timestamp = details._source.json.value.timestamp;
