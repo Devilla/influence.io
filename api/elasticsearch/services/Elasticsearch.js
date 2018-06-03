@@ -7,7 +7,6 @@
  */
 
 // Public dependencies.
-
 const elasticsearch = require('elasticsearch');
 const moment = require('moment');
 var http = require('http')
@@ -196,7 +195,7 @@ module.exports = {
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
-                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`, "lt" :  "now" }}},
+                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`, "lt" :  "now+1d" }}},
                   { "exists" : { "field" : "json.value.form.email" }}
                 ]
               }
