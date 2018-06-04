@@ -67,7 +67,8 @@ let configurationDefault = {
 	  "recentNumber" : 5,
 	  "recentConv" : 5,
 	  "hideAnonymousConversion" : true,
-	  "onlyDisplayNotification" : false
+	  "onlyDisplayNotification" : false,
+		liveVisitorCount: 0
   },
   "contentText" : "Recently signed up for Company Name"
 };

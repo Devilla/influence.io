@@ -24,7 +24,7 @@ function doRequest(options) {
   });
 }
 
-let stripe = require('stripe')(process.env.STRIPE_KEY || 'sk_test_hIHBmEAcq9nzEIGICQ6gjFmY');
+let stripe = require('stripe')(process.env.STRIPE_KEY || 'sk_test_xQUXiwmFS01hpVGh3dMsh0ru');
 
 module.exports = {
 
