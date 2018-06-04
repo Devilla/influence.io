@@ -70,8 +70,7 @@ module.exports = {
    */
 
   add: async (values) => {
-    const data = await Notificationpath.create(_.omit(values, _.keys(_.groupBy(strapi.models.notificationpath.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('notificationpath', _.merge(_.clone(data), { values }));
+    const data = await Notificationpath.create(values);
     return data;
   },
 
