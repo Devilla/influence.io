@@ -47,8 +47,8 @@
       "multiple": false
     },
     "profile_payments": {
-      "model": "payment",
-      "via": "profile"
+      "type": "json",
+      "multiple": false
     }
   }
 }
