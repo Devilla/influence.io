@@ -38,8 +38,8 @@ module.exports = {
   afterCreate: async (model, result) => {
     let values = { rule: model._id };
     let params = { _id: model.campaign };
-    console.log(params, "=========");
-    await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
+    await Campaign.update(params, values, { upsert:false, multi: true });
+    // await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
     return;
   }
 

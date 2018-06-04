@@ -184,7 +184,6 @@ module.exports = {
       return dom;
     } else {
 			const data = await Campaign.create(values);
-			console.log("================data");
 			await Notificationtypes.find()
       .exec()
       .then(notifications => {
@@ -204,15 +203,12 @@ module.exports = {
           });
         });
       });
-			console.log("================notifications");
       let newRules = ruleDefault;
 			newRules['campaign'] = data._id;
 			await Rules.create(newRules, (err, result) => {
-				console.log(err, "===============error");
 				if(err)
           return err;
       });
-			console.log("=================rules");
       return data;
     }
   },
