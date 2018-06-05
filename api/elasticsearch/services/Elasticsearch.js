@@ -172,7 +172,8 @@ module.exports = {
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
-                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}},
+                  { "range": { "json.value.timestamp": { "gte": moment().subtract(Number(configuration.panelStyle.bulkData), configuration.panelStyle.selectDurationData).format() , "lt" : moment().format() }}},
+                  // { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}},
                   { "exists" : { "field" : "json.value.form.email" }}
                 ]
               }
