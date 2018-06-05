@@ -202,7 +202,7 @@ module.exports = {
               }
             },
             "sort" : [
-              { "@timestamp" : {"order" : "desc", "mode" : "max"}}
+              { "@timestamp" : {"order" : "asc", "mode" : "max"}}
             ],
             "size": Number(configuration.panelStyle.recentNumber),
             "aggs" : {
@@ -214,7 +214,7 @@ module.exports = {
                         "sort": [
                           {
                             "@timestamp": {
-                                "order": "desc"
+                                "order": "asc"
                             }
                           }
                         ],
