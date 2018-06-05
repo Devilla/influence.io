@@ -194,8 +194,10 @@ module.exports = {
           newConfiguration['notificationType'] = notification._id;
 					if(notification.notificationName == 'Recent Activity')
 						newConfiguration['contentText'] = 'Recently signed up for Company Name';
-					if(notification.notificationName == 'Bulk Activity')
+					if(notification.notificationName == 'Bulk Activity') {
+						newConfiguration.panelStyle.radius = 7;
 						newConfiguration['contentText'] = 'Company';
+					}
 					if(notification.notificationName == 'Live Visitor Count')
 						newConfiguration['contentText'] = 'Company';
           Configuration.create(newConfiguration, (err, result) => {
