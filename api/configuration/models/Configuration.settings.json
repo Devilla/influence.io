@@ -25,6 +25,10 @@
       "type": "string",
       "multiple": false
     },
+    "visitorText": {
+      "type": "string",
+      "multiple": false
+    },
     "campaign": {
       "model": "campaign"
     }

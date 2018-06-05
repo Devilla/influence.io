@@ -70,7 +70,8 @@ let configurationDefault = {
 	  "onlyDisplayNotification" : false,
 		liveVisitorCount: 0
   },
-  "contentText" : "Recently signed up for Company Name"
+  "contentText" : "Recently signed up for Company Name",
+	"visitorText" : "people"
 };
 
 module.exports = {
