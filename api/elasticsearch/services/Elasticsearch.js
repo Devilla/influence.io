@@ -181,7 +181,10 @@ module.exports = {
             },
             "aggs" : {
               "users" : {
-                "terms" : { "field" : "json.value.form.email" }
+                "terms" : {
+                  "field" : "json.value.form.email",
+                  "size" : 0
+                 }
               }
             }
           }
@@ -322,6 +325,7 @@ module.exports = {
                     "field" : "json.value.visitorId"
                 }
             }
+          }
         }
       }
     };
