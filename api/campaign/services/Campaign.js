@@ -303,6 +303,7 @@ module.exports = {
 
     let pica = campaignWebsites.map(async camp => {
         await getUniqueUsers('filebeat-*', camp.trackingId, (err, usersUnique) => {
+					console.log(err, uniqueUsers, camp, "=======fsdfsdfsdfsdfs");
 					if(!err)
 						camp['uniqueUsers'] = usersUnique;
 					return camp;
