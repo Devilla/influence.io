@@ -281,7 +281,7 @@ module.exports = {
 
           await Promise.all(userList);
           var sortByDateAsc = await function (lhs, rhs)  {
-            return moment(lhs.timestamp) > moment(rhs.timestamp) ? 1 : moment(lhs.timestamp) < moment(rhs.timestamp) ? -1 : 0;
+            return moment(lhs.timestamp) < moment(rhs.timestamp) ? 1 : moment(lhs.timestamp) > moment(rhs.timestamp) ? -1 : 0;
           }
 
           userDetails.sort(sortByDateAsc);
