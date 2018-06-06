@@ -290,11 +290,13 @@ module.exports = {
         .then(counts => {
           countConfig = counts;
         });
-    // let pica;
-    // await campaignFilter.map(camp => {
-    //     pica = strapi.services.elasticsearch.uniqueUsers('filebeat-*', camp.trackingId);
-    // });
 
-    return {websiteLive: campaignWebsites, notificationCount: countConfig };
+    let pica = campaignFilter.map(async camp => {
+        let usersUnique = await strapi.services.elasticsearch.uniqueUsers('filebeat-*', camp.trackingId);
+				return usersUnique;
+		});
+
+		console.log(pica, "=====pica");
+    return {websiteLive: campaignWebsites, notificationCount: countConfig, uniqueUsers: pica };
   },
 };
