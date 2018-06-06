@@ -311,8 +311,17 @@ module.exports = {
         },
         "aggs" : {
           "users" : {
-            "terms" : { "field" : "json.value.visitorId" }
-          }
+            "date_histogram" : {
+                "field" : "@timestamp",
+                "interval" : "day"
+            }
+          },
+          "aggs" : {
+            "visitors" : {
+                "terms" : {
+                    "field" : "json.value.visitorId"
+                }
+            }
         }
       }
     };
