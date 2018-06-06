@@ -172,8 +172,8 @@ module.exports = {
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
-                  { "range": { "json.value.timestamp": { "gte": moment().subtract(Number(configuration.panelStyle.bulkData), configuration.panelStyle.selectDurationData).format() , "lt" : moment().format() }}},
-                  // { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}},
+                  // { "range": { "json.value.timestamp": { "gte": moment().subtract(Number(configuration.panelStyle.bulkData), configuration.panelStyle.selectDurationData).format() , "lt" : moment().format() }}},
+                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}},
                   { "exists" : { "field" : "json.value.form.email" }}
                 ]
               }
@@ -202,7 +202,7 @@ module.exports = {
               }
             },
             "sort" : [
-              { "@timestamp" : {"order" : "asc", "mode" : "max"}}
+              { "@timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
             "size": Number(configuration.panelStyle.recentNumber),
             "aggs" : {
@@ -214,7 +214,7 @@ module.exports = {
                         "sort": [
                           {
                             "@timestamp": {
-                                "order": "asc"
+                                "order": "desc"
                             }
                           }
                         ],
@@ -246,7 +246,6 @@ module.exports = {
 
       if(type == 'journey') {
         if(response.aggregations.users.buckets.length) {
-          console.log(response.aggregations.users.buckets, "============");
           await response.aggregations.users.buckets.map(details => {
             details = details.user_docs.hits.hits[0];
             let email = details._source.json.value.form.email;
@@ -281,7 +280,12 @@ module.exports = {
           });
 
           await Promise.all(userList);
+          var sortByDateAsc = await function (lhs, rhs)  {
+            return moment(lhs.timestamp) > moment(rhs.timestamp) ? 1 : moment(lhs.timestamp) < moment(rhs.timestamp) ? -1 : 0;
+          }
 
+          userDetails.sort(sortByDateAsc);
+          console.log(userDetails, "===============userDetail");
           return { rule, configuration, userDetails };
         } else {
           return { response, rule, configuration, userDetails:null };
