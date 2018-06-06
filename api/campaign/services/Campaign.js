@@ -74,6 +74,16 @@ let configurationDefault = {
 	"visitorText" : "people"
 };
 
+let getUniqueUsers = async function(index, trackingId, callback) {
+  try {
+    await strapi.services.elasticsearch.uniqueUsers(index, trackingId).then(res=>{
+      callback(null, res);
+    });
+  } catch(err) {
+    callback(err);
+  }
+}
+
 module.exports = {
 
   /**
@@ -292,10 +302,16 @@ module.exports = {
         });
 
     let pica = campaignWebsites.map(async camp => {
-        let usersUnique = await strapi.services.elasticsearch.uniqueUsers('filebeat-*', camp.trackingId);
-				campaignWebsites['uniqueUsers'] = usersUnique;
-				return campaignWebsites;
+        await getUniqueUsers('filebeat-*', camp.trackingId, (err, usersUnique) => {
+					if(!err)
+						camp['uniqueUsers'] = usersUnique;
+					return camp;
+				});
+				 // strapi.services.elasticsearch.uniqueUsers('filebeat-*', camp.trackingId);
+				return camp;
 		});
+
+		await Promise.all(pica);
 
 		console.log(pica, "=====pica");
     return {websiteLive: campaignWebsites, notificationCount: countConfig, uniqueUsers: pica };

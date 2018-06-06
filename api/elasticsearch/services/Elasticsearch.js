@@ -286,7 +286,6 @@ module.exports = {
           }
 
           userDetails.sort(sortByDateAsc);
-          console.log(userDetails, "===============userDetail");
           return { rule, configuration, userDetails };
         } else {
           return { response, rule, configuration, userDetails:null };
