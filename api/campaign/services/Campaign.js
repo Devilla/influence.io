@@ -291,9 +291,10 @@ module.exports = {
           countConfig = counts;
         });
 
-    let pica = campaignFilter.map(async camp => {
+    let pica = campaignWebsites.map(async camp => {
         let usersUnique = await strapi.services.elasticsearch.uniqueUsers('filebeat-*', camp.trackingId);
-				return usersUnique;
+				campaignWebsites['uniqueUsers'] = usersUnique;
+				return campaignWebsites;
 		});
 
 		console.log(pica, "=====pica");
