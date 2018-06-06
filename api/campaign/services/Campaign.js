@@ -286,6 +286,7 @@ module.exports = {
 
     const campaign = await Campaign
       .find()
+			.lean()
       .where(convertedParams.where)
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
@@ -301,11 +302,15 @@ module.exports = {
           countConfig = counts;
         });
 
+		let uniqueUsers = [];
     let pica = campaignWebsites.map(async camp => {
         await getUniqueUsers('filebeat-*', camp.trackingId, (err, usersUnique) => {
 					// console.log(err, usersUnique, camp, "=======fsdfsdfsdfsdfs");
-					if(!err)
+					if(!err) {
+						uniqueUsers.push(usersUnique);
 						camp['uniqueUsers'] = usersUnique;
+					}
+
 					console.log(camp, "======");
 					return camp;
 				});
@@ -316,6 +321,6 @@ module.exports = {
 		await Promise.all(pica);
 
 		console.log(campaignWebsites, pica, "=====pica");
-    return {websiteLive: campaignWebsites, notificationCount: countConfig, uniqueUsers: pica };
+    return {websiteLive: campaignWebsites, notificationCount: countConfig, uniqueUsers: uniqueUsers };
   },
 };
