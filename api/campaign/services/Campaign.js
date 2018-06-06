@@ -330,7 +330,6 @@ module.exports = {
 		let signedUpUsers = campaignWebsites.map(async camp => {
 			await getSignUps('filebeat-*', camp.trackingId, 'journey', (err, response) => {
 				if(!err) {
-					userSignUps.push(response);
 					camp['signups'] = response;
 				}
 				return camp;
