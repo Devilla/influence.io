@@ -312,18 +312,19 @@ module.exports = {
             ]
           }
         },
+        "size": 0,
         "aggs" : {
           "users" : {
             "date_histogram" : {
                 "field" : "@timestamp",
                 "interval" : "day"
-            }
-          },
-          "aggs" : {
-            "visitors" : {
-                "terms" : {
-                    "field" : "json.value.visitorId"
-                }
+            },
+            "aggs" : {
+              "visitors" : {
+                  "terms" : {
+                      "field" : "json.value.visitorId"
+                  }
+              }
             }
           }
         }
