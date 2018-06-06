@@ -84,6 +84,16 @@ let getUniqueUsers = async function(index, trackingId, callback) {
   }
 }
 
+let getSignUps = async function(index, trackingId, type, callback) {
+  try {
+    await strapi.services.elasticsearch.notification(index, trackingId, type).then(res=>{
+      callback(null, res);
+    });
+  } catch(err) {
+    callback(err);
+  }
+}
+
 module.exports = {
 
   /**
@@ -309,13 +319,26 @@ module.exports = {
 						uniqueUsers.push(usersUnique);
 						camp['uniqueUsers'] = usersUnique;
 					}
-					console.log(camp, "======");
 					return camp;
 				});
 				return camp;
 		});
 
 		await Promise.all(pica);
+
+		// let userSignUps = [];
+		let signedUpUsers = campaignWebsites.map(async camp => {
+			await getSignUps('filebeat-*', camp.trackingId, 'journey', (err, response) => {
+				if(!err) {
+					userSignUps.push(response);
+					camp['signups'] = response;
+				}
+				return camp;
+			});
+			return camp;
+		});
+
+		await Promise.all(signedUpUsers);
 
 		console.log(campaignWebsites, pica, "=====pica");
     return {websiteLive: campaignWebsites, notificationCount: countConfig, uniqueUsers: uniqueUsers };
