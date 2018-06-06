@@ -305,16 +305,13 @@ module.exports = {
 		let uniqueUsers = [];
     let pica = campaignWebsites.map(async camp => {
         await getUniqueUsers('filebeat-*', camp.trackingId, (err, usersUnique) => {
-					// console.log(err, usersUnique, camp, "=======fsdfsdfsdfsdfs");
 					if(!err) {
 						uniqueUsers.push(usersUnique);
 						camp['uniqueUsers'] = usersUnique;
 					}
-
 					console.log(camp, "======");
 					return camp;
 				});
-				 // strapi.services.elasticsearch.uniqueUsers('filebeat-*', camp.trackingId);
 				return camp;
 		});
 

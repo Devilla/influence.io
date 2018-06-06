@@ -308,7 +308,8 @@ module.exports = {
         query: {
           "bool": {
             "must": [
-              { "match": { "json.value.trackingId":  trackingId }}
+              { "match": { "json.value.trackingId":  trackingId }},
+              { "range": { "@timestamp": { "gte": moment().startOf('week'), "lt" : moment().endOf('week') }}},
             ]
           }
         },
