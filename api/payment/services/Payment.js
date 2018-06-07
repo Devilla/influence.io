@@ -36,7 +36,7 @@ module.exports = {
 
   fetchAllUserPayments: (params) => {
     const query = {
-      profile: params?params._id:null
+      user: params?params._id:null
     };
     const convertedParams = strapi.utils.models.convertParams('payment', query);
 

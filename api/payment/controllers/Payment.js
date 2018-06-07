@@ -15,8 +15,8 @@ module.exports = {
    */
 
   findAllUserPayments: async (ctx) => {
-    const profile = ctx.state.user.profile;
-    const data = await strapi.services.payment.fetchAllUserPayments(profile);
+    const user = ctx.state.user;
+    const data = await strapi.services.payment.fetchAllUserPayments(user);
 
     // Send 200 `ok`
     ctx.send(data);
