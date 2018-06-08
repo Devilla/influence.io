@@ -169,7 +169,13 @@ module.exports = {
       created_at: payment_subscription.created_at,
       updated_at: payment_subscription.updated_at,
     };
-
+    const plan_value = {
+      user: user._id,
+      plan_details: payment_subscription.payment_plan,
+      subscribed_at: payment_subscription.subscribed_at,
+      servicebot_user_id: payment_subscription.user_id
+    };
+    await Plan.create(plan_value);
     const data = await Payment.create(payment_values);
     return data;
   },

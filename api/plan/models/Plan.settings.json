@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "plan",
   "info": {
     "name": "plan",
     "description": "Plans for the customer and selected to profiles."
@@ -9,25 +9,21 @@
     "timestamps": true
   },
   "attributes": {
-    "planName": {
+    "subscribed_at": {
       "type": "string",
       "multiple": false
     },
-    "amount": {
+    "servicebot_user_id": {
       "type": "integer",
       "multiple": false
     },
-    "planType": {
-      "type": "string",
-      "multiple": false
-    },
-    "isActive": {
-      "type": "boolean",
-      "multiple": false
-    },
-    "configs": {
+    "plan_details": {
       "type": "json",
       "multiple": false
+    },
+    "user_id": {
+      "model": "user",
+      "plugin": "users-permissions"
     }
   }
 }
