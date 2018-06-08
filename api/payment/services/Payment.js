@@ -152,6 +152,9 @@ module.exports = {
     } else {
       return { message: "user not found", err: true };
     }
+    if(payment_subscription.error) {
+      return payment_subscription.error;
+    }
     const payment_values = {
       user: user._id,
       service_id: payment_subscription.service_id,
