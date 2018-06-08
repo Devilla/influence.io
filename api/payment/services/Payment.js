@@ -191,7 +191,7 @@ module.exports = {
 
   upgradeCard: async (user, values) => {
     var add_funds;
-    let token = values.paymentProvider.id;
+    let token = values.id;
     var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
 
     const funds_details = {
