@@ -183,7 +183,7 @@ module.exports = {
               "users" : {
                 "terms" : {
                   "field" : "json.value.form.email",
-                  "size" : 0
+                  "size" : 100000
                  }
               }
             }
