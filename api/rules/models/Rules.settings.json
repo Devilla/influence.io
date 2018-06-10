@@ -69,6 +69,14 @@
       "type": "string",
       "multiple": false
     },
+    "popupAnimationIn": {
+      "type": "string",
+      "multiple": false
+    },
+    "popupAnimationOut": {
+      "type": "string",
+      "multiple": false
+    },
     "campaign": {
       "model": "campaign",
       "via": "rule"

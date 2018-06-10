@@ -19,6 +19,8 @@ let ruleDefault = {
 	"displayTime" : 3,
 	"delayBetween" : 3,
 	"displayPosition" : "Bottom Left",
+	"popupAnimationIn" : "fadeInUp",
+	"popupAnimationOut" : "fadeOutDown"
 };
 
 let configurationDefault = {
