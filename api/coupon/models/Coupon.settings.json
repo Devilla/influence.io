@@ -1,0 +1,30 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "coupon",
+    "description": "Discount coupons for users"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "user": {
+      "model": "user",
+      "via": "coupon",
+      "plugin": "users-permissions"
+    },
+    "type": {
+      "type": "string",
+      "multiple": false
+    },
+    "discount": {
+      "type": "integer",
+      "multiple": false
+    },
+    "active": {
+      "type": "boolean",
+      "multiple": false
+    }
+  }
+}

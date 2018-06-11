@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/coupon",
+      "handler": "Coupon.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/coupon/:_id",
+      "handler": "Coupon.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/coupon",
+      "handler": "Coupon.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/coupon/:_id",
+      "handler": "Coupon.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/coupon/:_id",
+      "handler": "Coupon.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
