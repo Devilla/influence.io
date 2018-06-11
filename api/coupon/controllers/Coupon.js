@@ -27,6 +27,19 @@ module.exports = {
    * @return {Object}
    */
 
+  findCode: async (ctx) => {
+    const data = await strapi.services.coupon.fetchCode(ctx.params);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
+   * Retrieve a coupon record.
+   *
+   * @return {Object}
+   */
+
   findOne: async (ctx) => {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();

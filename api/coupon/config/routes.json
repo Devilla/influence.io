@@ -17,6 +17,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/coupon/validate/:code",
+      "handler": "Coupon.findCode",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/coupon",
       "handler": "Coupon.create",

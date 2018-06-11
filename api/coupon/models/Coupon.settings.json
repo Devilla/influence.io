@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "coupon",
   "info": {
     "name": "coupon",
     "description": "Discount coupons for users"
@@ -24,6 +24,10 @@
     },
     "active": {
       "type": "boolean",
+      "multiple": false
+    },
+    "code": {
+      "type": "string",
       "multiple": false
     }
   }

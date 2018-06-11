@@ -35,6 +35,18 @@ module.exports = {
    * @return {Promise}
    */
 
+  fetchCode: (params) => {
+    return Coupon
+      .findOne({code: params.code})
+      .populate(_.keys(_.groupBy(_.reject(strapi.models.coupon.associations, {autoPopulate: false}), 'alias')).join(' '));
+  },
+
+  /**
+   * Promise to fetch a/an coupon.
+   *
+   * @return {Promise}
+   */
+
   fetch: (params) => {
     return Coupon
       .findOne(_.pick(params, _.keys(Coupon.schema.paths)))
