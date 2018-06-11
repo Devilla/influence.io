@@ -147,7 +147,7 @@ module.exports = {
     if(auth_token) {
       payment_subscription = await doRequest({
         method: 'POST',
-        url:'https://servicebot.useinfluence.co/api/v1/service-templates/14/request',
+        url:`https://servicebot.useinfluence.co/api/v1/service-templates/${plan.id}/request`,
         json: plan,
         headers: {
           Authorization: 'JWT ' + JSON.parse(auth_token).token,
