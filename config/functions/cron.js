@@ -77,6 +77,7 @@ module.exports = {
         let uniqueVisitorQouta = profile.uniqueVisitorQouta;
         let uniqueVisitorsQoutaLeft = profile.uniqueVisitorsQoutaLeft;
         //'INF-406jkjiji00uszj' for testing
+        //campaign.trackingId original
         const response = await new Promise((resolve, reject) => {
          client.search(query(campaign.trackingId), function (err, resp, status) {
             if (err) reject(err);

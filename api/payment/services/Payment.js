@@ -143,7 +143,6 @@ module.exports = {
       token = values.paymentProvider.id;
       plan["token_id"] = token;
     }
-
     if(auth_token) {
       payment_subscription = await doRequest({
         method: 'POST',
