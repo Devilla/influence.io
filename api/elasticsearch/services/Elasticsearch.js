@@ -11,7 +11,7 @@ const elasticsearch = require('elasticsearch');
 const moment = require('moment');
 
 const client = elasticsearch.Client({
-  host: 'elasticsearch:9200', // Remove this Should get it from the strapi.config.elasticsearchNode
+  host: '159.89.80.206:9200', // Remove this Should get it from the strapi.config.elasticsearchNode
   requestTimeout: Infinity, // Tested
   keepAlive: true, // Tested
   log: 'trace'
@@ -300,7 +300,7 @@ module.exports = {
     }
   },
 
-  uniqueUsers: async (index, trackingId) => {
+  uniqueUsersWeekly: async (index, trackingId) => {
     const query = {
       index: index,
       body: {
@@ -339,6 +339,44 @@ module.exports = {
     });
 
     return response;
-  }
+  },
 
+  getAllUniqueUsers: async (index, trackingId) => {
+    const query = {
+      index: index,
+      body: {
+        query: {
+          "bool": {
+            "must": [
+              { "match": { "json.value.trackingId":  trackingId }}
+            ]
+          }
+        },
+        "size": 0,
+        "aggs" : {
+          "users" : {
+            "date_histogram" : {
+              "field" : "@timestamp",
+              "interval" : "day"
+            },
+            "aggs" : {
+              "visitors" : {
+                "terms" : {
+                  "field" : "json.value.visitorId"
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    const response = await new Promise((resolve, reject) => {
+     client.search(query, function (err, resp, status) {
+        if (err) reject(err);
+        else resolve(resp);
+      });
+    });
+    return response;
+  }
 };

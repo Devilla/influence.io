@@ -8,46 +8,15 @@
  * [MINUTE] [HOUR] [DAY OF MONTH] [MONTH OF YEAR] [DAY OF WEEK] [YEAR (optional)]
  */
 
-const elasticsearch = require('elasticsearch');
-const client = elasticsearch.Client({
-  host: '159.89.80.206:9200', // Remove this Should get it from the strapi.config.elasticsearchNode
-  requestTimeout: Infinity, // Tested
-  keepAlive: true, // Tested
-  log: 'trace'
-});
-
-  const index = 'filebeat-*';
-  const query = (trackingId) => {
-    return {
-      index: index,
-      body: {
-        query: {
-          "bool": {
-            "must": [
-              { "match": { "json.value.trackingId":  trackingId }}
-            ]
-          }
-        },
-        "size": 0,
-        "aggs" : {
-          "users" : {
-            "date_histogram" : {
-              "field" : "@timestamp",
-              "interval" : "day"
-            },
-            "aggs" : {
-              "visitors" : {
-                "terms" : {
-                  "field" : "json.value.visitorId"
-                }
-              }
-            }
-          }
-        }
-      }
-    };
+let getUniqueUsers = async function(index, trackingId, callback) {
+  try {
+    await strapi.services.elasticsearch.getAllUniqueUsers(index, trackingId).then(res=>{
+      callback(null, res);
+    });
+  } catch(err) {
+    callback(err);
   }
-
+}
 
 module.exports = {
 
@@ -76,14 +45,15 @@ module.exports = {
         let usersUniqueVisitors = profile.uniqueVisitors;
         let uniqueVisitorQouta = profile.uniqueVisitorQouta;
         let uniqueVisitorsQoutaLeft = profile.uniqueVisitorsQoutaLeft;
+        let response ;
         //'INF-406jkjiji00uszj' for testing
         //campaign.trackingId original
-        const response = await new Promise((resolve, reject) => {
-         client.search(query(campaign.trackingId), function (err, resp, status) {
-            if (err) reject(err);
-            else resolve(resp);
-          });
-        });
+        await getUniqueUsers('filebeat-*', campaign.trackingId, (err, usersUnique) => {
+					if(!err) {
+						response = usersUnique;
+					}
+				});
+
         let campaignOption, profileOption, campaignUniqueVisitors = 0;
         if(response.aggregations.users.buckets.length) {
           response.aggregations.users.buckets.map(bucket => {

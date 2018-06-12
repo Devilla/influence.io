@@ -78,7 +78,7 @@ let configurationDefault = {
 
 let getUniqueUsers = async function(index, trackingId, callback) {
   try {
-    await strapi.services.elasticsearch.uniqueUsers(index, trackingId).then(res=>{
+    await strapi.services.elasticsearch.uniqueUsersWeekly(index, trackingId).then(res=>{
       callback(null, res);
     });
   } catch(err) {
@@ -341,7 +341,6 @@ module.exports = {
 
 		await Promise.all(signedUpUsers);
 
-		console.log(campaignWebsites, pica, "=====pica");
     return {websiteLive: campaignWebsites, notificationCount: countConfig, uniqueUsers: uniqueUsers };
   },
 };
