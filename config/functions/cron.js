@@ -61,14 +61,18 @@ module.exports = {
     .find({ isActive: true })
     .populate({
       path: 'profile',
-      select: '_id user uniqueVisitorQouta uniqueVisitors uniqueVisitorsQoutaLeft'
+      select: '_id user uniqueVisitorQouta uniqueVisitors uniqueVisitorsQoutaLeft',
+      populate: {
+        path: 'user',
+        select: 'email username'
+      }
     })
     .lean()
     .exec()
     .then(async data => {
       await data.map(async campaign => {
-        console.log(campaign.profile);
-        let profile = campaign.profile;
+        const profile = campaign.profile;
+        const user = profile.user;
         let usersUniqueVisitors = profile.uniqueVisitors;
         let uniqueVisitorQouta = profile.uniqueVisitorQouta;
         let uniqueVisitorsQoutaLeft = profile.uniqueVisitorsQoutaLeft;
