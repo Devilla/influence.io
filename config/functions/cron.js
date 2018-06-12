@@ -76,9 +76,9 @@ module.exports = {
         let usersUniqueVisitors = profile.uniqueVisitors;
         let uniqueVisitorQouta = profile.uniqueVisitorQouta;
         let uniqueVisitorsQoutaLeft = profile.uniqueVisitorsQoutaLeft;
-
+        //'INF-406jkjiji00uszj' for testing
         const response = await new Promise((resolve, reject) => {
-         client.search(query('INF-406jkjiji00uszj'), function (err, resp, status) {
+         client.search(query(campaign.trackingId), function (err, resp, status) {
             if (err) reject(err);
             else resolve(resp);
           });
@@ -88,8 +88,7 @@ module.exports = {
           response.aggregations.users.buckets.map(bucket => {
             campaignUniqueVisitors = campaignUniqueVisitors + bucket.visitors.buckets.length + bucket.visitors.sum_other_doc_count
           });
-        }
-        else
+        } else
           campaignUniqueVisitors = 0;
 
         usersUniqueVisitors = usersUniqueVisitors - campaign.uniqueVisitors + campaignUniqueVisitors;
@@ -97,7 +96,9 @@ module.exports = {
         if(uniqueVisitorsQoutaLeft <= 0) {
           campaignOption = { uniqueVisitors: campaignUniqueVisitors, isActive: false };
           profileOption = { uniqueVisitors: usersUniqueVisitors, uniqueVisitorsQoutaLeft: 0  };
-
+          const email = result.email;
+          const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
+          await strapi.plugins.email.services.email.limitExceeded(email, name, uniqueVisitorQouta);
         } else {
           campaignOption = { uniqueVisitors: campaignUniqueVisitors }
           profileOption = { uniqueVisitors: usersUniqueVisitors, uniqueVisitorsQoutaLeft: uniqueVisitorsQoutaLeft  };
@@ -105,8 +106,7 @@ module.exports = {
 
         await Campaign.update({_id: campaign._id}, {$set: campaignOption });
         await Profile.update({_id: profile._id}, {$set: profileOption });
-
-        });
+      });
     });
   }
 };

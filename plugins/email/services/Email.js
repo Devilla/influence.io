@@ -139,5 +139,48 @@ module.exports = {
         html: mytemp
       };
       return send(mailOptions);
+  },
+
+  /**
+   * Plan limit exceeded Template.
+   * @param email
+   * @param name
+   * @param limit
+   * @returns {Promise<*>}
+   */
+  limitExceeded: async (email, name, limit) =>  {
+      const mailSub = `Account Limit ${limit} exceeded`;
+      const content =`
+      <td>Hello, ${name}</td>
+      <br/>
+      <td>This is a confirmation email to let you know that your account has exceeded the limit.</td>
+      <br/>
+      <td>For the time being your campaigns have been stopped</td>
+      <br/>
+      <td>Please click the below to upgrade your plan and continue:</td>
+      <br/>
+      <td>Thanks for investing your faith in us.</td>
+      <br/>
+      <td>See you soon.</td>
+      <br/>
+      <td>Thanks!</td>
+      `;
+
+      const body = "<tr style='font-size:12px;color:black'>" + content + "</tr><br/><br/><tr>Please click on the link below to login</tr><br/><br/><br/>";
+      var button = `<a href="https://useinfluence.co/signup">
+        <button type="button" style="color: white; background-color:#A3A3A3; border-radius: 4px; width: 180px; height: 46px; font-size: 14px; font-weight: bold; border-color: #22AAEE;">
+          Upgrade
+        </button>
+      </a>`;
+
+      var mytemp = template.commontemp(mailSub, name, body, button)
+
+      let mailOptions = {
+        from: 'noreply@useinfluence.co',
+        to: email,
+        subject: mailSub,
+        html: mytemp
+      };
+      return send(mailOptions);
   }
 };
