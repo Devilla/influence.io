@@ -49,17 +49,6 @@ const client = elasticsearch.Client({
   }
 
 
-
-let getHealth = async function(index, trackingId, callback) {
-  try {
-    await strapi.services.elasticsearch.health(index, trackingId).then(res=>{
-      callback(null, res);
-    });
-  } catch(err) {
-    callback(err);
-  }
-}
-
 module.exports = {
 
   /**
@@ -104,6 +93,7 @@ module.exports = {
         if(uniqueVisitorsQoutaLeft <= 0) {
           campaignOption = { uniqueVisitors: campaignUniqueVisitors, isActive: false };
           profileOption = { uniqueVisitors: usersUniqueVisitors, uniqueVisitorsQoutaLeft: 0  };
+
         } else {
           campaignOption = { uniqueVisitors: campaignUniqueVisitors }
           profileOption = { uniqueVisitors: usersUniqueVisitors, uniqueVisitorsQoutaLeft: uniqueVisitorsQoutaLeft  };
@@ -111,6 +101,8 @@ module.exports = {
 
         await Campaign.update({_id: campaign._id}, {$set: campaignOption });
         await Profile.update({_id: profile._id}, {$set: profileOption });
+
+        });
     });
   }
 };
