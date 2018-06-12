@@ -67,10 +67,6 @@
     "coupon": {
       "model": "coupon",
       "via": "user"
-    },
-    "uniqueVisitorQouta": {
-      "type": "integer",
-      "multiple": false
     }
   },
   "collectionName": "users-permissions_user"

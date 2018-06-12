@@ -29,8 +29,9 @@
       "type": "string",
       "multiple": false
     },
-    "campaign": {
-      "model": "campaign"
+    "undefined": {
+      "model": "campaign",
+      "via": "configuration"
     }
   }
 }

@@ -49,6 +49,22 @@
     "profile_payments": {
       "type": "json",
       "multiple": false
+    },
+    "uniqueVisitorQouta": {
+      "type": "integer",
+      "multiple": false
+    },
+    "uniqueVisitors": {
+      "type": "integer",
+      "multiple": false
+    },
+    "uniqueVisitorsQoutaLeft": {
+      "type": "integer",
+      "multiple": false
+    },
+    "undefined": {
+      "model": "campaign",
+      "via": "profile"
     }
   }
 }

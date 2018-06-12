@@ -41,9 +41,6 @@
       "type": "string",
       "multiple": false
     },
-    "profile": {
-      "model": "profile"
-    },
     "notificationTypes": {
       "model": "notificationtypes",
       "via": "campaign"
@@ -51,9 +48,16 @@
     "configuration": {
       "model": "configuration"
     },
+    "profile": {
+      "model": "profile"
+    },
     "rule": {
       "model": "rules",
       "via": "campaign"
+    },
+    "uniqueVisitors": {
+      "type": "integer",
+      "multiple": false
     }
   }
 }

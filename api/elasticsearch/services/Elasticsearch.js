@@ -9,7 +9,6 @@
 // Public dependencies.
 const elasticsearch = require('elasticsearch');
 const moment = require('moment');
-var http = require('http')
 
 const client = elasticsearch.Client({
   host: 'elasticsearch:9200', // Remove this Should get it from the strapi.config.elasticsearchNode
