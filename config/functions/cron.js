@@ -25,7 +25,7 @@ module.exports = {
    * Every monday at 1am.
    */
 
-  '* * * * *': () => {
+  '* 0 * * *': () => {
     Campaign
     .find({ isActive: true })
     .populate({
