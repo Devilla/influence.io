@@ -253,19 +253,19 @@ module.exports = {
             details = details.user_docs.hits.hits[0];
             let email = details._source.json.value.form.email;
             let timestamp = details._source.json.value.timestamp;
-            let city = details._source.json.value.geo?
-                details._source.json.value.geo.city
-              :
-                null;
-            let country = details._source.json.value.geo?
-                details._source.json.value.geo.country
-              :
-                null;
-            let userDetail = {};
-            userDetail['email'] = email;
-            userDetail['timestamp'] = timestamp;
-            userDetail['city'] = city;
-            userDetail['country'] = country;
+            let geo = details._source.json.value.geo;
+            let city = geo?geo.city:null;
+            let country = geo?geo.country:null;
+            let latitude = geo?geo.latitude:null;
+            let longitude = geo?geo.longitude:null;
+            let userDetail = {
+              email: email,
+              timestamp: timestamp,
+              city: city,
+              country: country,
+              latitude: latitude,
+              longitude: longitude
+            };
             userDetails.push(userDetail);
           });
 
