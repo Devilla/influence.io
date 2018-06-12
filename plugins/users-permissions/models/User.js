@@ -87,10 +87,9 @@ module.exports = {
   // Fired after `insert` query.
   afterCreate: async (model, result) => {
     const email = result.email;
-    const subject = "Account Created";
     const name = result.username.charAt(0).toUpperCase() + result.username.substr(1);
     const verificationToken = result.verificationToken;
-    strapi.plugins.email.services.email.accountCreated(email, subject, name, verificationToken);
+    strapi.plugins.email.services.email.accountCreated(email, name, verificationToken);
   },
 
   // Before updating a value.
