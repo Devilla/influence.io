@@ -24,10 +24,6 @@
     "coupon_details": {
       "type": "json",
       "multiple": false
-    },
-    "user_id": {
-      "model": "user",
-      "plugin": "users-permissions"
     }
   }
 }
