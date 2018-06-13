@@ -139,10 +139,14 @@ module.exports = {
 
     plan["client_id"] = user.servicebot.client_id;
 
-    if(!values.coupon) {
+    if(Object.keys(values.coupon).length === 0) {
       token = values.paymentProvider.id;
       plan["token_id"] = token;
+      // await strapi.services.payment.upgradeCard(user, { id: token}).then(res => {
+      //   console.log(res, "=========");
+      // })
     }
+
     if(auth_token) {
       payment_subscription = await doRequest({
         method: 'POST',
