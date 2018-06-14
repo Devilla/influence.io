@@ -88,7 +88,9 @@ module.exports = {
         displayTime: 1,
         delayBetween: 1,
         displayPosition: 1,
-        campaign: 1
+        campaign: 1,
+        popupAnimationIn: 1,
+        popupAnimationOut: 1
       }
     })
     .lean()
