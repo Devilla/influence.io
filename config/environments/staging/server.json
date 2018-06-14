@@ -1,0 +1,10 @@
+{
+  "host": "api.useinfluence.co",
+  "port": "${process.env.PORT || 1337}",
+  "autoReload": {
+    "enabled": false
+  },
+  "cron": {
+    "enabled": true
+  }
+}
