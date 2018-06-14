@@ -24,7 +24,7 @@ function doRequest(options) {
   });
 }
 
-let stripe = require('stripe')(process.env.STRIPE_KEY || 'sk_test_xQUXiwmFS01hpVGh3dMsh0ru');
+let stripe = require('stripe')(process.env.STRIPE_KEY);
 
 module.exports = {
 
@@ -136,7 +136,7 @@ module.exports = {
     let plan = values.plan;
     let payment_subscription;
     let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
-
+    console.log(process.env.STRIPE_KEY, "===key");
     plan["client_id"] = user.servicebot.client_id;
 
     if(Object.keys(values.coupon).length === 0) {
