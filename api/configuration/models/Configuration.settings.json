@@ -29,7 +29,7 @@
       "type": "string",
       "multiple": false
     },
-    "undefined": {
+    "campaign": {
       "model": "campaign",
       "via": "configuration"
     }
