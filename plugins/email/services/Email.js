@@ -10,32 +10,47 @@
 
 const _ = require('lodash');
 const env = require('dotenv').config()
-// const sendmail = require('sendmail')({
-//   silent: true
-// });
 const sgMail = require('@sendgrid/mail');
-
-
-
+const nodemailer = require('nodemailer');
 const template = require('../libs/template');
 
+const transporter = nodemailer.createTransport({
+  host: 'smtp.zoho.com',
+  port: 465,
+  secure: true,
+  requiresAuth: true,
+  auth: {
+      user: "info@useinfluence.co",
+      pass: "rXwEypHew8ic"
+  },
+  debug: true
+});
 
+async function sendMail (mailOptions) {
+  await transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      throw [{ messages: [{ id: 'Auth.form.error.email.invalid' }] }]
+    } else {
+      return info;
+    }
+  });
+}
 /**
  * Final Service Call From Here.
  * @param mailOptions
  * @returns {Promise<*>}
  */
 
- async function sendEmail(mailOptions) {
-   let v;
-   try {
-     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-     v = await sgMail.send(mailOptions);
-   }catch (e) {
-     return e;
-   }
-   return v;
-}
+//  async function sendEmail(mailOptions) {
+//    let v;
+//    try {
+//      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+//      v = await sgMail.send(mailOptions);
+//    }catch (e) {
+//      return e;
+//    }
+//    return v;
+// }
 
 /**
  * We should use this inside from the service.
@@ -52,7 +67,7 @@ async function send(options) {
   let send;
 
   // Send the email.
-  send = await sendEmail(options);
+  send = await sendMail(options);
 
   return send;
 
