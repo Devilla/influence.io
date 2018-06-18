@@ -114,6 +114,7 @@ const getProfile = async (provider, query, callback) => {
       });
 
       facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
+        console.log(body, "=======facebook body");
         if (err) {
           callback(err);
         } else {
@@ -130,6 +131,7 @@ const getProfile = async (provider, query, callback) => {
       });
 
       google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
+        console.log(body, "=======google body");
         if (err) {
           callback(err);
         } else {
