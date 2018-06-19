@@ -46,7 +46,7 @@ function createNewToken(done) {
          if(!res)
           throw err
         else
-          Token = res.body.token;
+          Token = res.body.jwt;
        });
      });
   });

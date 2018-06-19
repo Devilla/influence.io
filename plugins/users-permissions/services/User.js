@@ -14,7 +14,10 @@ const request = require('request');
 function doRequest(options) {
   return new Promise(function (resolve, reject) {
     request(options , function (error, res, body) {
-      const response = typeof body == 'string'?JSON.parse(body): body;
+      if(res.statusCode >= 400) {
+        return resolve({error: true, message: body});
+      }
+      const response = typeof body === 'string'? JSON.parse(body) : body;
       if (!error && res.statusCode == 200 || response.error) {
         resolve(body);
       } else {
@@ -128,7 +131,9 @@ module.exports = {
     }
 
     var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
-
+    var response;
+    if(token.error)
+      return { err: true, message: token.message };
     if(token) {
       const payment_info = await Payment.findOne({user: user._id})
         .sort({created_at: -1})
@@ -140,7 +145,7 @@ module.exports = {
         })
 
       if(payment_info)
-        await doRequest({
+        response = await doRequest({
           method: 'DELETE',
           url:`https://servicebot.useinfluence.co/service-instances/${payment_info.service_id}`,
           headers: {
@@ -148,7 +153,8 @@ module.exports = {
             'Content-Type': 'application/json'
           }
         });
-
+      if(response && response.error)
+        return { err: true, message: response.message };
       await doRequest({method: 'DELETE', url:`https://servicebot.useinfluence.co/api/v1/users/${user.servicebot.client_id}`, headers: {
       Authorization: 'JWT ' + JSON.parse(token).token,
       'Content-Type': 'application/json'
