@@ -9,7 +9,7 @@ const request = require('co-supertest');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, profile, user, campaign;
+var Token, profile, user, rules;
 
 /**
  * Test the login user
@@ -57,26 +57,37 @@ var Token, profile, user, campaign;
   });
 
 /**
- * Test Create Campaign
+ * Test Create Rules
  **/
-  describe('campaign creation test', () => {
-    it('it should create campaign with configuration and rules', function *() {
+  describe('rules creation test', () => {
+    it('it should create rules ', function *() {
       yield request(strapi.config.url)
-      .post('/campaign')
+      .post('/rules')
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        websiteUrl: 'servicebot.useinfluence.co',
-        campaignName: 'Acme1',
-        profile: profile._id
+        days: 5,
+        delay: 4,
+        mostRecent: true,
+        isActive: true,
+        hideNotification: false,
+        loopNotification: true,
+        delayNotification: true,
+        closeNotification: false,
+        initialDelay: 1,
+        displayTime: 3,
+        delayBetween: 4,
+        displayPosition: 'Bottom Left',
+        popupAnimationIn: 'fadeInUp',
+        popupAnimationOut: 'fadeInDown'
       })
       .expect(201)
       .expect('Content-Type', /json/)
       .then((data, err) => {
         if(data.error)
           throw data.error;
-        campaign = data.body;
+        rules = data.body;
       });
     });
   });
@@ -84,10 +95,10 @@ var Token, profile, user, campaign;
 /**
  * Test Get User Campaigns
  **/
-  describe('campaign find all campaigns test', () => {
-    it('it should get all users campaign', function *() {
+  describe('find all user`s rules test', () => {
+    it('it should get all user`s rules', function *() {
       yield request(strapi.config.url)
-      .get(`/campaign`)
+      .get(`/rules/user`)
       .set('Authorization', `Bearer ${Token}`)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -101,10 +112,10 @@ var Token, profile, user, campaign;
 /**
  * Test Get One Campaigns
  **/
-  describe('campaign find one campaign test', () => {
-    it('it should get one campaign', function *() {
+  describe('find one rule test', () => {
+    it('it should get one rule', function *() {
       yield request(strapi.config.url)
-      .get(`/campaign/${campaign._id}`)
+      .get(`/rules/${rules._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -118,15 +129,17 @@ var Token, profile, user, campaign;
 /**
  * Test Edit Campaign
  **/
-  describe('campaign update test', () => {
-    it('it should update campaign', function *() {
+  describe('rules update test', () => {
+    it('it should update rules', function *() {
       yield request(strapi.config.url)
-      .put(`/campaign/${campaign._id}`)
+      .put(`/rules/${rules._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        isActive: false
+        initialDelay: 2,
+        displayTime: 4,
+        delayBetween: 5
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -140,10 +153,10 @@ var Token, profile, user, campaign;
 /**
   * Test Delete Campaign
   **/
-  describe('campaign deletion test', () => {
-    it('it should delete campaign with configuration and rules', function *() {
+  describe('rules deletion test', () => {
+    it('it should delete rules', function *() {
       yield request(strapi.config.url)
-        .delete(`/campaign/${campaign._id}`)
+        .delete(`/rules/${rules._id}`)
         .set('Authorization', `Bearer ${Token}`)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
