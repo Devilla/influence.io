@@ -17,7 +17,7 @@ function doRequest(options) {
       if(res.statusCode >= 400) {
         return resolve({error: true, message: body});
       }
-      const response = JSON.parse(body);
+      const response = typeof body === 'string'? JSON.parse(body) : body;
       if (!error && res.statusCode == 200 || !response.error) {
         resolve(body);
       } else {
@@ -139,7 +139,6 @@ module.exports = {
     let plan = values.plan;
     let payment_subscription;
     let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
-
     plan["client_id"] = user.servicebot.client_id;
 
     if(Object.keys(values.coupon).length === 0) {
@@ -161,7 +160,7 @@ module.exports = {
       return { message: "user not found", err: true };
     }
     if(payment_subscription.error) {
-      return payment_subscription.error;
+      return { err: true, message: payment_subscription.error };
     }
     const payment_values = {
       user: user._id,
@@ -218,6 +217,8 @@ module.exports = {
           'Content-Type': 'application/json'
         }
       });
+      if(add_funds.error)
+        return { err: true, message: add_funds.message };
     } else {
       return { message: "user not found", err: true };
     }

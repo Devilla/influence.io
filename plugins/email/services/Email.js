@@ -28,11 +28,11 @@ const transporter = nodemailer.createTransport({
 
 async function sendMail (mailOptions) {
   await transporter.sendMail(mailOptions, function(error, info) {
-    if (error) {
-      throw [{ messages: [{ id: 'Auth.form.error.email.invalid' }] }]
-    } else {
+    // if (error) {
+    //   throw { err: true, messages: { id: 'Auth.form.error.email.invalid' } };
+    // } else {
       return info;
-    }
+    // }
   });
 }
 /**
