@@ -6,11 +6,10 @@
 let chai = require('chai');
 let expect = chai.expect;
 const request = require('co-supertest');
-const payment = require('../api/payment/services/Payment');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, profile, user, campaign;
+var Token, profile, user;
 
 /**
  * Test the login user
@@ -45,7 +44,16 @@ var Token, profile, user, campaign;
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        user: user._id
+        user: user._id,
+        firstName: 'Abc',
+        lastName: 'Def',
+        state: 'State',
+        address: 'Address, Zip',
+        phoneNumber: 0000000000,
+        companyName: 'Company Name',
+        uniqueVisitorQouta: 10000,
+        uniqueVisitors: 200,
+        uniqueVisitorsQoutaLeft: 1000
       })
       .expect(201)
       .expect('Content-Type', /json/)
@@ -58,37 +66,12 @@ var Token, profile, user, campaign;
   });
 
 /**
- * Test Create Campaign
+ * Test Get User Profile
  **/
-  describe('campaign creation test', () => {
-    it('it should create campaign with configuration and rules', function *() {
+  describe('find user`s profile test', () => {
+    it('it should get user`s profile', function *() {
       yield request(strapi.config.url)
-      .post('/campaign')
-      .set('Authorization', `Bearer ${Token}`)
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json')
-      .send({
-        websiteUrl: 'servicebot.useinfluence.co',
-        campaignName: 'Acme1',
-        profile: profile._id
-      })
-      .expect(201)
-      .expect('Content-Type', /json/)
-      .then((data, err) => {
-        if(data.error)
-          throw data.error;
-        campaign = data.body;
-      });
-    });
-  });
-
-/**
- * Test Get User Campaigns
- **/
-  describe('campaign find all campaigns test', () => {
-    it('it should get all users campaign', function *() {
-      yield request(strapi.config.url)
-      .get(`/campaign`)
+      .get(`/profile`)
       .set('Authorization', `Bearer ${Token}`)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -100,12 +83,12 @@ var Token, profile, user, campaign;
   });
 
 /**
- * Test Get One Campaigns
+ * Test Get One Profile
  **/
-  describe('campaign find one campaign test', () => {
-    it('it should get one campaign', function *() {
+  describe('find one profile test', () => {
+    it('it should get one profile', function *() {
       yield request(strapi.config.url)
-      .get(`/campaign/${campaign._id}`)
+      .get(`/profile/${profile._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -117,17 +100,18 @@ var Token, profile, user, campaign;
   });
 
 /**
- * Test Edit Campaign
+ * Test Edit User Profile
  **/
-  describe('campaign update test', () => {
-    it('it should update campaign', function *() {
+  describe('profile update test', () => {
+    it('it should update user`s profile', function *() {
       yield request(strapi.config.url)
-      .put(`/campaign/${campaign._id}`)
+      .put(`/profile/${profile._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        isActive: false
+        firstName: 'DEF',
+        lastName: 'ABC'
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -139,12 +123,12 @@ var Token, profile, user, campaign;
   });
 
 /**
-  * Test Delete Campaign
+  * Test Delete Profile
   **/
-  describe('campaign deletion test', () => {
-    it('it should delete campaign with configuration and rules', function *() {
+  describe('profile deletion test', () => {
+    it('it should delete profile', function *() {
       yield request(strapi.config.url)
-        .delete(`/campaign/${campaign._id}`)
+        .delete(`/profile/${profile._id}`)
         .set('Authorization', `Bearer ${Token}`)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
