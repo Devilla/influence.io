@@ -74,7 +74,8 @@ let configurationDefault = {
   },
   "contentText" : "Recently signed up for Company Name",
 	"visitorText" : "people",
-	"notificationUrl" : null
+	"notificationUrl" : null,
+	"toggleMap" : true
 };
 
 let getUniqueUsers = async function(index, trackingId, callback) {
@@ -216,14 +217,18 @@ module.exports = {
           let newConfiguration = configurationDefault;
           newConfiguration['campaign'] = data._id;
           newConfiguration['notificationType'] = notification._id;
-					if(notification.notificationName == 'Recent Activity')
+					if(notification.notificationName == 'Recent Activity') {
+						newConfiguration.panelStyle.radius = 50;
 						newConfiguration['contentText'] = 'Recently signed up for Company Name';
+					}
 					if(notification.notificationName == 'Bulk Activity') {
 						newConfiguration.panelStyle.radius = 7;
 						newConfiguration['contentText'] = 'Company';
 					}
-					if(notification.notificationName == 'Live Visitor Count')
+					if(notification.notificationName == 'Live Visitor Count') {
+						newConfiguration.panelStyle.radius = 50;
 						newConfiguration['contentText'] = 'Company';
+					}
           Configuration.create(newConfiguration, (err, result) => {
             if(err)
               return err;

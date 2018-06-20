@@ -33,6 +33,10 @@
       "type": "string",
       "multiple": false
     },
+    "toggleMap": {
+      "type": "boolean",
+      "multiple": false
+    },
     "campaign": {
       "model": "campaign",
       "via": "configuration"
