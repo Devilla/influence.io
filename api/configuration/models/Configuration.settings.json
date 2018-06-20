@@ -29,6 +29,10 @@
       "type": "string",
       "multiple": false
     },
+    "notificationUrl": {
+      "type": "string",
+      "multiple": false
+    },
     "campaign": {
       "model": "campaign",
       "via": "configuration"

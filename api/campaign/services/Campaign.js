@@ -73,7 +73,8 @@ let configurationDefault = {
 		liveVisitorCount: 0
   },
   "contentText" : "Recently signed up for Company Name",
-	"visitorText" : "people"
+	"visitorText" : "people",
+	"notificationUrl" : null
 };
 
 let getUniqueUsers = async function(index, trackingId, callback) {

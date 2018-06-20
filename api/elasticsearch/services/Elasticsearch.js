@@ -134,7 +134,8 @@ module.exports = {
         contentText: 1,
         panelStyle: 1,
         activity: 1,
-        visitorText: 1
+        visitorText: 1,
+        notificationUrl: 1
       }
     )
     .exec()

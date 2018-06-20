@@ -110,7 +110,7 @@ describe('Should Create Payment', function() {
           type:"subscription",
           updated_at:"2018-06-18T08:39:30.475Z"
        },
-       "coupon": "FIRSTCOME"
+       "coupon": 'FIRSTCOME'
     })
     .expect(201)
     .expect('Content-Type', /json/)

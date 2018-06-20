@@ -9,7 +9,7 @@ const request = require('co-supertest');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, profile, user, rules;
+var Token, user, rules;
 
 /**
  * Test the login user
@@ -29,29 +29,6 @@ var Token, profile, user, rules;
           throw res.error
         Token = res.body.jwt;
         user = res.body.user;
-      });
-    });
-  });
-
-/**
-  * Create User profile
-  **/
-  describe('create user profile', () => {
-    it('it should create user`s profile', function *() {
-      yield request(strapi.config.url)
-      .post('/profile')
-      .set('Authorization', `Bearer ${Token}`)
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json')
-      .send({
-        user: user._id
-      })
-      .expect(201)
-      .expect('Content-Type', /json/)
-      .then((data, err) => {
-        if(data.error)
-          throw data.error;
-        profile = data.body;
       });
     });
   });
