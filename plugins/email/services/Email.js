@@ -28,11 +28,7 @@ const transporter = nodemailer.createTransport({
 
 async function sendMail (mailOptions) {
   await transporter.sendMail(mailOptions, function(error, info) {
-    // if (error) {
-    //   throw { err: true, messages: { id: 'Auth.form.error.email.invalid' } };
-    // } else {
       return info;
-    // }
   });
 }
 /**
@@ -95,24 +91,25 @@ module.exports = {
   accountCreated: async (email, name, verificationToken) =>  {
       const mailSub = "Account has been created";
       const content =`
-      This is a confirmation email to let you know that your account has been created.
-      Please click the below to verify your account:
-
-      Thanks for investing your faith in us.
-
-      See you soon.
-
-      Thanks!
+        <br/>
+        <span>This is a confirmation email to let you know that your account has been created.</span>
+        <br/>
+        <span>Please click the below to verify your account:</span>
+        <br/>
+        <a href="https://useinfluence.co/verify/${verificationToken}">
+          <button type="button" style="color: white; margin: 20px 2px;  background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
+            Verify
+          </button>
+        </a>
+        <br/>
+        <span>Thanks for investing your faith in us.</span>
+        <br/>
+        <span>See you soon.</span>
+        <br/>
+        <span>Thanks!</span>
       `;
-
-      const body = "<pre style='font-size:12px;color:black'>" + content + "</pre><br/><br/><pre>Please click on the link below to login</pre><br/><br/><br/>";
-      var button = `<a href="https://useinfluence.co/verify/${verificationToken}">
-        <button type="button" style="color: white; background-color:#A3A3A3; border-radius: 4px; width: 180px; height: 46px; font-size: 14px; font-weight: bold; border-color: #22AAEE;">
-          Verify
-        </button>
-      </a>`;
-
-      var mytemp = template.commontemp(mailSub, name, body, button)
+      
+      var mytemp = template.commontemp(mailSub, name, content);
 
       let mailOptions = {
         from: 'noreply@useinfluence.co',
@@ -133,19 +130,20 @@ module.exports = {
   resetPassword: async (email, name, resetPasswordToken) =>  {
       const mailSub = "Reset Password"
       const content =`
-      Please click here to set a new password for your account. If you’re unable to setup a new password please reply via this email and we’ll fix it for you.
-
-      Thanks!
+        <br/>
+        <span>
+          Please click here to set a new password for your account. If you’re unable to setup a new password please reply via this email and we’ll fix it for you.
+        </span>
+        <a href="https://useinfluence.co/reset-password?code=${resetPasswordToken}">
+          <button type="button" style="color: white; margin: 20px 2px; background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
+            Reset Password
+          </button>
+        </a>
+        <span>Thanks!</span>
+        <br/>
       `;
 
-      const body = "<pre style='font-size:12px;color:black'>" + content + "</pre><br/><br/><pre>Please click on the button below to reset your password</pre><br/><br/><br/>";
-      var button = `<a href="https://useinfluence.co/reset-password?code=${resetPasswordToken}">
-        <button type="button" style="color: white; background-color:#A3A3A3; border-radius: 4px; width: 180px; height: 46px; font-size: 14px; font-weight: bold; border-color: #22AAEE;">
-          Reset Password
-        </button>
-      </a>`;
-
-      var mytemp = template.commontemp(mailSub, name, body, button)
+      var mytemp = template.commontemp(mailSub, name, content);
 
       let mailOptions = {
         from: 'noreply@useinfluence.co',
@@ -166,29 +164,27 @@ module.exports = {
   limitExceeded: async (email, name, limit) =>  {
       const mailSub = `Account Limit ${limit} exceeded`;
       const content =`
-      <td>Hello, ${name}</td>
-      <br/>
-      <td>This is a confirmation email to let you know that your account has exceeded the limit.</td>
-      <br/>
-      <td>For the time being your campaigns have been stopped</td>
-      <br/>
-      <td>Please click the below to upgrade your plan and continue:</td>
-      <br/>
-      <td>Thanks for investing your faith in us.</td>
-      <br/>
-      <td>See you soon.</td>
-      <br/>
-      <td>Thanks!</td>
+        <br/>
+        <span>This is a confirmation email to let you know that your account has exceeded the limit.</span>
+        <br/>
+        <span>For the time being your campaigns have been stopped</span>
+        <br/>
+        <span>Please click the below to upgrade your plan and continue:</span>
+        <br/>
+        <a href="https://useinfluence.co/signup">
+          <button type="button" style="color: white; margin: 20px 2px; background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
+            Upgrade
+          </button>
+        </a>
+        <br/>
+        <span>Thanks for investing your faith in us.</span>
+        <br/>
+        <span>See you soon.</span>
+        <br/>
+        <span>Thanks!</span>
       `;
 
-      const body = "<tr style='font-size:12px;color:black'>" + content + "</tr><br/><br/><tr>Please click on the link below to login</tr><br/><br/><br/>";
-      var button = `<a href="https://useinfluence.co/signup">
-        <button type="button" style="color: white; background-color:#A3A3A3; border-radius: 4px; width: 180px; height: 46px; font-size: 14px; font-weight: bold; border-color: #22AAEE;">
-          Upgrade
-        </button>
-      </a>`;
-
-      var mytemp = template.commontemp(mailSub, name, body, button)
+      var mytemp = template.commontemp(mailSub, name, content);
 
       let mailOptions = {
         from: 'noreply@useinfluence.co',
