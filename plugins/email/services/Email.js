@@ -11,42 +11,24 @@
 const _ = require('lodash');
 const env = require('dotenv').config()
 const sgMail = require('@sendgrid/mail');
-const nodemailer = require('nodemailer');
 const template = require('../libs/template');
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.zoho.com',
-  port: 465,
-  secure: true,
-  requiresAuth: true,
-  auth: {
-      user: "info@useinfluence.co",
-      pass: "rXwEypHew8ic"
-  },
-  debug: true
-});
-
-async function sendMail (mailOptions) {
-  await transporter.sendMail(mailOptions, function(error, info) {
-      return info;
-  });
-}
 /**
  * Final Service Call From Here.
  * @param mailOptions
  * @returns {Promise<*>}
  */
 
-//  async function sendEmail(mailOptions) {
-//    let v;
-//    try {
-//      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-//      v = await sgMail.send(mailOptions);
-//    }catch (e) {
-//      return e;
-//    }
-//    return v;
-// }
+ async function sendMail(mailOptions) {
+   let v;
+   try {
+     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+     v = await sgMail.send(mailOptions);
+   } catch (e) {
+     return e;
+   }
+   return v;
+}
 
 /**
  * We should use this inside from the service.
@@ -55,8 +37,8 @@ async function sendMail (mailOptions) {
  */
 
 async function send(options) {
-  options.from = options.from || '"Info Useinfluence" <info@useinfluence.co>';
-  options.replyTo = options.replyTo || '"Info Useinfluence" <info@useinfluence.co>';
+  options.from = options.from || '"Support Useinfluence" <support@useinfluence.co>';
+  options.replyTo = options.replyTo || '"Support Useinfluence" <support@useinfluence.co>';
   options.text = options.text || options.html;
   options.html = options.html || options.text;
 
@@ -108,7 +90,7 @@ module.exports = {
         <br/>
         <span>Thanks!</span>
       `;
-      
+
       var mytemp = template.commontemp(mailSub, name, content);
 
       let mailOptions = {
