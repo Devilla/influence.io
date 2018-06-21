@@ -72,7 +72,7 @@ let configurationDefault = {
 	  "onlyDisplayNotification" : false,
 		liveVisitorCount: 0
   },
-  "contentText" : "Recently signed up for Company Name",
+  "contentText" : "Company Name",
 	"visitorText" : "people",
 	"notificationUrl" : "",
 	"toggleMap" : true
