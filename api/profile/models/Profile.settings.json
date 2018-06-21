@@ -61,10 +61,6 @@
     "uniqueVisitorsQoutaLeft": {
       "type": "integer",
       "multiple": false
-    },
-    "undefined": {
-      "model": "campaign",
-      "via": "profile"
     }
   }
 }
