@@ -74,7 +74,7 @@ let configurationDefault = {
   },
   "contentText" : "Recently signed up for Company Name",
 	"visitorText" : "people",
-	"notificationUrl" : null,
+	"notificationUrl" : "",
 	"toggleMap" : true
 };
 
