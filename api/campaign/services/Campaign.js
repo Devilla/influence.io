@@ -9,6 +9,7 @@
 // Public dependencies.
 const _ = require('lodash');
 const domainPing = require("domain-ping");
+const hexRgb = require('hex-rgb');
 
 let ruleDefault = {
 	"hideNotification" : true,
@@ -26,7 +27,7 @@ let ruleDefault = {
 let configurationDefault = {
   "activity" : true,
   "panelStyle" : {
-    "radius" : 50,
+    "radius" : 0,
     "borderWidth" : 0,
     "borderColor" : {
       "r" : 200,
@@ -210,26 +211,160 @@ module.exports = {
       return dom;
     } else {
 			const data = await Campaign.create(values);
+
 			await Notificationtypes.find()
       .exec()
-      .then(notifications => {
-        notifications.map(notification => {
-          let newConfiguration = configurationDefault;
+      .then(async notifications => {
+        await notifications.map(notification => {
+          let newConfiguration = Object.assign({}, configurationDefault);
           newConfiguration['campaign'] = data._id;
           newConfiguration['notificationType'] = notification._id;
-					if(notification.notificationName == 'Recent Activity') {
-						newConfiguration.panelStyle.radius = 50;
-						newConfiguration['contentText'] = 'Recently signed up for Company Name';
-					}
 					if(notification.notificationName == 'Bulk Activity') {
-						newConfiguration.panelStyle.radius = 7;
+						newConfiguration['panelStyle'] = {
+					    "radius" : 7,
+					    "borderWidth" : 0,
+					    "borderColor" : {
+					      "r" : 200,
+					      "g" : 200,
+					      "b" : 200,
+					      "a" : 0.80
+					    },
+					    "shadow" : {
+						    r: 0,
+						    g: 0,
+						    b: 0,
+						    color: 'lightgrey'
+						  },
+					    "blur" : 0,
+					    "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+							"linkColor": {
+						    "r": 0,
+						    "g": 137,
+						    "b": 216,
+						    "a": 1
+						  },
+					    "backgroundColor" : {
+					      "r" : 255,
+					      "g" : 255,
+					      "b" : 255,
+					      "a" : 1
+					    },
+					    "fontFamily" : "inherit",
+					    "fontWeight" : "normal",
+							"linkFontFamily": "inherit",
+						  "linkFontWeight": "normal",
+							"selectDurationData": "hours",
+						  "selectLastDisplayConversation": "hours",
+							"bulkData" : 5,
+						  "recentNumber" : 5,
+						  "recentConv" : 5,
+						  "hideAnonymousConversion" : true,
+						  "onlyDisplayNotification" : false,
+							liveVisitorCount: 0
+					  };
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
 						newConfiguration['contentText'] = 'Company';
 					}
-					if(notification.notificationName == 'Live Visitor Count') {
-						newConfiguration.panelStyle.radius = 50;
+					 if(notification.notificationName == 'Recent Activity') {
+						newConfiguration['panelStyle'] = {
+					    "radius" : 50,
+					    "borderWidth" : 0,
+					    "borderColor" : {
+					      "r" : 200,
+					      "g" : 200,
+					      "b" : 200,
+					      "a" : 0.80
+					    },
+					    "shadow" : {
+						    r: 0,
+						    g: 0,
+						    b: 0,
+						    color: 'lightgrey'
+						  },
+					    "blur" : 0,
+					    "color" : {
+					      "r" : 0,
+					      "g" : 0,
+					      "b" : 0,
+								"a" : 1
+					    },
+							"linkColor": {
+						    "r": 0,
+						    "g": 137,
+						    "b": 216,
+						    "a": 1
+						  },
+					    "backgroundColor" : {
+					      "r" : 255,
+					      "g" : 255,
+					      "b" : 255,
+					      "a" : 1
+					    },
+					    "fontFamily" : "inherit",
+					    "fontWeight" : "normal",
+							"linkFontFamily": "inherit",
+						  "linkFontWeight": "normal",
+							"selectDurationData": "hours",
+						  "selectLastDisplayConversation": "hours",
+							"bulkData" : 5,
+						  "recentNumber" : 5,
+						  "recentConv" : 5,
+						  "hideAnonymousConversion" : true,
+						  "onlyDisplayNotification" : false,
+							liveVisitorCount: 0
+					  };
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 0, "b" : 0, "a" : 0 },
+						newConfiguration['contentText'] = 'Company Name';
+					}
+					 if(notification.notificationName == 'Live Visitor Count') {
+						newConfiguration['panelStyle'] = {
+					    "radius" : 50,
+					    "borderWidth" : 0,
+					    "borderColor" : {
+					      "r" : 200,
+					      "g" : 200,
+					      "b" : 200,
+					      "a" : 0.80
+					    },
+					    "shadow" : {
+						    r: 0,
+						    g: 0,
+						    b: 0,
+						    color: 'lightgrey'
+						  },
+					    "blur" : 0,
+					    "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+							"linkColor": {
+						    "r": 0,
+						    "g": 137,
+						    "b": 216,
+						    "a": 1
+						  },
+					    "backgroundColor" : {
+					      "r" : 255,
+					      "g" : 255,
+					      "b" : 255,
+					      "a" : 1
+					    },
+					    "fontFamily" : "inherit",
+					    "fontWeight" : "normal",
+							"linkFontFamily": "inherit",
+						  "linkFontWeight": "normal",
+							"selectDurationData": "hours",
+						  "selectLastDisplayConversation": "hours",
+							"bulkData" : 5,
+						  "recentNumber" : 5,
+						  "recentConv" : 5,
+						  "hideAnonymousConversion" : true,
+						  "onlyDisplayNotification" : false,
+							liveVisitorCount: 0
+					  };
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
 						newConfiguration['contentText'] = 'Company';
 					}
+
           Configuration.create(newConfiguration, (err, result) => {
+						console.log(result);
             if(err)
               return err;
           });
