@@ -9,7 +9,6 @@
 // Public dependencies.
 const _ = require('lodash');
 const domainPing = require("domain-ping");
-const hexRgb = require('hex-rgb');
 
 let ruleDefault = {
 	"hideNotification" : true,
