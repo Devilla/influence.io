@@ -264,6 +264,24 @@
         "policies": [],
         "prefix": ""
       }
+    },
+    {
+      "method": "GET",
+      "path": "/user/sendmail/affiliate",
+      "handler": "User.sendAffiliate",
+      "config": {
+        "policies": [],
+        "prefix": ""
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/user/sendmail/demo",
+      "handler": "User.sendDemo",
+      "config": {
+        "policies": [],
+        "prefix": ""
+      }
     }
   ]
 }

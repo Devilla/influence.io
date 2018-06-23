@@ -153,5 +153,32 @@ module.exports = {
 
     // Send 200 `ok`
     ctx.send(data);
+  },
+
+  /**
+   * Send affiliate email.
+   *
+   * @return {Object}
+   */
+
+  sendAffiliate: async (ctx) => {
+    const data = await strapi.plugins.email.services.email.affiliateRegister(ctx.query);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
+   * Send demo records.
+   *
+   * @return {Object|Array}
+   */
+
+  sendDemo: async (ctx) => {
+    const data = await strapi.plugins.email.services.email.demoRequested(ctx.query);
+
+    // Send 200 `ok`
+    ctx.send(data);
   }
+
 };

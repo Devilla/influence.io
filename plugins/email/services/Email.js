@@ -175,15 +175,16 @@ module.exports = {
         html: mytemp
       };
       return send(mailOptions);
-  }
+  },
 
   /**
    * Demo Page Template.
-   * @param email
-   * @param name
+   * @param query
    * @returns {Promise<*>}
    */
-  demoRequested: async (email, name) =>  {
+  demoRequested: async (query) =>  {
+    const email = query.email;
+    const name = query.name;
     const mailSub = "Demo requested";
     const content =`
       <br/>
@@ -217,11 +218,12 @@ module.exports = {
 
   /**
    * Affiliate Page Template.
-   * @param email
-   * @param name
+   * @param query
    * @returns {Promise<*>}
    */
-  affiliateRegister: async (email, name) =>  {
+  affiliateRegister: async (query) =>  {
+    const email = query.email;
+    const name = query.name;
     const mailSub = "Affiliate Registeration";
     const content =`
       <br/>
