@@ -47,7 +47,6 @@ module.exports = {
     const present_state = saved_state.present_state;
     const future_state = saved_state.future_state;
 
-
     //Add new values to saved_state
     saved_state.past_state = {
       state: present_state.state,

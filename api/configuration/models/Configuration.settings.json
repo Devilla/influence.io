@@ -25,6 +25,18 @@
       "type": "string",
       "multiple": false
     },
+    "visitorText": {
+      "type": "string",
+      "multiple": false
+    },
+    "notificationUrl": {
+      "type": "string",
+      "multiple": false
+    },
+    "toggleMap": {
+      "type": "boolean",
+      "multiple": false
+    },
     "campaign": {
       "model": "campaign",
       "via": "configuration"

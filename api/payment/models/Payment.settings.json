@@ -14,7 +14,7 @@
       "via": "payments",
       "plugin": "users-permissions"
     },
-    "service_id": {
+    "service_instance_id": {
       "type": "integer",
       "multiple": false
     },
@@ -46,11 +46,11 @@
       "type": "string",
       "multiple": false
     },
-    "subscribed_at":  {
+    "subscribed_at": {
       "type": "integer",
       "multiple": false
     },
-    "trial_end":  {
+    "trial_end": {
       "type": "integer",
       "multiple": false
     },

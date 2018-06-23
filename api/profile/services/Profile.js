@@ -61,8 +61,7 @@ module.exports = {
    */
 
   add: async (values) => {
-    const data = await Profile.create(_.omit(values, _.keys(_.groupBy(strapi.models.profile.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('profile', _.merge(_.clone(data), { values }));
+    const data = await Profile.create(values);
     if(data._id)
       await State.update({user: values.user}, {profile: data._id});
     return data;
@@ -78,7 +77,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('profile', _.merge(_.clone(params), { values }));
+    // await strapi.hook.mongoose.manageRelations('profile', _.merge(_.clone(params), { values }));
     return Profile.update(params, values, { multi: true });
   },
 

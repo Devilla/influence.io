@@ -57,6 +57,22 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/payment/servicebot/cancel",
+      "handler": "Payment.cancelSubscription",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/payment/servicebot/delete",
+      "handler": "Payment.deleteSubscription",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/payment/servicebot/card",
       "handler": "Payment.upgradeCard",

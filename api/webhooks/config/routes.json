@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/webhooks",
+      "handler": "Webhooks.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks/:_id",
+      "handler": "Webhooks.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks",
+      "handler": "Webhooks.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks/:_id",
+      "handler": "Webhooks.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks/:_id",
+      "handler": "Webhooks.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

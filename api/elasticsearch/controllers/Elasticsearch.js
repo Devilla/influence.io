@@ -70,7 +70,7 @@ module.exports = {
       });
     }
 
-    let data = await strapi.services.elasticsearch.uniqueUsers(index, trackingId);
+    let data = await strapi.services.elasticsearch.uniqueUsersWeekly(index, trackingId);
 
     ctx.send({
       message: data

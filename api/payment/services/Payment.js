@@ -20,10 +20,14 @@ const request = require('request');
 function doRequest(options) {
   return new Promise(function (resolve, reject) {
     request(options , function (error, res, body) {
-      if (!error && res.statusCode == 200) {
+      if(res.statusCode >= 400) {
+        return resolve({error: true, message: body});
+      }
+      const response = typeof body === 'string'? JSON.parse(body) : body;
+      if (!error && res.statusCode == 200 || !response.error) {
         resolve(body);
       } else {
-        reject(body);
+        reject(response.error);
       }
     });
   });
@@ -45,7 +49,7 @@ module.exports = {
 
   fetchAllUserPayments: (params) => {
     const query = {
-      profile: params?params._id:null
+      user: params?params._id:null
     };
     const convertedParams = strapi.utils.models.convertParams('payment', query);
 
@@ -149,44 +153,17 @@ module.exports = {
    */
 
   add: async (user, values) => {
-    let token = values.paymentProvider.id;
-    var payment_subscription;
-    var subscription_id = 14;
-    var auth_token = await doRequest({
-      method: 'POST',
-      url:'https://servicebot.useinfluence.co/api/v1/auth/token',
-      form: {
-        email: user.email,
-        password: user.password
-      }
-    }); // retrieve logged in user's auth token from servicebot
+    let token;
+    let plan = values.plan;
+    let payment_subscription;
+    // retrieve logged in user's auth token from servicebot
+    let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    plan["client_id"] = user.servicebot.client_id;
 
-    //default subscription plan(need to add a dynamic one)
-    const subscription = {
-      "id":14,
-      "category_id":1,
-      "created_by":1,
-      "name":"Paid",
-      "description":"monthly",
-      "details":null,
-      "published":true,
-      "statement_descriptor":
-      "Useinfluence",
-      "trial_period_days":0,
-      "amount":1000,
-      "overhead":null,
-      "currency":"usd",
-      "interval":"day",
-      "interval_count":1,
-      "type":"subscription",
-      "subscription_prorate":true,
-      "split_configuration":null,
-      "created_at":"2018-05-23T10:04:22.813Z",
-      "updated_at":"2018-05-23T10:04:22.813Z",
-      "references":{"service_template_properties":[]},
-      "token_id": token,
-      "client_id": user.servicebot.client_id
-    };
+    if(Object.keys(values.coupon).length === 0) {
+      token = values.paymentProvider.id;
+      plan["token_id"] = token;
+    }
 
     /**
 		*	subscribe to subscription plan and make payment
@@ -196,8 +173,8 @@ module.exports = {
     if(auth_token) {
       payment_subscription = await doRequest({
         method: 'POST',
-        url:`https://servicebot.useinfluence.co/api/v1/service-templates/${subscription_id}/request`,
-        json: subscription,
+        url:`https://servicebot.useinfluence.co/api/v1/service-templates/${plan.id}/request`,
+        json: plan,
         headers: {
           Authorization: 'JWT ' + JSON.parse(auth_token).token,
           'Content-Type': 'application/json'
@@ -207,11 +184,15 @@ module.exports = {
       return { message: "user not found", err: true };
     }
 
+    if(payment_subscription.error) {
+      return { err: true, message: payment_subscription.error };
+    }
+
     //created payments object for storing
     const payment_values = {
       user: user._id,
       service_id: payment_subscription.service_id,
-      service_id: payment_subscription.service_id,
+      service_instance_id: payment_subscription.id,
       user_id: payment_subscription.user_id,
       requested_by: payment_subscription.requested_by,
       payment_plan: payment_subscription.payment_plan,
@@ -226,6 +207,15 @@ module.exports = {
       updated_at: payment_subscription.updated_at,
     };
 
+    const plan_value = {
+      user: user._id,
+      coupon_details: values.coupon,
+      plan_details: payment_subscription.payment_plan,
+      subscribed_at: payment_subscription.subscribed_at,
+      servicebot_user_id: payment_subscription.user_id
+    };
+    await Plan.create(plan_value);
+
     //Create new payment document
     const data = await Payment.create(payment_values);
     return data;
@@ -239,15 +229,9 @@ module.exports = {
 
   upgradeCard: async (user, values) => {
     var add_funds;
-    let token = values.paymentProvider.id;
-    var auth_token = await doRequest({
-      method: 'POST',
-      url:'https://servicebot.useinfluence.co/api/v1/auth/token',
-      form: {
-        email: user.email,
-        password: user.password
-      }
-    }); // retrieve auth token for logged in user from service bot
+    let token = values.id;
+    // retrieve auth token for logged in user from service bot
+    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
 
     const funds_details = {
       "user_id": user.servicebot.client_id,
@@ -269,10 +253,110 @@ module.exports = {
           'Content-Type': 'application/json'
         }
       });
+      if(add_funds.error)
+        return { err: true, message: add_funds.message };
     } else {
       return { message: "user not found", err: true };
     }
     return JSON.parse(add_funds); //return updated card details
+  },
+
+
+  /**
+   * Promise to cancel a/an servicebot payment subscription.
+   *
+   * @return {Promise}
+   */
+
+  cancelSubscription: async (user) => {
+    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    var payment_info;
+    if(auth_token) {
+
+      payment_info = await Payment.findOne({user: user._id})
+      .sort({ field: 'asc', _id: -1 })
+
+      if(payment_info) {
+        let result = await doRequest({
+          method: 'POST',
+          url:`https://servicebot.useinfluence.co/api/v1/service-instances/${payment_info.service_instance_id}/cancel`,
+          headers: {
+            Authorization: 'JWT ' + JSON.parse(auth_token).token,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if(result.error)
+          return { err: true, message: result.message };
+        else
+          result = JSON.parse(result);
+
+        await Payment.update(
+          { _id: payment_info._id },
+          { $set: {
+            subscription_id: result.subscription_id,
+            status: result.status,
+            updated_at: result.updated_at
+          }}
+        );
+        return { err: false, message: result };
+      } else if(payment_info.status == 'cancelled') {
+        return { err: true, message: 'Subscription already cancelled' };
+      } else {
+        return { err: true, message: 'Subscription not found' };
+      }
+    } else {
+      return { err: true, message: "No user found" };
+    }
+  },
+
+
+  /**
+   * Promise to delete a/an servicebot payment subscription.
+   *
+   * @return {Promise}
+   */
+
+  deleteSubscription: async (user) => {
+    var auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+
+    var payment_info;
+
+    if(auth_token) {
+      payment_info = await Payment.findOne({user: user._id})
+      .sort({ field: 'asc', _id: -1 })
+
+      if(payment_info) {
+        let result = await doRequest({
+          method: 'DELETE',
+          url:`https://servicebot.useinfluence.co/api/v1/service-instances/${payment_info.service_instance_id}`,
+          headers: {
+            Authorization: 'JWT ' + JSON.parse(auth_token).token,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if(result.error)
+          return { err: true, message: result.message };
+        else
+          result = JSON.parse(result);
+
+        await Payment.update(
+          { _id: payment_info._id },
+          { $set: {
+            status: 'deleted',
+            updated_at: Date.now()
+          }}
+        );
+        return { err: false, result };
+      } else if(payment_info.status == 'cancelled') {
+        return { err: true, message: 'Subscription already deleted' };
+      } else {
+        return { err: true, message: 'Subscription not found' };
+      }
+
+    } else
+      return { err: true, message: "No user found"};
   },
 
   /**

@@ -13,7 +13,7 @@
     "lint": "node_modules/.bin/eslint api/**/*.js config/**/*.js plugins/**/*.js",
     "postinstall": "node node_modules/strapi/lib/utils/post-install.js",
     "frontend": "cd public/frontend && npm install  && npm run build",
-    "test": "mocha"
+    "test": "mocha --require co-mocha test/bootstrap.test.js test/**/*.test.js  --timeout 30000"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
+    "agentkeepalive": "^3.4.1",
     "bcryptjs": "^2.4.3",
     "co-supertest": "0.0.10",
     "domain-ping": "^0.1.9",
@@ -41,6 +42,7 @@
     "koa": "^2.1.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
+    "nodemailer": "^4.6.7",
     "pino-multi-stream": "^3.1.2",
     "pino-tee": "^0.2.0",
     "purest": "^2.0.1",
@@ -51,6 +53,7 @@
     "stripe": "^6.0.0",
     "supertest": "^3.1.0",
     "uniqid": "^4.1.1",
+    "util": "^0.10.3",
     "uuid": "^3.1.0",
     "ws": "^5.1.0"
   },

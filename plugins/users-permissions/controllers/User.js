@@ -149,7 +149,7 @@ module.exports = {
    */
 
   destroy: async (ctx, next) => {
-    const data = await strapi.plugins['users-permissions'].services.user.remove(ctx.params);
+    const data = await strapi.plugins['users-permissions'].services.user.remove(ctx.params, ctx.state.user);
 
     // Send 200 `ok`
     ctx.send(data);

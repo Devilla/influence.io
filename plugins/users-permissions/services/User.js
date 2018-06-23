@@ -9,6 +9,23 @@
 // Public dependencies.
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
+const request = require('request');
+
+function doRequest(options) {
+  return new Promise(function (resolve, reject) {
+    request(options , function (error, res, body) {
+      if(res.statusCode >= 400) {
+        return resolve({error: true, message: body});
+      }
+      const response = typeof body === 'string'? JSON.parse(body) : body;
+      if (!error && res.statusCode == 200 || response.error) {
+        resolve(body);
+      } else {
+        reject(response.error);
+      }
+    });
+  });
+}
 
 module.exports = {
   /**
@@ -104,13 +121,44 @@ module.exports = {
    * @return {Promise}
    */
 
-  remove: async params => {
+  remove: async (params, user) => {
     // Use Content Manager business logic to handle relation.
     if (strapi.plugins['content-manager']) {
       params.model = 'user';
       params.id = (params._id || params.id);
 
       await strapi.plugins['content-manager'].services['contentmanager'].delete(params, {source: 'users-permissions'});
+    }
+
+    var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
+    var response;
+    if(token.error)
+      return { err: true, message: token.message };
+    if(token) {
+      const payment_info = await Payment.findOne({user: user._id})
+        .sort({created_at: -1})
+        .exec((err, res) => {
+          if(err)
+            throw err;
+          else
+            return res;
+        })
+
+      if(payment_info)
+        response = await doRequest({
+          method: 'DELETE',
+          url:`https://servicebot.useinfluence.co/service-instances/${payment_info.service_id}`,
+          headers: {
+            Authorization: 'JWT ' + JSON.parse(auth_token).token,
+            'Content-Type': 'application/json'
+          }
+        });
+      if(response && response.error)
+        return { err: true, message: response.message };
+      await doRequest({method: 'DELETE', url:`https://servicebot.useinfluence.co/api/v1/users/${user.servicebot.client_id}`, headers: {
+      Authorization: 'JWT ' + JSON.parse(token).token,
+      'Content-Type': 'application/json'
+    }});
     }
 
     return strapi.query('user', 'users-permissions').delete(params);

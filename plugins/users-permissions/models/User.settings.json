@@ -64,6 +64,9 @@
       "type": "json",
       "multiple": false
     },
+    "coupon": {
+      "model": "coupon"
+    },
     "state": {
       "model": "state",
       "via": "user"

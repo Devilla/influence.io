@@ -11,7 +11,7 @@ const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
 const stripe = require("stripe")(
-  "sk_test_hIHBmEAcq9nzEIGICQ6gjFmY"
+  "sk_test_xQUXiwmFS01hpVGh3dMsh0ru"
 );
 var Token, user, stripe_token;
 
@@ -46,7 +46,7 @@ function createNewToken(done) {
          if(!res)
           throw err
         else
-          Token = res.body.token;
+          Token = res.body.jwt;
        });
      });
   });
@@ -69,6 +69,7 @@ function createNewToken(done) {
          if(!res)
           throw { message: "test failed", error: true };
          Token = res.body.jwt;
+         user = res.body.user;
       });
     })
   });
@@ -86,8 +87,30 @@ describe('Should Create Payment', function() {
      .set('Accept', 'application/json')
      .send({
        "paymentProvider": {
-         "id":stripe_token
-       }
+         "id": stripe_token
+       },
+       "plan" : {
+          amount:0,
+          category_id:1,
+          created_at:"2018-06-11T06:37:33.847Z",
+          created_by:1,
+          currency:"usd",
+          description:"50000",
+          details:"<p>1 month trial period</p>",
+          id:15,
+          interval:"month",
+          interval_count:1,
+          name:"Trial Version",
+          published:true,
+          references:{},
+          split_configuration:null,
+          statement_descriptor:"Useinfluence",
+          subscription_prorate:true,
+          trial_period_days:0,
+          type:"subscription",
+          updated_at:"2018-06-18T08:39:30.475Z"
+       },
+       "coupon": 'FIRSTCOME'
     })
     .expect(201)
     .expect('Content-Type', /json/)
@@ -131,6 +154,60 @@ describe("Should Upgrade User's Card details", function() {
         "id":stripe_token
       }
     })
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .then((data, err) => {
+      if(data.error)
+        throw data.error;
+    });
+  });
+});
+
+/*
+ * Cancel the payment subscription
+ */
+describe('Should Cancel Payment Subscription', function() {
+  it("should cancel user's payment subscription", function *() {
+    yield request(strapi.config.url)
+    .post('/payment/servicebot/cancel')
+    .set('Authorization', `Bearer ${Token}`)
+    .set('Accept', 'application/json')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .then((data, err) => {
+      if(data.error)
+        throw data.error;
+    });
+  });
+});
+
+/*
+ * Delete the payment subscription
+ */
+describe('Should Delete Payment Subscription', function() {
+  it("should delete user's payment subscription", function *() {
+    yield request(strapi.config.url)
+    .delete('/payment/servicebot/delete')
+    .set('Authorization', `Bearer ${Token}`)
+    .set('Accept', 'application/json')
+    .expect(200)
+    .expect('Content-Type', /json/)
+    .then((data, err) => {
+      if(data.error)
+        throw data.error;
+    });
+  });
+});
+
+/*
+ * Delete the user
+ */
+describe('Should Delete User', function() {
+  it("should delete user", function *() {
+    yield request(strapi.config.url)
+    .delete(`/user/${user._id}`)
+    .set('Authorization', `Bearer ${Token}`)
+    .set('Accept', 'application/json')
     .expect(200)
     .expect('Content-Type', /json/)
     .then((data, err) => {

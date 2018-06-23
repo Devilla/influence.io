@@ -15,8 +15,8 @@ module.exports = {
    */
 
   findAllUserPayments: async (ctx) => {
-    const profile = ctx.state.user.profile;
-    const data = await strapi.services.payment.fetchAllUserPayments(profile);
+    const user = ctx.state.user;
+    const data = await strapi.services.payment.fetchAllUserPayments(user);
 
     // Send 200 `ok`
     ctx.send(data);
@@ -116,6 +116,31 @@ module.exports = {
     ctx.send(data);
   },
 
+  /**
+   * Cancel a/an payment subscription servicebot.
+   *
+   * @return {Object}
+   */
+
+  cancelSubscription: async (ctx, next) => {
+    const data = await strapi.services.payment.cancelSubscription(ctx.state.user) ;
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
+
+  /**
+   * Delete a/an payment subscription servicebot.
+   *
+   * @return {Object}
+   */
+
+  deleteSubscription: async (ctx, next) => {
+    const data = await strapi.services.payment.deleteSubscription(ctx.state.user) ;
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
 
   /**
    * Destroy a/an payment record.

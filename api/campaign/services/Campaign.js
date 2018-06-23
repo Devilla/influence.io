@@ -16,28 +16,36 @@ let ruleDefault = {
 	"delayNotification" : false,
 	"closeNotification" : false,
 	"initialDelay" : 1,
-	"displayTime" : 3,
+	"displayTime" : 5,
 	"delayBetween" : 3,
 	"displayPosition" : "Bottom Left",
+	"popupAnimationIn" : "fadeInUp",
+	"popupAnimationOut" : "fadeOutDown"
 };
 
 let configurationDefault = {
   "activity" : true,
   "panelStyle" : {
-    "radius" : 35,
+    "radius" : 0,
     "borderWidth" : 0,
     "borderColor" : {
       "r" : 200,
       "g" : 200,
       "b" : 200,
-      "a" : 1
+      "a" : 0.80
     },
-    "shadow" : 0,
-    "blur" : 2,
+    "shadow" : {
+	    r: 0,
+	    g: 0,
+	    b: 0,
+	    color: 'lightgrey'
+	  },
+    "blur" : 0,
     "color" : {
       "r" : 0,
       "g" : 0,
-      "b" : 0
+      "b" : 0,
+			"a" : 1
     },
 		"linkColor": {
 	    "r": 0,
@@ -54,10 +62,41 @@ let configurationDefault = {
     "fontFamily" : "inherit",
     "fontWeight" : "normal",
 		"linkFontFamily": "inherit",
-	  "linkFontWeight": "normal"
+	  "linkFontWeight": "normal",
+		"selectDurationData": "hours",
+	  "selectLastDisplayConversation": "hours",
+		"bulkData" : 5,
+	  "recentNumber" : 5,
+	  "recentConv" : 5,
+	  "hideAnonymousConversion" : true,
+	  "onlyDisplayNotification" : false,
+		liveVisitorCount: 0
   },
-  "contentText" : "Recently signed up for Company Name"
+  "contentText" : "Company Name",
+	"visitorText" : "people",
+	"notificationUrl" : "",
+	"toggleMap" : true
 };
+
+let getUniqueUsers = async function(index, trackingId, callback) {
+  try {
+    await strapi.services.elasticsearch.uniqueUsersWeekly(index, trackingId).then(res=>{
+      callback(null, res);
+    });
+  } catch(err) {
+    callback(err);
+  }
+}
+
+let getSignUps = async function(index, trackingId, type, callback) {
+  try {
+    await strapi.services.elasticsearch.notification(index, trackingId, type).then(res=>{
+      callback(null, res);
+    });
+  } catch(err) {
+    callback(err);
+  }
+}
 
 module.exports = {
 
@@ -147,13 +186,8 @@ module.exports = {
    */
 
   add: async (values) => {
-		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]; //filter website url from https/http and www
-
-		/**
-		* Function to check whether the website url is valid or not
-		*
-		*@return {Promise}
-		*/
+		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+		values.isActive = true;
     var checkDomain = new Promise((resolve, reject) => {
       domainPing(values.websiteUrl)
        .then((res) => {
@@ -189,30 +223,168 @@ module.exports = {
 			*/
 			await Notificationtypes.find()
       .exec()
-      .then(notifications => {
-        notifications.map(notification => {
-          let newConfiguration = configurationDefault;
+      .then(async notifications => {
+        await notifications.map(notification => {
+          let newConfiguration = Object.assign({}, configurationDefault);
           newConfiguration['campaign'] = data._id;
           newConfiguration['notificationType'] = notification._id;
+					if(notification.notificationName == 'Bulk Activity') {
+						newConfiguration['panelStyle'] = {
+					    "radius" : 7,
+					    "borderWidth" : 0,
+					    "borderColor" : {
+					      "r" : 200,
+					      "g" : 200,
+					      "b" : 200,
+					      "a" : 0.80
+					    },
+					    "shadow" : {
+						    r: 0,
+						    g: 0,
+						    b: 0,
+						    color: 'lightgrey'
+						  },
+					    "blur" : 0,
+					    "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+							"linkColor": {
+						    "r": 0,
+						    "g": 137,
+						    "b": 216,
+						    "a": 1
+						  },
+					    "backgroundColor" : {
+					      "r" : 255,
+					      "g" : 255,
+					      "b" : 255,
+					      "a" : 1
+					    },
+					    "fontFamily" : "inherit",
+					    "fontWeight" : "normal",
+							"linkFontFamily": "inherit",
+						  "linkFontWeight": "normal",
+							"selectDurationData": "hours",
+						  "selectLastDisplayConversation": "hours",
+							"bulkData" : 5,
+						  "recentNumber" : 5,
+						  "recentConv" : 5,
+						  "hideAnonymousConversion" : true,
+						  "onlyDisplayNotification" : false,
+							liveVisitorCount: 0
+					  };
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+						newConfiguration['contentText'] = 'Company';
+					}
+					 if(notification.notificationName == 'Recent Activity') {
+						newConfiguration['panelStyle'] = {
+					    "radius" : 50,
+					    "borderWidth" : 0,
+					    "borderColor" : {
+					      "r" : 200,
+					      "g" : 200,
+					      "b" : 200,
+					      "a" : 0.80
+					    },
+					    "shadow" : {
+						    r: 0,
+						    g: 0,
+						    b: 0,
+						    color: 'lightgrey'
+						  },
+					    "blur" : 0,
+					    "color" : {
+					      "r" : 0,
+					      "g" : 0,
+					      "b" : 0,
+								"a" : 1
+					    },
+							"linkColor": {
+						    "r": 0,
+						    "g": 137,
+						    "b": 216,
+						    "a": 1
+						  },
+					    "backgroundColor" : {
+					      "r" : 255,
+					      "g" : 255,
+					      "b" : 255,
+					      "a" : 1
+					    },
+					    "fontFamily" : "inherit",
+					    "fontWeight" : "normal",
+							"linkFontFamily": "inherit",
+						  "linkFontWeight": "normal",
+							"selectDurationData": "hours",
+						  "selectLastDisplayConversation": "hours",
+							"bulkData" : 5,
+						  "recentNumber" : 5,
+						  "recentConv" : 5,
+						  "hideAnonymousConversion" : true,
+						  "onlyDisplayNotification" : false,
+							liveVisitorCount: 0
+					  };
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 0, "b" : 0, "a" : 0 },
+						newConfiguration['contentText'] = 'Company Name';
+					}
+					 if(notification.notificationName == 'Live Visitor Count') {
+						newConfiguration['panelStyle'] = {
+					    "radius" : 50,
+					    "borderWidth" : 0,
+					    "borderColor" : {
+					      "r" : 200,
+					      "g" : 200,
+					      "b" : 200,
+					      "a" : 0.80
+					    },
+					    "shadow" : {
+						    r: 0,
+						    g: 0,
+						    b: 0,
+						    color: 'lightgrey'
+						  },
+					    "blur" : 0,
+					    "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+							"linkColor": {
+						    "r": 0,
+						    "g": 137,
+						    "b": 216,
+						    "a": 1
+						  },
+					    "backgroundColor" : {
+					      "r" : 255,
+					      "g" : 255,
+					      "b" : 255,
+					      "a" : 1
+					    },
+					    "fontFamily" : "inherit",
+					    "fontWeight" : "normal",
+							"linkFontFamily": "inherit",
+						  "linkFontWeight": "normal",
+							"selectDurationData": "hours",
+						  "selectLastDisplayConversation": "hours",
+							"bulkData" : 5,
+						  "recentNumber" : 5,
+						  "recentConv" : 5,
+						  "hideAnonymousConversion" : true,
+						  "onlyDisplayNotification" : false,
+							liveVisitorCount: 0
+					  };
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+						newConfiguration['contentText'] = 'Company';
+					}
+
           Configuration.create(newConfiguration, (err, result) => {
+						console.log(result);
             if(err)
               return err;
           });
         });
       });
-
-			/**
-			* Creates new default Rules for campaign
-			*
-			*@return {Promise}
-			*/
       let newRules = ruleDefault;
-      newRules['campaign'] = data._id;
-      await Rules.create(newRules, (err, result) => {
-        if(err)
+			newRules['campaign'] = data._id;
+			await Rules.create(newRules, (err, result) => {
+				if(err)
           return err;
       });
-
       return data; // return new campaign
     }
   },
@@ -227,7 +399,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
+    // await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
     return Campaign.update(params, values, { upsert:false, multi: true });
   },
 
@@ -276,6 +448,7 @@ module.exports = {
 
     const campaign = await Campaign
       .find()
+			.lean()
       .where(convertedParams.where)
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
@@ -290,11 +463,34 @@ module.exports = {
         .then(counts => {
           countConfig = counts;
         });
-    // let pica;
-    // await campaignFilter.map(camp => {
-    //     pica = strapi.services.elasticsearch.uniqueUsers('filebeat-*', camp.trackingId);
-    // });
 
-    return {websiteLive: campaignWebsites, notificationCount: countConfig };
+		let uniqueUsers = [];
+    let pica = campaignWebsites.map(async camp => {
+        await getUniqueUsers('filebeat-*', camp.trackingId, (err, usersUnique) => {
+					if(!err) {
+						uniqueUsers.push(usersUnique);
+						camp['uniqueUsers'] = usersUnique;
+					}
+					return camp;
+				});
+				return camp;
+		});
+
+		await Promise.all(pica);
+
+		// let userSignUps = [];
+		let signedUpUsers = campaignWebsites.map(async camp => {
+			await getSignUps('filebeat-*', camp.trackingId, 'journey', (err, response) => {
+				if(!err) {
+					camp['signups'] = response;
+				}
+				return camp;
+			});
+			return camp;
+		});
+
+		await Promise.all(signedUpUsers);
+
+    return {websiteLive: campaignWebsites, notificationCount: countConfig, uniqueUsers: uniqueUsers };
   },
 };

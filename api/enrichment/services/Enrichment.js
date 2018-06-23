@@ -16,7 +16,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       let URI = "http://picasaweb.google.com/data/entry/api/user/" + email.trim() + "?alt=json";
       fetch(URI,(error, meta, body) => {
-        if (!error) {
+        if (!error && meta.responseHeaders['content-type'] == 'application/json; charset=UTF-8') {
           try {
             let emailEnrichmentJSON = JSON.parse(body.toString());
             let returnJson = {
@@ -28,7 +28,7 @@ module.exports = {
             reject(errorFromTry)
           }
         } else {
-          reject(error);
+          reject({error: body.toString()});
         }
       });
     });
@@ -38,7 +38,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       let URI = gravatar.profile_url(email, { protcol: 'https' });
       fetch(URI,(error, meta, body) => {
-        if (!error) {
+        if (!error && meta.responseHeaders['content-type'] == 'application/json; charset=UTF-8') {
           try {
             let emailEnrichmentJSON = JSON.parse(body.toString());
             let entry = emailEnrichmentJSON.entry[0];
@@ -52,7 +52,7 @@ module.exports = {
             reject(errorForTry)
           }
         } else {
-          reject(error)
+          reject({error: body.toString()})
         }
       });
     });
