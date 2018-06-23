@@ -10,7 +10,7 @@ const coupon = require('../api/coupon/services/Coupon');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, user;
+var Token, user ,coupon_id;
 
 /**
  * Test the signup user
@@ -56,10 +56,68 @@ describe('user login test to enter coupon', () => {
     })
   });
 
+
   /*
-   * Test the coupon 
+   * Add the coupon 
    */
- describe("user should get coupon test",function(){
+ describe('add coupon test',function(){
+  it('should have created the  coupon', function *() {
+      yield request(strapi.config.url)
+        .post('/coupon')
+        .set('Authorization', `Bearer ${Token}`)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .send({
+          type: 'demo',
+          discount: 10,
+          active: true,
+          code: 'TESTING'
+        })
+        .expect(201)
+        .expect('Content-Type', /json/)
+        .then((res,err) => {
+          if(res.err)
+              throw res.err;
+          coupon_id = res.body;
+        });
+      });
+   });
+
+
+
+  /*
+   * Update  the coupon 
+   */
+ describe('Update  coupon test',function(){
+  it('should have updated the  coupon', function *() {
+      yield request(strapi.config.url)
+        .put(`/coupon/${coupon_id._id}`)
+        .set('Authorization', `Bearer ${Token}`)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .send({
+          type: 'fakeworld',
+          discount: 10,
+          active: true,
+          code: 'Helloworld10'
+        })
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then((res,err) => {
+          if(res.err)
+              throw res.err;
+          
+        });
+      });
+   });
+
+
+   
+  /*
+   * Fetch the coupon 
+   */
+
+ describe('user should get coupon test',function(){
     it('should have find the  coupon', function *() {
         yield request(strapi.config.url)
           .get('/coupon')
@@ -70,6 +128,29 @@ describe('user login test to enter coupon', () => {
                 throw err;
             else
                expect(res.body[0].code).to.be.a('string');
+          });
+        });
+     });
+
+
+
+  /*
+   * delete  the coupon 
+   */
+  
+  describe('Delete coupon test',function(){
+    it('should have deleted  the  coupon', function *() {
+        yield request(strapi.config.url)
+          .delete(`/coupon/${coupon_id._id}`)
+          .set('Authorization', `Bearer ${Token}`)
+          .set('Content-Type', 'application/json')
+          .set('Accept', 'application/json')
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .then((res,err) => {
+            if(res.err)
+                throw res.err;
+            
           });
         });
      });
