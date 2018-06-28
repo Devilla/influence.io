@@ -67,6 +67,10 @@
     "coupon": {
       "model": "coupon",
       "via": "user"
+    },
+    "clients": {
+      "collection": "client",
+      "via": "userId"
     }
   },
   "collectionName": "users-permissions_user"
