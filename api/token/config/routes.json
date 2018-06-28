@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/token",
+      "handler": "Token.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/token/:_id",
+      "handler": "Token.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/token",
+      "handler": "Token.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/token/:_id",
+      "handler": "Token.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/token/:_id",
+      "handler": "Token.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
