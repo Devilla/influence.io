@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/oauth",
+      "handler": "Oauth.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/oauth/:_id",
+      "handler": "Oauth.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/oauth",
+      "handler": "Oauth.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/oauth/:_id",
+      "handler": "Oauth.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/oauth/:_id",
+      "handler": "Oauth.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

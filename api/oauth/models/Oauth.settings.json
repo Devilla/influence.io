@@ -1,0 +1,13 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "oauth",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+  }
+}
