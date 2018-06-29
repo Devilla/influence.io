@@ -13,7 +13,7 @@
       "type": "string",
       "multiple": false
     },
-    "id": {
+    "clientId": {
       "type": "string",
       "multiple": false
     },
