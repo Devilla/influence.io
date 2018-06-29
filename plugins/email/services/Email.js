@@ -253,5 +253,45 @@ module.exports = {
       html: mytemp
     };
     return send(mailOptions);
-  }
+  },
+
+  /**
+   * Contact Us Page Template.
+   * @param query
+   * @returns {Promise<*>}
+   */
+  contactUs: async (query) =>  {
+    const email = query.email;
+    const name = query.name;
+    const mailSub = "Contact Us";
+    const content =`
+      <br/>
+      <span>This is a confirmation email to let you know that we have received your request.</span>
+      <br/>
+      <span>Please click the below to login:</span>
+      <br/>
+      <a href="https://useinfluence.co/login">
+        <button type="button" style="color: white; margin: 20px 2px;  background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
+          Demo
+        </button>
+      </a>
+      <br/>
+      <span>Thanks for investing your faith in us.</span>
+      <br/>
+      <span>See you soon.</span>
+      <br/>
+      <span>Thanks!</span>
+    `;
+
+    var mytemp = template.commontemp(mailSub, name, content);
+
+    let mailOptions = {
+      from: 'support@useinfluence.co',
+      to: email,
+      subject: mailSub,
+      html: mytemp
+    };
+    return send(mailOptions);
+  },
+
 };
