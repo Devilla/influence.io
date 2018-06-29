@@ -2,40 +2,24 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/oauth",
-      "handler": "Oauth.find",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/oauth/:_id",
-      "handler": "Oauth.findOne",
+      "path": "/oauth/authorize",
+      "handler": "Oauth.authorization",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/oauth",
-      "handler": "Oauth.create",
+      "path": "/oauth/authorize",
+      "handler": "Oauth.decision",
       "config": {
         "policies": []
       }
     },
     {
-      "method": "PUT",
-      "path": "/oauth/:_id",
-      "handler": "Oauth.update",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "DELETE",
-      "path": "/oauth/:_id",
-      "handler": "Oauth.destroy",
+      "method": "POST",
+      "path": "/oauth/token",
+      "handler": "Oauth.token",
       "config": {
         "policies": []
       }

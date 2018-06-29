@@ -14,8 +14,10 @@ module.exports = {
    * @return {Object|Array}
    */
 
-  find: async (ctx) => {
-    const data = await strapi.services.oauth.fetchAll(ctx.query);
+  authorization: async (ctx) => {
+    const clientId = ctx.query.clientId;
+    const redirectUri = ctx.query.redirectUri;
+    const data = await strapi.services.oauth.authorization(clientId, redirectUri);
 
     // Send 200 `ok`
     ctx.send(data);
@@ -27,12 +29,12 @@ module.exports = {
    * @return {Object}
    */
 
-  findOne: async (ctx) => {
+  decision: async (ctx) => {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
 
-    const data = await strapi.services.oauth.fetch(ctx.params);
+    const data = await strapi.services.oauth.decision(ctx.request.body);
 
     // Send 200 `ok`
     ctx.send(data);
@@ -44,36 +46,11 @@ module.exports = {
    * @return {Object}
    */
 
-  create: async (ctx) => {
-    const data = await strapi.services.oauth.add(ctx.request.body);
+  token: async (ctx) => {
+    const data = await strapi.services.oauth.token(ctx.request.body);
 
     // Send 201 `created`
     ctx.created(data);
   },
 
-  /**
-   * Update a/an oauth record.
-   *
-   * @return {Object}
-   */
-
-  update: async (ctx, next) => {
-    const data = await strapi.services.oauth.edit(ctx.params, ctx.request.body) ;
-
-    // Send 200 `ok`
-    ctx.send(data);
-  },
-
-  /**
-   * Destroy a/an oauth record.
-   *
-   * @return {Object}
-   */
-
-  destroy: async (ctx, next) => {
-    const data = await strapi.services.oauth.remove(ctx.params);
-
-    // Send 200 `ok`
-    ctx.send(data);
-  }
 };

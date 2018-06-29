@@ -73,30 +73,6 @@ server.exchange(oauth2orize.exchange.code(function(client, code, redirectUri, ca
   });
 }));
 
-// User authorization endpoint
-// exports.authorization = [
-//   server.authorization(function(clientId, redirectUri, callback) {
-//     Client.findOne({ id: clientId }, function (err, client) {
-//       if (err) { return callback(err); }
-//
-//       return callback(null, client, redirectUri);
-//     });
-//   }),
-//   function(req, res){
-//     console.log(config.userid);
-//     res.render('dialog', { transactionID: req.oauth2.transactionID, user: config.userid, client: req.oauth2.client });
-//   }
-// ]
-
-// exports.decision = [
-//   server.decision()
-// ]
-
-// Application client token exchange endpoint
-// exports.token = [
-//   server.token(),
-//   server.errorHandler()
-// ]
 
 function uid (len) {
   var buf = []
