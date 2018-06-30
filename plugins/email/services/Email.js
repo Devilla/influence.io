@@ -184,11 +184,21 @@ module.exports = {
    */
   demoRequested: async (query) =>  {
     const email = query.email;
-    const name = query.name;
+    const firstname = query.firstname;
+    const lastname = query.lastname;
+    const phonenumber = query.phonenumber;
     const mailSub = "Demo requested";
     const content =`
       <br/>
-      <span>This is a confirmation email to let you know that we have received your request for demo.</span>
+      <span>This is a confirmation email to let you know that ${firstname} have request for demo.</span>
+      <br/>
+      <span>First Name: ${firstname}</span>
+      <br/>
+      <span>Last Name: ${lastname}</span>
+      <br/>
+      <span>Email: ${email}</span>
+      <br/>
+      <span>Phone Number: ${phonenumber}</span>
       <br/>
       <span>Please click the below to get the demo:</span>
       <br/>
@@ -209,7 +219,7 @@ module.exports = {
 
     let mailOptions = {
       from: 'support@useinfluence.co',
-      to: email,
+      to: 'useinfluencecosupport@useinfluence.freshdesk.com',
       subject: mailSub,
       html: mytemp
     };
@@ -227,8 +237,9 @@ module.exports = {
     const mailSub = "Affiliate Registeration";
     const content =`
       <br/>
-      <span>This is a confirmation email to let you know that you have been successfully register for Affiliate.</span>
+      <span>This is a confirmation email to let you know that ${name} have register for Affiliate.</span>
       <br/>
+      <span>Email Address: ${email}</span>
       <span>Please click the below to login:</span>
       <br/>
       <a href="https://useinfluence.co/login">
@@ -248,7 +259,7 @@ module.exports = {
 
     let mailOptions = {
       from: 'support@useinfluence.co',
-      to: email,
+      to: 'useinfluencecosupport@useinfluence.freshdesk.com',
       subject: mailSub,
       html: mytemp
     };
@@ -263,10 +274,17 @@ module.exports = {
   contactUs: async (query) =>  {
     const email = query.email;
     const name = query.name;
+    const message = query.message;
     const mailSub = "Contact Us";
     const content =`
       <br/>
-      <span>This is a confirmation email to let you know that we have received your request.</span>
+      <span>This is a confirmation email to let you know that ${name} wants to connect.</span>
+      <br/>
+      <span>Email Address: ${email}</span>
+      <br/>
+      <span>Name: ${name}</span>
+      <br/>
+      <span>Message: ${message}</span>
       <br/>
       <span>Please click the below to login:</span>
       <br/>
@@ -287,7 +305,7 @@ module.exports = {
 
     let mailOptions = {
       from: 'support@useinfluence.co',
-      to: email,
+      to: 'useinfluencecosupport@useinfluence.freshdesk.com',
       subject: mailSub,
       html: mytemp
     };
