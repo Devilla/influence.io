@@ -359,7 +359,7 @@ module.exports = {
 							liveVisitorCount: 0
 					  };
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
-						newConfiguration['contentText'] = 'Company';
+						newConfiguration['contentText'] = 'Influence';
 					}
 
           Configuration.create(newConfiguration, (err, result) => {
