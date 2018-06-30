@@ -187,6 +187,9 @@ module.exports = {
     const firstname = query.firstname;
     const lastname = query.lastname;
     const phonenumber = query.phonenumber;
+    const company = query.company;
+    const totalEmployee = query.totalEmployee;
+    const department = query.department;
     const mailSub = "Demo requested";
     const content =`
       <br/>
@@ -199,6 +202,12 @@ module.exports = {
       <span>Email: ${email}</span>
       <br/>
       <span>Phone Number: ${phonenumber}</span>
+      <br/>
+      <span>Company: ${company}</span>
+      <br/>
+      <span>Total Employees: ${totalEmployee}</span>
+      <br/>
+      <span>Department: ${department}</span>
       <br/>
       <span>Please click the below to get the demo:</span>
       <br/>
@@ -215,7 +224,7 @@ module.exports = {
       <span>Thanks!</span>
     `;
 
-    var mytemp = template.commontemp(mailSub, name, content);
+    var mytemp = template.commontemp(mailSub, firstname, content);
 
     let mailOptions = {
       from: 'support@useinfluence.co',
