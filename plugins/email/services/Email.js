@@ -25,10 +25,8 @@ const template = require('../libs/template');
      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
      v = await sgMail.send(mailOptions);
    } catch (e) {
-     console.log(e,'========');
      return e;
    }
-   console.log(v,'================');
    return v;
 }
 
@@ -417,8 +415,7 @@ module.exports = {
 
     let mailOptions = {
       from: 'support@useinfluence.co',
-      // to: 'useinfluencecosupport@useinfluence.freshdesk.com',
-      to: 'shankyrana@hotmail.com',
+      to: 'useinfluencecosupport@useinfluence.freshdesk.com',
       subject: mailSub,
       html: mytemp
     };
