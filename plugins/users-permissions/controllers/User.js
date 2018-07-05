@@ -155,6 +155,19 @@ module.exports = {
     ctx.send(data);
   },
 
+    /**
+     * Send gdprform email.
+     *
+     * @return {Object}
+     */
+
+    sendGdprForm: async (ctx) => {
+      const data = await strapi.plugins.email.services.email.gdprForm(ctx.query);
+
+      // Send 200 `ok`
+      ctx.send(data);
+    },
+
   /**
    * Send affiliate email.
    *

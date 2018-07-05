@@ -267,6 +267,15 @@
     },
     {
       "method": "GET",
+      "path": "/user/sendmail/gdpr-form",
+      "handler": "Auth.sendGdprForm",
+      "config": {
+        "policies": [],
+        "prefix": "" 
+      }
+    },
+    {
+      "method": "GET",
       "path": "/user/sendmail/affiliate",
       "handler": "User.sendAffiliate",
       "config": {
