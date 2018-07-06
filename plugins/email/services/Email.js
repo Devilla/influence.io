@@ -319,8 +319,8 @@ module.exports = {
     var mytemp = template.commontemp(mailSub, firstname, content);
 
     let mailOptions = {
-      from: 'support@useinfluence.co',
-      to: 'useinfluencecosupport@useinfluence.freshdesk.com',
+      from: 'info@useinfluence.co',
+      to: 'support@useinfluence.co',
       subject: mailSub,
       html: mytemp
     };
@@ -365,8 +365,8 @@ module.exports = {
     var mytemp = template.commontemp(mailSub, name, content);
 
     let mailOptions = {
-      from: 'support@useinfluence.co',
-      to: 'useinfluencecosupport@useinfluence.freshdesk.com',
+      from: 'info@useinfluence.co',
+      to: 'support@useinfluence.co',
       subject: mailSub,
       html: mytemp
     };
@@ -414,12 +414,47 @@ module.exports = {
     var mytemp = template.commontemp(mailSub, name, content);
 
     let mailOptions = {
-      from: 'support@useinfluence.co',
-      to: 'useinfluencecosupport@useinfluence.freshdesk.com',
+      from: 'info@useinfluence.co',
+      to: 'support@useinfluence.co',
       subject: mailSub,
       html: mytemp
     };
     return send(mailOptions);
   },
 
+
+    /**
+     * gdprform Page Template.
+     * @param query
+     * @returns {Promise<*>}
+     */
+    gdprForm: async (query) =>  {
+      const email = query.email;
+      const code = query.code;
+      const mailSub = "GDPR Form sunbmition";
+      const content =`
+        <br/>
+        <span>This is a confirmation email to let you know that you have been successfully GRPR Compliance.</span>
+        <br/>
+        <span>Please Enter the code in GDPR Form : {code}</span>
+        <br/>
+        {code}
+        <br/>
+        <span>Thanks for investing your faith in us.</span>
+        <br/>
+        <span>See you soon.</span>
+        <br/>
+        <span>Thanks!</span>
+      `;
+
+      var mytemp = template.commontemp(mailSub, code, content);
+
+      let mailOptions = {
+        from: 'support@useinfluence.co',
+        to: email,
+        subject: mailSub,
+        html: mytemp
+      };
+      return send(mailOptions);
+    }
 };
