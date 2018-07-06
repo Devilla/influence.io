@@ -9,6 +9,10 @@
     "timestamps": true
   },
   "attributes": {
+    "name": {
+      "type": "string",
+      "multiple": false
+    },
     "endpoint": {
       "type": "string",
       "multiple": false

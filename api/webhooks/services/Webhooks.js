@@ -18,15 +18,7 @@ module.exports = {
    */
 
   fetchAll: (params) => {
-    const convertedParams = strapi.utils.models.convertParams('campaignId', params);
-
-    return Webhooks
-      .find()
-      .where(convertedParams.where)
-      .sort(convertedParams.sort)
-      .skip(convertedParams.start)
-      .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.webhooks.associations, {autoPopulate: false}), 'alias')).join(' '));
+    return Webhooks.find({campaignId: params});
   },
 
   /**
