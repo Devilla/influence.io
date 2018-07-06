@@ -73,22 +73,44 @@ module.exports = {
   accountCreated: async (email, name, verificationToken) =>  {
       const mailSub = "Account has been created";
       const content =`
-        <br/>
-        <span>This is a confirmation email to let you know that your account has been created.</span>
-        <br/>
-        <span>Please click the below to verify your account:</span>
-        <br/>
-        <a href="https://useinfluence.co/verify/${verificationToken}">
-          <button type="button" style="color: white; margin: 20px 2px;  background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
-            Verify
-          </button>
-        </a>
-        <br/>
-        <span>Thanks for investing your faith in us.</span>
-        <br/>
-        <span>See you soon.</span>
-        <br/>
-        <span>Thanks!</span>
+        <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+          <tr>
+            <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+                height="100%"
+                valign="top"
+                bgcolor="">
+                <div>Hey ${name},</div>
+                <div>&nbsp;</div>
+                <div>This is a confirmation email to let you know that your account has been created.</div>
+            </td>
+          </tr>
+        </table>
+        <table border="0" cellPadding="0" cellSpacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed" width="100%">
+          <tbody>
+            <tr>
+              <td align="center" class="outer-td" style="padding:0px 0px 0px 0px">
+                <table border="0" cellPadding="0" cellSpacing="0" class="button-css__deep-table___2OZyb wrapper-mobile" style="text-align:left">
+                  <tbody>
+                    <tr>
+                      <td align="center" bgcolor="#097fff" class="inner-td" style="border-radius:6px;font-size:16px;text-align:center;background-color:inherit"><a style="background-color:#097fff;border:1px solid #333333;border-color:#097fff;border-radius:5px;border-width:1px;color:#ffffff;display:inline-block;font-family:arial,helvetica,sans-serif;font-size:16px;font-weight:normal;letter-spacing:0px;line-height:16px;padding:12px 18px 12px 18px;text-align:center;text-decoration:none" href="https://useinfluence.co/verify/${verificationToken}" target="_blank">Verify</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+          <tr>
+            <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+                height="100%"
+                valign="top"
+                bgcolor="">
+              <div>Thanks for investing your faith in us.</div>
+            </td>
+          </tr>
+        </table>
       `;
 
       var mytemp = template.commontemp(mailSub, name, content);
@@ -112,17 +134,47 @@ module.exports = {
   resetPassword: async (email, name, resetPasswordToken) =>  {
       const mailSub = "Reset Password"
       const content =`
-        <br/>
-        <span>
-          Please click here to set a new password for your account. If you’re unable to setup a new password please reply via this email and we’ll fix it for you.
-        </span>
-        <a href="https://useinfluence.co/reset-password?code=${resetPasswordToken}">
-          <button type="button" style="color: white; margin: 20px 2px; background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
-            Reset Password
-          </button>
-        </a>
-        <span>Thanks!</span>
-        <br/>
+        <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+          <tr>
+            <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+                height="100%"
+                valign="top"
+                bgcolor="">
+                <div>Hey ${name},</div>
+                <div>&nbsp;</div>
+                <div>You told us you forgot your password. If you really did, click here to choose a new one</div>
+            </td>
+          </tr>
+        </table>
+        <table border="0" cellPadding="0" cellSpacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed" width="100%">
+          <tbody>
+            <tr>
+              <td align="center" class="outer-td" style="padding:0px 0px 0px 0px">
+                <table border="0" cellPadding="0" cellSpacing="0" class="button-css__deep-table___2OZyb wrapper-mobile" style="text-align:left">
+                  <tbody>
+                    <tr>
+                      <td align="center" bgcolor="#097fff" class="inner-td" style="border-radius:6px;font-size:16px;text-align:center;background-color:inherit"><a style="background-color:#097fff;border:1px solid #333333;border-color:#097fff;border-radius:5px;border-width:1px;color:#ffffff;display:inline-block;font-family:arial,helvetica,sans-serif;font-size:16px;font-weight:normal;letter-spacing:0px;line-height:16px;padding:12px 18px 12px 18px;text-align:center;text-decoration:none" href="https://useinfluence.co/reset-password?code=${resetPasswordToken}" target="_blank">Choose a New Password</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+          <tr>
+            <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+                height="100%"
+                valign="top"
+                bgcolor="">
+              <div>If you didn&#39;t mean to reset your password, then you can just ignore this email, and your password will remain same.</div>
+              <div>&nbsp;</div>
+              <div>Thanks!</div>
+
+            </td>
+          </tr>
+        </table>
       `;
 
       var mytemp = template.commontemp(mailSub, name, content);
@@ -146,24 +198,45 @@ module.exports = {
   limitExceeded: async (email, name, limit) =>  {
       const mailSub = `Account Limit ${limit} exceeded`;
       const content =`
-        <br/>
-        <span>This is a confirmation email to let you know that your account has exceeded the limit.</span>
-        <br/>
-        <span>For the time being your campaigns have been stopped</span>
-        <br/>
-        <span>Please click the below to upgrade your plan and continue:</span>
-        <br/>
-        <a href="https://useinfluence.co/signup">
-          <button type="button" style="color: white; margin: 20px 2px; background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
-            Upgrade
-          </button>
-        </a>
-        <br/>
-        <span>Thanks for investing your faith in us.</span>
-        <br/>
-        <span>See you soon.</span>
-        <br/>
-        <span>Thanks!</span>
+        <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+          <tr>
+            <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+                height="100%"
+                valign="top"
+                bgcolor="">
+                <div>Hey ${name},</div>
+                <div>&nbsp;</div>
+                <div>This is a confirmation email to let you know that your account has exceeded the limit.</div>
+            </td>
+          </tr>
+        </table>
+        <table border="0" cellPadding="0" cellSpacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed" width="100%">
+          <tbody>
+            <tr>
+              <td align="center" class="outer-td" style="padding:0px 0px 0px 0px">
+                <table border="0" cellPadding="0" cellSpacing="0" class="button-css__deep-table___2OZyb wrapper-mobile" style="text-align:left">
+                  <tbody>
+                    <tr>
+                      <td align="center" bgcolor="#097fff" class="inner-td" style="border-radius:6px;font-size:16px;text-align:center;background-color:inherit"><a style="background-color:#097fff;border:1px solid #333333;border-color:#097fff;border-radius:5px;border-width:1px;color:#ffffff;display:inline-block;font-family:arial,helvetica,sans-serif;font-size:16px;font-weight:normal;letter-spacing:0px;line-height:16px;padding:12px 18px 12px 18px;text-align:center;text-decoration:none" href="https://useinfluence.co/login" target="_blank">Upgrade</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+          <tr>
+            <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+                height="100%"
+                valign="top"
+                bgcolor="">
+              <div>Thanks for investing your faith in us.</div>
+              <div>See you soon.</div>
+            </td>
+          </tr>
+        </table>
       `;
 
       var mytemp = template.commontemp(mailSub, name, content);
@@ -184,28 +257,66 @@ module.exports = {
    */
   demoRequested: async (query) =>  {
     const email = query.email;
-    const name = query.name;
+    const firstname = query.firstname;
+    const lastname = query.lastname;
+    const phonenumber = query.phonenumber;
+    const company = query.company;
+    const totalEmployee = query.totalEmployee;
+    const department = query.department;
     const mailSub = "Demo requested";
     const content =`
-      <br/>
-      <span>This is a confirmation email to let you know that we have received your request for demo.</span>
-      <br/>
-      <span>Please click the below to get the demo:</span>
-      <br/>
-      <a href="https://useinfluence.co/">
-        <button type="button" style="color: white; margin: 20px 2px;  background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
-          Demo
-        </button>
-      </a>
-      <br/>
-      <span>Thanks for investing your faith in us.</span>
-      <br/>
-      <span>See you soon.</span>
-      <br/>
-      <span>Thanks!</span>
+      <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+        <tr>
+          <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;" height="100%" valign="top" bgcolor="">
+            <div>Hey ${firstname},</div>
+            <div>&nbsp;</div>
+            <div>First Name: ${firstname}</div>
+            <div>&nbsp;</div>
+            <div>Last Name: ${lastname}</div>
+            <div>&nbsp;</div>
+            <div>Email: ${email}</div>
+            <div>&nbsp;</div>
+            <div>Phone Number: ${phonenumber}</div>
+            <div>&nbsp;</div>
+            <div>Company: ${company}</div>
+            <div>&nbsp;</div>
+            <div>Total Employees: ${totalEmployee}</div>
+            <div>&nbsp;</div>
+            <div>Department: ${department}</div>
+            <div>&nbsp;</div>
+          </td>
+        </tr>
+      </table>
+      <table border="0" cellPadding="0" cellSpacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed" width="100%">
+        <tbody>
+          <tr>
+            <td align="center" class="outer-td" style="padding:0px 0px 0px 0px">
+              <table border="0" cellPadding="0" cellSpacing="0" class="button-css__deep-table___2OZyb wrapper-mobile" style="text-align:left">
+                <tbody>
+                  <tr>
+                    <td align="center" bgcolor="#097fff" class="inner-td" style="border-radius:6px;font-size:16px;text-align:center;background-color:inherit"><a style="background-color:#097fff;border:1px solid #333333;border-color:#097fff;border-radius:5px;border-width:1px;color:#ffffff;display:inline-block;font-family:arial,helvetica,sans-serif;font-size:16px;font-weight:normal;letter-spacing:0px;line-height:16px;padding:12px 18px 12px 18px;text-align:center;text-decoration:none" href="https://useinfluence.co/" target="_blank">Demo</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+        <tr>
+          <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+              height="100%"
+              valign="top"
+              bgcolor="">
+            <div>Thanks for investing your faith in us.</div>
+            <div>See you soon.</div>
+          </td>
+        </tr>
+      </table>
     `;
 
-    var mytemp = template.commontemp(mailSub, name, content);
+    var mytemp = template.commontemp(mailSub, firstname, content);
 
     let mailOptions = {
       from: 'info@useinfluence.co',
@@ -226,22 +337,78 @@ module.exports = {
     const name = query.name;
     const mailSub = "Affiliate Registeration";
     const content =`
-      <br/>
-      <span>This is a confirmation email to let you know that you have been successfully register for Affiliate.</span>
-      <br/>
-      <span>Please click the below to login:</span>
-      <br/>
-      <a href="https://useinfluence.co/login">
-        <button type="button" style="color: white; margin: 20px 2px;  background-color:#097fff; border-radius: 4px; width: 100%; height: 46px; font-size: 14px; font-weight: bold;">
-          Demo
-        </button>
-      </a>
-      <br/>
-      <span>Thanks for investing your faith in us.</span>
-      <br/>
-      <span>See you soon.</span>
-      <br/>
-      <span>Thanks!</span>
+      <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+        <tr>
+          <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;" height="100%" valign="top" bgcolor="">
+            <div>${name} register for Affiliate,</div>
+            <div>&nbsp;</div>
+            <div>Name: ${name}</div>
+            <div>&nbsp;</div>
+            <div>Email: ${email}</div>
+            <div>&nbsp;</div>
+          </td>
+        </tr>
+      </table>
+      <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+        <tr>
+          <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+              height="100%"
+              valign="top"
+              bgcolor="">
+            <div>Thanks for investing your faith in us.</div>
+            <div>See you soon.</div>
+          </td>
+        </tr>
+      </table>
+    `;
+
+    var mytemp = template.commontemp(mailSub, name, content);
+
+    let mailOptions = {
+      from: 'info@useinfluence.co',
+      to: 'support@useinfluence.co',
+      subject: mailSub,
+      html: mytemp
+    };
+    return send(mailOptions);
+  },
+
+  /**
+   * Contact Us Page Template.
+   * @param query
+   * @returns {Promise<*>}
+   */
+  contactUs: async (query) =>  {
+    const email = query.email;
+    const name = query.name;
+    const message = query.message;
+    const mailSub = "Contact Us";
+    const content =`
+      <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+        <tr>
+          <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;" height="100%" valign="top" bgcolor="">
+            <div>${name} wants to connect.</div>
+            <div>&nbsp;</div>
+            <div>Name: ${name}</div>
+            <div>&nbsp;</div>
+            <div>Email: ${email}</div>
+            <div>&nbsp;</div>
+            <div>Message: ${message}</div>
+            <div>&nbsp;</div>
+          </td>
+        </tr>
+      </table>
+      <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
+        <tr>
+          <td style="padding:18px 0px 18px 0px;line-height:22px;text-align:inherit;"
+              height="100%"
+              valign="top"
+              bgcolor="">
+            <div>Thanks for investing your faith in us.</div>
+            <div>See you soon.</div>
+          </td>
+        </tr>
+      </table>
     `;
 
     var mytemp = template.commontemp(mailSub, name, content);

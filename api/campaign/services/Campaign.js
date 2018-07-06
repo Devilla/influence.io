@@ -220,7 +220,7 @@ module.exports = {
           newConfiguration['notificationType'] = notification._id;
 					if(notification.notificationName == 'Bulk Activity') {
 						newConfiguration['panelStyle'] = {
-					    "radius" : 7,
+					    "radius" : 3,
 					    "borderWidth" : 0,
 					    "borderColor" : {
 					      "r" : 200,
@@ -359,7 +359,7 @@ module.exports = {
 							liveVisitorCount: 0
 					  };
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
-						newConfiguration['contentText'] = 'Company';
+						newConfiguration['contentText'] = 'Influence';
 					}
 
           Configuration.create(newConfiguration, (err, result) => {

@@ -5,20 +5,23 @@
  */
  const crypto = require('crypto');
  const request = require('request');
+ const uuidv4 = require('uuid/v4');
 
-
- function doRequest(options) {
-   return new Promise(function (resolve, reject) {
-     request(options , function (error, res, body) {
-       const response = JSON.parse(body);
-       if (!error && res.statusCode == 200 || !response.error) {
-         resolve(body);
-       } else {
-         reject(response.error);
-       }
-     });
-   });
- }
+function doRequest(options) {
+  return new Promise(function (resolve, reject) {
+    request(options , function (error, res, body) {
+      if(res && res.statusCode >= 400) {
+        return resolve({error: true, message: body});
+      }
+      const response = typeof body === 'string'? JSON.parse(body) : body;
+      if (!error && res.statusCode == 200 || !response.error) {
+        resolve(body);
+      } else {
+        reject(response.error);
+      }
+    });
+  });
+}
 
 
 module.exports = {
@@ -52,7 +55,7 @@ module.exports = {
     const verificationToken = crypto.randomBytes(64).toString('hex');
     model.verificationToken = verificationToken
     model.verified = false;
-
+    model.password = model.password?model.password:uuidv4();
     const user = {
       id: model._id,
       name: model.username,
@@ -61,10 +64,9 @@ module.exports = {
       provider: model.provider,
       customer_id: model._id,
     };
-
     try {
       var data = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/users/register', form: user});
-      var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: model.email, password: model.password }});
+      var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: model.email, password: user.password }});
       var userDetails = await doRequest({method: 'GET', url:'https://servicebot.useinfluence.co/api/v1/users/own', headers: {
         Authorization: 'JWT ' + JSON.parse(token).token,
         'Content-Type': 'application/json'

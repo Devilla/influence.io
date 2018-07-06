@@ -192,6 +192,19 @@ module.exports = {
 
     // Send 200 `ok`
     ctx.send(data);
+  },
+
+  /**
+   * Send demo records.
+   *
+   * @return {Object|Array}
+   */
+
+  sendContactUs: async (ctx) => {
+    const data = await strapi.plugins.email.services.email.contactUs(ctx.query);
+
+    // Send 200 `ok`
+    ctx.send(data);
   }
 
 };

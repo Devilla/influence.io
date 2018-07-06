@@ -291,6 +291,15 @@
         "policies": [],
         "prefix": ""
       }
+    },
+    {
+      "method": "GET",
+      "path": "/user/sendmail/contactus",
+      "handler": "User.sendContactUs",
+      "config": {
+        "policies": [],
+        "prefix": ""
+      }
     }
   ]
 }
