@@ -268,7 +268,7 @@
     {
       "method": "GET",
       "path": "/user/sendmail/gdpr-form",
-      "handler": "Auth.sendGdprForm",
+      "handler": "User.sendGdprForm",
       "config": {
         "policies": [],
         "prefix": ""
