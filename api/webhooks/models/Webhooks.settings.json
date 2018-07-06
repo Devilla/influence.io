@@ -13,6 +13,10 @@
       "type": "string",
       "multiple": false
     },
+    "type": {
+      "type": "string",
+      "multiple": false
+    },
     "endpoint": {
       "type": "string",
       "multiple": false
