@@ -271,7 +271,7 @@
       "handler": "Auth.sendGdprForm",
       "config": {
         "policies": [],
-        "prefix": "" 
+        "prefix": ""
       }
     },
     {
