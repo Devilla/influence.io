@@ -253,7 +253,7 @@ module.exports = {
       html: mytemp
     };
     return send(mailOptions);
-  }
+  },
 
 
     /**
