@@ -58,6 +58,10 @@
     "uniqueVisitors": {
       "type": "integer",
       "multiple": false
+    },
+    "webookId": {
+      "collection": "webhooks",
+      "via": "campaignId"
     }
   }
 }

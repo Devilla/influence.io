@@ -52,6 +52,19 @@ module.exports = {
   },
 
   /**
+   * Campture a/an webhooks record.
+   *
+   * @return {Object}
+   */
+
+  log: async (ctx) => {
+    const data = await strapi.services.webhooks.log(ctx.query, ctx.request.body);
+
+    // Send 201 `created`
+    ctx.created(data);
+  },
+
+  /**
    * Update a/an webhooks record.
    *
    * @return {Object}

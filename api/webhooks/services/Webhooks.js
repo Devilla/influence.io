@@ -18,7 +18,7 @@ module.exports = {
    */
 
   fetchAll: (params) => {
-    const convertedParams = strapi.utils.models.convertParams('webhooks', params);
+    const convertedParams = strapi.utils.models.convertParams('campaignId', params);
 
     return Webhooks
       .find()
@@ -51,6 +51,16 @@ module.exports = {
     const data = await Webhooks.create(_.omit(values, _.keys(_.groupBy(strapi.models.webhooks.associations, 'alias'))));
     await strapi.hook.mongoose.manageRelations('webhooks', _.merge(_.clone(data), { values }));
     return data;
+  },
+
+  /**
+   * Promise to add a/an log to es.
+   *
+   * @return {Promise}
+   */
+
+  log: async (query, values) => {
+    return await strapi.api.websocket.services.websocket.log(data);
   },
 
   /**
