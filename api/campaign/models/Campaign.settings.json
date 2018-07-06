@@ -60,7 +60,7 @@
       "multiple": false
     },
     "webookId": {
-      "collection": "webhooks",
+      "model": "webhooks",
       "via": "campaignId"
     }
   }
