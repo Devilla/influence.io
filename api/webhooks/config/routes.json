@@ -26,7 +26,7 @@
     },
     {
       "method": "POST",
-      "path": "/webhooks/custom/:secretId/:trackingId",
+      "path": "/webhooks/custom/:trackingId/:secretId",
       "handler": "Webhooks.log",
       "config": {
         "policies": []

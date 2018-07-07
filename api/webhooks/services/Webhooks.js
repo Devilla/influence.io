@@ -8,6 +8,16 @@
 
 // Public dependencies.
 const _ = require('lodash');
+const genGuid = function() {
+    var s4 = function() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+};
 
 module.exports = {
 
@@ -51,6 +61,23 @@ module.exports = {
    */
 
   log: async (query, values) => {
+    console.log(query, values, '===============log data');
+    const data = {
+      fingerprint: 'Env.getFingerprint()',
+      sessionId: genGuid(),
+      visitorId: genGuid(),
+      trackingId: query.trackingId,
+      userId: null,
+      userProfile: null,
+      email: 'shankyrana0009@gmail.com',
+      geo: {
+        latitude: '76.2',
+        longitude: '34.3',
+        country: 'unknown',
+        city: 'unknown',
+        state: 'unknown'
+      }
+    };
     return await strapi.api.websocket.services.websocket.log(data);
   },
 
