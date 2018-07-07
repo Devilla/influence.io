@@ -78,7 +78,8 @@ module.exports = {
         state: 'unknown'
       }
     };
-    return await strapi.api.websocket.services.websocket.log(data);
+    await strapi.api.websocket.services.websocket.log(data);
+    return { message: 'logs added', error: false };
   },
 
   /**
