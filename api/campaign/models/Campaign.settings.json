@@ -59,9 +59,8 @@
       "type": "integer",
       "multiple": false
     },
-    "webookId": {
-      "model": "webhooks",
-      "via": "campaignId"
+    "webhooks": {
+      "model": "webhooks"
     }
   }
 }

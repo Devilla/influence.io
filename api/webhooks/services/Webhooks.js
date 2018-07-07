@@ -18,7 +18,7 @@ module.exports = {
    */
 
   fetchAll: (params) => {
-    return Webhooks.find({campaignId: params});
+    return Webhooks.find({campaign: params});
   },
 
   /**
@@ -40,8 +40,7 @@ module.exports = {
    */
 
   add: async (values) => {
-    const data = await Webhooks.create(_.omit(values, _.keys(_.groupBy(strapi.models.webhooks.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('webhooks', _.merge(_.clone(data), { values }));
+    const data = await Webhooks.create(values);
     return data;
   },
 

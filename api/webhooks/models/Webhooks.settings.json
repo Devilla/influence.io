@@ -25,9 +25,8 @@
       "type": "string",
       "multiple": false
     },
-    "campaignId": {
-      "model": "campaign",
-      "via": "webookId"
+    "campaign": {
+      "model": "campaign"
     },
     "secretId": {
       "type": "string",
