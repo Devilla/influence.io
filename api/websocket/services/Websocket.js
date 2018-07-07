@@ -8,7 +8,6 @@ const fs = require('fs');
 const webSocketStream = fs.createWriteStream('/tmp/log/websocket.log');
 
 module.exports =  {
-
   /**
    * We are logging data to filebeats and then sending it to logstash and to elasticsearch
    * @param msg
@@ -18,13 +17,12 @@ module.exports =  {
     let message =  formatter + '\n';
     webSocketStream.write(message);
   },
+  
   health: () => {
     if (strapi.websocket){
       return true;
-    }else {
+    } else {
       return false;
     }
   }
-
-
 };

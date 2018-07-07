@@ -63,21 +63,42 @@ module.exports = {
   log: async (query, values) => {
     console.log(query, values, '===============log data');
     const data = {
-      fingerprint: 'Env.getFingerprint()',
-      sessionId: genGuid(),
-      visitorId: genGuid(),
-      trackingId: query.trackingId,
-      userId: null,
-      userProfile: null,
-      email: 'shankyrana0009@gmail.com',
-      geo: {
-        latitude: '76.2',
-        longitude: '34.3',
-        country: 'unknown',
-        city: 'unknown',
-        state: 'unknown'
+      "path": "/visitors/events/",
+      "value": {
+        "fingerprint": "a425aff7a248d252b013ac983a6320e6",
+        "sessionId": genGuid(),
+        "visitorId": genGuid(),
+        "trackingId": query.trackingId,
+        "userId": null,
+        "userProfile": null,
+        "form": {
+          "email": values.email,
+          "name": values.name || values.username || values.firstname
+        },
+        "geo": {
+          "latitude": values.latitude,
+          "longitude": values.longitude,
+          "city": values.city,
+          "country": values.country,
+          "ip": values.ip
+        },
+        "timestamp": Date.now(),
+        "event": "formsubmit",
+        "source": {
+          "url": {
+            "host": values.host,
+            "hostname": values.host,
+          }
+        },
+        "target": {
+          "url": {
+            "host": values.host,
+            "hostname": values.host
+          }
+        }
       }
     };
+
     await strapi.api.websocket.services.websocket.log(data);
     return { message: 'logs added', error: false };
   },
