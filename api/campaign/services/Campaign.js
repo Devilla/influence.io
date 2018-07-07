@@ -389,8 +389,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    // await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
-    return Campaign.findOneAndUpdate(params, values, { upsert: false, multi: true, new: true }).populate('webookId').populate('profile');
+    return Campaign.findOneAndUpdate(params, values, { upsert: false, multi: true, new: true }).populate('webhooks').populate('profile');
   },
 
   /**
