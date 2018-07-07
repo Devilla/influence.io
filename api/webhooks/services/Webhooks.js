@@ -88,6 +88,7 @@ module.exports = {
           "url": {
             "host": values.host,
             "hostname": values.host,
+            "pathname": "/webhooks"
           }
         },
         "target": {
