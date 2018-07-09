@@ -40,7 +40,7 @@ steps:
       - '-c'
       - |
         export KUBECONFIG=kubeconfig
-        cat /deployments/github-influenceio-influence-io.yaml.tmpl | \
+        cat /deployments/github-influenceio-influence-io.yaml | \
         sed 's/\$COMMIT_SHA'"/${COMMIT_SHA}/g" | \
         kubectl apply --recursive -f kubernetes
     volumes:
