@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: github-influenceio-influence-io
+  namespace: default
+spec:
+  selector:
+    app: github-influenceio-influence-io
+  ports:
+    - name: http
+      port: 1337
+  type: LoadBalancer

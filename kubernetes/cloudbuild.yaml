@@ -1,0 +1,49 @@
+# User-defined substitutions:
+#   _CLOUDSDK_COMPUTE_ZONE
+#   _CLOUDSDK_CONTAINER_CLUSTER
+#
+
+steps:
+  # Build the github-influenceio-influence-io container image.
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/${PROJECT_ID}/github-influenceio-influence-io:latest'
+      - '.'
+  # Generate a kubeconfig file for the given GKE cluster.
+  - name: 'gcr.io/cloud-builders/gcloud'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=${_CLOUDSDK_COMPUTE_ZONE}'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        gsutil cp gs://influence-197607.appspot.com/kubeconfig .
+        export KUBECONFIG=kubeconfig
+        CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}
+        PROJECT=${_CLOUDSDK_CONTAINER_PROJECT}
+        ZONE=${_CLOUDSDK_COMPUTE_ZONE}
+        gcloud container clusters get-credentials "$${CLUSTER}" \
+          --project "$${PROJECT}" \
+          --zone "$${ZONE}"
+    volumes:
+      - name: 'kube'
+        path: /kube
+
+  # Recursively apply the configuration files under the kubernetes
+  # directory.
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        export KUBECONFIG=kubeconfig
+        kubectl apply --recursive -f kubernetes
+    volumes:
+      - name: 'kube'
+        path: /kube
+
+images:
+  - 'gcr.io/${PROJECT_ID}/github-influenceio-influence-io:latest'

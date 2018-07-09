@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: github-influenceio-influence-io
+  name: github-influenceio-influence-io
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: github-influenceio-influence-io
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: github-influenceio-influence-io
+        version: v1
+    spec:
+      containers:
+      - image: gcr.io/influence-197607/github-influenceio-influence-io:latest
+        name: github-influenceio-influence-io
+        ports:
+        - containerPort: 80
