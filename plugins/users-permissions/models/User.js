@@ -6,6 +6,7 @@
  const crypto = require('crypto');
  const request = require('request');
  const uuidv4 = require('uuid/v4');
+ const bcrypt = require('bcryptjs');
 
 function doRequest(options) {
   return new Promise(function (resolve, reject) {
@@ -55,13 +56,17 @@ module.exports = {
     const verificationToken = crypto.randomBytes(64).toString('hex');
     model.verificationToken = verificationToken
     model.verified = false;
-    model.password = model.password?model.password:uuidv4();
+
+    let password = await bcrypt.hash(uuidv4(), 10);
+
+    model.password = model.password?model.password:'password';
+
     const user = {
       id: model._id,
       name: model.username,
       email: model.email,
       password: model.password,
-      provider: model.provider,
+      provider: 'local',
       customer_id: model._id,
     };
     try {
