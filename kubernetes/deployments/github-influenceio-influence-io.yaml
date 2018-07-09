@@ -17,7 +17,7 @@ spec:
         version: v1
     spec:
       containers:
-      - image: gcr.io/influence-197607/github-influenceio-influence-io:latest
+      - image: gcr.io/influence-197607/github-influenceio-influence-io:${CLUSTER}
         name: github-influenceio-influence-io
         ports:
         - containerPort: 80
