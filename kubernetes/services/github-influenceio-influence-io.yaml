@@ -1,5 +1,5 @@
+apiVersion: apps/v1beta1
 kind: Service
-apiVersion: v1
 metadata:
   name: github-influenceio-influence-io
   namespace: default
