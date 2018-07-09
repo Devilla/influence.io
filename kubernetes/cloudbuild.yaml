@@ -40,9 +40,8 @@ steps:
       - '-c'
       - |
         export KUBECONFIG=kubeconfig
-        kubectl delete service github-influenceio-influence-io
         kubectl delete deployment github-influenceio-influence-io
-        kubectl apply --recursive -f kubernetes
+        kubectl apply --recursive -f kubernetes --validate=false
     volumes:
       - name: 'kube'
         path: /kube
