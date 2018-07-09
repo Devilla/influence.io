@@ -1,6 +1,4 @@
 'use strict';
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 /**
  * Integrations.js service
@@ -57,71 +55,70 @@ module.exports = {
         autoPopulate: false
       }), 'alias')).join(' '));
 
-    passport.use(new GoogleStrategy({
-      clientID: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
-      clientSecret: 'V2rKD2aveM2cCJ2MOQoBffA8',
-      callbackURL: 'integrations/auth/google/callback',
-      passReqToCallback: true,
-      proxy: true
-    }, (connect, accessToken, refreshToken, profile, done) => {
-      console.log(accessToken + '<==========');
-      console.log(profile.name.givenName + ' ' + profile.name.familyName);
 
-      const getProfile = async (provider, query, callback) => {
-        const access_token = query.access_token ||  query.code || query.oauth_token;
+    const getProfile = async (provider, query, callback) => {
+      const access_token = query.access_token ||  query.code || query.oauth_token;
 
-        const grant = await strapi.store({
-          environment: '',
-          type: 'plugin',
-          name: 'users-permissions',
-          key: 'grant'
-        }).get();
+      const grant = await strapi.store({
+        environment: '',
+        type: 'plugin',
+        name: 'users-permissions',
+        key: 'grant'
+      }).get();
 
-        switch (provider) {
-          case 'facebook':
-            const facebook = new Purest({
-              provider: 'facebook'
-            });
+      switch (provider) {
+        case 'facebook':
+          const facebook = new Purest({
+            provider: 'facebook'
+          });
 
-            facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
-              if (err) {
-                callback(err);
-              } else {
-                callback(null, {
-                  username: body.name,
-                  email: body.email
-                });
-              }
-            });
-            break;
-          case 'google':
-            const google = new Purest({
-              provider: 'google'
-            });
+          facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, {
+                username: body.name,
+                email: body.email
+              });
+            }
+          });
+          break;
+        case 'google':
+          const google = new Purest({
+            provider: 'google'
+          });
 
-            google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
-              console.log(err, body, "=======google body");
-              if (err) {
-                callback(err);
-              } else {
-                callback(null, {
-                  username: body.displayName || body.emails[0].value,
-                  email: body.emails[0].value
-                });
-              }
-            });
-            break;
-          default:
-            callback({
-              message: 'Unknown provider.'
-            });
-            break;
-        }
+          google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
+            console.log(err, body, "=======google body");
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, {
+                username: body.displayName || body.emails[0].value,
+                email: body.emails[0].value
+              });
+            }
+          });
+
+          google.query('maps').get('people/me').auth(access_token).request((err, res, body) => {
+            console.log(err, body, "=======google body");
+            if (err) {
+              callback(err);
+            } else {
+              callback(null, {
+                username: body.displayName || body.emails[0].value,
+                email: body.emails[0].value
+              });
+            }
+          });
+          break;
+        default:
+          callback({
+            message: 'Unknown provider.'
+          });
+          break;
       }
-
-
-
-    }));
+    }
   },
 
 
