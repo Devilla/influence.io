@@ -1,0 +1,62 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/integrations",
+      "handler": "Integrations.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/integrations/:_id",
+      "handler": "Integrations.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/integrations/auth/google",
+      "handler": "Integrations.GoogleOauth",
+      "config": {
+        "policies": []
+      }
+    },
+
+    {
+      "method": "GET",
+      "path": "/integrations/auth/google/callback",
+      "handler": "Integrations.GoogleOauthcallback",
+      "config": {
+        "policies": []
+      }
+    },
+
+    {
+      "method": "POST",
+      "path": "/integrations",
+      "handler": "Integrations.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/integrations/:_id",
+      "handler": "Integrations.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/integrations/:_id",
+      "handler": "Integrations.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

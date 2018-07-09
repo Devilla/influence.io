@@ -1,0 +1,35 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "integrations",
+    "description": "Integrations and Review Popup Channels with Oauth."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "_Id": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "multiple": false
+    },
+    "Provider": {
+      "type": "string",
+      "required": true,
+      "multiple": false
+    },
+    "AccountId": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "multiple": false
+    },
+    "Account": {
+      "type": "string",
+      "required": true,
+      "multiple": false
+    }
+  }
+}
