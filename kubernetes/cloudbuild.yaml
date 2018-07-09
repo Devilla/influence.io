@@ -40,8 +40,7 @@ steps:
       - '-c'
       - |
         export KUBECONFIG=kubeconfig
-        cat github-influenceio-influence-io.yaml | \
-        sed 's/\$COMMIT_SHA'"/$COMMIT_SHA/g" | \
+        kubectl set env --local -f - 'COMMIT_SHA=${COMMIT_SHA}' -o yaml
         kubectl apply --recursive -f kubernetes
     volumes:
       - name: 'kube'
