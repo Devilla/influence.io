@@ -10,7 +10,7 @@ COPY package*.json ./
 RUN npm install --production
 
 COPY . .
-
+ 
 
 ##Create /tmp/log/websocket.log
 
@@ -24,5 +24,3 @@ EXPOSE 1337
 CMD ["rm", "-rf", "stack-docker"]
 
 CMD ["sh", "api.sh"]
-
-
