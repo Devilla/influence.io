@@ -40,7 +40,8 @@ steps:
       - '-c'
       - |
         export KUBECONFIG=kubeconfig
-        kubectl apply --recursive -f kubernetes --set spec.template.spec.containers[0].image='gcr.io/${PROJECT_ID}/github-influenceio-influence-io:${COMMIT_SHA}'
+        sed -ie "s/{COMMIT_SHA}/$(COMMIT_SHA)/g" github-influenceio-influence-io-deployment.yaml
+        kubectl apply --recursive -f kubernetes
     volumes:
       - name: 'kube'
         path: /kube
