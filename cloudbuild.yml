@@ -44,9 +44,9 @@ steps:
     args:
       - '-c'
       - |
-        CLUSTER=$$(gcloud config get-value container/cluster)
-        PROJECT=$$(gcloud config get-value core/project)
-        ZONE=$$(gcloud config get-value compute/zone)
+        CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}
+        PROJECT=${_CLOUDSDK_CONTAINER_PROJECT}
+        ZONE=${_CLOUDSDK_COMPUTE_ZONE}
 
         gcloud container clusters get-credentials "$${CLUSTER}" \
           --project "$${PROJECT}" \
