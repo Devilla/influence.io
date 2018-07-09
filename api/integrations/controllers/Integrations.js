@@ -30,11 +30,11 @@ module.exports = {
    */
 
   GoogleOauth: async (ctx) => {
-    const data = await strapi.services.integrations.fetchAll(ctx.query);
-
     passport.authenticate('google', {
       scope: ['profile', 'email']
     });
+
+    const data = await strapi.services.integrations.googleOauth(ctx.query);
     // Send 200 `ok`
     ctx.send(data);
   },
@@ -53,11 +53,11 @@ module.exports = {
    */
 
   GoogleOauthcallback: async (ctx) => {
-    const data = await strapi.services.integrations.fetchAll(ctx.query);
-
     passport.authenticate('google');
+    const data = await strapi.services.integrations.googleOauth(ctx.query);
     // Send 200 `ok`
     ctx.send(data);
+
   },
 
   /**
