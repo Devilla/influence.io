@@ -9,7 +9,7 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/${PROJECT_ID}/github-influenceio-influence-io:latest'
+      - 'gcr.io/${PROJECT_ID}/github-influenceio-influence-io:${COMMIT_SHA}'
       - '.'
   # Generate a kubeconfig file for the given GKE cluster.
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -41,10 +41,12 @@ steps:
       - |
         export KUBECONFIG=kubeconfig
         kubectl delete deployment github-influenceio-influence-io
-        kubectl apply --recursive -f kubernetes --validate=false
+        kubectl set image deployments/github-influenceio-influence-io github-influenceio-influence-io=github-influenceio-influence-io:${COMMIT_SHA}
+
+        # kubectl apply --recursive -f kubernetes --validate=false
     volumes:
       - name: 'kube'
         path: /kube
 
 images:
-  - 'gcr.io/${PROJECT_ID}/github-influenceio-influence-io:latest'
+  - 'gcr.io/${PROJECT_ID}/github-influenceio-influence-io:${COMMIT_SHA}'
