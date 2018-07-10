@@ -30,7 +30,7 @@ let getUser = async function(email, callback) {
       });
     } catch(err) {
       userDetail = {
-        username: email.replace(/@.*$/,"")
+        username: email?email.replace(/@.*$/,""):'Anonymous'
       };
       callback(null, userDetail);
     }

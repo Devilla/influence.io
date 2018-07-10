@@ -61,6 +61,10 @@
     "uniqueVisitorsQoutaLeft": {
       "type": "integer",
       "multiple": false
+    },
+    "image": {
+      "type": "string",
+      "multiple": false
     }
   }
 }

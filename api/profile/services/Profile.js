@@ -26,7 +26,6 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit);
-    // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -39,7 +38,6 @@ module.exports = {
     const user = params?params._id:null;
     return Profile
       .findOne({user:user});
-    // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -51,7 +49,6 @@ module.exports = {
   fetch: (params) => {
     return Profile
       .findOne(_.pick(params, _.keys(Profile.schema.paths)));
-    // .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -62,8 +59,6 @@ module.exports = {
 
   add: async (values) => {
     const data = await Profile.create(values);
-    // const data = await Profile.create(_.omit(values, _.keys(_.groupBy(strapi.models.profile.associations, 'alias'))));
-    // await strapi.hook.mongoose.manageRelations('profile', _.merge(_.clone(data), { values }));
     return data;
   },
 
@@ -78,7 +73,7 @@ module.exports = {
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
     // await strapi.hook.mongoose.manageRelations('profile', _.merge(_.clone(params), { values }));
-    return Profile.update(params, values, { multi: true });
+    return Profile.findOneOrUpdate(params, values, { multi: true, new:true  });
   },
 
   /**
