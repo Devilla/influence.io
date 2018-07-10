@@ -1,5 +1,4 @@
 'use strict';
-const passport = require('passport');
 
 /**
  * Integrations.js controller
@@ -30,11 +29,11 @@ module.exports = {
    */
 
   GoogleOauth: async (ctx) => {
-    passport.authenticate('google', {
-      scope: ['profile', 'email']
-    });
 
     const data = await strapi.services.integrations.googleOauth(ctx.query);
+      // 
+      // console.log(ctx,'-------------------------');
+      // console.log(ctx.query,'---------Query----------------');
     // Send 200 `ok`
     ctx.send(data);
   },
@@ -53,9 +52,10 @@ module.exports = {
    */
 
   GoogleOauthcallback: async (ctx) => {
-    passport.authenticate('google');
     const data = await strapi.services.integrations.googleOauth(ctx.query);
     // Send 200 `ok`
+
+    console.log(ctx.query,'-------------------------');
     ctx.send(data);
 
   },
