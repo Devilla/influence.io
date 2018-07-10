@@ -21,3 +21,6 @@ spec:
         name: github-influenceio
         ports:
         - containerPort: 80
+        env:
+        - name: DATABASE_HOST
+          value: db-service
