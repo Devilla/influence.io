@@ -11,7 +11,7 @@ const elasticsearch = require('elasticsearch');
 const moment = require('moment');
 
 const client = elasticsearch.Client({
-  host: '10.128.0.3:9200', // Remove this Should get it from the strapi.config.elasticsearchNode
+  host: 'elasticsearch:9200', // Remove this Should get it from the strapi.config.elasticsearchNode
   requestTimeout: Infinity, // Tested
   keepAlive: true, // Tested
   log: 'trace'
