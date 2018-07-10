@@ -121,14 +121,22 @@ const getProfile = async (provider, query, callback) => {
         provider: 'facebook'
       });
 
-      facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
-        console.log();
+      facebook.query().get('me?fields=name,email,last_name,first_name,photos{picture}').auth(access_token).request((err, res, body) => {
+        console.log(body, '=======>test fb data');
         if (err) {
           callback(err);
         } else {
           callback(null, {
             username: body.name,
-            email: body.email
+            email: body.email,
+            profile: {
+              firstName: body.first_name,
+              lastName: body.last_name,
+              uniqueVisitorQouta: 0,
+              uniqueVisitors: 0,
+              uniqueVisitorsQoutaLeft: 0,
+              plan: null
+            }
           });
         }
       });
