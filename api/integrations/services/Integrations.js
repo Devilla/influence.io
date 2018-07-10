@@ -45,17 +45,6 @@ module.exports = {
   googleOauth: (params) => {
     const convertedParams = strapi.utils.models.convertParams('integrations', params);
 
-    return Integrations
-      .find()
-      .where(convertedParams.where)
-      .sort(convertedParams.sort)
-      .skip(convertedParams.start)
-      .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.integrations.associations, {
-        autoPopulate: false
-      }), 'alias')).join(' '));
-
-
     const getProfile = async (provider, query, callback) => {
       const access_token = query.access_token ||  query.code || query.oauth_token;
 
