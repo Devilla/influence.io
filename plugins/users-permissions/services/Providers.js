@@ -61,7 +61,7 @@ exports.connect = (provider, query) => {
           return resolve([null, [{ messages: [{ id: 'Auth.advanced.allow_register' }] }], 'Register action is actualy not available.']);
         }
 
-        if(users) {
+        if(users.length) {
           return resolve([users[0], null]);
         }
 
@@ -78,13 +78,18 @@ exports.connect = (provider, query) => {
         // Retrieve role `guest`.
         const guest = await strapi.query('role', 'users-permissions').findOne({ type: 'customer' }, []);
 
+        let userProfile = profile.profile;
+        delete profile['profile'];
         // Create the new user.
         const params = _.assign(profile, {
           provider: provider,
           role: guest._id || guest.id
         });
-
         const createdUser = await strapi.query('user', 'users-permissions').create(params);
+        userProfile['user'] = createdUser._id;
+        console.log(userProfile,'===========userProfile');
+        const createProfile = await strapi.services.profile.add(userProfile);
+        console.log(createProfile, '=========createProfile');
         return resolve([createdUser, null]);
       } catch (err) {
         reject([null, err]);
@@ -133,13 +138,21 @@ const getProfile = async (provider, query, callback) => {
       });
 
       google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
-        console.log(err, body, "=======google body");
         if (err) {
           callback(err);
         } else {
           callback(null, {
             username: body.displayName || body.emails[0].value,
-            email: body.emails[0].value
+            email: body.emails[0].value,
+            profile: {
+              firstName: body.name.givenName,
+              lastName: body.name.familyName,
+              image: body.image.url,
+              uniqueVisitorQouta: 0,
+              uniqueVisitors: 0,
+              uniqueVisitorsQoutaLeft: 0,
+              plan: null
+            }
           });
         }
       });

@@ -61,7 +61,9 @@ module.exports = {
    */
 
   add: async (values) => {
+    console.log(values, '======values');
     const data = await Profile.create(values);
+    console.log(data, '========data');
     // const data = await Profile.create(_.omit(values, _.keys(_.groupBy(strapi.models.profile.associations, 'alias'))));
     // await strapi.hook.mongoose.manageRelations('profile', _.merge(_.clone(data), { values }));
     return data;
