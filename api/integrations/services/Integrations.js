@@ -42,11 +42,10 @@ module.exports = {
    *
    * @return {Promise}
    */
-
-  googleOauth: (params) => {
+Oauth: (params) => {
     const convertedParams = strapi.utils.models.convertParams('integrations', params);
 
-    console.log(params.provider,"<==============");
+    console.log(params,"<==============");
 
     // return params;
 
@@ -61,6 +60,8 @@ module.exports = {
             const facebook = new Purest({
               provider: 'facebook'
             });
+
+            console.log("we're inside facebook");
 
             // facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
             //   if (err) {
@@ -97,9 +98,6 @@ console.log("we're inside google");
             });
             break;
         }
-
-
-
 
   },
 

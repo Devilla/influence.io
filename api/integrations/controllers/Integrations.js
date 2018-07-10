@@ -30,29 +30,25 @@ module.exports = {
 
   GoogleOauth: async (ctx) => {
 
-    const data = await strapi.services.integrations.googleOauth(ctx.query);
-      // 
+    const data = await strapi.services.integrations.Oauth(ctx.query);
+      //
       // console.log(ctx,'-------------------------');
       // console.log(ctx.query,'---------Query----------------');
     // Send 200 `ok`
     ctx.send(data);
   },
 
-  /**
-   * Retrieve a integrations record.
-   *
-   * @return {Object}
-   */
+
 
 
   /**
-   * Retrieve integrations GoogleOauth-callback
-   *
+   * Retrieve integrations facebookOauth  *
    * @return {Object|Array}
    */
 
-  GoogleOauthcallback: async (ctx) => {
-    const data = await strapi.services.integrations.googleOauth(ctx.query);
+
+  FacebookOauth: async (ctx) => {
+    const data = await strapi.services.integrations.Oauth(ctx.query);
     // Send 200 `ok`
 
     console.log(ctx.query,'-------------------------');

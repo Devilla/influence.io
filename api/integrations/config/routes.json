@@ -27,8 +27,8 @@
 
     {
       "method": "GET",
-      "path": "/integrations/auth/google/callback",
-      "handler": "Integrations.GoogleOauthcallback",
+      "path": "/integrations/auth/facebook",
+      "handler": "Integrations.FacebookOauth",
       "config": {
         "policies": []
       }
