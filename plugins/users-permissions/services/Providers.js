@@ -122,6 +122,7 @@ const getProfile = async (provider, query, callback) => {
       });
 
       facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
+        console.log();
         if (err) {
           callback(err);
         } else {
