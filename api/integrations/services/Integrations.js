@@ -79,6 +79,9 @@ Oauth: (params) => {
               provider: 'google'
             });
 console.log("we're inside google");
+// API FOR GOOGLE MAPS PLACES https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJSYuuSx9awokRyrrOFTGg0GY&key=AIzaSyBA1uBoh3asr7h05foJkaT5-WgSk7mifzI
+
+
             // google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
             //   console.log(err, body, "=======google body");
             //   console.log("we're inside plus");
