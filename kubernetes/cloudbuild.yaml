@@ -4,12 +4,12 @@
 #
 
 steps:
-  # Build the github-influenceio-influence-io container image.
+  # Build the github-influenceio container image.
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/${PROJECT_ID}/github-influenceio-influence-io:${COMMIT_SHA}'
+      - 'gcr.io/${PROJECT_ID}/github-influenceio:${COMMIT_SHA}'
       - '.'
   # Generate a kubeconfig file for the given GKE cluster.
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -40,12 +40,12 @@ steps:
       - '-c'
       - |
         export KUBECONFIG=kubeconfig
-        kubectl apply -f ./kubernetes/github-influenceio-influence-io-deployment.yaml
-        kubectl set image deployment/github-influenceio-influence-io github-influenceio-influence-io=gcr.io/influence-197607/github-influenceio-influence-io:${COMMIT_SHA}
-        kubectl apply -f ./kubernetes/github-influenceio-influence-io-service.yaml
+        kubectl apply -f ./kubernetes/github-influenceio-deployment.yaml
+        kubectl set image deployment/github-influenceio github-influenceio=gcr.io/influence-197607/github-influenceio:${COMMIT_SHA}
+        kubectl apply -f ./kubernetes/github-influenceio-service.yaml
     volumes:
       - name: 'kube'
         path: /kube
 
 images:
-  - 'gcr.io/${PROJECT_ID}/github-influenceio-influence-io:${COMMIT_SHA}'
+  - 'gcr.io/${PROJECT_ID}/github-influenceio:${COMMIT_SHA}'

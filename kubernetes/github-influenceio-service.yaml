@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: github-influenceio-influence-io
+  name: github-influenceio
   namespace: default
 spec:
   selector:
-    app: github-influenceio-influence-io
+    app: github-influenceio
   ports:
     - name: http
       port: 1337
