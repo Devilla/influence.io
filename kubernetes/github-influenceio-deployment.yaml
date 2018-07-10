@@ -24,3 +24,13 @@ spec:
         env:
         - name: DATABASE_HOST
           value: db-service
+        - name: SENDGRID_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: environment
+              key: sendgridkey
+        - name: STRIPE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: environment
+              key: stripekey
