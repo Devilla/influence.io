@@ -51,7 +51,7 @@ Oauth: (params) => {
 
       let provider = params.provider;
 
-        // const access_token = query.access_token ||  query.code || query.oauth_token;
+      // const access_token = query.access_token ||  query.code || query.oauth_token;
 
 
 
@@ -63,16 +63,16 @@ Oauth: (params) => {
 
             console.log("we're inside facebook");
 
-            // facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
-            //   if (err) {
-            //     callback(err);
-            //   } else {
-            //     callback(null, {
-            //       username: body.name,
-            //       email: body.email
-            //     });
-            //   }
-            // });
+            facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
+              if (err) {
+                callback(err);
+              } else {
+                callback(null, {
+                  username: body.name,
+                  email: body.email
+                });
+              }
+            });
             break;
           case 'google':
             const google = new Purest({
