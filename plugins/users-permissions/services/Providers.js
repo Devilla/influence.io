@@ -61,6 +61,10 @@ exports.connect = (provider, query) => {
           return resolve([null, [{ messages: [{ id: 'Auth.advanced.allow_register' }] }], 'Register action is actualy not available.']);
         }
 
+        if(users) {
+          return resolve([users[0], null]);
+        }
+
         const user = _.find(users, {provider});
 
         if (!_.isEmpty(user)) {
