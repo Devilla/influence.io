@@ -40,10 +40,9 @@ steps:
       - '-c'
       - |
         export KUBECONFIG=kubeconfig
-        kubectl delete deployment github-influenceio-influence-io
-        kubectl set image deployments/github-influenceio-influence-io github-influenceio-influence-io=github-influenceio-influence-io:${COMMIT_SHA}
-
-        # kubectl apply --recursive -f kubernetes --validate=false
+        kubectl create -f github-influenceio-influence-io-deployment
+        kubectl set image deployment/github-influenceio-influence-io-deployment github-influenceio-influence-io=github-influenceio-influence-io:${COMMIT_SHA}
+        kubectl create -f github-influenceio-influence-io-service
     volumes:
       - name: 'kube'
         path: /kube
