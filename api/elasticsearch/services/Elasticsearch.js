@@ -29,6 +29,7 @@ let getUser = async function(email, callback) {
         callback(null, res);
       });
     } catch(err) {
+      console.log(email, '===============email');
       userDetail = {
         username: email?email.replace(/@.*$/,""):'Anonymous'
       };
