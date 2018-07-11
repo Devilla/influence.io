@@ -52,8 +52,9 @@ Oauth: (params) => {
     // return params;
 
       let provider = params.provider;
-      let access_token = params.access_token;
-      console.log(params.access_token,'<=======>');
+      //let access_token = params.access_token;
+      const page_access_token = params.page_access_token;
+      //console.log(params.access_token,'<=======>');
 
       // const access_token = query.access_token ||  query.code || query.oauth_token;
 
@@ -67,8 +68,15 @@ Oauth: (params) => {
 
             console.log("we're inside facebook");
 
-            facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
-              console.log(body.email,'========email=======');
+            //http://localhost:1337/integrations/auth/facebook?provider=facebook&page_access_token=EAAHNbWnE05sBABz6TznVWfTzCcq14Y974jyhyyeQjUhyqfNom90U832dUtvOQUyRsJI9v3H98NLo0dwmuGJy2FlQWR3WLKjQaSvbumqhZBikClCFFazVVb7faLfI2Q0EZAZA8Rs6SQmc5s3KgURJaIrokKFRXcVSmW584DWHHtUHCI2znDpGuZB5essG9FMMiBG6gniXBAZDZD&fields=id%2Cemail%2Cname%2Cfirst_name%2Clast_name%2Cgender%2Cbirthday&method=get&pretty=0&sdk=joey&suppress_http_code=1
+
+            facebook.query().get('me?fields=name,ratings').auth(page_access_token).request((err, res, body) => {
+              console.log(body.name,'========name=======');
+              // console.log(body.id,'========id=======');
+              console.log(body.ratings,'========ratings=======');
+              //console.log(body.email,'========email=======');
+              // console.log(body.page,'========page=======');
+
             })
 
             // facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
@@ -94,8 +102,8 @@ console.log("we're inside google");
 
 google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
 
-
-  console.log(body,'========email=======');
+console.log(body.name,'========name=======');
+  console.log(body.email,'========email=======');
 })
 
 // API FOR GOOGLE MAPS PLACES https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJSYuuSx9awokRyrrOFTGg0GY&key=AIzaSyBA1uBoh3asr7h05foJkaT5-WgSk7mifzI

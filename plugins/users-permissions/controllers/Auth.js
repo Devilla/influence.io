@@ -179,9 +179,18 @@ module.exports = {
       });
     }
 
-
     const provider = ctx.request.url.split('/')[2];
+    console.log(provider,"PROVIDER");
     const config = grantConfig[provider];
+  //   { enabled: true,
+  // icon: 'facebook-official',
+  // key: '176258533195543',
+  // secret: '4065464a2c0ed32d47fb970353212c58',
+  // callback: '/connect/facebook',
+  // scope: [ 'email' ] }
+
+
+    console.log(config,'CONFIG');
     if (!_.get(config, 'enabled')) {
       return ctx.badRequest(null, 'This provider is disabled.');
     }
