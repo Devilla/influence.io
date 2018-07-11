@@ -18,19 +18,11 @@
     },
     {
       "method": "GET",
-      "path": "/integrations/auth/google",
-      "handler": "Integrations.GoogleOauth",
+      "path": "/connect/:provider",
+      "handler": "Integrations.googleOauth",
       "config": {
-        "policies": []
-      }
-    },
-
-    {
-      "method": "GET",
-      "path": "/integrations/auth/facebook",
-      "handler": "Integrations.FacebookOauth",
-      "config": {
-        "policies": []
+        "policies": [],
+        "prefix": ""
       }
     },
 

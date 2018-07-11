@@ -162,7 +162,7 @@ module.exports = {
       name: 'users-permissions',
       key: 'grant'
     }).get();
-
+    console.log(grantConfig, '------------ctx',ctx, '==============next', next);
     if(strapi.config.currentEnvironment.server.host == 'localhost') {
       _.defaultsDeep(grantConfig, {
         server: {
@@ -180,7 +180,7 @@ module.exports = {
     }
 
     const provider = ctx.request.url.split('/')[2];
-    console.log(provider,"PROVIDER");
+    console.log(provider,grantConfig,"PROVIDER");
     const config = grantConfig[provider];
   //   { enabled: true,
   // icon: 'facebook-official',
@@ -196,6 +196,7 @@ module.exports = {
     }
     const Grant = require('grant-koa');
     const grant = new Grant(grantConfig);
+    console.log(grant, strapi.koaMiddlewares.compose(grant.middleware)(ctx, next));
     return strapi.koaMiddlewares.compose(grant.middleware)(ctx, next);
   },
 
