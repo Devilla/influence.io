@@ -40,6 +40,14 @@
     "campaign": {
       "model": "campaign",
       "via": "configuration"
+    },
+    "totalReviews": {
+      "type": "integer",
+      "multiple": false
+    },
+    "averageRating": {
+      "type": "integer",
+      "multiple": false
     }
   }
 }

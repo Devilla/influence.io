@@ -46,7 +46,8 @@
       "via": "campaign"
     },
     "configuration": {
-      "model": "configuration"
+      "model": "configuration",
+      "via": "campaign"
     },
     "profile": {
       "model": "profile"

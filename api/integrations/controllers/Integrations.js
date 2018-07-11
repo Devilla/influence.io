@@ -32,24 +32,17 @@ module.exports = {
 
   googleOauth: async (ctx, next) => {
     console.log(ctx,'================');
-    const grantConfig = await strapi.store({
-      environment: '',
-      type: 'plugin',
-      name: 'users-permissions',
-      key: 'grant'
-    }).get();
-   //  {
-   //    email: { enabled: true, icon: 'envelope' },
-   //    google: {
-   //      enabled: true,
-   //      icon: 'google',
-   //      key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
-   //      secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
-   //      callback: '/connect/google/callback/',
-   //      scope: [ 'email' ]
-   //    }
-   // };
-
+    const grantConfig = {
+       email: { enabled: true, icon: 'envelope' },
+       google: {
+         enabled: true,
+         icon: 'google',
+         key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
+         secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
+         callback: 'http://locahost:3000/integrations/google/callback/',
+         scope: [ 'email' ]
+       }
+    };
 
     if(strapi.config.currentEnvironment.server.host == 'localhost') {
       _.defaultsDeep(grantConfig, {
@@ -71,14 +64,6 @@ module.exports = {
     console.log(provider);
     const config = grantConfig[provider];
 
-    // const config =  { enabled: true,
-    // icon: 'google',
-    // key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
-    // secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
-    // callback: '/connect/google/',
-    // scope: [ 'email' ] };
-
-
     console.log( grantConfig, 'CONFIG');
     if (!_.get(config, 'enabled')) {
       return ctx.badRequest(null, 'This provider is disabled.');
@@ -92,42 +77,21 @@ module.exports = {
 
   },
 
-  //
-  //
-  // connect: async (ctx, next) => {
-  //   const grantConfig = await strapi.store({
-  //     environment: '',
-  //     type: 'plugin',
-  //     name: 'users-permissions',
-  //     key: 'grant'
-  //   }).get();
-  //
-  //   if(strapi.config.currentEnvironment.server.host == 'localhost') {
-  //     _.defaultsDeep(grantConfig, {
-  //       server: {
-  //         protocol: 'http',
-  //         host: `${strapi.config.currentEnvironment.server.host}:${strapi.config.currentEnvironment.server.port}`
-  //       }
-  //     });
-  //   } else {
-  //     _.defaultsDeep(grantConfig, {
-  //       server: {
-  //         protocol: 'https',
-  //         host: `${strapi.config.currentEnvironment.server.host}`
-  //       }
-  //     });
-  //   }
-  //
-  //
-  //   const provider = ctx.request.url.split('/')[2];
-  //   const config = grantConfig[provider];
-  //   if (!_.get(config, 'enabled')) {
-  //     return ctx.badRequest(null, 'This provider is disabled.');
-  //   }
-  //   const Grant = require('grant-koa');
-  //   const grant = new Grant(grantConfig);
-  //   return strapi.koaMiddlewares.compose(grant.middleware)(ctx, next);
-  // },
+
+
+  /**
+   * Callback for an integrations.
+   *
+   * @return {Object}
+   */
+
+  callback: async (ctx) => {
+    console.log('we are inside callback');
+    const data = await strapi.services.integrations.Oauth(ctx.query,ctx.params);
+
+    // Send 200 `ok`
+    ctx.send(data);
+  },
 
 
 

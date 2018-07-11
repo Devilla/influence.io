@@ -17,12 +17,20 @@
       }
     },
     {
-      "method": "GET",
-      "path": "/connect/:provider",
+      "method": "POST",
+      "path": "/connect/*",
       "handler": "Integrations.googleOauth",
       "config": {
         "policies": [],
         "prefix": ""
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/integrations/:provider/callback",
+      "handler": "Integrations.callback",
+      "config": {
+        "policies": []
       }
     },
 
