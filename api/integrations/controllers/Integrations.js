@@ -74,11 +74,12 @@ module.exports = {
     key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
     secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
     callback: '/integrations/auth/google',
-    scope: [ 'email' ] }
+    scope: [ 'email' ] };
 
     // grantConfig[provider];
 
-    //console.log(config, 'CONFIG');
+
+    console.log(config, 'CONFIG');
     if (!_.get(config, 'enabled')) {
       return ctx.badRequest(null, 'This provider is disabled.');
     }
