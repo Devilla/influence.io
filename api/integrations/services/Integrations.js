@@ -45,6 +45,8 @@ module.exports = {
 Oauth: (params) => {
     const convertedParams = strapi.utils.models.convertParams('integrations', params);
 
+
+
     console.log(params,"<==============");
 
     // return params;
@@ -66,23 +68,36 @@ Oauth: (params) => {
             console.log("we're inside facebook");
 
             facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
-              console.log(body,'<=======>');
+              console.log(body.email,'========email=======');
+            })
 
-              if (err) {
-                //callback(err);
-              } else {
-                // callback(null, {
-                //   username: body.name,
-                //   email: body.email
-                // });
-              }
-            });
+            // facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
+            //   console.log(access_token,'<=======>')
+            //
+            //   if (err) {
+            //     //callback(err);
+            //   } else {
+            //     // callback(null, {
+            //     //   username: body.name,
+            //     //   email: body.email
+            //     // });
+            //   }
+            // });
             break;
           case 'google':
             const google = new Purest({
               provider: 'google'
-            });
+            })
+
 console.log("we're inside google");
+
+
+google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
+
+
+  console.log(body,'========email=======');
+})
+
 // API FOR GOOGLE MAPS PLACES https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJSYuuSx9awokRyrrOFTGg0GY&key=AIzaSyBA1uBoh3asr7h05foJkaT5-WgSk7mifzI
 
 
