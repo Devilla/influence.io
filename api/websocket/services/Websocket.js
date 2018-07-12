@@ -29,6 +29,7 @@ module.exports =  {
     let message =  formatter + '\n';
     console.log(message,'======message');
     logger.info(message);
+    return msg;
   },
 
   health: () => {

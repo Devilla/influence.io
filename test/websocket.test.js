@@ -20,8 +20,9 @@ describe('Should Send Data to Logger', function() {
             "timestamp":"2018-06-13T15:41:58.152Z","event":"click","source":{"url":{"host":"useinfluence.co","hostname":"useinfluence.co","pathname":"/profile","protocol":"https:"}}}};
 
       websocket.log(message).then(function (data) {
-        expect(data).to.equal('');
-        expect(data).to.equal('');
+        console.log(data);
+        expect(message).to.equal(data);
+        expect(message).to.equal(data);
       });
     });
   });
