@@ -21,11 +21,7 @@
       "type": "string",
       "multiple": false
     },
-    "utmSource": {
-      "type": "string",
-      "multiple": false
-    },
-    "utmMedium": {
+    "averageCustomer": {
       "type": "string",
       "multiple": false
     },
