@@ -45,7 +45,7 @@ module.exports = {
 Oauth: (query,params) => {
     const convertedParams = strapi.utils.models.convertParams('integrations', params);
 
-    console.log(params,"<==============");
+  //  console.log(params,"<==============");
 
     // return params;
 
@@ -97,10 +97,15 @@ Oauth: (query,params) => {
 console.log("we're inside google");
 
 
-google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
+//COMMENT THE BELOW LINE FOR MAPS API
+ google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
 
-console.log(body.name,'========name=======');
-  console.log(body.email,'========email=======');
+//UNCOMMENT THE BELOW LINE FOR MAPS API
+// google.query('maps').get('places').auth(access_token).request((err, res, body) => {
+  //maps/api/{endpoint}
+
+console.log(body,'========name=======');
+//  console.log(body.email,'========email=======');
 })
 
 // API FOR GOOGLE MAPS PLACES https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJSYuuSx9awokRyrrOFTGg0GY&key=AIzaSyBA1uBoh3asr7h05foJkaT5-WgSk7mifzI

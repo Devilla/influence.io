@@ -156,13 +156,33 @@ module.exports = {
   },
 
   connect: async (ctx, next) => {
-    const grantConfig = await strapi.store({
-      environment: '',
-      type: 'plugin',
-      name: 'users-permissions',
-      key: 'grant'
-    }).get();
-    console.log(grantConfig, '------------ctx',ctx, '==============next', next);
+    let grantValue;
+    let url = ctx.request.url.split('/');
+    if(ctx.request.url.split('/')[3] === 'overide' || ctx.request.url.split('/')[4] === 'overide') {
+      grantValue = {
+         google: {
+           enabled: true,
+           icon: 'google',
+           key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
+           secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
+           redirect_uri: 'http://localhost:1337/connect/google/overide/callback',
+           callback: 'http://localhost:3000/integrations/google/callback/',
+           scope: [ 'email','profile' ]
+         }
+      };
+      url.splice(3, 1);
+      ctx.request.url = url.join('/');
+    } else {
+      grantValue = await strapi.store({
+        environment: '',
+        type: 'plugin',
+        name: 'users-permissions',
+        key: 'grant'
+      }).get();
+    }
+
+    const grantConfig = grantValue;
+
     if(strapi.config.currentEnvironment.server.host == 'localhost') {
       _.defaultsDeep(grantConfig, {
         server: {
@@ -180,23 +200,13 @@ module.exports = {
     }
 
     const provider = ctx.request.url.split('/')[2];
-    console.log(provider,grantConfig,"PROVIDER");
     const config = grantConfig[provider];
-  //   { enabled: true,
-  // icon: 'facebook-official',
-  // key: '176258533195543',
-  // secret: '4065464a2c0ed32d47fb970353212c58',
-  // callback: '/connect/facebook',
-  // scope: [ 'email' ] }
 
-
-    console.log(config,'CONFIG');
     if (!_.get(config, 'enabled')) {
       return ctx.badRequest(null, 'This provider is disabled.');
     }
     const Grant = require('grant-koa');
     const grant = new Grant(grantConfig);
-    console.log(grant, strapi.koaMiddlewares.compose(grant.middleware)(ctx, next));
     return strapi.koaMiddlewares.compose(grant.middleware)(ctx, next);
   },
 
