@@ -62,23 +62,15 @@ Oauth: (query,params) => {
               provider: 'facebook'
             });
 
-            console.log("we're inside facebook");
-            facebook.query().get('me?fields=id,name,rating_count,overall_star_rating').auth(access_token).request((err, res, body) => {
-              console.log(body,'========name=======');
-            })
+            /*Pass access_token to get list of facebook_pages with page_access_token*/
+            facebook.query().get('me/accounts?name,id').auth(access_token).request((err, res, body) => {
 
-            // facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
-            //   console.log(access_token,'<=======>')
-            //
-            //   if (err) {
-            //     //callback(err);
-            //   } else {
-            //     // callback(null, {
-            //     //   username: body.name,
-            //     //   email: body.email
-            //     // });
-            //   }
-            // });
+            /*Pass page_access_token to get rating_count,average_star_rating*/
+            //facebook.query().get('me?fields=id,name,rating_count,overall_star_rating').auth(access_token).request((err, res, body) => {
+
+
+              console.log(body,'========body object=======');
+            })
             break;
           case 'google':
             const google = new Purest({
