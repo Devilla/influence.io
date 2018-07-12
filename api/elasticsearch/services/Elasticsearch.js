@@ -113,6 +113,8 @@ module.exports = {
         return 'Bulk Activity';
       else if(type == 'journey')
         return 'Recent Activity';
+      else if(type == 'review')
+        return 'Review Notification';
     }
 
     const notification = await Notificationtypes.findOne(
@@ -137,7 +139,8 @@ module.exports = {
         activity: 1,
         visitorText: 1,
         notificationUrl: 1,
-        toggleMap: 1
+        toggleMap: 1,
+        channel: 1
       }
     )
     .exec()
@@ -216,6 +219,48 @@ module.exports = {
             "aggs" : {
               "users" : {
                 "terms" : { "field" : "json.value.form.email", "size" : Number(configuration.panelStyle.recentNumber) },
+                "aggs": {
+                  "user_docs": {
+                    "top_hits": {
+                        "sort": [
+                          {
+                            "@timestamp": {
+                                "order": "desc"
+                            }
+                          }
+                        ],
+                        "_source": {
+                          "includes": [ "json" ]
+                        },
+                        "size" : 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+        break;
+      case 'review':
+        query = {
+          index: index,
+          body: {
+            query: {
+              "bool": {
+                "must": [
+                  { "match": { "json.value.trackingId":  trackingId }},
+                  { "match": { "json.value.event": 'review' }},
+                  { "exists" : { "field" : "json.value.form.review" }}
+                ]
+              }
+            },
+            "sort" : [
+              { "@timestamp" : {"order" : "desc", "mode" : "max"}}
+            ],
+            "size": 50,
+            "aggs" : {
+              "users" : {
+                "terms" : { "field" : "json.value.form.review", "size" : 50 },
                 "aggs": {
                   "user_docs": {
                     "top_hits": {
