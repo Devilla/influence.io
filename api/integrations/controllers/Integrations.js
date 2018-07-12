@@ -32,14 +32,26 @@ module.exports = {
 
   googleOauth: async (ctx, next) => {
     console.log(ctx,'================');
+    // const grantConfig = {
+    //    email: { enabled: true, icon: 'envelope' },
+    //    google: {
+    //      enabled: true,
+    //      icon: 'google',
+    //      key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
+    //      secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
+    //      callback: 'http://locahost:3000/integrations/google/callback/',
+    //      scope: [ 'email' ]
+    //    }
+    // };
+
     const grantConfig = {
        email: { enabled: true, icon: 'envelope' },
-       google: {
+       facebook: {
          enabled: true,
-         icon: 'google',
-         key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
-         secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
-         callback: 'http://locahost:3000/integrations/google/callback/',
+         icon: 'facebook',
+         key: '176258533195543',
+         secret: '4065464a2c0ed32d47fb970353212c58',
+         callback: 'http://locahost:3000/integrations/facebook/callback/',
          scope: [ 'email' ]
        }
     };
