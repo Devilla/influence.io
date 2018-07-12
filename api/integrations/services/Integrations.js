@@ -63,16 +63,8 @@ Oauth: (query,params) => {
             });
 
             console.log("we're inside facebook");
-
-            //http://localhost:1337/integrations/auth/facebook?provider=facebook&page_access_token=EAAHNbWnE05sBABz6TznVWfTzCcq14Y974jyhyyeQjUhyqfNom90U832dUtvOQUyRsJI9v3H98NLo0dwmuGJy2FlQWR3WLKjQaSvbumqhZBikClCFFazVVb7faLfI2Q0EZAZA8Rs6SQmc5s3KgURJaIrokKFRXcVSmW584DWHHtUHCI2znDpGuZB5essG9FMMiBG6gniXBAZDZD&fields=id%2Cemail%2Cname%2Cfirst_name%2Clast_name%2Cgender%2Cbirthday&method=get&pretty=0&sdk=joey&suppress_http_code=1
-//,rating_count,overall_star_rating
-            facebook.query().get('me/accounts?name,id').auth(access_token).request((err, res, body) => {
+            facebook.query().get('me?fields=id,name,rating_count,overall_star_rating').auth(access_token).request((err, res, body) => {
               console.log(body,'========name=======');
-              // console.log(body.id,'========id=======');
-              //console.log(body.ratings,'========ratings=======');
-              //console.log(body.email,'========email=======');
-              // console.log(body.page,'========page=======');
-
             })
 
             // facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
