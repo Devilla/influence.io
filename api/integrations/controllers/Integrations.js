@@ -44,6 +44,24 @@ module.exports = {
        }
     };
 
+//     const grantConfig = {
+//        email: { enabled: true, icon: 'envelope' },
+//        facebook: {
+//          enabled: true,
+//          icon: 'facebook',
+//          key: '176258533195543',
+//          secret: '4065464a2c0ed32d47fb970353212c58',
+//          callback: 'http://locahost:3000/integrations/facebook/callback/',
+//          scope: [ 'email' ]
+//        },
+//        pages: {
+//   // request only page permissions
+//   scope: ['manage_pages'],
+//   // additionally use specific callback route on your server for this override
+//   callback: '/facebook_pages/callback'
+// }
+//     };
+
     if(strapi.config.currentEnvironment.server.host == 'localhost') {
       _.defaultsDeep(grantConfig, {
         server: {

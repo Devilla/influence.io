@@ -1,6 +1,6 @@
 'use strict';
-
-
+// var config = require('./providers');
+//var config = require('@purest/providers');
 /**
  * Integrations.js service
  *
@@ -20,6 +20,7 @@ module.exports = {
    * Promise to fetch all integrations.
    *
    * @return {Promise}
+
    */
 
   fetchAll: (params) => {
@@ -90,18 +91,43 @@ Oauth: (query,params) => {
             // });
             break;
           case 'google':
+
+          var config = {
+            "https://maps.googleapis.com": {
+       "__domain": {
+         "auth": {
+           "qs": {"key": "[0]"}
+         }
+       },
+       "maps/api/{endpoint}": {
+         "__path": {
+           "alias": ["gmaps"]
+         },
+         "streetview": {
+           "get": {
+             "encoding": null
+           }
+         },
+         "staticmap": {
+           "get": {
+             "encoding": null
+           }
+         }
+       }
+     }
+   }
             const google = new Purest({
-              provider: 'google'
+              provider: 'google', config
             })
 
 console.log("we're inside google");
 
 
 //COMMENT THE BELOW LINE FOR MAPS API
- google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
+ //google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
 
 //UNCOMMENT THE BELOW LINE FOR MAPS API
-// google.query('maps').get('places').auth(access_token).request((err, res, body) => {
+ google.query('maps/api/place/details/').get('places').auth(access_token).request((err, res, body) => {
   //maps/api/{endpoint}
 
 console.log(body,'========name=======');
