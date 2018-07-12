@@ -22,7 +22,7 @@
       "multiple": false
     },
     "averageCustomer": {
-      "type": "string",
+      "type": "integer",
       "multiple": false
     },
     "trackingId": {
