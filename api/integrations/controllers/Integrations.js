@@ -52,8 +52,17 @@ module.exports = {
          key: '176258533195543',
          secret: '4065464a2c0ed32d47fb970353212c58',
          callback: 'http://locahost:3000/integrations/facebook/callback/',
-         scope: [ 'email' ]
+         scope: [ 'email' ],
+         pages: {
+      // request only page permissions
+      scope: ["manage_pages"],
+
+      //https://useinfluence.co/connect/facebook?access_token=EAACgTmNCfxcBANZAfFKYq9yNS3gjcu6ZAJhe4eldkCtWZCngjuEHPSxfawqZB1VZAkRFivqtcdXBrAVmfZB3HsXXuIPClZBKXqvLcfV79jMlMFc3FX3ZCPZCbz3ab30KAZAEfiln7g056ZA5I1h94cxRSW7lwRw0VFTZCe2QvzGiHykZBwAZDZD&raw%5Baccess_token%5D=EAACgTmNCfxcBANZAfFKYq9yNS3gjcu6ZAJhe4eldkCtWZCngjuEHPSxfawqZB1VZAkRFivqtcdXBrAVmfZB3HsXXuIPClZBKXqvLcfV79jMlMFc3FX3ZCPZCbz3ab30KAZAEfiln7g056ZA5I1h94cxRSW7lwRw0VFTZCe2QvzGiHykZBwAZDZD&raw%5Btoken_type%5D=bearer&raw%5Bexpires_in%5D=5157290#_=_
+      // additionally use specific callback route on your server for this override
+      callback: "/facebook_pages/callback"
+    }
        }
+
     };
 
     if(strapi.config.currentEnvironment.server.host == 'localhost') {
