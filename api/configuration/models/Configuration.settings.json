@@ -37,6 +37,10 @@
       "type": "boolean",
       "multiple": false
     },
+    "channel": {
+      "type": "json",
+      "multiple": false
+    },
     "campaign": {
       "model": "campaign",
       "via": "configuration"
