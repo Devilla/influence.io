@@ -59,7 +59,7 @@ module.exports = {
 
     let password = await bcrypt.hash(uuidv4(), 10);
 
-    model.password = model.password?model.password:'password';
+    model.password = model.password?model.password:'mySecretPasswordInPlace';
 
     const user = {
       id: model._id,

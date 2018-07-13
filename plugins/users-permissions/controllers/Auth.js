@@ -14,7 +14,6 @@ module.exports = {
   callback: async (ctx) => {
     const provider = ctx.params.provider || 'local';
     const params = ctx.request.body;
-
     const store = await strapi.store({
       environment: '',
       type: 'plugin',
@@ -62,6 +61,10 @@ module.exports = {
       // The user never registered with the `local` provider.
       if (!user.password) {
         return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.password.local' }] }] : 'This user never set a local password, please login thanks to the provider used during account creation.');
+      }
+
+      if(user.provider && user.provider != 'local' && (user.password == 'password' || user.password == 'mySecretPasswordInPlace')) {
+        return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.password.local' }] }] : `<div>${user.provider.replace(/^\w/, c => c.toUpperCase())} Account, use <a href="/forget-password">forget password</a> to set new password.</div>`);
       }
 
       const validPassword = strapi.plugins['users-permissions'].services.user.validatePassword(params.password, user.password);
