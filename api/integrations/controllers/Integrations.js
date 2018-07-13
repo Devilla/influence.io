@@ -32,19 +32,22 @@ module.exports = {
 
   googleOauth: async (ctx, next) => {
     console.log(ctx,'================');
-    // const grantConfig = {
-    //    email: { enabled: true, icon: 'envelope' },
-    //    google: {
-    //      enabled: true,
-    //      icon: 'google',
-    //      key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
-    //      secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
-    //      callback: 'http://locahost:3000/integrations/google/callback/',
-    //      scope: [ 'email' ]
-    //    }
-    // };
-
-    const grantConfig = {
+    const provider = ctx.request.url.split('/')[2];
+    if(provider==='google')      {
+       const grantConfig = {
+       email: { enabled: true, icon: 'envelope' },
+       google: {
+         enabled: true,
+         icon: 'google',
+         key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
+         secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
+         callback: 'http://locahost:3000/integrations/google/callback/',
+         scope: [ 'email' ]
+          }
+        };
+      }
+    if(provider==='facebook'){
+      const grantConfig = {
        email: { enabled: true, icon: 'envelope' },
        facebook: {
          enabled: true,
@@ -61,10 +64,9 @@ module.exports = {
       // additionally use specific callback route on your server for this override
       callback: "/facebook_pages/callback"
     }
-       }
-
+    }
     };
-
+}
     if(strapi.config.currentEnvironment.server.host == 'localhost') {
       _.defaultsDeep(grantConfig, {
         server: {
@@ -81,7 +83,7 @@ module.exports = {
       });
     }
 
-    const provider = ctx.request.url.split('/')[2];
+
     console.log(provider);
     const config = grantConfig[provider];
 

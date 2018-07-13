@@ -158,20 +158,25 @@ module.exports = {
   connect: async (ctx, next) => {
     let grantValue;
     let url = ctx.request.url.split('/');
-    if(ctx.request.url.split('/')[3] === 'overide' || ctx.request.url.split('/')[4] === 'overide') {
-      // grantValue = {
-      //    google: {
-      //      enabled: true,
-      //      icon: 'google',
-      //      key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
-      //      secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
-      //      redirect_uri: 'http://localhost:1337/connect/google/overide/callback',
-      //      callback: 'http://localhost:3000/integrations/google/callback/',
-      //      scope: [ 'email','profile' ]
-      //    }
-      // };
+    const provider = ctx.request.url.split('/')[2];
+    if(ctx.request.url.split('/')[3] === 'overide' || ctx.request.url.split('/')[4] === 'overide' || ctx.request.url.split('/')[3] === 'INF-2nxeger4lzjji48tx8' || ctx.request.url.split('/')[4] === 'INF-2nxeger4lzjji48tx8' ) {
 
-      grantValue = {
+      if(provider==='google'){
+          grantValue = {
+             google: {
+               enabled: true,
+               icon: 'google',
+               key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
+               secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
+               redirect_uri: 'http://localhost:1337/connect/google/overide/callback',
+               callback: 'http://localhost:3000/integrations/google/callback/',
+               scope: [ 'email','profile' ]
+             }
+          };
+        }
+
+      if(provider==='facebook'){
+         grantValue = {
          facebook: {
            enabled: true,
            icon: 'facebook',
@@ -182,13 +187,13 @@ module.exports = {
            scope: [ 'email']
          },
          pages: {
-    // request only page permissions
-    scope: ['manage_pages'],
-    // additionally use specific callback route on your server for this override
-    callback: '/facebook_pages/callback'
-  }
-      };
-
+                  // request only page permissions
+                  scope: ['manage_pages'],
+                  // additionally use specific callback route on your server for this override
+                  callback: '/facebook_pages/callback'
+                }
+              };
+            }
       url.splice(3, 1);
       ctx.request.url = url.join('/');
     } else {
@@ -218,7 +223,6 @@ module.exports = {
       });
     }
 
-    const provider = ctx.request.url.split('/')[2];
     const config = grantConfig[provider];
 
     if (!_.get(config, 'enabled')) {
