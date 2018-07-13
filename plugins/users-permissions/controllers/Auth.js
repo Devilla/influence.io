@@ -159,7 +159,9 @@ module.exports = {
     let grantValue;
     let url = ctx.request.url.split('/');
     const provider = ctx.request.url.split('/')[2];
-    if(ctx.request.url.split('/')[3] === 'overide' || ctx.request.url.split('/')[4] === 'overide' || ctx.request.url.split('/')[3] === 'INF-2nxeger4lzjji48tx8' || ctx.request.url.split('/')[4] === 'INF-2nxeger4lzjji48tx8' ) {
+    const trackingId = ctx.request.url.split('/overide/')[1];
+    console.log(trackingId,'===========trackingId==========');
+    if(ctx.request.url.split('/')[3] === 'overide' || ctx.request.url.split('/')[4] === 'overide') {
 
       if(provider==='google'){
           grantValue = {
@@ -168,11 +170,11 @@ module.exports = {
                icon: 'google',
                key: '506861237456-us8bb4g2vip8sc9s65vuo1h5qc5u6oal.apps.googleusercontent.com',
                secret: 'V2rKD2aveM2cCJ2MOQoBffA8',
-               redirect_uri: 'http://localhost:1337/connect/google/overide/callback',
+               redirect_uri: `http://localhost:1337/connect/google/overide/callback`,
                callback: 'http://localhost:3000/integrations/google/callback/',
                scope: [ 'email','profile' ]
              }
-          };
+          }
         }
 
       if(provider==='facebook'){
