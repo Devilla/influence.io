@@ -1,7 +1,5 @@
 {
   "myCustomConfiguration": "This configuration is accessible through strapi.config.myCustomConfiguration",
   "socketsServerPath": "/web",
-  "elasticsearchNode": "elasticsearch:9200",
-  "GOOGLE_APPLICATION_CREDENTIALS":"/Users/saranshsharma/WebstormProjects/influence.io/creds.json",
-  "projectID":"influence-197607"
+  "elasticsearchNode": "elasticsearch:9200"
 }
