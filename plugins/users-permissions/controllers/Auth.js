@@ -303,7 +303,14 @@ module.exports = {
     try {
       const user = await strapi.query('user', 'users-permissions').create(params);
       const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']))
-
+      const userProfile = {
+        uniqueVisitorQouta: 0,
+        uniqueVisitors: 0,
+        uniqueVisitorsQoutaLeft: 0,
+        plan: null
+      };
+      userProfile['user'] = user._id;
+      const createProfile = await strapi.services.profile.add(userProfile);
       // Send verification mail to user
       // TODO: Update verification link and token generation technique
       try {

@@ -188,6 +188,15 @@ module.exports = {
     };
     await Plan.create(plan_value);
     const data = await Payment.create(payment_values);
+    if(data) {
+      const userParams = {
+        id: user._id
+      };
+      const userValues = {
+        path: '/dashboard'
+      };
+      const userUpdate = strapi.plugins['users-permissions'].services.user.edit(userParams, userValues);
+    }
     return data;
   },
 
