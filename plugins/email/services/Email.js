@@ -423,38 +423,38 @@ module.exports = {
   },
 
 
-    /**
-     * gdprform Page Template.
-     * @param query
-     * @returns {Promise<*>}
-     */
-    gdprForm: async (query) =>  {
-      const email = query.email;
-      const code = query.code;
-      const mailSub = "GDPR Form sunbmition";
-      const content =`
-        <br/>
-        <span>This is a confirmation email to let you know that you have been successfully GRPR Compliance.</span>
-        <br/>
-        <span>Please Enter the code in GDPR Form : {code}</span>
-        <br/>
-        {code}
-        <br/>
-        <span>Thanks for investing your faith in us.</span>
-        <br/>
-        <span>See you soon.</span>
-        <br/>
-        <span>Thanks!</span>
-      `;
+  /**
+   * gdprform Page Template.
+   * @param query
+   * @returns {Promise<*>}
+   */
+  gdprForm: async (query) =>  {
+    const email = query.email;
+    const code = query.code;
+    const mailSub = "GDPR Form sunbmition";
+    const content =`
+      <br/>
+      <span>This is a confirmation email to let you know that you have been successfully GRPR Compliance.</span>
+      <br/>
+      <span>Please Enter the code in GDPR Form : {code}</span>
+      <br/>
+      {code}
+      <br/>
+      <span>Thanks for investing your faith in us.</span>
+      <br/>
+      <span>See you soon.</span>
+      <br/>
+      <span>Thanks!</span>
+    `;
 
-      var mytemp = template.commontemp(mailSub, code, content);
+    var mytemp = template.commontemp(mailSub, code, content);
 
-      let mailOptions = {
-        from: 'support@useinfluence.co',
-        to: email,
-        subject: mailSub,
-        html: mytemp
-      };
-      return send(mailOptions);
-    }
+    let mailOptions = {
+      from: 'support@useinfluence.co',
+      to: email,
+      subject: mailSub,
+      html: mytemp
+    };
+    return send(mailOptions);
+  }
 };
