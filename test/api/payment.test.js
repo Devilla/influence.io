@@ -6,7 +6,6 @@
 let chai = require('chai');
 let expect = chai.expect;
 const request = require('co-supertest');
-const payment = require('../api/payment/services/Payment');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();

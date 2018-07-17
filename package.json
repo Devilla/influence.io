@@ -13,7 +13,8 @@
     "lint": "node_modules/.bin/eslint api/**/*.js config/**/*.js plugins/**/*.js",
     "postinstall": "node node_modules/strapi/lib/utils/post-install.js",
     "frontend": "cd public/frontend && npm install  && npm run build",
-    "test": "mocha --require co-mocha test/bootstrap.test.js test/**/*.test.js  --timeout 30000"
+    "testapi": "mocha --require co-mocha test/bootstrap.test.js test/api/*.test.js  --timeout 30000",
+    "testfunctional": "mocha --require co-mocha test/bootstrap.test.js test/functional/*.test.js  --timeout 30000"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

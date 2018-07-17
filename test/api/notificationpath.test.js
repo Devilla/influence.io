@@ -6,11 +6,10 @@
 let chai = require('chai');
 let expect = chai.expect;
 const request = require('co-supertest');
-const coupon = require('../api/notificationpath/services/Notificationpath');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, user, notify_id;
+var Token, user, notificationPath;
 
 
 /**
@@ -57,7 +56,7 @@ var Token, user, notify_id;
       .then((res,err) => {
         if(res.err)
             throw res.err;
-        notify_id = res.body;
+        notificationPath = res.body;
       });
     });
   });
@@ -89,7 +88,7 @@ var Token, user, notify_id;
   describe('Update  notification Path',function(){
     it('should have updated the Path', function *() {
       yield request(strapi.config.url)
-      .put(`/notificationpath/${notify_id._id}`)
+      .put(`/notificationpath/${notificationPath._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
@@ -115,7 +114,7 @@ var Token, user, notify_id;
   describe('Delete Notification Path',function(){
     it('should have deleted  the Path', function *() {
       yield request(strapi.config.url)
-      .delete(`/notificationpath/${notify_id._id}`)
+      .delete(`/notificationpath/${notificationPath._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')

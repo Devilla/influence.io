@@ -6,17 +6,15 @@
 let chai = require('chai');
 let expect = chai.expect;
 const request = require('co-supertest');
-const conf = require('../api/configuration/services/Configuration');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, user ,notify_id;
-
+var Token, user, coupon;
 
 /**
  * Test the signup user
  **/
-  describe('user sign up test to have configurations', () => {
+describe('user sign up test to enter coupon', () => {
     it('should have signned user', function *() {
       yield request(strapi.config.url)
       .post('/auth/local/register')
@@ -35,69 +33,49 @@ var Token, user ,notify_id;
     });
   });
 
+
 /**
-  * Add the Configuration record
+  * Add the coupon
   **/
- describe('add Configuration record',function(){
-    it('should have created the  record', function *() {
+   describe('add coupon test',function(){
+    it('should have created the  coupon', function *() {
       yield request(strapi.config.url)
-      .post('/configuration')
+      .post('/coupon')
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        activity: true,
-        panelStyle: {"h1":"title"},
-        contentText: 'hello',
-        visitorText: 'display',
-        notificationUrl: '/demopage',
-        toggleMap: false
+        type: 'demo',
+        discount: 10,
+        active: true,
+        code: 'TESTING'
       })
       .expect(201)
       .expect('Content-Type', /json/)
       .then((res,err) => {
         if(res.err)
             throw res.err;
-        conf_id = res.body;
+        coupon = res.body;
       });
     });
   });
 
 
 /**
-  * Fetch the Configuration record
+  * Update  the coupon
   **/
-  describe('fetch configuration record',function(){
-    it('should fetch record', function *() {
+  describe('Update  coupon test',function(){
+    it('should have updated the  coupon', function *() {
       yield request(strapi.config.url)
-      .get('/configuration')
-      .set('Authorization', `Bearer ${Token}`)
-      .expect(200)
-      .then((res) => {
-        if(!res)
-            throw err;
-      });
-    });
-  });
-
-
-/**
-  * Update the configuration record
-  **/
-  describe('Update Configuration record',function(){
-    it('should update the record', function *() {
-      yield request(strapi.config.url)
-      .put(`/configuration/${conf_id._id}`)
+      .put(`/coupon/${coupon._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        activity: false,
-        panelStyle: {"h3":"demo"},
-        contentText: 'hello',
-        visitorText: 'display',
-        notificationUrl: '/anotherdemopage',
-        toggleMap: true
+        type: 'fakeworld',
+        discount: 10,
+        active: true,
+        code: 'Helloworld10'
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -109,14 +87,32 @@ var Token, user ,notify_id;
     });
   });
 
+/**
+  * Fetch the coupon
+  **/
+  describe('user should get coupon test',function(){
+    it('should have find the  coupon', function *() {
+      yield request(strapi.config.url)
+      .get('/coupon')
+      .set('Authorization', `Bearer ${Token}`)
+      .expect(200)
+      .then((res) => {
+        if(!res)
+            throw err;
+        else
+           expect(res.body[0].code).to.be.a('string');
+      });
+    });
+  });
 
 /**
- * delete  the  configuration record
- **/
-  describe('Delete Configuration record',function(){
-    it('should have deleted configuration record', function *() {
+  * delete  the coupon
+  **/
+
+  describe('Delete coupon test',function(){
+    it('should have deleted  the  coupon', function *() {
       yield request(strapi.config.url)
-      .delete(`/configuration/${conf_id._id}`)
+      .delete(`/coupon/${coupon._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
@@ -124,16 +120,14 @@ var Token, user ,notify_id;
       .expect('Content-Type', /json/)
       .then((res,err) => {
         if(res.err)
-            throw res.err;
-
+          throw res.err;
       });
     });
   });
 
-
 /**
- * Delete the user
- **/
+* Delete the user
+**/
   describe('Should Delete User', function() {
     it("should delete user", function *() {
       yield request(strapi.config.url)
@@ -143,8 +137,8 @@ var Token, user ,notify_id;
       .expect(200)
       .expect('Content-Type', /json/)
       .then((data, err) => {
-        if(data.error)
-          throw data.error;
+       if(data.error)
+         throw data.error;
       });
     });
   });
