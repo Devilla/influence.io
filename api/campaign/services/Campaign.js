@@ -157,13 +157,14 @@ module.exports = {
       .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
+
 	/**
    * Promise to fetch a campaign with Tracking Id.
    *
    * @return {Promise}
    */
 
-  fetchTrackingId: (params) => {		
+  fetchTrackingId: (params) => {
 		return Campaign
       .findOne(
 				{
@@ -184,7 +185,6 @@ module.exports = {
    *
    * @return {Promise}
    */
-
   add: async (values) => {
 		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
 		values.isActive = true;
