@@ -165,8 +165,7 @@ module.exports = {
 
   fetchTrackingId: (params) => {
 		let params = params?params.trackingId:null;
-		if(params && params.charAt(0) === '$')
-			params = params.substr(1);
+		
 		return Campaign
       .findOne(
 				{
