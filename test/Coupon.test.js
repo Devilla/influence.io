@@ -34,123 +34,116 @@ describe('user sign up test to enter coupon', () => {
     });
   });
 
-/*
- * Test the login user
- */
-describe('user login test to enter coupon', () => {
-    it('should have Logged User', function *() {
+
+/**
+  * Add the coupon
+  **/
+   describe('add coupon test',function(){
+    it('should have created the  coupon', function *() {
       yield request(strapi.config.url)
-        .post('/auth/local')
-        .send({
-         identifier: email,
-         password: password
-        })
-       .expect(200)
-       .expect('Content-Type', /json/)
-       .then((res) => {
-         if(!res)
-          throw { message: "test failed", error: true };
-         Token = res.body.jwt;
-         user = res.body.user;
+      .post('/coupon')
+      .set('Authorization', `Bearer ${Token}`)
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .send({
+        type: 'demo',
+        discount: 10,
+        active: true,
+        code: 'TESTING'
+      })
+      .expect(201)
+      .expect('Content-Type', /json/)
+      .then((res,err) => {
+        if(res.err)
+            throw res.err;
+        coupon_id = res.body;
       });
-    })
+    });
   });
 
 
-  /*
-   * Add the coupon 
-   */
- describe('add coupon test',function(){
-  it('should have created the  coupon', function *() {
+
+/**
+  * Update  the coupon
+  **/
+  describe('Update  coupon test',function(){
+    it('should have updated the  coupon', function *() {
       yield request(strapi.config.url)
-        .post('/coupon')
-        .set('Authorization', `Bearer ${Token}`)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .send({
-          type: 'demo',
-          discount: 10,
-          active: true,
-          code: 'TESTING'
-        })
-        .expect(201)
-        .expect('Content-Type', /json/)
-        .then((res,err) => {
-          if(res.err)
-              throw res.err;
-          coupon_id = res.body;
-        });
+      .put(`/coupon/${coupon_id._id}`)
+      .set('Authorization', `Bearer ${Token}`)
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .send({
+        type: 'fakeworld',
+        discount: 10,
+        active: true,
+        code: 'Helloworld10'
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then((res,err) => {
+        if(res.err)
+            throw res.err;
+
       });
-   });
+    });
+  });
 
 
 
   /*
-   * Update  the coupon 
-   */
- describe('Update  coupon test',function(){
-  it('should have updated the  coupon', function *() {
-      yield request(strapi.config.url)
-        .put(`/coupon/${coupon_id._id}`)
-        .set('Authorization', `Bearer ${Token}`)
-        .set('Content-Type', 'application/json')
-        .set('Accept', 'application/json')
-        .send({
-          type: 'fakeworld',
-          discount: 10,
-          active: true,
-          code: 'Helloworld10'
-        })
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .then((res,err) => {
-          if(res.err)
-              throw res.err;
-          
-        });
-      });
-   });
-
-
-   
-  /*
-   * Fetch the coupon 
+   * Fetch the coupon
    */
 
  describe('user should get coupon test',function(){
     it('should have find the  coupon', function *() {
-        yield request(strapi.config.url)
-          .get('/coupon')
-          .set('Authorization', `Bearer ${Token}`)
-          .expect(200)
-          .then((res) => {
-            if(!res)
-                throw err;
-            else
-               expect(res.body[0].code).to.be.a('string');
-          });
-        });
-     });
+      yield request(strapi.config.url)
+      .get('/coupon')
+      .set('Authorization', `Bearer ${Token}`)
+      .expect(200)
+      .then((res) => {
+        if(!res)
+            throw err;
+        else
+           expect(res.body[0].code).to.be.a('string');
+      });
+    });
+  });
 
+/**
+  * delete  the coupon
+  **/
 
-
-  /*
-   * delete  the coupon 
-   */
-  
   describe('Delete coupon test',function(){
     it('should have deleted  the  coupon', function *() {
-        yield request(strapi.config.url)
-          .delete(`/coupon/${coupon_id._id}`)
-          .set('Authorization', `Bearer ${Token}`)
-          .set('Content-Type', 'application/json')
-          .set('Accept', 'application/json')
-          .expect(200)
-          .expect('Content-Type', /json/)
-          .then((res,err) => {
-            if(res.err)
-                throw res.err;
-            
-          });
-        });
-     });
+      yield request(strapi.config.url)
+      .delete(`/coupon/${coupon_id._id}`)
+      .set('Authorization', `Bearer ${Token}`)
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then((res,err) => {
+        if(res.err)
+          throw res.err;
+      });
+    });
+  });
+
+/**
+* Delete the user
+**/
+  describe('Should Delete User', function() {
+    it("should delete user", function *() {
+      yield request(strapi.config.url)
+      .delete(`/user/${user._id}`)
+      .set('Authorization', `Bearer ${Token}`)
+      .set('Accept', 'application/json')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then((data, err) => {
+       if(data.error)
+         throw data.error;
+      });
+    });
+  });

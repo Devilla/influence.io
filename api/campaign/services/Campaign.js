@@ -410,7 +410,6 @@ module.exports = {
 					}
 
           Configuration.create(newConfiguration, (err, result) => {
-						console.log(result);
             if(err)
               return err;
           });

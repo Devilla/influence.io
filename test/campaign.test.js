@@ -34,19 +34,14 @@ var Token, profile, user, campaign;
   });
 
 /**
-  * Create User profile
-  **/
-  describe('create user profile', () => {
-    it('it should create user`s profile', function *() {
+ * Test Get User Profile
+ **/
+  describe('find user`s profile test', () => {
+    it('it should get user`s profile', function *() {
       yield request(strapi.config.url)
-      .post('/profile')
+      .get(`/profile`)
       .set('Authorization', `Bearer ${Token}`)
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json')
-      .send({
-        user: user._id
-      })
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /json/)
       .then((data, err) => {
         if(data.error)

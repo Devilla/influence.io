@@ -313,12 +313,12 @@ module.exports = {
       const createProfile = await strapi.services.profile.add(userProfile);
       // Send verification mail to user
       // TODO: Update verification link and token generation technique
-      try {
-        const mailResponse = await strapi.controllers.mail.registered(user.email, jwt);
-        strapi.log.info(mailResponse);
-      } catch(err) {
-        strapi.log.error(err);
-      }
+      // try {
+      //   const mailResponse = await strapi.controllers.mail.registered(user.email, jwt);
+      //   strapi.log.info(mailResponse);
+      // } catch(err) {
+      //   strapi.log.error(err);
+      // }
 
       ctx.send({
         user: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken']),

@@ -12,7 +12,7 @@ const password = uuid();
 var Token, user, rules;
 
 /**
- * Test the login user
+ * Test the user sign up
  **/
   describe('user sign up test', () => {
     it('it should sign user', function *() {
