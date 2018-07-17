@@ -33,9 +33,9 @@ describe('Should Return coupon Data', function() {
         uniqueUsers:12
       }
         coupon.fetchAll(params).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
 
       });
     });
@@ -51,9 +51,9 @@ describe('Should Return coupon Data', function() {
         uniqueUsers:12
       }
         coupon.fetchCode(params).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
 
       });
     });
@@ -69,9 +69,9 @@ describe('Should Return coupon Data', function() {
         uniqueUsers:12
       }
         coupon.fetch(params).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
 
       });
     });
@@ -91,11 +91,11 @@ describe('Should Edit coupon Data', function() {
         email:"raman.parashar.dce@gmail.com"
       };
         coupon.edit(params,values).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
-         expect(data.name).to.notequal(null);
-         expect(data.email).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
+         expect(data.name).to.not.equal(null);
+         expect(data.email).to.not.equal(null);
         });
     });
   });
@@ -110,9 +110,9 @@ describe('Should Edit coupon Data', function() {
         uniqueUsers:12
       };
         coupon.remove(params).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
         });
     });
   });
