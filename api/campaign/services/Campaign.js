@@ -163,13 +163,11 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchTrackingId: (params) => {
-		let params = params?params.trackingId:null;
-		
+  fetchTrackingId: (params) => {		
 		return Campaign
       .findOne(
 				{
-					trackingId: params
+					trackingId: params?params.trackingId:null
 				},
 				{
 					isActive: 1,
