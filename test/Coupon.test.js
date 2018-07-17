@@ -10,7 +10,7 @@ const coupon = require('../api/coupon/services/Coupon');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, user ,coupon_id;
+var Token, user, coupon_id;
 
 /**
  * Test the signup user

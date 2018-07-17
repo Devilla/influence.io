@@ -18,7 +18,7 @@ function doRequest(options) {
       if (!error && res.statusCode == 200 || (response && !response.error)) {
         resolve(body);
       } else {
-        reject(response.error);
+        reject(error || (response && response.error?response.error:''));
       }
     });
   });
