@@ -33,9 +33,9 @@ describe('Should Return code Data', function() {
         uniqueUsers:12
       }
         code.fetchAll(params).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
 
       });
     });
@@ -51,9 +51,9 @@ describe('Should Return code Data', function() {
         uniqueUsers:12
       }
         code.fetch(params).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
 
       });
     });
@@ -73,11 +73,11 @@ describe('Should Edit code Data', function() {
         email:"raman.parashar.dce@gmail.com"
       };
         code.edit(params,values).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
-         expect(data.name).to.notequal(null);
-         expect(data.email).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
+         expect(data.name).to.not.equal(null);
+         expect(data.email).to.not.equal(null);
         });
     });
   });
@@ -92,9 +92,9 @@ describe('Should Edit code Data', function() {
         uniqueUsers:12
       };
         code.remove(params).then(function (data) {
-         expect(data.websiteLive).to.notequal(null);
-         expect(data.notificationCount).to.notequal(null);
-         expect(data.uniqueUsers).to.notequal(null);
+         expect(data.websiteLive).to.not.equal(null);
+         expect(data.notificationCount).to.not.equal(null);
+         expect(data.uniqueUsers).to.not.equal(null);
         });
     });
   });
