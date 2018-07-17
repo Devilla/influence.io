@@ -164,10 +164,13 @@ module.exports = {
    */
 
   fetchTrackingId: (params) => {
-    return Campaign
+		let params = params?params.trackingId:null;
+		if(params && params.charAt(0) === '$')
+			params = params.substr(1);
+		return Campaign
       .findOne(
 				{
-					trackingId: params?params.trackingId:null
+					trackingId: params
 				},
 				{
 					isActive: 1,
