@@ -84,7 +84,7 @@ var Token, user, notify_id;
 
 
 /**
-  * Update  the Notification Path
+  * Update the Notification Path
   **/
   describe('Update  notification Path',function(){
     it('should have updated the Path', function *() {
@@ -130,7 +130,7 @@ var Token, user, notify_id;
   });
 
 /**
-* Delete the user
+* Delete the User
 **/
   describe('Should Delete User', function() {
     it("should delete user", function *() {

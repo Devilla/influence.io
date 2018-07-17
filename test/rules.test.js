@@ -87,7 +87,7 @@ var Token, user, rules;
   });
 
 /**
- * Test Get One Campaigns
+ * Test Get One Rule
  **/
   describe('find one rule test', () => {
     it('it should get one rule', function *() {
@@ -104,7 +104,7 @@ var Token, user, rules;
   });
 
 /**
- * Test Edit Campaign
+ * Test Edit Rule
  **/
   describe('rules update test', () => {
     it('it should update rules', function *() {
@@ -128,7 +128,7 @@ var Token, user, rules;
   });
 
 /**
-  * Test Delete Campaign
+  * Test Delete Rule
   **/
   describe('rules deletion test', () => {
     it('it should delete rules', function *() {
@@ -147,7 +147,7 @@ var Token, user, rules;
   });
 
 /**
-  * Delete the user
+  * Delete the User
   **/
   describe('Should Delete User', function() {
     it("should delete user", function *() {

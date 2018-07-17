@@ -35,7 +35,7 @@ var Token, profile, user, plan;
   });
 
 /**
- * Test Get User Campaigns
+ * Test Get User Plans
  **/
   describe('find all user`s plan test', () => {
     it('it should get all user`s plan', function *() {
@@ -53,7 +53,7 @@ var Token, profile, user, plan;
   });
 
 /**
- * Test Get One Campaigns
+ * Test Get One Plan
  **/
   describe('find one plan test', () => {
     it('it should get one rule', function *() {

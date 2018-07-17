@@ -62,7 +62,6 @@ describe('user sign up test to enter coupon', () => {
   });
 
 
-
 /**
   * Update  the coupon
   **/
@@ -89,13 +88,10 @@ describe('user sign up test to enter coupon', () => {
     });
   });
 
-
-
-  /*
-   * Fetch the coupon
-   */
-
- describe('user should get coupon test',function(){
+/**
+  * Fetch the coupon
+  **/
+  describe('user should get coupon test',function(){
     it('should have find the  coupon', function *() {
       yield request(strapi.config.url)
       .get('/coupon')
