@@ -220,7 +220,7 @@ module.exports = {
           newConfiguration['notificationType'] = notification._id;
 					if(notification.notificationName == 'Bulk Activity') {
 						newConfiguration['panelStyle'] = {
-					    "radius" : 7,
+					    "radius" : 3,
 					    "borderWidth" : 0,
 					    "borderColor" : {
 					      "r" : 200,
@@ -264,7 +264,7 @@ module.exports = {
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
 						newConfiguration['contentText'] = 'Company';
 					}
-					 if(notification.notificationName == 'Recent Activity') {
+					if(notification.notificationName == 'Recent Activity') {
 						newConfiguration['panelStyle'] = {
 					    "radius" : 50,
 					    "borderWidth" : 0,
@@ -315,7 +315,7 @@ module.exports = {
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 0, "b" : 0, "a" : 0 },
 						newConfiguration['contentText'] = 'Company Name';
 					}
-					 if(notification.notificationName == 'Live Visitor Count') {
+					if(notification.notificationName == 'Live Visitor Count') {
 						newConfiguration['panelStyle'] = {
 					    "radius" : 50,
 					    "borderWidth" : 0,
@@ -359,7 +359,54 @@ module.exports = {
 							liveVisitorCount: 0
 					  };
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
-						newConfiguration['contentText'] = 'Company';
+						newConfiguration['contentText'] = 'Influence';
+					}
+					if(notification.notificationName == 'Review Notification') {
+						newConfiguration['panelStyle'] = {
+					    "radius" : 50,
+					    "borderWidth" : 0,
+					    "borderColor" : {
+					      "r" : 200,
+					      "g" : 200,
+					      "b" : 200,
+					      "a" : 0.80
+					    },
+					    "shadow" : {
+						    r: 0,
+						    g: 0,
+						    b: 0,
+						    color: 'lightgrey'
+						  },
+					    "blur" : 0,
+					    "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+							"linkColor": {
+						    "r": 0,
+						    "g": 137,
+						    "b": 216,
+						    "a": 1
+						  },
+					    "backgroundColor" : {
+					      "r" : 255,
+					      "g" : 255,
+					      "b" : 255,
+					      "a" : 1
+					    },
+					    "fontFamily" : "inherit",
+					    "fontWeight" : "normal",
+							"linkFontFamily": "inherit",
+						  "linkFontWeight": "normal",
+							"selectDurationData": "hours",
+						  "selectLastDisplayConversation": "hours",
+							"bulkData" : 5,
+						  "recentNumber" : 5,
+						  "recentConv" : 5,
+						  "hideAnonymousConversion" : true,
+						  "onlyDisplayNotification" : false,
+							liveVisitorCount: 0
+					  };
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+						newConfiguration['visitorText'] = 'marketor';
+						newConfiguration['contentText'] = 'Us';
 					}
 
           Configuration.create(newConfiguration, (err, result) => {
@@ -389,8 +436,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    // await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
-    return Campaign.update(params, values, { upsert:false, multi: true });
+    return Campaign.findOneAndUpdate(params, values, { upsert: false, multi: true, new: true }).populate('webhooks').populate('profile');
   },
 
   /**

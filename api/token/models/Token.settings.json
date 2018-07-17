@@ -1,0 +1,26 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "token",
+    "description": "Oauth token generation"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "value": {
+      "type": "string",
+      "multiple": false
+    },
+    "clientId": {
+      "type": "string",
+      "multiple": false
+    },
+    "userId": {
+      "model": "user",
+      "via": "token",
+      "plugin": "users-permissions"
+    }
+  }
+}

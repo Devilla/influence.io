@@ -1,9 +1,7 @@
 'use strict';
 
-const uuidv1 = require('uuid/v1');
-
 /**
- * Lifecycle callbacks for the `Webhooks` model.
+ * Lifecycle callbacks for the `Code` model.
  */
 
 module.exports = {
@@ -32,10 +30,7 @@ module.exports = {
 
   // Before creating a value.
   // Fired before `insert` query.
-  beforeCreate: async (model) => {
-    model.secretId = uuidv1();
-    model.endpoint = `https://strapi.useinfluence.co/webhooks/custom/${model.trackingId}/${model.secretId}`;
-  }
+  // beforeCreate: async (model) => {},
 
   // After creating a value.
   // Fired after `insert` query.

@@ -26,11 +26,19 @@
       "type": "string",
       "multiple": false
     },
+    "city": {
+      "type": "string",
+      "multiple": false
+    },
     "state": {
       "type": "string",
       "multiple": false
     },
     "address": {
+      "type": "text",
+      "multiple": false
+    },
+    "country": {
       "type": "text",
       "multiple": false
     },
@@ -60,6 +68,10 @@
     },
     "uniqueVisitorsQoutaLeft": {
       "type": "integer",
+      "multiple": false
+    },
+    "image": {
+      "type": "string",
       "multiple": false
     }
   }

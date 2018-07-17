@@ -141,7 +141,7 @@ module.exports = {
     let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
     plan["client_id"] = user.servicebot.client_id;
 
-    if(Object.keys(values.coupon).length === 0) {
+    if(values.coupon && Object.keys(values.coupon).length === 0) {
       token = values.paymentProvider.id;
       plan["token_id"] = token;
     }
@@ -188,6 +188,15 @@ module.exports = {
     };
     await Plan.create(plan_value);
     const data = await Payment.create(payment_values);
+    if(data) {
+      const userParams = {
+        id: user._id
+      };
+      const userValues = {
+        path: '/dashboard'
+      };
+      const userUpdate = strapi.plugins['users-permissions'].services.user.edit(userParams, userValues);
+    }
     return data;
   },
 

@@ -21,12 +21,8 @@
       "type": "string",
       "multiple": false
     },
-    "utmSource": {
-      "type": "string",
-      "multiple": false
-    },
-    "utmMedium": {
-      "type": "string",
+    "averageCustomer": {
+      "type": "integer",
       "multiple": false
     },
     "trackingId": {
@@ -58,6 +54,9 @@
     "uniqueVisitors": {
       "type": "integer",
       "multiple": false
+    },
+    "webhooks": {
+      "model": "webhooks"
     }
   }
 }
