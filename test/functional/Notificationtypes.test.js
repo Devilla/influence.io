@@ -12,12 +12,10 @@
 //   describe('#notificationtypes-add()', function() {
 //     it('should return data when the value is passed', function() {
 //       let values = {
-//         name:'Raman Parashar',
-//         email:"raman.parashar.dce@gmail.com"
+//          _id:'5b3b49c8341d70505653d750'
 //       };
 //         notificationtypes.add(values).then(function (data) {
-//          expect(data.name).to.equal('Raman Parashar');
-//          expect(data.email).to.equal('raman.parashar.dce@gmail.com');
+//          expect(data).to.equal(null);
 //       });
 //     });
 //   });

@@ -11,13 +11,11 @@
 // describe('Should Return configuration Data', function() {
 //   describe('#configuration-add()', function() {
 //     it('should return data when the value is passed', function() {
-//       let values = {
-//         name:'Raman Parashar',
-//         email:"raman.parashar.dce@gmail.com"
-//       };
-//         configuration.add(values).then(function (data) {
-//          expect(data.name).to.equal('Raman Parashar');
-//          expect(data.email).to.equal('raman.parashar.dce@gmail.com');
+//       let body = {
+//                _id:'5b3b49c8341d70505653d750'
+//              }
+//         configuration.add(body).then(function (data) {
+//          expect(data  ).to.not.equal(null);
 //       });
 //     });
 //   });

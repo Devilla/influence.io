@@ -12,12 +12,10 @@
 //   describe('#notificationpath-add()', function() {
 //     it('should return data when the value is passed', function() {
 //       let values = {
-//         name:'Raman Parashar',
-//         email:"raman.parashar.dce@gmail.com"
+//         _id:'5b3b49c8341d70505653d750'
 //       };
 //         notificationpath.add(values).then(function (data) {
-//          expect(data.name).to.equal('Raman Parashar');
-//          expect(data.email).to.equal('raman.parashar.dce@gmail.com');
+//          expect(data).to.equal(null);
 //       });
 //     });
 //   });
@@ -27,16 +25,11 @@
 // describe('Should Return notificationpath Data', function() {
 //   describe('#fetchAll()', function() {
 //     it('should return data when the value is passed', function() {
-//       let params = {
-//         websiteLive:'Useinfluence.co',
-//         notificationCount:34,
-//         uniqueUsers:12
-//       }
-//         notificationpath.fetchAll(params).then(function (data) {
-//          expect(data.websiteLive).to.not.equal(null);
-//          expect(data.notificationCount).to.not.equal(null);
-//          expect(data.uniqueUsers).to.not.equal(null);
-//
+//       let values = {
+//               _id:'5b3b49c8341d70505653d750'
+//             };
+//         notificationpath.fetchAll(values).then(function (data) {
+//          expect(data).to.not.equal(null);
 //       });
 //     });
 //   });

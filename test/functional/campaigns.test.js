@@ -53,12 +53,15 @@
 // describe('Should Edit Campaign Data', function() {
 //   describe('#edit()', function() {
 //     it('should return data when the value is passed', function() {
-//       let profile = {
+//       let body = {
 //         _id:'5b3b49c8341d70505653d750'
 //       }
-//         campaign.edit(profile._id).then(function (data) {
-//          expect(data).to.not.equal(null);
+//         try{campaign.edit(body).then(function (data) {
+//          expect(data).to.equal(null);
 //         });
+//       }catch(err){
+//         console.log(err);
+//       }
 //     });
 //   });
 // });
