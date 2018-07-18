@@ -8,6 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
+const mongoose = require('mongoose');
 
 module.exports = {
 
@@ -63,7 +64,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('client', _.merge(_.clone(params), { values }));
+    await mongoose.manageRelations('client', _.merge(_.clone(params), { values }));
     return Client.update(params, values, { multi: true });
   },
 
