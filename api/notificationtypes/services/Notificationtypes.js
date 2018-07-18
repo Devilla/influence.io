@@ -102,9 +102,15 @@ module.exports = {
    * @return {Promise}
    */
 
-  add: async (values) => {
+  add: async function (values){
+    try{
     const data = await Notificationtypes.create(_.omit(values, _.keys(_.groupBy(strapi.models.notificationtypes.associations, 'alias'))));
     await strapi.hook.mongoose.manageRelations('notificationtypes', _.merge(_.clone(data), { values }));
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
     return data;
   },
 
