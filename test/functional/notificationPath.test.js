@@ -12,7 +12,7 @@ describe('Should Return notificationpath Data', function() {
   describe('#notificationpath-add()', function() {
     it('should return data when the value is passed', function() {
       let values = {
-        _id:'5b3b49c8341d70505653d750'
+        id:'5b3b49c8341d70505653d750'
       };
         notificationpath.add(values).then(function (data) {
          expect(data).to.equal(null);
@@ -26,7 +26,7 @@ describe('Should Return notificationpath Data', function() {
   describe('#fetchAll()', function() {
     it('should return data when the value is passed', function() {
       let values = {
-              _id:'5b3b49c8341d70505653d750'
+              id:'5b3b49c8341d70505653d750'
             };
         notificationpath.fetchAll(values).then(function (data) {
          expect(data).to.not.equal(null);

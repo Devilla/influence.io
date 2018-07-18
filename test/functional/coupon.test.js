@@ -12,7 +12,7 @@ describe('Should Return coupon Data', function() {
   describe('#coupon-add()', function() {
     it('should return data when the value is passed', function() {
       let values = {
-        _id:'5b3b49c8341d70505653d750'
+        id:'5b3b49c8341d70505653d750'
       };
         coupon.add(values).then(function (data) {
          expect(data).to.not.equal(null);

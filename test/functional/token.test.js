@@ -12,12 +12,13 @@ describe('Should Return token Data', function() {
   describe('#token-add()', function() {
     it('should return data when the value is passed', function() {
       let values = {
+        id:'5b3b49c8341d70505653d750',
         name:'Raman Parashar',
         email:"raman.parashar.dce@gmail.com"
       };
         token.add(values).then(function (data) {
-         expect(data.name).to.equal('Raman Parashar');
-         expect(data.email).to.equal('raman.parashar.dce@gmail.com');
+         expect(data.name).not.to.equal(null);
+         expect(data.email).not.to.equal(null);
       });
     });
   });
@@ -28,6 +29,7 @@ describe('Should Return token Data', function() {
   describe('#fetchAll()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
@@ -36,7 +38,6 @@ describe('Should Return token Data', function() {
          expect(data.websiteLive).to.not.equal(null);
          expect(data.notificationCount).to.not.equal(null);
          expect(data.uniqueUsers).to.not.equal(null);
-
       });
     });
   });
@@ -46,6 +47,7 @@ describe('Should Return token Data', function() {
   describe('#fetch()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
@@ -69,6 +71,7 @@ describe('Should Edit token Data', function() {
         uniqueUsers:12
       };
       let values = {
+        id:'5b3b49c8341d70505653d750',
         name:'Raman Parashar',
         email:"raman.parashar.dce@gmail.com"
       };
@@ -87,6 +90,7 @@ describe('Should Edit token Data', function() {
   describe('#remove()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12

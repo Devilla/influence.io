@@ -12,11 +12,10 @@ describe('Should Return webhooks Data', function() {
   describe('#webhooks-add()', function() {
     it('should return data when the value is passed', function() {
       let values = {
-        name:'Raman Parashar',
-        email:"raman.parashar.dce@gmail.com"
+        id:'5b3b49c8341d70505653d750',
       };
         webhooks.add(values).then(function (data) {
-         expect(data.name).to.not.equal(null);
+         expect(data).to.not.equal(null);
       });
     });
   });
@@ -27,14 +26,12 @@ describe('Should Return webhooks Data', function() {
   describe('#fetchAll()', function() {
     it('should return data when the value is passed', function() {
       let params = {
-        websiteLive:'Useinfluence.co',
-        notificationCount:34,
-        uniqueUsers:12
+        id:'5b3b49c8341d70505653d750',
+        name:'Raman Parashar',
+        email:"raman.parashar.dce@gmail.com"
       }
         webhooks.fetchAll(params).then(function (data) {
-         expect(data.websiteLive).to.not.equal(null);
-         expect(data.notificationCount).to.not.equal(null);
-         expect(data.uniqueUsers).to.not.equal(null);
+         expect(data).to.not.equal(null);
 
       });
     });
@@ -45,6 +42,7 @@ describe('Should Return webhooks Data', function() {
   describe('#log()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
@@ -63,6 +61,7 @@ describe('Should Return webhooks Data', function() {
   describe('#fetch()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
@@ -81,11 +80,13 @@ describe('Should Edit webhooks Data', function() {
   describe('#edit()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
       };
       let values = {
+        id:'5b3b49c8341d70505653d750',
         name:'Raman Parashar',
         email:"raman.parashar.dce@gmail.com"
       };
@@ -104,6 +105,7 @@ describe('Should Edit webhooks Data', function() {
   describe('#remove()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12

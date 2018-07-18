@@ -12,8 +12,8 @@ describe('Should Return payment Data', function() {
   describe('#payment-add()', function() {
     it('should return data when the value is passed', function() {
       let user = {
-        name:'Raman Parashar',
-        _id:'5b3b49c8341d70505653d750'
+          id:'5b3b49c8341d70505653d750',
+        name:'Raman Parashar'
       };
       body = {
         email:"raman.parashar.dce@gmail.com"
@@ -30,6 +30,7 @@ describe('Should Return payment Data', function() {
   describe('#fetchAll()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
@@ -48,6 +49,7 @@ describe('Should Return payment Data', function() {
   describe('#fetchAllpayment()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
@@ -66,6 +68,7 @@ describe('Should Return payment Data', function() {
   describe('#fetchAllPlanPayments()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
@@ -84,6 +87,7 @@ describe('Should Return payment Data', function() {
   describe('#fetch()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12
@@ -102,8 +106,9 @@ describe('Should Edit payment Data', function() {
   describe('#edit()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         name:'Raman Parashar',
-        _id:'5b3b49c8341d70505653d750'
+        id:'5b3b49c8341d70505653d750'
       };
       body = {
         email:"raman.parashar.dce@gmail.com"
@@ -119,6 +124,7 @@ describe('Should Remove payment Data', function() {
   describe('#remove()', function() {
     it('should return data when the value is passed', function() {
       let params = {
+        id:'5b3b49c8341d70505653d750',
         websiteLive:'Useinfluence.co',
         notificationCount:34,
         uniqueUsers:12

@@ -12,12 +12,12 @@ describe('Should Return code Data', function() {
   describe('#code-add()', function() {
     it('should return data when the value is passed', function() {
       let values = {
+        id:'5b3b49c83ee41d70505653d750',
         name:'Raman Parashar',
         email:"raman.parashar.dce@gmail.com"
       };
         code.add(values).then(function (data) {
-         expect(data.name).to.equal('Raman Parashar');
-         expect(data.email).to.equal('raman.parashar.dce@gmail.com');
+         expect(data.name).to.not.equal(null);
       });
     });
   });
