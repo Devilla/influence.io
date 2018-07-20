@@ -64,7 +64,7 @@ module.exports = {
     });
   },
 
-  notification: async (index, trackingId, type) => {
+  notification: async (index, trackingId, type, limit) => {
     var query;
 
     const rule = await Campaign.findOne(
@@ -207,7 +207,16 @@ module.exports = {
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
-                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`, "lt" :  "now+1d" }}},
+                  { "range":
+                    { "@timestamp":
+                      { "gte": limit?
+                          `now-365d`
+                        :
+                          `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
+                        "lt" :  "now+1d"
+                      }
+                    }
+                  },
                   { "exists" : { "field" : "json.value.form.email" }}
                 ]
               }
@@ -358,7 +367,14 @@ module.exports = {
           "bool": {
             "must": [
               { "match": { "json.value.trackingId":  trackingId }},
-              { "range": { "@timestamp": { "gte": moment().startOf('week'), "lt" : moment().endOf('week') }}},
+              {
+                "range": {
+                  "@timestamp": {
+                    "gte": 'now-30d',
+                    "lt" : moment().endOf('week')
+                  }
+                }
+              },
             ]
           }
         },

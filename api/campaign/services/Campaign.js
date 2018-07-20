@@ -90,7 +90,7 @@ let getUniqueUsers = async function(index, trackingId, callback) {
 
 let getSignUps = async function(index, trackingId, type, callback) {
   try {
-    await strapi.services.elasticsearch.notification(index, trackingId, type).then(res=>{
+    await strapi.services.elasticsearch.notification(index, trackingId, type, true).then(res=>{
       callback(null, res);
     });
   } catch(err) {
