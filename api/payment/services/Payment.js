@@ -137,11 +137,12 @@ module.exports = {
   add: async (user, values) => {
     let token;
     let plan = values.plan;
+    let coupon = value.coupon;
     let payment_subscription;
     let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
     plan["client_id"] = user.servicebot.client_id;
-    console.log(value.coupon, '=============coupon value');
-    if(!values.coupon || Object.keys(values.coupon).length === 0) {
+    console.log(coupon, '=============coupon value');
+    if(!coupon || Object.keys(coupon).length === 0) {
       token = values.paymentProvider.id;
       plan["token_id"] = token;
     }
@@ -181,7 +182,7 @@ module.exports = {
     };
     const plan_value = {
       user: user._id,
-      coupon_details: values.coupon,
+      coupon_details: coupon,
       plan_details: payment_subscription.payment_plan,
       subscribed_at: payment_subscription.subscribed_at,
       servicebot_user_id: payment_subscription.user_id
