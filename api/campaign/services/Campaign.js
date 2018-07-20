@@ -361,53 +361,53 @@ module.exports = {
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
 						newConfiguration['contentText'] = 'Influence';
 					}
-					if(notification.notificationName == 'Review Notification') {
-						newConfiguration['panelStyle'] = {
-					    "radius" : 50,
-					    "borderWidth" : 0,
-					    "borderColor" : {
-					      "r" : 200,
-					      "g" : 200,
-					      "b" : 200,
-					      "a" : 0.80
-					    },
-					    "shadow" : {
-						    r: 0,
-						    g: 0,
-						    b: 0,
-						    color: 'lightgrey'
-						  },
-					    "blur" : 0,
-					    "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
-							"linkColor": {
-						    "r": 0,
-						    "g": 137,
-						    "b": 216,
-						    "a": 1
-						  },
-					    "backgroundColor" : {
-					      "r" : 255,
-					      "g" : 255,
-					      "b" : 255,
-					      "a" : 1
-					    },
-					    "fontFamily" : "inherit",
-					    "fontWeight" : "normal",
-							"linkFontFamily": "inherit",
-						  "linkFontWeight": "normal",
-							"selectDurationData": "hours",
-						  "selectLastDisplayConversation": "hours",
-							"bulkData" : 5,
-						  "recentNumber" : 5,
-						  "recentConv" : 5,
-						  "hideAnonymousConversion" : true,
-						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0
-					  };
-						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
-						newConfiguration['visitorText'] = 'marketor';
-						newConfiguration['contentText'] = 'Us';
-					}
+					// if(notification.notificationName == 'Review Notification') {
+					// 	newConfiguration['panelStyle'] = {
+					//     "radius" : 50,
+					//     "borderWidth" : 0,
+					//     "borderColor" : {
+					//       "r" : 200,
+					//       "g" : 200,
+					//       "b" : 200,
+					//       "a" : 0.80
+					//     },
+					//     "shadow" : {
+					// 	    r: 0,
+					// 	    g: 0,
+					// 	    b: 0,
+					// 	    color: 'lightgrey'
+					// 	  },
+					//     "blur" : 0,
+					//     "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+					// 		"linkColor": {
+					// 	    "r": 0,
+					// 	    "g": 137,
+					// 	    "b": 216,
+					// 	    "a": 1
+					// 	  },
+					//     "backgroundColor" : {
+					//       "r" : 255,
+					//       "g" : 255,
+					//       "b" : 255,
+					//       "a" : 1
+					//     },
+					//     "fontFamily" : "inherit",
+					//     "fontWeight" : "normal",
+					// 		"linkFontFamily": "inherit",
+					// 	  "linkFontWeight": "normal",
+					// 		"selectDurationData": "hours",
+					// 	  "selectLastDisplayConversation": "hours",
+					// 		"bulkData" : 5,
+					// 	  "recentNumber" : 5,
+					// 	  "recentConv" : 5,
+					// 	  "hideAnonymousConversion" : true,
+					// 	  "onlyDisplayNotification" : false,
+					// 		liveVisitorCount: 0
+					//   };
+					// 	// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+					// 	newConfiguration['visitorText'] = 'marketor';
+					// 	newConfiguration['contentText'] = 'Us';
+					// }
 
           Configuration.create(newConfiguration, (err, result) => {
 						console.log(result);
