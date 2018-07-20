@@ -1,11 +1,11 @@
-/*
-Test picasaWeb and Gravatar
-  @type {"assert".internal | ((value: any, message?: string) => void)}
+/**
+ *
+ * @type {"assert".internal | ((value: any, message?: string) => void)}
  */
 
-// let chai = require('chai');
-// let expect = chai.expect;
-// const websocket = require('../../api/websocket/services/Websocket');
+let chai = require('chai');
+let expect = chai.expect;
+const websocket = require('../../api/websocket/services/Websocket');
 
 
 // describe('Should Return websocket Data', function() {
@@ -13,27 +13,26 @@ Test picasaWeb and Gravatar
 //     it('should return data when the value is passed', function() {
 //       let logs = 'test_string';
 //         websocket.log(logs).then(function (data) {
-//          expect(data).to.equal('test_string');
+//          expect(data).to.not.equal(null);
 //
 //       });
 //     });
 //   });
 // });
-//
-// describe('Should Return websocket Data', function() {
-//   describe('#health()', function() {
-//     it('should return data when the value is passed', function() {
-//       let params = {
-//         websiteLive:'Useinfluence.co',
-//         notificationCount:34,
-//         uniqueUsers:12
-//       }
-//         websocket.health(params).then(function (data) {
-//          expect(data.websiteLive).to.not.equal(null);
-//          expect(data.notificationCount).to.not.equal(null);
-//          expect(data.uniqueUsers).to.not.equal(null);
-//
-//       });
-//     });
-//   });
-// });
+
+describe('Should Return websocket Data', function() {
+  describe('#health()', function() {
+    it('should return data when the value is passed', function() {
+      let params = {
+        id:'5b3b49c8341d70505653d750',
+        websiteLive:'Useinfluence.co',
+        notificationCount:34,
+        uniqueUsers:12
+      }
+        const data= websocket.health(params);
+         expect(data).to.not.equal(null);
+
+
+    });
+  });
+});
