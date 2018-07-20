@@ -64,7 +64,7 @@ module.exports = {
       }
 
       if(user.provider && user.provider != 'local' && (user.password == 'password' || user.password == 'mySecretPasswordInPlace')) {
-        return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.password.local' }] }] : `<div>${user.provider.replace(/^\w/, c => c.toUpperCase())} Account, use <a href="/forget-password">forget password</a> to set new password.</div>`);
+        return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.password.local' }] }] : `<div>${user.provider.replace(/^\w/, c => c.toUpperCase())} Account, use <a href="/forget-password">forgot password</a> to set new password.</div>`);
       }
 
       const validPassword = strapi.plugins['users-permissions'].services.user.validatePassword(params.password, user.password);
