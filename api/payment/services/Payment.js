@@ -140,8 +140,8 @@ module.exports = {
     let payment_subscription;
     let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
     plan["client_id"] = user.servicebot.client_id;
-
-    if(values.coupon && Object.keys(values.coupon).length === 0) {
+    console.log(value.coupon, '=============coupon value');
+    if(!values.coupon || Object.keys(values.coupon).length === 0) {
       token = values.paymentProvider.id;
       plan["token_id"] = token;
     }
