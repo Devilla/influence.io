@@ -370,7 +370,7 @@ module.exports = {
               {
                 "range": {
                   "@timestamp": {
-                    "gte": 'now-30d',
+                    "gte": 'now-365d',
                     "lt" : moment().endOf('week')
                   }
                 }
