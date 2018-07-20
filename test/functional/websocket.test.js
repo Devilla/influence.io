@@ -8,17 +8,15 @@ let expect = chai.expect;
 const websocket = require('../../api/websocket/services/Websocket');
 
 
-// describe('Should Return websocket Data', function() {
-//   describe('#log()', function() {
-//     it('should return data when the value is passed', function() {
-//       let logs = 'test_string';
-//         websocket.log(logs).then(function (data) {
-//          expect(data).to.not.equal(null);
-//
-//       });
-//     });
-//   });
-// });
+describe('Should Return websocket Data', function() {
+  describe('#log()', function() {
+    it('should return data when the value is passed', function() {
+      let logs = 'test_string';
+      const data =  websocket.log(logs);
+         expect(data).to.not.equal(null);
+    });
+  });
+});
 
 describe('Should Return websocket Data', function() {
   describe('#health()', function() {
