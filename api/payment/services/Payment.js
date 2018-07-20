@@ -137,7 +137,7 @@ module.exports = {
   add: async (user, values) => {
     let token;
     let plan = values.plan;
-    let coupon = value.coupon;
+    let coupon = values.coupon;
     let payment_subscription;
     let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
     plan["client_id"] = user.servicebot.client_id;
