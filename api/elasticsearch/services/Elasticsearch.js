@@ -9,6 +9,7 @@
 // Public dependencies.
 const elasticsearch = require('elasticsearch');
 const moment = require('moment');
+const uuidv1 = require('uuid/v1');
 
 const client = elasticsearch.Client({
   host: '35.202.85.190:9200', // Remove this Should get it from the strapi.config.elasticsearchNode
@@ -39,6 +40,7 @@ let getUser = async function(email, callback) {
 }
 
 let logUser = async function(query) {
+  let userDetails = [];
   const response = await new Promise((resolve, reject) => {
     client.search(query, function (err, resp, status) {
       if (err) reject(err);
@@ -70,6 +72,7 @@ let logUser = async function(query) {
     });
 
     const userList = userDetails.map(async user => {
+
       await getUser(user.email, (err, userDetail) => {
         if(err)
           throw err;
@@ -79,9 +82,12 @@ let logUser = async function(query) {
         }
 
         client.create({
-          index: `signups-${date.now()}`,
+          index: `signups-${Date.now()}`,
           type: 'user',
+          id: uuidv1(),
           body: user
+        }, (err, res)=>{
+          return;
         });
       });
     });
@@ -124,6 +130,7 @@ module.exports = {
       {
         log: 1,
         campaignName: 1,
+        logTime: 1,
         rule: 1
       }
     )
@@ -151,6 +158,7 @@ module.exports = {
       if(result) {
         let newRule = result.rule;
         newRule['companyName'] = result.campaignName;
+        newRule['logTime'] = result.logTime;
         return newRule;
       } else {
         return null;
@@ -255,7 +263,7 @@ module.exports = {
             query: {
               "bool": {
                 "must": [
-                  { "match": { "trackingId":  trackingId }}
+                  { "match": { "trackingId":  trackingId }},
                   { "range":
                     { "timestamp":
                       { "gte": limit?
@@ -273,10 +281,13 @@ module.exports = {
             "sort" : [
               { "timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
-            "size": Number(configuration.panelStyle.recentNumber),
+            "size": 0,
             "aggs" : {
               "users" : {
-                "terms" : { "field" : "email", "size" : Number(configuration.panelStyle.recentNumber) },
+                "terms" : {
+                  "field" : "email.keyword",
+                  "size" : limit?1000000:Number(configuration.panelStyle.recentNumber)
+                },
                 "aggs": {
                   "user_docs": {
                     "top_hits": {
@@ -287,9 +298,6 @@ module.exports = {
                             }
                           }
                         ],
-                        "_source": {
-                          "includes": [ "json" ]
-                        },
                         "size" : 1
                     }
                   }
@@ -315,7 +323,7 @@ module.exports = {
                 { "match": { "json.value.event": 'formsubmit' }},
                 { "range":
                   { "@timestamp":
-                    { "gte": "2018-07-01T16:55:04.830Z",
+                    { "gte": moment(rule.logTime).format(),
                       "lt" :  "now+1d"
                     }
                   }
@@ -327,7 +335,7 @@ module.exports = {
           "sort" : [
             { "@timestamp" : {"order" : "desc", "mode" : "max"}}
           ],
-          "size": 10000,
+          "size": 10,
           "aggs" : {
             "users" : {
               "terms" : { "field" : "json.value.form.email", "size" : 10000 },
@@ -354,6 +362,7 @@ module.exports = {
       };
 
       await logUser(logQuery);
+      await Campaign.update({_id:rule.campaign}, {$set:{logTime: Date.now()}});
     }
 
 
@@ -369,51 +378,21 @@ module.exports = {
       if(type == 'journey') {
         if(response.aggregations && response.aggregations.users.buckets.length) {
           await response.aggregations.users.buckets.map(details => {
-            details = details.user_docs.hits.hits[0];
-            let email = details._source.json.value.form.email;
-            let timestamp = details._source.json.value.timestamp;
-            let geo = details._source.json.value.geo;
-            let city = geo?geo.city:null;
-            let country = geo?geo.country:null;
-            let latitude = geo?geo.latitude:null;
-            let longitude = geo?geo.longitude:null;
-            let userDetail = {
-              email: email,
-              timestamp: timestamp,
-              city: city,
-              country: country,
-              latitude: latitude,
-              longitude: longitude
-            };
-            userDetails.push(userDetail);
+            userDetails.push(details.user_docs.hits.hits[0]._source);
           });
 
-          const userList = userDetails.map(async user => {
-            await getUser(user.email, (err, userDetail) => {
-              if(err)
-                throw err;
-              else {
-                user['username'] = userDetail.username;
-                user['profile_pic'] = userDetail.profile_pic;
-              }
-              return user;
-            });
-            return user;
-          });
-
-          await Promise.all(userList);
           var sortByDateAsc = await function (lhs, rhs)  {
             return moment(lhs.timestamp) < moment(rhs.timestamp) ? 1 : moment(lhs.timestamp) > moment(rhs.timestamp) ? -1 : 0;
           }
 
           userDetails.sort(sortByDateAsc);
-          return { rule, configuration, userDetails };
-        } else {
-          return { response, rule, configuration, userDetails:null };
+          if(limit)
+            return { userDetails };
+          else
+            return { response, rule, configuration, userDetails };
         }
-      } else {
+      } else
         return { response, rule, configuration };
-      }
     } else {
       return { error: "Tracking Id not found" };
     }
