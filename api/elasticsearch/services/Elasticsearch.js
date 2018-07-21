@@ -18,6 +18,9 @@ const client = elasticsearch.Client({
   log: 'trace'
 });
 
+/**
+*gets enrichment data of a user
+**/
 let getUser = async function(email, callback) {
   let userDetail;
   try {
@@ -39,6 +42,9 @@ let getUser = async function(email, callback) {
   }
 }
 
+/**
+*logs users data
+**/
 let logUser = async function(query) {
   let userDetails = [];
   const response = await new Promise((resolve, reject) => {
@@ -81,6 +87,9 @@ let logUser = async function(query) {
           user['profile_pic'] = userDetail.profile_pic;
         }
 
+        /**
+        *log data to elasticsearch
+        **/
         client.create({
           index: `signups-${Date.now()}`,
           type: 'user',
@@ -311,7 +320,13 @@ module.exports = {
         break;
     }
 
+    /**
+    *log data to elasticsearch if not logged already
+    **/
     if(type == 'journey') {
+      /**
+      *query to search user not logged
+      **/
       let logQuery = {
         index: index,
         body: {
@@ -361,7 +376,15 @@ module.exports = {
         }
       };
 
+      /**
+      *@params {logQuery}
+      *logs data to elastic search
+      **/
       await logUser(logQuery);
+
+      /**
+      *update campaign with new log time
+      **/
       await Campaign.update({_id:rule.campaign}, {$set:{logTime: Date.now()}});
     }
 
@@ -375,12 +398,18 @@ module.exports = {
         });
       });
 
+      /**
+      *arrange and sort userdetails
+      **/
       if(type == 'journey') {
         if(response.aggregations && response.aggregations.users.buckets.length) {
           await response.aggregations.users.buckets.map(details => {
             userDetails.push(details.user_docs.hits.hits[0]._source);
           });
 
+          /**
+          *sort according to timeStamp
+          **/
           var sortByDateAsc = await function (lhs, rhs)  {
             return moment(lhs.timestamp) < moment(rhs.timestamp) ? 1 : moment(lhs.timestamp) > moment(rhs.timestamp) ? -1 : 0;
           }
