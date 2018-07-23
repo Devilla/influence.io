@@ -8,5 +8,6 @@ spec:
     app: github-influenceio
   ports:
     - name: http
-      port: 1337
+      port: 80
+      targetPort: 1337
   type: LoadBalancer
