@@ -6,8 +6,8 @@ const invoiceTemplate = (invoice, user) => {
     <html>
       <head>
         <meta charset="utf-8">
-        <title>A simple, clean, and responsive HTML invoice template</title>
-
+        <title>invoice template</title>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
         <style>
           .invoice-box {
               -webkit-font-smoothing: antialiased !important;
@@ -19,7 +19,7 @@ const invoiceTemplate = (invoice, user) => {
               box-shadow: 0 0 10px rgba(0, 0, 0, .15);
               font-size: 12px;
               line-height: 24px;
-              font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+              font-family: 'Source Sans Pro', sans-serif;
               color: #555;
           }
 
@@ -30,7 +30,7 @@ const invoiceTemplate = (invoice, user) => {
           }
 
           .invoice-box table tr .invoice-details {
-            font-size: 9px;
+            font-size: 10px;
           }
 
           .invoice-box table td {
