@@ -37,6 +37,7 @@
     "fetch": "^1.1.0",
     "grant-koa": "^3.8.1",
     "gravatar": "^1.6.0",
+    "html-pdf": "^2.2.0",
     "json-formatter-js": "^2.2.0",
     "jsonwebtoken": "^8.1.0",
     "koa": "^2.1.0",
