@@ -3,6 +3,12 @@
   "private": true,
   "version": "0.1.0",
   "description": "Useinfluence : AI powered social proofs.",
+  "apidoc": {
+    "name": "influence",
+    "version": "1",
+    "title": "Useinfluence apiDoc browser",
+    "url": "https://api.usinfluence.co/v1"
+  },
   "main": "./server.js",
   "scripts": {
     "setup": "cd admin && npm run setup",
@@ -29,6 +35,7 @@
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "agentkeepalive": "^3.4.1",
+    "apidoc": "^0.17.6",
     "bcryptjs": "^2.4.3",
     "co-supertest": "0.0.10",
     "domain-ping": "^0.1.9",
@@ -52,7 +59,7 @@
     "strapi": "^3.0.0-alpha.11.1",
     "strapi-mongoose": "^3.0.0-alpha.11.1",
     "stream-to-array": "^2.3.0",
-    "stripe": "^6.0.0",
+    "stripe": "^6.3.0",
     "supertest": "^3.1.0",
     "uniqid": "^4.1.1",
     "util": "^0.10.3",
