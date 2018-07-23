@@ -490,7 +490,7 @@ module.exports = {
       .skip(convertedParams.start)
       .limit(convertedParams.limit);
 
-    const campaignFilter = await campaign.filter(camp => camp.trackingId && camp.isActive);
+    const campaignFilter = await campaign.filter(camp => camp.trackingId);
     const campaignWebsites = await campaignFilter.map(camp => camp);
     const campaignIds = await campaignFilter.map(camp => camp._id);
 
