@@ -26,6 +26,14 @@
     },
     {
       "method": "GET",
+      "path": "/payment/invoice/:_id",
+      "handler": "Payment.downloadInvoice",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/payment",
       "handler": "Payment.find",
       "config": {
