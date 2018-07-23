@@ -139,7 +139,8 @@ module.exports = {
         'Content-Type': 'application/json'
       }
     });
-    let html = await invoiceTemplate(JSON.parse(invoice, user));
+
+    let html = await invoiceTemplate(JSON.parse(invoice), user);
     let response = await generatePdf(html, id);
 
     return response;
