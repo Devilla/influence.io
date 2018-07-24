@@ -79,6 +79,10 @@
     "token": {
       "model": "token",
       "via": "userId"
+    },
+    "path": {
+      "type": "string",
+      "multiple": false
     }
   },
   "collectionName": "users-permissions_user"

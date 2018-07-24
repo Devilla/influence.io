@@ -3,33 +3,20 @@
 /**
  * `Websocket` service.
  */
+const fs = require('fs');
 
-
-const bunyan = require('bunyan');
-const LoggingBunyan = require('@google-cloud/logging-bunyan').LoggingBunyan;
-
-
-const loggingBunyan = new LoggingBunyan();
-
-const logger = bunyan.createLogger({
-  name: 'websocket-logging',
-  streams: [
-    {stream: process.stdout, level: 'info'},
-    loggingBunyan.stream('info')
-  ],
-});
+const webSocketStream = fs.createWriteStream('/tmp/log/websocket.log');
 
 module.exports =  {
   /**
-   * We are logging data to google cloud stackdriver and then  filebeats can pull it  and then sending it to logstash and thus to elasticsearch
+   * We are logging data to filebeats and then sending it to logstash and to elasticsearch
    * @param msg
    */
-  log : async function(msg) {
+  log : (msg) => {
     const formatter = msg;
     let message =  formatter + '\n';
     console.log(message,'======message');
-    logger.info(message);
-    return msg;
+    webSocketStream.write(message);
   },
 
   health: () => {

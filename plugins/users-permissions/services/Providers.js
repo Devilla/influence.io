@@ -74,7 +74,7 @@ exports.connect = (provider, query) => {
         if (!_.isEmpty(_.find(users, user => user.provider !== provider)) && advanced.unique_email) {
           return resolve([null, [{ messages: [{ id: 'Auth.form.error.email.taken' }] }], 'Email is already taken.']);
         }
-        
+
         // Retrieve role `guest`.
         const guest = await strapi.query('role', 'users-permissions').findOne({ type: 'customer' }, []);
 
@@ -83,7 +83,8 @@ exports.connect = (provider, query) => {
         // Create the new user.
         const params = _.assign(profile, {
           provider: provider,
-          role: guest._id || guest.id
+          role: guest._id || guest.id,
+          path: '/checkout'
         });
         const createdUser = await strapi.query('user', 'users-permissions').create(params);
         userProfile['user'] = createdUser._id;

@@ -15,7 +15,7 @@ function doRequest(options) {
         return resolve({error: true, message: body});
       }
       const response = typeof body === 'string'? JSON.parse(body) : body;
-      if (!error && res.statusCode == 200 || !response.error) {
+      if (!error && res.statusCode == 200 || (response && !response.error)) {
         resolve(body);
       } else {
         reject(response.error);
@@ -56,10 +56,10 @@ module.exports = {
     const verificationToken = crypto.randomBytes(64).toString('hex');
     model.verificationToken = verificationToken
     model.verified = false;
-
+    model.path = '/checkout';
     let password = await bcrypt.hash(uuidv4(), 10);
 
-    model.password = model.password?model.password:'password';
+    model.password = model.password?model.password:'mySecretPasswordInPlace';
 
     const user = {
       id: model._id,

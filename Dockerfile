@@ -6,11 +6,12 @@ FROM node:alpine
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-
+RUN wget -qO- "https://github.com/dustinblackman/phantomized/releases/download/2.1.1a/dockerized-phantomjs.tar.gz" | tar xz -C /
+RUN npm install -g html-pdf
 RUN npm install --production
 
 COPY . .
- 
+
 
 ##Create /tmp/log/websocket.log
 
