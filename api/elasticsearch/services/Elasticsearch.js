@@ -417,6 +417,8 @@ module.exports = {
           userDetails.sort(sortByDateAsc);
 
           return { response, rule, configuration, userDetails };
+        } else {
+          return { response, rule, configuration, userDetails }
         }
       } else
         return { response, rule, configuration };
