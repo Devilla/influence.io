@@ -415,10 +415,8 @@ module.exports = {
           }
           userDetails.filter(user => user.trackingId == trackingId);
           userDetails.sort(sortByDateAsc);
-          if(limit)
-            return { userDetails };
-          else
-            return { response, rule, configuration, userDetails };
+
+          return { response, rule, configuration, userDetails };
         }
       } else
         return { response, rule, configuration };
