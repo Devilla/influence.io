@@ -418,7 +418,7 @@ module.exports = {
 
           return { response, rule, configuration, userDetails };
         } else {
-          return { response, rule, configuration, userDetails }
+          return { response, rule, configuration }
         }
       } else
         return { response, rule, configuration };
