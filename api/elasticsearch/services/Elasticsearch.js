@@ -413,7 +413,7 @@ module.exports = {
           var sortByDateAsc = await function (lhs, rhs)  {
             return moment(lhs.timestamp) < moment(rhs.timestamp) ? 1 : moment(lhs.timestamp) > moment(rhs.timestamp) ? -1 : 0;
           }
-
+          userDetails.filter(user => user.trackingId == trackingId);
           userDetails.sort(sortByDateAsc);
           if(limit)
             return { userDetails };
