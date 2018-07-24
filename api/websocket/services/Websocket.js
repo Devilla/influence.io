@@ -15,7 +15,7 @@ module.exports =  {
   log : (msg) => {
     const formatter = msg;
     let message =  formatter + '\n';
-    console.log(message,'======message');
+     console.log(message,'======message');
     webSocketStream.write(message);
   },
 

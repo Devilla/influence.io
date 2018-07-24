@@ -65,13 +65,11 @@
     "email": "saransh@theupscale.in",
     "url": "https://saranshsharma.me"
   },
-  "maintainers": [
-    {
-      "name": "shankyrana",
-      "email": "",
-      "url": ""
-    }
-  ],
+  "maintainers": [{
+    "name": "shankyrana",
+    "email": "",
+    "url": ""
+  }],
   "strapi": {
     "uuid": "c7e9e841-7fac-44bc-b683-42e8840406cc"
   },
