@@ -107,7 +107,7 @@ describe('Should Get Payment Invoices', function() {
     .get('/payment/servicebot/invoice')
     .set('Authorization', `Bearer ${Token}`)
     .set('Accept', 'application/json')
-    .expect(201)
+    .expect(200)
     .expect('Content-Type', /json/)
     .then((data, err) => {
       if(data.error)
