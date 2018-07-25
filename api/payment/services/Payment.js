@@ -397,7 +397,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('payment', _.merge(_.clone(params), { values }));
+    //await strapi.hook.mongoose.manageRelations('payment', _.merge(_.clone(params), { values }));
     return Payment.update(params, values, { multi: true });
   },
 

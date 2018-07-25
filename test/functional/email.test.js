@@ -5,7 +5,7 @@
 
 let chai = require('chai');
 let expect = chai.expect;;
-const email = require('../plugins/email/services/Email');
+const email = require('../../plugins/email/services/Email');
 
 
 describe('Should Send Email ', function() {
@@ -26,7 +26,6 @@ describe('Should Send Email ', function() {
   });
 });
 
-
 describe('Should Send Account Created Email ', function() {
   describe('#sendEmailUsingSendGrid()', function() {
     it('should send account email ok', function() {
@@ -39,7 +38,6 @@ describe('Should Send Account Created Email ', function() {
     });
   });
 });
-
 
 describe('Should Send Password Reset Token Email ', function() {
   describe('#sendEmailUsingSendGrid()', function() {

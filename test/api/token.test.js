@@ -9,7 +9,7 @@ const request = require('co-supertest');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, user, rules;
+var Token, profile, user, token;
 
 /**
  * Test the login user
@@ -34,48 +34,55 @@ var Token, user, rules;
   });
 
 /**
- * Test Create Rules
+ * Test Get User Profile
  **/
-  describe('rules creation test', () => {
-    it('it should create rules ', function *() {
+  describe('find user`s profile test', () => {
+    it('it should get user`s profile', function *() {
       yield request(strapi.config.url)
-      .post('/rules')
+      .get(`/profile`)
+      .set('Authorization', `Bearer ${Token}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then((data, err) => {
+        if(data.error)
+          throw data.error;
+        profile = data.body;
+      });
+    });
+  });
+
+/**
+ * Test Create token for oauth
+ **/
+  describe('token creation test', () => {
+    it('it should create token for oauth', function *() {
+      yield request(strapi.config.url)
+      .post('/token')
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        days: 5,
-        delay: 4,
-        mostRecent: true,
-        isActive: true,
-        hideNotification: false,
-        loopNotification: true,
-        delayNotification: true,
-        closeNotification: false,
-        initialDelay: 1,
-        displayTime: 3,
-        delayBetween: 4,
-        displayPosition: 'Bottom Left',
-        popupAnimationIn: 'fadeInUp',
-        popupAnimationOut: 'fadeInDown'
+        value: 'servicebot.useinfluence.co',
+        clientId: '2hg2h3fgf2g3fh1j543k',
+        userId: user._id
       })
       .expect(201)
       .expect('Content-Type', /json/)
       .then((data, err) => {
         if(data.error)
           throw data.error;
-        rules = data.body;
+        token = data.body;
       });
     });
   });
 
 /**
- * Test Get User Campaigns
+ * Test Get User's Token
  **/
-  describe('find all user`s rules test', () => {
-    it('it should get all user`s rules', function *() {
+  describe('find user`s token test', () => {
+    it('it should get user`s token', function *() {
       yield request(strapi.config.url)
-      .get(`/rules/user`)
+      .get(`/token`)
       .set('Authorization', `Bearer ${Token}`)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -87,12 +94,12 @@ var Token, user, rules;
   });
 
 /**
- * Test Get One Campaigns
+ * Test Get One Token
  **/
-  describe('find one rule test', () => {
-    it('it should get one rule', function *() {
+  describe('find one token test', () => {
+    it('it should get one token', function *() {
       yield request(strapi.config.url)
-      .get(`/rules/${rules._id}`)
+      .get(`/token/${token._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -104,19 +111,17 @@ var Token, user, rules;
   });
 
 /**
- * Test Edit Campaign
+ * Test Edit User's Token
  **/
-  describe('rules update test', () => {
-    it('it should update rules', function *() {
+  describe('token update test', () => {
+    it('it should update token', function *() {
       yield request(strapi.config.url)
-      .put(`/rules/${rules._id}`)
+      .put(`/token/${token._id}`)
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        initialDelay: 2,
-        displayTime: 4,
-        delayBetween: 5
+        value: 'DEF'
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -128,12 +133,31 @@ var Token, user, rules;
   });
 
 /**
-  * Test Delete Campaign
+  * Test Delete Token
   **/
-  describe('rules deletion test', () => {
-    it('it should delete rules', function *() {
+  describe('token deletion test', () => {
+    it('it should delete token', function *() {
       yield request(strapi.config.url)
-        .delete(`/rules/${rules._id}`)
+        .delete(`/token/${token._id}`)
+        .set('Authorization', `Bearer ${Token}`)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then((data, err) => {
+          if(data.error)
+            throw data.error;
+        });
+    });
+  });
+
+/**
+  * Test Delete Token
+  **/
+  describe('profile deletion test', () => {
+    it('it should delete profile', function *() {
+      yield request(strapi.config.url)
+        .delete(`/profile/${profile._id}`)
         .set('Authorization', `Bearer ${Token}`)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')

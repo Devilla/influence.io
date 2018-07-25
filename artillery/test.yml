@@ -1,0 +1,15 @@
+config:
+  target: 'http://localhost:1337'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - flow:
+    - post:
+        url: "/auth/local"
+        json:
+          identifier: "test@test.com"
+          password: "12345"

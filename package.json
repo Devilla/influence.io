@@ -19,7 +19,8 @@
     "lint": "node_modules/.bin/eslint api/**/*.js config/**/*.js plugins/**/*.js",
     "postinstall": "node node_modules/strapi/lib/utils/post-install.js",
     "frontend": "cd public/frontend && npm install  && npm run build",
-    "test": "mocha --require co-mocha test/bootstrap.test.js test/**/*.test.js  --timeout 30000"
+    "testapi": "mocha --require co-mocha test/bootstrap.test.js test/api/*.test.js  --timeout 30000",
+    "testfunctional": "mocha --require co-mocha test/bootstrap.test.js test/functional/*.test.js  --timeout 30000"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -37,6 +38,7 @@
     "agentkeepalive": "^3.4.1",
     "apidoc": "^0.17.6",
     "bcryptjs": "^2.4.3",
+    "chance": "^1.0.16",
     "co-supertest": "0.0.10",
     "domain-ping": "^0.1.9",
     "dotenv": "^5.0.1",

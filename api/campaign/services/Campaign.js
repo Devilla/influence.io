@@ -410,7 +410,6 @@ module.exports = {
 					// }
 
           Configuration.create(newConfiguration, (err, result) => {
-						console.log(result);
             if(err)
               return err;
           });
@@ -436,7 +435,8 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    return Campaign.findOneAndUpdate(params, values, { upsert: false, multi: true, new: true }).populate('webhooks').populate('profile');
+  try{return Campaign.findOneAndUpdate(params, values, { upsert: false, multi: true, new: true }).populate('webhooks').populate('profile');}
+	catch(err){console.log(err)}
   },
 
   /**
@@ -448,7 +448,8 @@ module.exports = {
   remove: async params => {
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Campaign.findOneAndRemove(params, {})
+    try{
+			const data = await Campaign.findOneAndRemove(params, {})
       .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
 
     _.forEach(Campaign.associations, async association => {
@@ -459,7 +460,9 @@ module.exports = {
         search
      	);
     });
-
+}catch(err){
+	console.log(err);
+}
     return data;
   },
 
