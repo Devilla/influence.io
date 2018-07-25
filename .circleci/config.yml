@@ -36,10 +36,7 @@ jobs: # a collection of steps
           command: 'sudo mkdir /tmp/log/'
       - run:
           name: Test
-          command: npm test
-      - run:
-          name: Generate code coverage
-          command: './node_modules/.bin/nyc report --reporter=text-lcov'
+          command: npm run testapi
       - store_artifacts:
           path: test-results.xml
           prefix: tests
