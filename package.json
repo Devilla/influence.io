@@ -50,6 +50,7 @@
     "koa": "^2.1.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
+    "newrelic": "^4.6.0",
     "nodemailer": "^4.6.7",
     "oauth2orize": "^1.11.0",
     "passport-http-jwt-bearer": "^0.1.3",
