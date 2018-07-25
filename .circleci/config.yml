@@ -20,9 +20,6 @@ jobs: # a collection of steps
       - run:
           name: Install strapi
           command: npm install
-      - run:
-          name: Install mocha chai
-          command: npm install mocha chai
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -37,6 +34,12 @@ jobs: # a collection of steps
       - run:
           name: create-log-directory
           command: 'sudo mkdir /tmp/log/'
+      - run:
+          name: Install mocha
+          command: npm install mocha
+      - run:
+          name: Install chai
+          command: npm install chai
       - run:
           name: Test
           command: npm run testapi
