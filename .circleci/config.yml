@@ -35,14 +35,8 @@ jobs: # a collection of steps
           name: create-log-directory
           command: 'sudo mkdir /tmp/log/'
       - run:
-          name: Install mocha
-          command: npm install mocha
-      - run:
-          name: Install co-mocha
-          command: npm install co-mocha
-      - run:
-          name: Install chai
-          command: npm install chai
+          name: Install strapi
+          command: npm install
       - run:
           name: Test
           command: npm run testapi
