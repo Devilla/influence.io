@@ -7,9 +7,11 @@
  * This is handy in situations where the Strapi CLI is not relevant or useful.
  */
 
+require('newrelic');
 process.chdir(__dirname);
 
 (() => {
+
   const strapi = require('strapi');
   strapi.start();
 })();

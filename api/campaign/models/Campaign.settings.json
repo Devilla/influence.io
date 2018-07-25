@@ -13,6 +13,10 @@
       "type": "string",
       "multiple": false
     },
+    "logTime": {
+      "type": "date",
+      "multiple": false
+    },
     "websiteName": {
       "type": "string",
       "multiple": false
