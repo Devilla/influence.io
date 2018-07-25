@@ -63,7 +63,7 @@ module.exports = {
 
     const user = {
       id: model._id,
-      name: model.username,
+      name: model.username || 'test',
       email: model.email,
       password: model.password,
       provider: 'local',
