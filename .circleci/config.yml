@@ -19,9 +19,9 @@ jobs: # a collection of steps
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      - run: # run frontend
-          name: setup
-          command: npm run setup
+      - run:
+          name: test
+          command: npm run testapi
       - run: # run frontend
           name: lint
           command: npm run lint
