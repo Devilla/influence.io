@@ -11,7 +11,7 @@ jobs: # a collection of steps
       - checkout
       - run:
           name: create-log-directory
-          command: 'sudo mkdir /tmp/log/'
+          command: 'mkdir /tmp/log/'
       - run:
           name: Update npm
           command: 'sudo npm install -g npm@latest'

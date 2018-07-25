@@ -10,6 +10,14 @@
 const _ = require('lodash');
 const env = require('dotenv').config()
 const request = require('request');
+var pdf = require('html-pdf');
+var stripe = require('stripe')(process.env.STRIPE_KEY);
+
+var options = {
+  format: 'A4',
+  "orientation": "portrait",
+};
+var invoiceTemplate = require('../config/invoiceTemplate');
 
 function doRequest(options) {
   return new Promise(function (resolve, reject) {
@@ -27,7 +35,21 @@ function doRequest(options) {
   });
 }
 
-let stripe = require('stripe')(process.env.STRIPE_KEY);
+/**
+ * Promise to generate invoice.
+ *
+ * @return {Promise}
+ */
+function generatePdf(html, id) {
+  return new Promise(function (resolve, reject) {
+    pdf.create(html, options).toFile(`./public/invoices/${id}.pdf`, function(err, res) {
+      if (err)
+        return reject(err);
+      return resolve({path: `invoices/${id}.pdf`, filename: res});
+    });
+  })
+}
+
 
 module.exports = {
 
@@ -72,7 +94,6 @@ module.exports = {
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
       .populate('plan');
-    // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -95,6 +116,35 @@ module.exports = {
     return JSON.parse(invoices);
   },
 
+  /**
+   * Promise to fetch && download one payment invoice.
+   *
+   * @return {Promise}
+   */
+  downloadInvoice: async (user, id) => {
+    var auth_token = await doRequest({
+      method: 'POST',
+      url:'https://servicebot.useinfluence.co/api/v1/auth/token',
+      form: {
+        email: user.email,
+        password: user.password
+      }
+    });
+
+    var invoice = await doRequest({
+      method: 'GET',
+      url:`https://servicebot.useinfluence.co/api/v1/invoices/${id}`,
+      headers: {
+        Authorization: 'JWT ' + JSON.parse(auth_token).token,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    let html = await invoiceTemplate(JSON.parse(invoice), user);
+    let response = await generatePdf(html, id);
+
+    return response;
+  },
 
   /**
    * Promise to fetch all payments.
@@ -137,11 +187,12 @@ module.exports = {
   add: async (user, values) => {
     let token;
     let plan = values.plan;
+    let coupon = values.coupon;
     let payment_subscription;
     let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
     plan["client_id"] = user.servicebot.client_id;
 
-    if(values.coupon && Object.keys(values.coupon).length === 0) {
+    if(!coupon || Object.keys(coupon).length === 0) {
       token = values.paymentProvider.id;
       plan["token_id"] = token;
     }
@@ -159,9 +210,11 @@ module.exports = {
     } else {
       return { message: "user not found", err: true };
     }
+
     if(payment_subscription.error) {
       return { err: true, message: payment_subscription.error };
     }
+
     const payment_values = {
       user: user._id,
       service_id: payment_subscription.service_id,
@@ -179,24 +232,26 @@ module.exports = {
       created_at: payment_subscription.created_at,
       updated_at: payment_subscription.updated_at,
     };
+
     const plan_value = {
       user: user._id,
-      coupon_details: values.coupon,
+      coupon_details: coupon,
       plan_details: payment_subscription.payment_plan,
       subscribed_at: payment_subscription.subscribed_at,
       servicebot_user_id: payment_subscription.user_id
     };
+
     await Plan.create(plan_value);
     const data = await Payment.create(payment_values);
-    if(data) {
-      const userParams = {
-        id: user._id
-      };
-      const userValues = {
-        path: '/dashboard'
-      };
-      const userUpdate = strapi.plugins['users-permissions'].services.user.edit(userParams, userValues);
-    }
+    const userParams = {
+      id: user._id
+    };
+
+    const userValues = {
+      path: '/dashboard'
+    };
+
+    const userUpdate = strapi.plugins['users-permissions'].services.user.edit(userParams, userValues);
     return data;
   },
 
