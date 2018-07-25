@@ -38,6 +38,9 @@ jobs: # a collection of steps
           name: Install mocha
           command: npm install mocha
       - run:
+          name: Install co-mocha
+          command: npm install co-mocha
+      - run:
           name: Install chai
           command: npm install chai
       - run:
