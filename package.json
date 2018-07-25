@@ -31,6 +31,7 @@
     "@sendgrid/mail": "^6.2.1",
     "agentkeepalive": "^3.4.1",
     "bcryptjs": "^2.4.3",
+    "chance": "^1.0.16",
     "co-supertest": "0.0.10",
     "domain-ping": "^0.1.9",
     "dotenv": "^5.0.1",
@@ -65,11 +66,13 @@
     "email": "saransh@theupscale.in",
     "url": "https://saranshsharma.me"
   },
-  "maintainers": [{
-    "name": "shankyrana",
-    "email": "",
-    "url": ""
-  }],
+  "maintainers": [
+    {
+      "name": "shankyrana",
+      "email": "",
+      "url": ""
+    }
+  ],
   "strapi": {
     "uuid": "c7e9e841-7fac-44bc-b683-42e8840406cc"
   },
