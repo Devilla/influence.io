@@ -9,7 +9,6 @@ COPY package*.json ./
 RUN wget -qO- "https://github.com/dustinblackman/phantomized/releases/download/2.1.1a/dockerized-phantomjs.tar.gz" | tar xz -C /
 RUN npm install -g html-pdf
 RUN npm install --production
-RUN npm install strapi-hook-strapi-mongoose
 
 COPY . .
 
