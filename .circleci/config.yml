@@ -33,13 +33,10 @@ jobs: # a collection of steps
       - checkout
       - run:
           name: create-log-directory
-          command: 'sudo mkdir /tmp/log/'
+          command: 'mkdir /tmp/log/'
       - run:
-          name: Install mocha
-          command: npm install mocha
-      - run:
-          name: Install chai
-          command: npm install chai
+          name: Install strapi
+          command: npm install
       - run:
           name: Test
           command: npm run testapi
