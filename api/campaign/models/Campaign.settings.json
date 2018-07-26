@@ -41,10 +41,6 @@
       "type": "string",
       "multiple": false
     },
-    "subDomain": {
-      "type": "string",
-      "multiple": true
-    },
     "notificationTypes": {
       "model": "notificationtypes",
       "via": "campaign"

@@ -1,0 +1,28 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "subdomain",
+    "description": "subdomains for campaigns"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "type": {
+      "type": "string",
+      "multiple": false
+    },
+    "trackingId": {
+      "type": "string",
+      "multiple": false
+    },
+    "campaign": {
+      "model": "campaign"
+    },
+    "domainUrl": {
+      "type": "string",
+      "multiple": false
+    }
+  }
+}

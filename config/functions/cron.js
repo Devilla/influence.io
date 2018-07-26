@@ -55,7 +55,7 @@ module.exports = {
 				});
 
         let campaignOption, profileOption, campaignUniqueVisitors = 0;
-        if(response.aggregations.users.buckets.length) {
+        if(response && response.aggregations.users.buckets.length) {
           response.aggregations.users.buckets.map(bucket => {
             campaignUniqueVisitors = campaignUniqueVisitors + bucket.visitors.buckets.length + bucket.visitors.sum_other_doc_count
           });
