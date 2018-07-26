@@ -48,9 +48,9 @@ module.exports = {
    */
 
   add: async (values) => {
-    console.log(values,'=========');
-    const data = Subdomain.create(values);
-    return data;
+    const data = await Subdomain.create(values);
+    const result = await Subdomain.find({campaign: data.campaign});
+    return result;
   },
 
   /**

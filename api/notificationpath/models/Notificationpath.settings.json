@@ -28,6 +28,10 @@
     "type": {
       "type": "string",
       "multiple": false
+    },
+    "domain": {
+      "type": "string",
+      "multiple": false
     }
   }
 }
