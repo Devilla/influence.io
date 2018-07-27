@@ -252,7 +252,9 @@ module.exports = {
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
                   // { "range": { "json.value.timestamp": { "gte": moment().subtract(Number(configuration.panelStyle.bulkData), configuration.panelStyle.selectDurationData).format() , "lt" : moment().format() }}},
-                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}},
+                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}}
+                ],
+                "should": [
                   { "exists" : { "field" : "json.value.form.email" }},
                   { "exists" : { "field" : "json.value.form.EMAIL" }},
                   { "exists" : { "field" : "json.value.form.Email" }}
@@ -288,9 +290,7 @@ module.exports = {
                       }
                     }
                   },
-                  { "exists" : { "field" : "email" } },
-                  { "exists" : { "field" : "EMAIL" } },
-                  { "exists" : { "field" : "Email" } }
+                  { "exists" : { "field" : "email" } }
                 ]
               }
             },
