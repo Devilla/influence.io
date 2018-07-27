@@ -57,6 +57,8 @@ let logUser = async function(query) {
   if(response.aggregations && response.aggregations.users.buckets.length) {
     await response.aggregations.users.buckets.map(details => {
       details = details.user_docs.hits.hits[0];
+      console.log(details);
+
       let form = details._source.json.value.form;
       let email = form.email || form.EMAIL || form.Email;
       let timestamp = details._source.json.value.timestamp;
