@@ -420,8 +420,9 @@ module.exports = {
           var sortByDateAsc = await function (lhs, rhs)  {
             return moment(lhs.timestamp) < moment(rhs.timestamp) ? 1 : moment(lhs.timestamp) > moment(rhs.timestamp) ? -1 : 0;
           }
-          console.log(trackingId, '======trackingId');
-          userDetails.filter(user => user.trackingId === trackingId);
+
+          userDetails = await userDetails.filter(user => user.trackingId === trackingId);
+          console.log(userDetails, '=====details');
           userDetails.sort(sortByDateAsc);
 
           return { response, rule, configuration, userDetails };
