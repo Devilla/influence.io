@@ -132,7 +132,7 @@ module.exports = {
     });
   },
 
-  notification: async (index, trackingId, type, limit) => {
+  notification: async (index, trackingId, type, limit, host) => {
     var query;
 
     const rule = await Campaign.findOne(
@@ -217,7 +217,7 @@ module.exports = {
     .exec()
     .then(result => result);
 
-    let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: rule._id, type: 'lead'});
+    let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: rule._id, type: 'lead', domain: host});
     captureLeads = captureLeads.map(lead => lead.url);
 
     switch(type) {
