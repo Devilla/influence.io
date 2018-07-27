@@ -253,7 +253,9 @@ module.exports = {
                   { "match": { "json.value.event": 'formsubmit' }},
                   // { "range": { "json.value.timestamp": { "gte": moment().subtract(Number(configuration.panelStyle.bulkData), configuration.panelStyle.selectDurationData).format() , "lt" : moment().format() }}},
                   { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}},
-                  { "exists" : { "field" : "json.value.form.email" }}
+                  { "exists" : { "field" : "json.value.form.email" }},
+                  { "exists" : { "field" : "json.value.form.EMAIL" }},
+                  { "exists" : { "field" : "json.value.form.Email" }}
                 ]
               }
             },
@@ -286,7 +288,9 @@ module.exports = {
                       }
                     }
                   },
-                  { "exists" : { "field" : "email" }}
+                  { "exists" : { "field" : "email" } },
+                  { "exists" : { "field" : "EMAIL" } },
+                  { "exists" : { "field" : "Email" } }
                 ]
               }
             },
@@ -417,7 +421,7 @@ module.exports = {
             return moment(lhs.timestamp) < moment(rhs.timestamp) ? 1 : moment(lhs.timestamp) > moment(rhs.timestamp) ? -1 : 0;
           }
           console.log(trackingId, '======trackingId');
-          userDetails.filter(user => user.trackingId == trackingId);
+          userDetails.filter(user => user.trackingId === trackingId);
           userDetails.sort(sortByDateAsc);
 
           return { response, rule, configuration, userDetails };
