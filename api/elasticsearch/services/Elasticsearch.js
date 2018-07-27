@@ -61,7 +61,7 @@ let logUser = async function(query) {
 
       let form = details._source.json.value.form;
       let email = form.email || form.EMAIL || form.Email;
-      let timestamp = details._source.json.value.timestamp;
+      let timestamp = moment(details._source.json.value.timestamp).format();
       let geo = details._source.json.value.geo;
       let city = geo?geo.city:null;
       let country = geo?geo.country:null;
