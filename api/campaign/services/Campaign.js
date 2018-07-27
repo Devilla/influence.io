@@ -88,9 +88,9 @@ let getUniqueUsers = async function(index, trackingId, callback) {
   }
 }
 
-let getSignUps = async function(index, trackingId, type, callback) {
+let getSignUps = async function(index, trackingId, type, host, callback) {
   try {
-    await strapi.services.elasticsearch.notification(index, trackingId, type, true).then(res=>{
+    await strapi.services.elasticsearch.notification(index, trackingId, type, true, host).then(res=>{
       callback(null, res);
     });
   } catch(err) {
@@ -472,7 +472,7 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchUserCampaignsInfo: async (params) => {
+  fetchUserCampaignsInfo: async (params, host) => {
     let countConfig = 0;
 
     const profile = await Profile.findOne({user: params?params:null})
@@ -519,7 +519,7 @@ module.exports = {
 
 		// let userSignUps = [];
 		let signedUpUsers = campaignWebsites.map(async camp => {
-			await getSignUps('filebeat-*', camp.trackingId, 'journey', (err, response) => {
+			await getSignUps('filebeat-*', camp.trackingId, 'journey', host, (err, response) => {
 				if(!err) {
 					camp['signups'] = response;
 				}
