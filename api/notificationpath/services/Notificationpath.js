@@ -39,7 +39,6 @@ module.exports = {
     const query = {
       rule: params._id,
       type: params.type,
-      domain: params.domain
     };
 
     const convertedParams = strapi.utils.models.convertParams('notificationpath', query);
