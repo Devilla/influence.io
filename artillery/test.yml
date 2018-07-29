@@ -111,7 +111,7 @@
 #           }}}"
 
 config:
-  target: 'http://localhost:1337'
+  target: 'https://strapi.useinfluence.co'
   processor: "./function.js"
   phases:
     - duration: 60
@@ -126,6 +126,6 @@ scenarios:
       - post:
           url: "/auth/local/"
           json:
-            identifier: "{{ email }}"
-            password: "{{ password }}"
+            identifier: "rajugautam45@gmail.com"
+            password: "123456"
       - log: "Sent a request to /users with {{ email }}, {{ password }}"
