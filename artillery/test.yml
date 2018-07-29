@@ -1,5 +1,6 @@
 config:
   target: 'http://localhost:1337'
+  processor: "./function.js"
   phases:
     - duration: 60
       arrivalRate: 20
@@ -7,9 +8,13 @@ config:
     headers:
       x-my-service-auth: '987401838271002188298567'
 scenarios:
-  - flow:
-    - post:
-        url: "/auth/local"
-        json:
-          identifier: "test@test.com"
-          password: "12345"
+  - name: "Register a user"
+    flow:
+      - function: "generateRandomData"
+      - post:
+          url: "/auth/local/register"
+          json:
+            email: "{{ email }}"
+            username: "{{ name }}"
+            password: "{{ password }}"
+      - log: "Sent a request to /users with {{ name }}, {{ email }}, {{ password }}"
