@@ -1,5 +1,5 @@
 config:
-  target: 'http://strapi.useinfluence.co'
+  target: 'https://strapi.useinfluence.co'
   processor: "./function.js"
   phases:
     - duration: 60
