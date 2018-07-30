@@ -219,7 +219,7 @@ module.exports = {
 
     let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: rule._id, type: 'lead', domain: host});
     captureLeads = captureLeads.map(lead => lead.url);
-    console.log(trackingId, '==========>trackingId');
+
     switch(type) {
       case 'live' :
         query = {
@@ -228,6 +228,7 @@ module.exports = {
             query: {
               "bool": {
                 "must": [
+                  { "match": { "json.value.source.url.hostname": host }},
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "range": { "@timestamp": { "gte": moment().subtract(7, 'minutes').format(), "lt": moment().format() }}}
                 ]
@@ -248,10 +249,10 @@ module.exports = {
             query: {
               "bool": {
                 "must": [
+                  { "match": { "json.value.source.url.hostname": host }},
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
-                  // { "range": { "json.value.timestamp": { "gte": moment().subtract(Number(configuration.panelStyle.bulkData), configuration.panelStyle.selectDurationData).format() , "lt" : moment().format() }}},
                   { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}}
                 ],
                 "should": [
