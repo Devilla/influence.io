@@ -281,6 +281,7 @@ module.exports = {
             query: {
               "bool": {
                 "must": [
+                  { "match": { "hostname.keyword": host }},
                   { "match": { "trackingId.keyword":  trackingId }},
                   { "range":
                     { "timestamp":
