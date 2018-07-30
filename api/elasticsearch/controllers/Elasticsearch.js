@@ -51,7 +51,13 @@ module.exports = {
       });
     }
 
-    const host = ctx.request.header.origin?ctx.request.header.origin.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]:null;
+    const host = ctx.request.header.origin?
+      ctx.request.header.origin.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]
+    :
+      ctx.request.header.referer?
+        ctx.request.header.referer.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0].replace("/", "")
+      :
+        null;
 
     let data = await strapi.services.elasticsearch.notification(index, trackingId, type, false, host);
 

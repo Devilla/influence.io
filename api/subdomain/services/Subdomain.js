@@ -77,18 +77,7 @@ module.exports = {
   remove: async params => {
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Subdomain.findOneAndRemove(params, {})
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.subdomain.associations, {autoPopulate: false}), 'alias')).join(' '));
-
-    _.forEach(Subdomain.associations, async association => {
-      const search = (_.endsWith(association.nature, 'One')) ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
-      const update = (_.endsWith(association.nature, 'One')) ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
-
-      await strapi.models[association.model || association.collection].update(
-        search,
-        update,
-        { multi: true });
-    });
+    const data = await Subdomain.findOneAndRemove(params, {});
 
     return data;
   }
