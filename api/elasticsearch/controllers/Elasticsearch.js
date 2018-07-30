@@ -51,7 +51,9 @@ module.exports = {
       });
     }
 
-    let data = await strapi.services.elasticsearch.notification(index, trackingId, type, false, ctx.request.header.host);
+    const host = ctx.request.header.origin?ctx.request.header.origin.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]:null;
+
+    let data = await strapi.services.elasticsearch.notification(index, trackingId, type, false, host);
 
     ctx.send({
       message: data
