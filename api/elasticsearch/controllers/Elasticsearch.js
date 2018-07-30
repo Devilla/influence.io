@@ -44,14 +44,14 @@ module.exports = {
     let index = 'filebeat-*';
     let trackingId = ctx.params._id;
     let type = ctx.query.type;
-    console.log(ctx.request.header.host);
+
     if (!ctx.params){
       ctx.send({
         message: 'invalid params if you want to send data using body use other params type'
       });
     }
 
-    let data = await strapi.services.elasticsearch.notification(index, trackingId, type, ctx.request.header.host);
+    let data = await strapi.services.elasticsearch.notification(index, trackingId, type, false, ctx.request.header.host);
 
     ctx.send({
       message: data
