@@ -45,7 +45,7 @@ let getUser = async function(email, callback) {
 /**
 *logs users data
 **/
-let logUser = async function(query) {
+let logUser = async function(query, hostName) {
   let userDetails = [];
   const response = await new Promise((resolve, reject) => {
     client.search(query, function (err, resp, status) {
@@ -57,7 +57,6 @@ let logUser = async function(query) {
   if(response.aggregations && response.aggregations.users.buckets.length) {
     await response.aggregations.users.buckets.map(details => {
       details = details.user_docs.hits.hits[0];
-      console.log(details);
 
       let form = details._source.json.value.form;
       let email = form.email || form.EMAIL || form.Email;
@@ -68,6 +67,7 @@ let logUser = async function(query) {
       let latitude = geo?geo.latitude:null;
       let longitude = geo?geo.longitude:null;
       let trackingId = details._source.json.value.trackingId;
+      let host = hostName;
       let userDetail = {
         email: email,
         timestamp: timestamp,
@@ -75,7 +75,8 @@ let logUser = async function(query) {
         country: country,
         latitude: latitude,
         longitude: longitude,
-        trackingId: trackingId
+        trackingId: trackingId,
+        host: host
       };
       userDetails.push(userDetail);
     });
@@ -365,7 +366,7 @@ module.exports = {
       *@params {logQuery}
       *logs data to elastic search
       **/
-      await logUser(logQuery);
+      await logUser(logQuery, host);
 
       /**
       *update campaign with new log time
