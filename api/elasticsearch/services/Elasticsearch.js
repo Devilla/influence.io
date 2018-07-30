@@ -92,7 +92,7 @@ let logUser = async function(query) {
         *log data to elasticsearch
         **/
         client.create({
-          index: `signups-${Date.now()}`,
+          index: `signups`,
           type: 'user',
           id: uuidv1(),
           body: user
@@ -272,7 +272,7 @@ module.exports = {
         break;
       case 'journey' :
         query = {
-          index: 'signups-*',
+          index: 'signups',
           body: {
             query: {
               "bool": {
@@ -420,9 +420,9 @@ module.exports = {
           }
 
           userDetails = await userDetails.filter(user => user.trackingId === trackingId);
-          console.log(userDetails, '=====details');
           userDetails.sort(sortByDateAsc);
-
+          if(!userDetails.length)
+            return { response, rule, configuration };
           return { response, rule, configuration, userDetails };
         } else {
           return { response, rule, configuration }

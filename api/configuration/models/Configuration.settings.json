@@ -41,6 +41,14 @@
       "type": "json",
       "multiple": false
     },
+    "otherText": {
+      "type": "string",
+      "multiple": false
+    },
+    "liveVisitorText": {
+      "type": "string",
+      "multiple": false
+    },
     "campaign": {
       "model": "campaign",
       "via": "configuration"

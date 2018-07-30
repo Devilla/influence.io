@@ -257,7 +257,8 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0
+							liveVisitorCount: 0,
+							otherText: "signed up for"
 					  };
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
 						newConfiguration['contentText'] = 'Company';
@@ -308,7 +309,8 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0
+							liveVisitorCount: 0,
+							otherText: "signed up for"
 					  };
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 0, "b" : 0, "a" : 0 },
 						newConfiguration['contentText'] = 'Company Name';
@@ -354,7 +356,8 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0
+							liveVisitorCount: 0,
+							liveVisitorText:'are viewing this site'
 					  };
 						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
 						newConfiguration['contentText'] = 'Influence';
@@ -450,17 +453,17 @@ module.exports = {
 			const data = await Campaign.findOneAndRemove(params, {})
       .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
 
-    _.forEach(Campaign.associations, async association => {
-      const search = (_.endsWith(association.nature, 'One')) ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
-      const update = (_.endsWith(association.nature, 'One')) ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
+	    _.forEach(Campaign.associations, async association => {
+	      const search = (_.endsWith(association.nature, 'One')) ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
+	      const update = (_.endsWith(association.nature, 'One')) ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
-      await strapi.models[association.model || association.collection].remove(
-        search
-     	);
-    });
-}catch(err){
-	console.log(err);
-}
+	      await strapi.models[association.model || association.collection].remove(
+	        search
+	     	);
+    	});
+		} catch(err){
+			console.log(err);
+		}
     return data;
   },
 
