@@ -24,14 +24,12 @@ const client = elasticsearch.Client({
 let getUser = async function(email, callback) {
   let userDetail;
   try {
-    await strapi.services.enrichment.picasaWeb(email).then(res=>{
+    const res = await strapi.services.enrichment.picasaWeb(email);
       callback(null, res);
-    });
   } catch(err) {
     try {
-      await strapi.services.enrichment.gravatr(email).then(res => {
+      const res = await strapi.services.enrichment.gravatr(email);
         callback(null, res);
-      });
     } catch(err) {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       userDetail = {

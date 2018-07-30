@@ -81,7 +81,7 @@ let configurationDefault = {
 let getUniqueUsers = async function(index, trackingId, callback) {
   try {
     const res = await strapi.services.elasticsearch.uniqueUsersWeekly(index, trackingId);
-		callback(null, res);.
+		callback(null, res);
   } catch(err) {
     callback(err);
   }
