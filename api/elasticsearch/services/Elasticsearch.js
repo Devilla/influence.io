@@ -94,7 +94,7 @@ let logUser = async function(query) {
         *log data to elasticsearch
         **/
         client.create({
-          index: `signups-${Date.now()}`,
+          index: `signups`,
           type: 'user',
           id: uuidv1(),
           body: user
