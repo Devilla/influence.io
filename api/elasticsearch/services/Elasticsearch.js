@@ -219,7 +219,7 @@ module.exports = {
 
     let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: rule._id, type: 'lead', domain: host});
     captureLeads = captureLeads.map(lead => lead.url);
-
+    console.log(trackingId, '==========>trackingId');
     switch(type) {
       case 'live' :
         query = {
@@ -279,7 +279,7 @@ module.exports = {
             query: {
               "bool": {
                 "must": [
-                  { "match": { "trackingId":  trackingId }},
+                  { "match": { "trackingId.keyword":  trackingId }},
                   { "range":
                     { "timestamp":
                       { "gte": limit?
@@ -289,37 +289,14 @@ module.exports = {
                         "lt" :  "now+1d"
                       }
                     }
-                  },
-                  { "exists" : { "field" : "email" } }
+                  }
                 ]
               }
             },
             "sort" : [
               { "timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
-            "size": 0,
-            "aggs" : {
-              "users" : {
-                "terms" : {
-                  "field" : "email.keyword",
-                  "size" : limit?1000000:Number(configuration.panelStyle.recentNumber)
-                },
-                "aggs": {
-                  "user_docs": {
-                    "top_hits": {
-                        "sort": [
-                          {
-                            "timestamp": {
-                                "order": "desc"
-                            }
-                          }
-                        ],
-                        "size" : 1
-                    }
-                  }
-                }
-              }
-            }
+            "size": limit?10000:Number(configuration.panelStyle.recentNumber)
           }
         };
         break;
@@ -409,9 +386,9 @@ module.exports = {
       *arrange and sort userdetails
       **/
       if(type == 'journey') {
-        if(response.aggregations && response.aggregations.users.buckets.length) {
-          await response.aggregations.users.buckets.map(details => {
-            userDetails.push(details.user_docs.hits.hits[0]._source);
+        if(response.hits && response.hits.hits.length) {
+          await response.hits.hits.map(details => {
+            userDetails.push(details._source);
           });
 
           /**
