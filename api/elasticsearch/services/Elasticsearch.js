@@ -274,7 +274,7 @@ module.exports = {
         break;
       case 'journey' :
         query = {
-          index: 'signups-*',
+          index: 'signups',
           body: {
             query: {
               "bool": {
