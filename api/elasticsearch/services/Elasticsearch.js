@@ -422,9 +422,9 @@ module.exports = {
           }
 
           userDetails = await userDetails.filter(user => user.trackingId === trackingId);
-          console.log(userDetails, '=====details');
           userDetails.sort(sortByDateAsc);
-
+          if(!userDetails.length)
+            return { response, rule, configuration };
           return { response, rule, configuration, userDetails };
         } else {
           return { response, rule, configuration }
