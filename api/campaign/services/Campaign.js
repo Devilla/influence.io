@@ -80,9 +80,8 @@ let configurationDefault = {
 
 let getUniqueUsers = async function(index, trackingId, callback) {
   try {
-    await strapi.services.elasticsearch.uniqueUsersWeekly(index, trackingId).then(res=>{
-      callback(null, res);
-    });
+    const res = await strapi.services.elasticsearch.uniqueUsersWeekly(index, trackingId);
+		callback(null, res);.
   } catch(err) {
     callback(err);
   }
@@ -90,9 +89,8 @@ let getUniqueUsers = async function(index, trackingId, callback) {
 
 let getSignUps = async function(index, trackingId, type, host, callback) {
   try {
-    await strapi.services.elasticsearch.notification(index, trackingId, type, true, host).then(res=>{
+    const res = await strapi.services.elasticsearch.notification(index, trackingId, type, true, host);
       callback(null, res);
-    });
   } catch(err) {
     callback(err);
   }
