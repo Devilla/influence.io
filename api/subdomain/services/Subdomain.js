@@ -48,6 +48,7 @@ module.exports = {
    */
 
   add: async (values) => {
+    values.domainUrl = values.domainUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
     const data = await Subdomain.create(values);
     const result = await Subdomain.find({campaign: data.campaign});
     return result;
