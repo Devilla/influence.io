@@ -1,0 +1,20 @@
+config:
+  target: 'https://strapi.useinfluence.co'
+  processor: "./function.js"
+  phases:
+    - duration: 1
+      arrivalRate: 1
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - name: "Register a user"
+    flow:
+      - function: "generateRandomData"
+      - post:
+          url: "/auth/local/register"
+          json:
+            email: "lol1@gmail.com"
+            username: "{{ name }}"
+            password: "hello12345"
+      - log: "Sent a request to /users with {{ name }}, {{ email }}, {{ password }}"
