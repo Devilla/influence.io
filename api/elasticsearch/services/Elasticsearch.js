@@ -275,25 +275,41 @@ module.exports = {
         };
         break;
       case 'journey' :
+        let mustQuery = limit ?
+          [
+            { "match": { "trackingId.keyword":  trackingId }},
+            { "range":
+              { "timestamp":
+                { "gte": limit?
+                    `now-365d`
+                  :
+                    `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
+                  "lt" :  "now+1d"
+                }
+              }
+            }
+          ]
+        :
+          [
+            { "match": { "hostname.keyword": host }},
+            { "match": { "trackingId.keyword":  trackingId }},
+            { "range":
+              { "timestamp":
+                { "gte": limit?
+                    `now-365d`
+                  :
+                    `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
+                  "lt" :  "now+1d"
+                }
+              }
+            }
+          ];
         query = {
           index: 'signups',
           body: {
             query: {
               "bool": {
-                "must": [
-                  { "match": { "hostname.keyword": host }},
-                  { "match": { "trackingId.keyword":  trackingId }},
-                  { "range":
-                    { "timestamp":
-                      { "gte": limit?
-                          `now-365d`
-                        :
-                          `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
-                        "lt" :  "now+1d"
-                      }
-                    }
-                  }
-                ]
+                "must": mustQuery
               }
             },
             "sort" : [
