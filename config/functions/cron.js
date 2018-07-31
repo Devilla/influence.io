@@ -22,7 +22,7 @@ module.exports = {
 
   /**
    * Simple example.
-   * Every monday at 1am.
+   * Every minute.
    */
 
   '* * * * *': () => {
