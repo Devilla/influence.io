@@ -275,15 +275,13 @@ module.exports = {
         };
         break;
       case 'journey' :
-        let mustQuery = limit ?
+        let mustQuery = !limit ?
           [
+            { "match": { "hostname.keyword": host }},
             { "match": { "trackingId.keyword":  trackingId }},
             { "range":
               { "timestamp":
-                { "gte": limit?
-                    `now-365d`
-                  :
-                    `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
+                { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
                   "lt" :  "now+1d"
                 }
               }
@@ -291,14 +289,10 @@ module.exports = {
           ]
         :
           [
-            { "match": { "hostname.keyword": host }},
             { "match": { "trackingId.keyword":  trackingId }},
             { "range":
               { "timestamp":
-                { "gte": limit?
-                    `now-365d`
-                  :
-                    `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
+                { "gte": "now-365d",
                   "lt" :  "now+1d"
                 }
               }
@@ -419,6 +413,7 @@ module.exports = {
 
           userDetails = await userDetails.filter(user => user.trackingId === trackingId);
           userDetails.sort(sortByDateAsc);
+
           if(!userDetails.length)
             return { response, rule, configuration };
           return { response, rule, configuration, userDetails };
