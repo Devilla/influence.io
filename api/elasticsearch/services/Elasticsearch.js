@@ -412,6 +412,7 @@ module.exports = {
           }
 
           userDetails = await userDetails.filter(user => user.trackingId === trackingId);
+          userDetails = await userDetails.filter((user, index, self) => self.findIndex(t => t.email === user.email) === index);
           userDetails.sort(sortByDateAsc);
 
           if(!userDetails.length)
