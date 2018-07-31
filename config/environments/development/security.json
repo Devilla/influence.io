@@ -28,7 +28,7 @@
     "mode": "block"
   },
   "cors": {
-    "enabled": true,
+    "enabled": false,
     "origin": "*",
     "expose": [
       "WWW-Authenticate",
