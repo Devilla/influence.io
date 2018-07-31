@@ -277,7 +277,7 @@ module.exports = {
       case 'journey' :
         let mustQuery = !limit ?
           [
-            { "match": { "hostname.keyword": host }},
+            { "match": { "host.keyword": host }},
             { "match": { "trackingId.keyword":  trackingId }},
             { "range":
               { "timestamp":
