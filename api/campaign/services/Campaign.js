@@ -80,7 +80,7 @@ let configurationDefault = {
 
 let getUniqueUsers = async function(index, trackingId, callback) {
   try {
-    await strapi.services.elasticsearch.uniqueUsersWeekly(index, trackingId).then(res=>{
+    await strapi.services.elasticsearch.getAllUniqueUsers(index, trackingId).then(res=>{
       callback(null, res);
     });
   } catch(err) {
