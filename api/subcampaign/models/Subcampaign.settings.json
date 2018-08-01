@@ -35,6 +35,18 @@
     "isActive": {
       "type": "boolean",
       "multiple": false
+    },
+    "bulk": {
+      "type": "json",
+      "multiple": false
+    },
+    "live": {
+      "type": "json",
+      "multiple": false
+    },
+    "recent": {
+      "type": "json",
+      "multiple": false
     }
   }
 }

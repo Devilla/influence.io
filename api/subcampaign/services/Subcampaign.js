@@ -48,6 +48,165 @@ module.exports = {
    */
 
   add: async (values) => {
+
+    values['bulk'] = {
+      "activity" : true,
+      "panelStyle" : {
+        "radius" : 3,
+        "borderWidth" : 0,
+        "borderColor" : {
+          "r" : 200,
+          "g" : 200,
+          "b" : 200,
+          "a" : 0.80
+        },
+        "shadow" : {
+          r: 0,
+          g: 0,
+          b: 0,
+          color: 'lightgrey'
+        },
+        "blur" : 0,
+        "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+        "linkColor": {
+          "r": 0,
+          "g": 137,
+          "b": 216,
+          "a": 1
+        },
+        "backgroundColor" : {
+          "r" : 255,
+          "g" : 255,
+          "b" : 255,
+          "a" : 1
+        },
+        "fontFamily" : "inherit",
+        "fontWeight" : "normal",
+        "linkFontFamily": "inherit",
+        "linkFontWeight": "normal",
+        "selectDurationData": "hours",
+        "selectLastDisplayConversation": "hours",
+        "bulkData" : 5,
+        "recentNumber" : 5,
+        "recentConv" : 5,
+        "hideAnonymousConversion" : true,
+        "onlyDisplayNotification" : false,
+        liveVisitorCount: 0,
+        otherText: "Recently purcashed"
+      },
+      "contentText" : values.productName,
+    	"visitorText" : "people",
+    	"notificationUrl" : "",
+    	"toggleMap" : true
+    };
+
+    values['live'] = {
+      "activity" : true,
+      "panelStyle" : {
+        "radius" : 50,
+        "borderWidth" : 0,
+        "borderColor" : {
+          "r" : 200,
+          "g" : 200,
+          "b" : 200,
+          "a" : 0.80
+        },
+        "shadow" : {
+          r: 0,
+          g: 0,
+          b: 0,
+          color: 'lightgrey'
+        },
+        "blur" : 0,
+        "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+        "linkColor": {
+          "r": 0,
+          "g": 137,
+          "b": 216,
+          "a": 1
+        },
+        "backgroundColor" : {
+          "r" : 255,
+          "g" : 255,
+          "b" : 255,
+          "a" : 1
+        },
+        "fontFamily" : "inherit",
+        "fontWeight" : "normal",
+        "linkFontFamily": "inherit",
+        "linkFontWeight": "normal",
+        "selectDurationData": "hours",
+        "selectLastDisplayConversation": "hours",
+        "bulkData" : 5,
+        "recentNumber" : 5,
+        "recentConv" : 5,
+        "hideAnonymousConversion" : true,
+        "onlyDisplayNotification" : false,
+        liveVisitorCount: 0,
+        liveVisitorText:'are viewing this product'
+      },
+      "contentText" : values.productName,
+    	"visitorText" : "people",
+    	"notificationUrl" : "",
+    	"toggleMap" : true
+    }
+
+    values['recent'] = {
+      "activity" : true,
+      "panelStyle" : {
+        "radius" : 50,
+        "borderWidth" : 0,
+        "borderColor" : {
+          "r" : 200,
+          "g" : 200,
+          "b" : 200,
+          "a" : 0.80
+        },
+        "shadow" : {
+          r: 0,
+          g: 0,
+          b: 0,
+          color: 'lightgrey'
+        },
+        "blur" : 0,
+        "color" : {
+          "r" : 0,
+          "g" : 0,
+          "b" : 0,
+          "a" : 1
+        },
+        "linkColor": {
+          "r": 0,
+          "g": 137,
+          "b": 216,
+          "a": 1
+        },
+        "backgroundColor" : {
+          "r" : 255,
+          "g" : 255,
+          "b" : 255,
+          "a" : 1
+        },
+        "fontFamily" : "inherit",
+        "fontWeight" : "normal",
+        "linkFontFamily": "inherit",
+        "linkFontWeight": "normal",
+        "selectDurationData": "hours",
+        "selectLastDisplayConversation": "hours",
+        "bulkData" : 5,
+        "recentNumber" : 5,
+        "recentConv" : 5,
+        "hideAnonymousConversion" : true,
+        "onlyDisplayNotification" : false,
+        liveVisitorCount: 0,
+        otherText: "bought this product"
+      },
+      "contentText" : values.productName,
+    	"visitorText" : "people",
+    	"notificationUrl" : "",
+    	"toggleMap" : true
+    }
+
     const data = await Subcampaign.create(values);
     return data;
   },
