@@ -18,6 +18,7 @@ module.exports = {
    */
 
   fetchAll: (params) => {
+    console.log(params);
     const convertedParams = strapi.utils.models.convertParams('subcampaign', params);
 
     return Subcampaign
@@ -48,8 +49,7 @@ module.exports = {
    */
 
   add: async (values) => {
-    const data = await Subcampaign.create(_.omit(values, _.keys(_.groupBy(strapi.models.subcampaign.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('subcampaign', _.merge(_.clone(data), { values }));
+    const data = await Subcampaign.create(values);
     return data;
   },
 

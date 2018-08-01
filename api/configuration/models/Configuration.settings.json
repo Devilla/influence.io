@@ -52,10 +52,6 @@
     "campaign": {
       "model": "campaign",
       "via": "configuration"
-    },
-    "subdomain": {
-      "model": "subcampaign",
-      "via": "configuration"
     }
   }
 }

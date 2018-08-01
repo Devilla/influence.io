@@ -33,14 +33,6 @@
       "type": "date",
       "multiple": false
     },
-    "configuration": {
-      "model": "configuration",
-      "via": "subdomain"
-    },
-    "rule": {
-      "model": "rules",
-      "via": "subcampaigns"
-    },
     "isActive": {
       "type": "boolean",
       "multiple": false
