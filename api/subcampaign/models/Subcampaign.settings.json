@@ -1,0 +1,49 @@
+{
+  "connection": "default",
+  "collectionName": "subcampaign",
+  "info": {
+    "name": "subcampaign",
+    "description": "sub campaigns for campaign"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "campaign": {
+      "model": "campaign",
+      "via": "subcampaign"
+    },
+    "name": {
+      "type": "string",
+      "multiple": false
+    },
+    "productName": {
+      "type": "string",
+      "multiple": false
+    },
+    "productUrl": {
+      "type": "string",
+      "multiple": false
+    },
+    "captureUrl": {
+      "type": "string",
+      "multiple": false
+    },
+    "logTime": {
+      "type": "date",
+      "multiple": false
+    },
+    "configuration": {
+      "model": "configuration",
+      "via": "subdomain"
+    },
+    "rule": {
+      "model": "rules",
+      "via": "subcampaigns"
+    },
+    "isActive": {
+      "type": "boolean",
+      "multiple": false
+    }
+  }
+}

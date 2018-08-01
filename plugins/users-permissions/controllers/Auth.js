@@ -12,6 +12,7 @@ const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 
 module.exports = {
   callback: async (ctx) => {
+    console.log(ctx.request.body);
     const provider = ctx.params.provider || 'local';
     const params = ctx.request.body;
     const store = await strapi.store({

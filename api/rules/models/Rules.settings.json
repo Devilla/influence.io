@@ -84,6 +84,10 @@
     "leads": {
       "collection": "notificationpath",
       "via": "rule"
+    },
+    "subcampaigns": {
+      "model": "subcampaign",
+      "via": "rule"
     }
   }
 }

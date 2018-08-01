@@ -5,6 +5,6 @@
     "enabled": true
   },
   "cron": {
-    "enabled": true
+    "enabled": false
   }
 }
