@@ -10,8 +10,7 @@
   },
   "attributes": {
     "campaign": {
-      "model": "campaign",
-      "via": "subcampaign"
+      "model": "campaign"
     },
     "name": {
       "type": "string",

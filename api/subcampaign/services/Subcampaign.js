@@ -18,7 +18,6 @@ module.exports = {
    */
 
   fetchAll: (params) => {
-    console.log(params);
     const convertedParams = strapi.utils.models.convertParams('subcampaign', params);
 
     return Subcampaign
@@ -27,7 +26,7 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.subcampaign.associations, {autoPopulate: false}), 'alias')).join(' '));
+      // .populate(_.keys(_.groupBy(_.reject(strapi.models.subcampaign.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -63,8 +62,8 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('subcampaign', _.merge(_.clone(params), { values }));
-    return Subcampaign.update(params, values, { multi: true });
+    const data = await Subcampaign.findOneAndUpdate(params, values, { multi: true });
+    return Subcampaign.find({campaign: data.campaign});
   },
 
   /**
@@ -89,6 +88,7 @@ module.exports = {
         { multi: true });
     });
 
-    return data;
+
+    return await Subcampaign.find({campaign: data.campaign.id});
   }
 };
