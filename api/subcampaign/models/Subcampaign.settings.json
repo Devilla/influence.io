@@ -39,7 +39,7 @@
     "rule": {
       "model": "rules"
     },
-    "bulk": {
+    "identification": {
       "type": "json",
       "multiple": false
     },
@@ -47,7 +47,7 @@
       "type": "json",
       "multiple": false
     },
-    "recent": {
+    "journey": {
       "type": "json",
       "multiple": false
     }

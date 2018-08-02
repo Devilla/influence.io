@@ -49,7 +49,7 @@ module.exports = {
 
   add: async (values) => {
 
-    values['bulk'] = {
+    values['identification'] = {
       "activity" : true,
       "panelStyle" : {
         "radius" : 3,
@@ -154,7 +154,7 @@ module.exports = {
       "liveVisitorText": 'are viewing this product'
     }
 
-    values['recent'] = {
+    values['journey'] = {
       "activity" : true,
       "panelStyle" : {
         "radius" : 50,
@@ -221,6 +221,7 @@ module.exports = {
       domain: values.domain,
       campaignName: values.name
     };
+
     const captureLead = {
       url: values.captureUrl,
       status: 'unverified',
@@ -230,6 +231,7 @@ module.exports = {
       domain: values.domain,
       campaignName: values.name
     };
+
     await Notificationpath.create([displayLead, captureLead]);
     const data = await Subcampaign.create(values);
     return data;
