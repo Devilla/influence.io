@@ -134,7 +134,8 @@ module.exports = {
   },
 
   notification: async (index, trackingId, type, limit, host) => {
-    var query;
+    let query;
+    let configurations = [];
 
     const rule = await Campaign.findOne(
       {
@@ -200,6 +201,7 @@ module.exports = {
     .exec()
     .then(data => data?data.id:null);
 
+
     const configuration = await Configuration.findOne(
       {
         notificationType: notification,
@@ -218,7 +220,23 @@ module.exports = {
     .exec()
     .then(result => result);
 
+    let subcampaigns = await Subcampaign.find({campaign: rule?rule.campaign:null});
+
     let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: rule._id, type: 'lead', domain: host});
+
+    const defaultLeads = captureLeads.filter(lead => lead.campaignName === rule.companyName);
+    await configurations.push({
+      paths: defaultLeads.map(lead => lead.url),
+      configuration: configuration
+    });
+
+    await subcampaigns.map(subcampaign => {
+      configurations.push({
+        paths: [subcampaign.captureUrl],
+        configuration: subcampaign[type]
+      });
+    });
+
     captureLeads = captureLeads.map(lead => lead.url);
 
     switch(type) {
@@ -229,7 +247,7 @@ module.exports = {
             query: {
               "bool": {
                 "must": [
-                  { "match": { "json.value.source.url.hostname": host }},
+                  { "match": { "json.value.source.url.hostname": 'useinfluence.co' }},//host
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "range": { "@timestamp": { "gte": moment().subtract(15, 'minutes').format(), "lt": moment().format() }}}
                 ]
@@ -250,7 +268,7 @@ module.exports = {
             query: {
               "bool": {
                 "must": [
-                  { "match": { "json.value.source.url.hostname": host }},
+                  { "match": { "json.value.source.url.hostname": 'useinfluence.co' }}, //host
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "terms": { "json.value.source.url.pathname": captureLeads }},
                   { "match": { "json.value.event": 'formsubmit' }},
@@ -277,7 +295,7 @@ module.exports = {
       case 'journey' :
         let mustQuery = !limit ?
           [
-            { "match": { "host.keyword": host }},
+            { "match": { "host.keyword": 'useinfluence.co' }},//host
             { "match": { "trackingId.keyword":  trackingId }},
             { "range":
               { "timestamp":
@@ -385,7 +403,6 @@ module.exports = {
       await Campaign.update({_id:rule.campaign}, {$set:{logTime: Date.now()}});
     }
 
-
     if(rule) {
       let userDetails = [];
       const response = await new Promise((resolve, reject) => {
@@ -416,13 +433,13 @@ module.exports = {
           userDetails.sort(sortByDateAsc);
 
           if(!userDetails.length)
-            return { response, rule, configuration };
-          return { response, rule, configuration, userDetails };
+            return { response, rule, configurations };
+          return { response, rule, configurations, userDetails };
         } else {
-          return { response, rule, configuration }
+          return { response, rule, configurations }
         }
       } else
-        return { response, rule, configuration };
+        return { response , rule, configurations };
     } else {
       return { error: "Tracking Id not found" };
     }

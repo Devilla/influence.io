@@ -143,15 +143,14 @@ module.exports = {
         "hideAnonymousConversion" : true,
         "onlyDisplayNotification" : false,
         liveVisitorCount: 0,
-        liveVisitorText:'are viewing this product'
+        liveVisitorText: `are viewing ${values.productName}`
       },
-      "contentText" : values.productName,
+      "contentText" : 'Influence',
     	"visitorText" : "people",
     	"notificationUrl" : "",
     	"toggleMap" : true,
       "otherText" : "purchased ",
-      "liveVisitorCount": 0,
-      "liveVisitorText": 'are viewing this product'
+      "liveVisitorText": `are viewing ${values.productName}`
     }
 
     values['journey'] = {
