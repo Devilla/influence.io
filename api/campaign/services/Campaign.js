@@ -70,12 +70,14 @@ let configurationDefault = {
 	  "recentConv" : 5,
 	  "hideAnonymousConversion" : true,
 	  "onlyDisplayNotification" : false,
-		liveVisitorCount: 0
+		"liveVisitorCount": 0
   },
   "contentText" : "Company Name",
 	"visitorText" : "people",
 	"notificationUrl" : "",
-	"toggleMap" : true
+	"toggleMap" : true,
+	"liveVisitorCount": 0,
+	"otherText": "signed up for"
 };
 
 let getUniqueUsers = async function(index, trackingId, callback) {
@@ -259,10 +261,10 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0,
-							otherText: "signed up for"
+							"liveVisitorCount": 0,
+							"otherText": "signed up for"
 					  };
-						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+						newConfiguration['otherText'] = 'signed up for',
 						newConfiguration['contentText'] = 'Company';
 					}
 					if(notification.notificationName == 'Recent Activity') {
@@ -311,10 +313,10 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0,
-							otherText: "signed up for"
+							"liveVisitorCount": 0,
+							"otherText": "signed up for"
 					  };
-						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 0, "b" : 0, "a" : 0 },
+						newConfiguration['otherText'] = 'signed up for',
 						newConfiguration['contentText'] = 'Company Name';
 					}
 					if(notification.notificationName == 'Live Visitor Count') {
@@ -358,10 +360,11 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0,
-							liveVisitorText:'are viewing this site'
+							"liveVisitorCount": 0,
+							"liveVisitorText":'are viewing this site'
 					  };
-						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+
+						newConfiguration['liveVisitorText'] = 'are viewing this site';
 						newConfiguration['contentText'] = 'Influence';
 					}
 					// if(notification.notificationName == 'Review Notification') {
