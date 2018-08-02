@@ -36,6 +36,9 @@
       "type": "boolean",
       "multiple": false
     },
+    "rule": {
+      "model": "rules"
+    },
     "bulk": {
       "type": "json",
       "multiple": false

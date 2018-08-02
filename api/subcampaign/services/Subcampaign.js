@@ -212,6 +212,25 @@ module.exports = {
       "otherText": "bought this product"
     }
 
+    const displayLead = {
+      url: values.productUrl,
+      status: 'unverified',
+      class: 'warning',
+      type: 'display',
+      rule: values.rule,
+      domain: values.domain,
+      campaignName: values.name
+    };
+    const captureLead = {
+      url: values.captureUrl,
+      status: 'unverified',
+      class: 'warning',
+      type: 'lead',
+      rule: values.rule,
+      domain: values.domain,
+      campaignName: values.name
+    };
+    await Notificationpath.create([displayLead, captureLead]);
     const data = await Subcampaign.create(values);
     return data;
   },
