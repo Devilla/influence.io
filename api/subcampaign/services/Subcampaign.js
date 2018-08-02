@@ -91,13 +91,13 @@ module.exports = {
         "recentConv" : 5,
         "hideAnonymousConversion" : true,
         "onlyDisplayNotification" : false,
-        liveVisitorCount: 0,
-        otherText: "Recently purcashed"
+        liveVisitorCount: 0
       },
       "contentText" : values.productName,
     	"visitorText" : "people",
     	"notificationUrl" : "",
-    	"toggleMap" : true
+    	"toggleMap" : true,
+      otherText: "purcashed "
     };
 
     values['live'] = {
@@ -148,7 +148,10 @@ module.exports = {
       "contentText" : values.productName,
     	"visitorText" : "people",
     	"notificationUrl" : "",
-    	"toggleMap" : true
+    	"toggleMap" : true,
+      "otherText" : "purchased ",
+      "liveVisitorCount": 0,
+      "liveVisitorText": 'are viewing this product'
     }
 
     values['recent'] = {
@@ -204,7 +207,9 @@ module.exports = {
       "contentText" : values.productName,
     	"visitorText" : "people",
     	"notificationUrl" : "",
-    	"toggleMap" : true
+    	"toggleMap" : true,
+      "liveVisitorCount": 0,
+      "otherText": "bought this product"
     }
 
     const data = await Subcampaign.create(values);
