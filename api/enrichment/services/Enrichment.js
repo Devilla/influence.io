@@ -52,7 +52,7 @@ module.exports = {
             reject(errorForTry)
           }
         } else {
-          reject({error: body.toString()})
+          reject({error: body?body.toString():body})
         }
       });
     });

@@ -4,7 +4,7 @@
  */
 let chai = require('chai');
 let expect = chai.expect;;
-const enrichment = require('../api/enrichment/services/Enrichment');
+const enrichment = require('../../api/enrichment/services/Enrichment');
 
 
 describe('Should Return Email Data', function() {
@@ -19,7 +19,6 @@ describe('Should Return Email Data', function() {
   });
 });
 
-
 describe('Should Return Email Data From Gravatar', function() {
   describe('#emailEnrichmentfromGravatar()', function() {
     it('should return data when value is passed', function() {
@@ -31,6 +30,3 @@ describe('Should Return Email Data From Gravatar', function() {
     });
   });
 });
-
-
-

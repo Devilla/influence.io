@@ -61,7 +61,7 @@ module.exports = {
 
   add: async (values) => {
     const data = await Coupon.create(_.omit(values, _.keys(_.groupBy(strapi.models.coupon.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('coupon', _.merge(_.clone(data), { values }));
+    //await strapi.hook.mongoose.manageRelations('coupon', _.merge(_.clone(data), { values }));
     return data;
   },
 
@@ -75,7 +75,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('coupon', _.merge(_.clone(params), { values }));
+  // await strapi.hook.mongoose.manageRelations('coupon', _.merge(_.clone(params), { values }));
     return Coupon.update(params, values, { multi: true });
   },
 
@@ -95,7 +95,7 @@ module.exports = {
       const search = (_.endsWith(association.nature, 'One')) ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
       const update = (_.endsWith(association.nature, 'One')) ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
-      await strapi.models[association.model || association.collection].update(
+      await strapi.models[association.model || association.collection].remove(
         search,
         update,
         { multi: true });

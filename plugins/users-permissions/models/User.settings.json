@@ -70,6 +70,22 @@
     "state": {
       "model": "state",
       "via": "user"
+    },
+    "clients": {
+      "collection": "client",
+      "via": "userId"
+    },
+    "code": {
+      "model": "code",
+      "via": "userId"
+    },
+    "token": {
+      "model": "token",
+      "via": "userId"
+    },
+    "path": {
+      "type": "string",
+      "multiple": false
     }
   },
   "collectionName": "users-permissions_user"

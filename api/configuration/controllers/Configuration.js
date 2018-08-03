@@ -72,7 +72,6 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
-    console.log(ctx.params, ctx.request.body);
     const data = await strapi.services.configuration.edit(ctx.params, ctx.request.body) ;
 
     // Send 200 `ok`

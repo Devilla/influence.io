@@ -1,0 +1,30 @@
+{
+  "connection": "default",
+  "collectionName": "client",
+  "info": {
+    "name": "client",
+    "description": "Oauth clients"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "multiple": false
+    },
+    "id": {
+      "type": "string",
+      "multiple": false
+    },
+    "secret": {
+      "type": "string",
+      "multiple": false
+    },
+    "userId": {
+      "model": "user",
+      "via": "clients",
+      "plugin": "users-permissions"
+    }
+  }
+}

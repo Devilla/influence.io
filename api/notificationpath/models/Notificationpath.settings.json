@@ -28,6 +28,14 @@
     "type": {
       "type": "string",
       "multiple": false
+    },
+    "domain": {
+      "type": "string",
+      "multiple": false
+    },
+    "campaignName": {
+      "type": "string",
+      "multiple": false
     }
   }
 }

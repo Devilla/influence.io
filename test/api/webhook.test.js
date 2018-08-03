@@ -9,7 +9,7 @@ const request = require('co-supertest');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
-var Token, profile, user, campaign;
+var Token, profile, user, campaign, webhook;
 
 /**
  * Test the login user
@@ -34,19 +34,14 @@ var Token, profile, user, campaign;
   });
 
 /**
-  * Create User profile
-  **/
-  describe('create user profile', () => {
-    it('it should create user`s profile', function *() {
+ * Test Get User Profile
+ **/
+  describe('find user`s profile test', () => {
+    it('it should get user`s profile', function *() {
       yield request(strapi.config.url)
-      .post('/profile')
+      .get(`/profile`)
       .set('Authorization', `Bearer ${Token}`)
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json')
-      .send({
-        user: user._id
-      })
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /json/)
       .then((data, err) => {
         if(data.error)
@@ -57,7 +52,7 @@ var Token, profile, user, campaign;
   });
 
 /**
- * Test Create Campaign
+ * Test Create Campaign for webhook
  **/
   describe('campaign creation test', () => {
     it('it should create campaign with configuration and rules', function *() {
@@ -82,51 +77,78 @@ var Token, profile, user, campaign;
   });
 
 /**
- * Test Get User Campaigns
- **/
-  describe('campaign find all campaigns test', () => {
-    it('it should get all users campaign', function *() {
+  * Create campaign webhooks
+  **/
+  describe('create campaign webhooks', () => {
+    it('it should create campaign webhooks', function *() {
       yield request(strapi.config.url)
-      .get(`/campaign`)
-      .set('Authorization', `Bearer ${Token}`)
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .then((data, err) => {
-        if(data.error)
-          throw data.error;
-      });
-    });
-  });
-
-/**
- * Test Get One Campaigns
- **/
-  describe('campaign find one campaign test', () => {
-    it('it should get one campaign', function *() {
-      yield request(strapi.config.url)
-      .get(`/campaign/${campaign._id}`)
-      .set('Authorization', `Bearer ${Token}`)
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .then((data, err) => {
-        if(data.error)
-          throw data.error;
-      });
-    });
-  });
-
-/**
- * Test Edit Campaign
- **/
-  describe('campaign update test', () => {
-    it('it should update campaign', function *() {
-      yield request(strapi.config.url)
-      .put(`/campaign/${campaign._id}`)
+      .post('/webhooks')
       .set('Authorization', `Bearer ${Token}`)
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
       .send({
-        isActive: false
+        name: 'webhook',
+        type: 'custom',
+        trackingId: campaign.trackingId,
+        campaign: campaign
+      })
+      .expect(201)
+      .expect('Content-Type', /json/)
+      .then((data, err) => {
+        if(data.error)
+          throw data.error;
+        webhook = data.body;
+      });
+    });
+  });
+
+/**
+ * Test Get Campaign Webhook
+ **/
+  describe('find campaign webhook test', () => {
+    it('it should get campaign`s webhook', function *() {
+      yield request(strapi.config.url)
+      .get(`/webhooks/campaign/${campaign._id}`)
+      .set('Authorization', `Bearer ${Token}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then((data, err) => {
+        if(data.error)
+          throw data.error;
+      });
+    });
+  });
+
+/**
+ * Test Get One Webhook
+ **/
+  describe('find one webhook test', () => {
+    it('it should get one webhook', function *() {
+      yield request(strapi.config.url)
+      .get(`/webhooks/${webhook._id}`)
+      .set('Authorization', `Bearer ${Token}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then((data, err) => {
+        if(data.error)
+          throw data.error;
+      });
+    });
+  });
+
+/**
+ * Test Edit Campaigns webhook
+ **/
+  describe('webhook update test', () => {
+    it('it should update webhook', function *() {
+      yield request(strapi.config.url)
+      .put(`/webhooks/${webhook._id}`)
+      .set('Authorization', `Bearer ${Token}`)
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .send({
+        name: 'DEF',
+        type: 'ABC'
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -138,12 +160,12 @@ var Token, profile, user, campaign;
   });
 
 /**
-  * Test Delete Campaign
+  * Test Delete Webhook
   **/
-  describe('campaign deletion test', () => {
-    it('it should delete campaign with configuration and rules', function *() {
+  describe('webhook deletion test', () => {
+    it('it should delete webhook', function *() {
       yield request(strapi.config.url)
-        .delete(`/campaign/${campaign._id}`)
+        .delete(`/webhooks/${webhook._id}`)
         .set('Authorization', `Bearer ${Token}`)
         .set('Content-Type', 'application/json')
         .set('Accept', 'application/json')
@@ -157,7 +179,26 @@ var Token, profile, user, campaign;
   });
 
 /**
-  * Delete the user
+  * Test Delete Profile
+  **/
+  describe('profile deletion test', () => {
+    it('it should delete profile', function *() {
+      yield request(strapi.config.url)
+        .delete(`/profile/${profile._id}`)
+        .set('Authorization', `Bearer ${Token}`)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then((data, err) => {
+          if(data.error)
+            throw data.error;
+        });
+    });
+  });
+
+/**
+  * Delete the User
   **/
   describe('Should Delete User', function() {
     it("should delete user", function *() {

@@ -5,6 +5,8 @@
  */
  const crypto = require('crypto');
  const request = require('request');
+ const uuidv4 = require('uuid/v4');
+ const bcrypt = require('bcryptjs');
 
  /**
  * Function for http requests
@@ -12,18 +14,21 @@
  *@param{{method, url, headers, form}}
  *@return {Promise}
  */
- function doRequest(options) {
-   return new Promise(function (resolve, reject) {
-     request(options , function (error, res, body) {
-       const response = JSON.parse(body);
-       if (!error && res.statusCode == 200 || !response.error) {
-         resolve(body);
-       } else {
-         reject(response.error);
-       }
-     });
-   });
- }
+function doRequest(options) {
+  return new Promise(function (resolve, reject) {
+    request(options , function (error, res, body) {
+      if(res && res.statusCode >= 400) {
+        return resolve({error: true, message: body});
+      }
+      const response = typeof body === 'string'? JSON.parse(body) : body;
+      if (!error && res.statusCode == 200 || (response && !response.error)) {
+        resolve(body);
+      } else {
+        reject(error || (response && response.error?response.error:''));
+      }
+    });
+  });
+}
 
 
 module.exports = {
@@ -58,24 +63,24 @@ module.exports = {
     const verificationToken = crypto.randomBytes(64).toString('hex');
     model.verificationToken = verificationToken
     model.verified = false;
+    model.path = '/checkout';
+    let password = await bcrypt.hash(uuidv4(), 10);
+
+    model.password = model.password?model.password:'mySecretPasswordInPlace';
 
     const user = {
       id: model._id,
-      name: model.username,
+      name: model.username || 'test',
       email: model.email,
       password: model.password,
-      provider: model.provider,
+      provider: 'local',
       customer_id: model._id,
     };
-
     try {
-
       //create new user in servicebot
-      var data = await doRequest({method
-        : 'POST', url:'https://servicebot.useinfluence.co/api/v1/users/register', form: user});
+      var data = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/users/register', form: user});
       //retrieve auth token for new user
-      var token = await doRequest({method: 'POST',
-      url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: model.email, password: model.password }});
+      var token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: model.email, password: user.password }});
       //retrieve new user's details from servicebot
       var userDetails = await doRequest({method: 'GET', url:'https://servicebot.useinfluence.co/api/v1/users/own', headers: {
         Authorization: 'JWT ' + JSON.parse(token).token,

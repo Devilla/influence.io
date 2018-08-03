@@ -10,6 +10,14 @@
 const _ = require('lodash');
 const env = require('dotenv').config()
 const request = require('request');
+var pdf = require('html-pdf');
+var stripe = require('stripe')(process.env.STRIPE_KEY);
+
+var options = {
+  format: 'A4',
+  "orientation": "portrait",
+};
+var invoiceTemplate = require('../config/invoiceTemplate');
 
 /**
 * Function for http requests
@@ -34,10 +42,20 @@ function doRequest(options) {
 }
 
 /**
-* Initialize stripe with live/development api key
-*
-*/
-let stripe = require('stripe')(process.env.STRIPE_KEY || 'sk_test_hIHBmEAcq9nzEIGICQ6gjFmY');
+ * Promise to generate invoice.
+ *
+ * @return {Promise}
+ */
+function generatePdf(html, id) {
+  return new Promise(function (resolve, reject) {
+    pdf.create(html, options).toFile(`./public/invoices/${id}.pdf`, function(err, res) {
+      if (err)
+        return reject(err);
+      return resolve({path: `invoices/${id}.pdf`, filename: res});
+    });
+  })
+}
+
 
 module.exports = {
 
@@ -82,7 +100,6 @@ module.exports = {
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
       .populate('plan');
-    // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
@@ -113,6 +130,35 @@ module.exports = {
     return JSON.parse(invoices); //returns parsed user's invoices
   },
 
+  /**
+   * Promise to fetch && download one payment invoice.
+   *
+   * @return {Promise}
+   */
+  downloadInvoice: async (user, id) => {
+    var auth_token = await doRequest({
+      method: 'POST',
+      url:'https://servicebot.useinfluence.co/api/v1/auth/token',
+      form: {
+        email: user.email,
+        password: user.password
+      }
+    });
+
+    var invoice = await doRequest({
+      method: 'GET',
+      url:`https://servicebot.useinfluence.co/api/v1/invoices/${id}`,
+      headers: {
+        Authorization: 'JWT ' + JSON.parse(auth_token).token,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    let html = await invoiceTemplate(JSON.parse(invoice), user);
+    let response = await generatePdf(html, id);
+
+    return response;
+  },
 
   /**
    * Promise to fetch all payments.
@@ -155,12 +201,13 @@ module.exports = {
   add: async (user, values) => {
     let token;
     let plan = values.plan;
+    let coupon = values.coupon;
     let payment_subscription;
     // retrieve logged in user's auth token from servicebot
     let auth_token = await doRequest({method: 'POST', url:'https://servicebot.useinfluence.co/api/v1/auth/token', form: { email: user.email, password: user.password }});
     plan["client_id"] = user.servicebot.client_id;
 
-    if(Object.keys(values.coupon).length === 0) {
+    if(!coupon || Object.keys(coupon).length === 0) {
       token = values.paymentProvider.id;
       plan["token_id"] = token;
     }
@@ -209,15 +256,25 @@ module.exports = {
 
     const plan_value = {
       user: user._id,
-      coupon_details: values.coupon,
+      coupon_details: coupon,
       plan_details: payment_subscription.payment_plan,
       subscribed_at: payment_subscription.subscribed_at,
       servicebot_user_id: payment_subscription.user_id
     };
+
     await Plan.create(plan_value);
 
     //Create new payment document
     const data = await Payment.create(payment_values);
+    const userParams = {
+      id: user._id
+    };
+
+    const userValues = {
+      path: '/dashboard'
+    };
+
+    const userUpdate = strapi.plugins['users-permissions'].services.user.edit(userParams, userValues);
     return data;
   },
 
@@ -369,7 +426,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('payment', _.merge(_.clone(params), { values }));
+    //await strapi.hook.mongoose.manageRelations('payment', _.merge(_.clone(params), { values }));
     return Payment.update(params, values, { multi: true });
   },
 

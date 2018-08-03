@@ -13,6 +13,10 @@
       "type": "string",
       "multiple": false
     },
+    "logTime": {
+      "type": "date",
+      "multiple": false
+    },
     "websiteName": {
       "type": "string",
       "multiple": false
@@ -21,12 +25,8 @@
       "type": "string",
       "multiple": false
     },
-    "utmSource": {
-      "type": "string",
-      "multiple": false
-    },
-    "utmMedium": {
-      "type": "string",
+    "averageCustomer": {
+      "type": "integer",
       "multiple": false
     },
     "trackingId": {
@@ -62,6 +62,13 @@
     "uniqueVisitors": {
       "type": "integer",
       "multiple": false
+    },
+    "webhooks": {
+      "model": "webhooks"
+    },
+    "subcampaign": {
+      "collection": "subcampaign",
+      "via": "campaign"
     }
   }
 }

@@ -83,7 +83,7 @@ module.exports = {
 
   add: async (values) => {
     const data = await Configuration.create(_.omit(values, _.keys(_.groupBy(strapi.models.configuration.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('configuration', _.merge(_.clone(data), { values }));
+    //await strapi.hook.mongoose.manageRelations('configuration', _.merge(_.clone(data), { values }));
     return data;
   },
 

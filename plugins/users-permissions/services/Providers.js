@@ -61,6 +61,10 @@ exports.connect = (provider, query) => {
           return resolve([null, [{ messages: [{ id: 'Auth.advanced.allow_register' }] }], 'Register action is actualy not available.']);
         }
 
+        if(users.length) {
+          return resolve([users[0], null]);
+        }
+
         const user = _.find(users, {provider});
 
         if (!_.isEmpty(user)) {
@@ -74,14 +78,17 @@ exports.connect = (provider, query) => {
         // Retrieve role `guest`.
         const guest = await strapi.query('role', 'users-permissions').findOne({ type: 'customer' }, []);
 
+        let userProfile = profile.profile;
+        delete profile['profile'];
         // Create the new user.
         const params = _.assign(profile, {
           provider: provider,
-          role: guest._id || guest.id
+          role: guest._id || guest.id,
+          path: '/checkout'
         });
-
         const createdUser = await strapi.query('user', 'users-permissions').create(params);
-
+        userProfile['user'] = createdUser._id;
+        const createProfile = await strapi.services.profile.add(userProfile);
         return resolve([createdUser, null]);
       } catch (err) {
         reject([null, err]);
@@ -113,14 +120,22 @@ const getProfile = async (provider, query, callback) => {
         provider: 'facebook'
       });
 
-      facebook.query().get('me?fields=name,email').auth(access_token).request((err, res, body) => {
-        console.log(body, "=======facebook body");
+      facebook.query().get('me?fields=name,email,last_name,first_name,photos{picture}').auth(access_token).request((err, res, body) => {
+        console.log(body, '=======>test fb data');
         if (err) {
           callback(err);
         } else {
           callback(null, {
             username: body.name,
-            email: body.email
+            email: body.email,
+            profile: {
+              firstName: body.first_name,
+              lastName: body.last_name,
+              uniqueVisitorQouta: 0,
+              uniqueVisitors: 0,
+              uniqueVisitorsQoutaLeft: 0,
+              plan: null
+            }
           });
         }
       });
@@ -131,13 +146,21 @@ const getProfile = async (provider, query, callback) => {
       });
 
       google.query('plus').get('people/me').auth(access_token).request((err, res, body) => {
-        console.log(body, "=======google body");
         if (err) {
           callback(err);
         } else {
           callback(null, {
             username: body.displayName || body.emails[0].value,
-            email: body.emails[0].value
+            email: body.emails[0].value,
+            profile: {
+              firstName: body.name.givenName,
+              lastName: body.name.familyName,
+              image: body.image.url,
+              uniqueVisitorQouta: 0,
+              uniqueVisitors: 0,
+              uniqueVisitorsQoutaLeft: 0,
+              plan: null
+            }
           });
         }
       });

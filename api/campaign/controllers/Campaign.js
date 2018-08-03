@@ -115,7 +115,8 @@ module.exports = {
 
   findUserCampaignsInfo: async (ctx) => {
     const user = ctx.state.user;
-    const data = await strapi.services.campaign.fetchUserCampaignsInfo(user._id);
+    const host = ctx.request.header.host;
+    const data = await strapi.services.campaign.fetchUserCampaignsInfo(user._id, host);
 
     // Send 200 `ok`
     ctx.send(data);
