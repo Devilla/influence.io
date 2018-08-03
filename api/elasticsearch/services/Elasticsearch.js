@@ -68,6 +68,8 @@ let logUser = async function(query, hostName) {
       let longitude = geo?geo.longitude:null;
       let trackingId = details._source.json.value.trackingId;
       let host = hostName;
+      let path = details._source.json.value.source.url.pathname;
+
       let userDetail = {
         email: email,
         timestamp: timestamp,
@@ -76,7 +78,8 @@ let logUser = async function(query, hostName) {
         latitude: latitude,
         longitude: longitude,
         trackingId: trackingId,
-        host: host
+        host: host,
+        path: path
       };
       userDetails.push(userDetail);
     });
@@ -94,11 +97,14 @@ let logUser = async function(query, hostName) {
         /**
         *log data to elasticsearch
         **/
-        client.create({
+        client.update({
           index: `signups`,
           type: 'user',
           id: uuidv1(),
-          body: user
+          body: {
+            doc: user,
+            doc_as_upsert: true
+          }
         }, (err, res)=>{
           return;
         });
@@ -277,35 +283,72 @@ module.exports = {
         };
         break;
       case 'identification' :
-        query = {
-          index: index,
-          body: {
-            query: {
-              "bool": {
-                "must": [
-                  { "match": { "json.value.source.url.hostname": 'useinfluence.co' }}, //host
-                  { "match": { "json.value.trackingId":  trackingId }},
-                  { "terms": { "json.value.source.url.pathname": captureLeads }},
-                  { "match": { "json.value.event": 'formsubmit' }},
-                  { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}}
-                ],
-                "should": [
-                  { "exists" : { "field" : "json.value.form.email" }},
-                  { "exists" : { "field" : "json.value.form.EMAIL" }},
-                  { "exists" : { "field" : "json.value.form.Email" }}
-                ]
-              }
-            },
-            "aggs" : {
-              "users" : {
-                "terms" : {
-                  "field" : "json.value.form.email",
-                  "size" : 100000
-                 }
+        let identificationQuery = !limit ?
+          [
+            { "match": { "host.keyword": 'useinfluence.co' }},//host
+            { "match": { "trackingId.keyword":  trackingId }},
+            { "range":
+              { "timestamp":
+                { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`,
+                  "lt" :  "now+1d"
+                }
               }
             }
-          }
-        };
+          ]
+        :
+          [
+            { "match": { "trackingId.keyword":  trackingId }},
+            { "range":
+              { "timestamp":
+                { "gte": "now-365d",
+                  "lt" :  "now+1d"
+                }
+              }
+            }
+          ];
+        query = {
+        index: 'signups',
+        body: {
+          query: {
+            "bool": {
+              "must": identificationQuery
+            }
+          },
+          "sort" : [
+            { "timestamp" : {"order" : "desc", "mode" : "max"}}
+          ],
+          "size": limit?10000:Number(configuration.panelStyle.recentNumber)
+        }
+      };
+        // query = {
+        //   index: index,
+        //   body: {
+        //     query: {
+        //       "bool": {
+        //         "must": [
+        //           { "match": { "json.value.source.url.hostname": 'useinfluence.co' }}, //host
+        //           { "match": { "json.value.trackingId":  trackingId }},
+        //           { "terms": { "json.value.source.url.pathname": captureLeads }},
+        //           { "match": { "json.value.event": 'formsubmit' }},
+        //           { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}}
+        //         ],
+        //         "should": [
+        //           { "exists" : { "field" : "json.value.form.email" }},
+        //           { "exists" : { "field" : "json.value.form.EMAIL" }},
+        //           { "exists" : { "field" : "json.value.form.Email" }}
+        //         ]
+        //       }
+        //     },
+        //     "aggs" : {
+        //       "users" : {
+        //         "terms" : {
+        //           "field" : "json.value.form.email",
+        //           "size" : 100000
+        //          }
+        //       }
+        //     }
+        //   }
+        // };
         break;
       case 'journey' :
         let mustQuery = !limit ?
@@ -430,7 +473,7 @@ module.exports = {
       /**
       *arrange and sort userdetails
       **/
-      if(type == 'journey') {
+      if(type == 'journey' || type == 'identification') {
         if(response.hits && response.hits.hits.length) {
           await response.hits.hits.map(details => {
             userDetails.push(details._source);
