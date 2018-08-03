@@ -253,7 +253,7 @@ module.exports = {
             query: {
               "bool": {
                 "must": [
-                  { "match": { "json.value.source.url.hostname": 'useinfluence.co' }},//host
+                  { "match": { "json.value.source.url.hostname": host }},
                   { "match": { "json.value.trackingId":  trackingId }},
                   { "range": { "@timestamp": { "gte": moment().subtract(15, 'minutes').format(), "lt": moment().format() }}}
                 ]
@@ -285,7 +285,7 @@ module.exports = {
       case 'identification' :
         let identificationQuery = !limit ?
           [
-            { "match": { "host.keyword": 'useinfluence.co' }},//host
+            { "match": { "host.keyword": host }},
             { "match": { "trackingId.keyword":  trackingId }},
             { "range":
               { "timestamp":
@@ -307,53 +307,24 @@ module.exports = {
             }
           ];
         query = {
-        index: 'signups',
-        body: {
-          query: {
-            "bool": {
-              "must": identificationQuery
-            }
-          },
-          "sort" : [
-            { "timestamp" : {"order" : "desc", "mode" : "max"}}
-          ],
-          "size": limit?10000:Number(configuration.panelStyle.recentNumber)
-        }
-      };
-        // query = {
-        //   index: index,
-        //   body: {
-        //     query: {
-        //       "bool": {
-        //         "must": [
-        //           { "match": { "json.value.source.url.hostname": 'useinfluence.co' }}, //host
-        //           { "match": { "json.value.trackingId":  trackingId }},
-        //           { "terms": { "json.value.source.url.pathname": captureLeads }},
-        //           { "match": { "json.value.event": 'formsubmit' }},
-        //           { "range": { "@timestamp": { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`, "lt" :  "now" }}}
-        //         ],
-        //         "should": [
-        //           { "exists" : { "field" : "json.value.form.email" }},
-        //           { "exists" : { "field" : "json.value.form.EMAIL" }},
-        //           { "exists" : { "field" : "json.value.form.Email" }}
-        //         ]
-        //       }
-        //     },
-        //     "aggs" : {
-        //       "users" : {
-        //         "terms" : {
-        //           "field" : "json.value.form.email",
-        //           "size" : 100000
-        //          }
-        //       }
-        //     }
-        //   }
-        // };
+          index: 'signups',
+          body: {
+            query: {
+              "bool": {
+                "must": identificationQuery
+              }
+            },
+            "sort" : [
+              { "timestamp" : {"order" : "desc", "mode" : "max"}}
+            ],
+            "size": limit?10000:Number(configuration.panelStyle.recentNumber)
+          }
+        };
         break;
       case 'journey' :
         let mustQuery = !limit ?
           [
-            { "match": { "host.keyword": 'useinfluence.co' }},//host
+            { "match": { "host.keyword": host }},
             { "match": { "trackingId.keyword":  trackingId }},
             { "range":
               { "timestamp":
@@ -497,7 +468,7 @@ module.exports = {
           return { response, rule, configurations }
         }
       } else
-        return { response , rule, configurations };
+        return { response, rule, configurations };
     } else {
       return { error: "Tracking Id not found" };
     }
