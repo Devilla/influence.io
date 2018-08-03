@@ -146,6 +146,8 @@ module.exports = {
         visitorText: 1,
         notificationUrl: 1,
         toggleMap: 1,
+        otherText: 1,
+        liveVisitorText: 1,
         channel: 1
       }
     )
