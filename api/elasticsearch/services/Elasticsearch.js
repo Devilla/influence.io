@@ -68,6 +68,8 @@ let logUser = async function(query, hostName) {
       let longitude = geo?geo.longitude:null;
       let trackingId = details._source.json.value.trackingId;
       let host = hostName;
+      let path = details._source.json.value.source.url.pathname;
+      
       let userDetail = {
         email: email,
         timestamp: timestamp,
@@ -76,7 +78,8 @@ let logUser = async function(query, hostName) {
         latitude: latitude,
         longitude: longitude,
         trackingId: trackingId,
-        host: host
+        host: host,
+        path: path
       };
       userDetails.push(userDetail);
     });
@@ -94,11 +97,14 @@ let logUser = async function(query, hostName) {
         /**
         *log data to elasticsearch
         **/
-        client.create({
+        client.update({
           index: `signups`,
           type: 'user',
           id: uuidv1(),
-          body: user
+          body: {
+            doc: user,
+            doc_as_upsert: true
+          }
         }, (err, res)=>{
           return;
         });
