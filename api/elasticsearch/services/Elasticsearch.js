@@ -42,79 +42,8 @@ let getUser = async function(email, callback) {
   }
 }
 
-/**
-*logs users data
-**/
-let logUser = async function(query, hostName) {
-  let userDetails = [];
-  const response = await new Promise((resolve, reject) => {
-    client.search(query, function (err, resp, status) {
-      if (err) reject(err);
-      else resolve(resp);
-    });
-  });
-
-  if(response.aggregations && response.aggregations.users.buckets.length) {
-    await response.aggregations.users.buckets.map(details => {
-      details = details.user_docs.hits.hits[0];
-
-      let form = details._source.json.value.form;
-      let email = form.email || form.EMAIL || form.Email;
-      let timestamp = moment(details._source.json.value.timestamp).format();
-      let geo = details._source.json.value.geo;
-      let city = geo?geo.city:null;
-      let country = geo?geo.country:null;
-      let latitude = geo?geo.latitude:null;
-      let longitude = geo?geo.longitude:null;
-      let trackingId = details._source.json.value.trackingId;
-      let host = hostName;
-      let path = details._source.json.value.source.url.pathname;
-
-      let userDetail = {
-        email: email,
-        timestamp: timestamp,
-        city: city,
-        country: country,
-        latitude: latitude,
-        longitude: longitude,
-        trackingId: trackingId,
-        host: host,
-        path: path
-      };
-      userDetails.push(userDetail);
-    });
-
-    const userList = userDetails.map(async user => {
-
-      await getUser(user.email, (err, userDetail) => {
-        if(err)
-          throw err;
-        else {
-          user['username'] = userDetail.username;
-          user['profile_pic'] = userDetail.profile_pic;
-        }
-
-        /**
-        *log data to elasticsearch
-        **/
-        client.update({
-          index: `signups`,
-          type: 'user',
-          id: uuidv1(),
-          body: {
-            doc: user,
-            doc_as_upsert: true
-          }
-        }, (err, res)=>{
-          return;
-        });
-      });
-    });
-  }
-}
 
 module.exports = {
-
 
   health : async () => {
     return new Promise((resolve, reject)=> {
@@ -123,9 +52,7 @@ module.exports = {
         else resolve(resp);
         strapi.log.info('-- Client Health --',resp);
       });
-
     });
-
   },
 
 
@@ -206,7 +133,6 @@ module.exports = {
     )
     .exec()
     .then(data => data?data.id:null);
-
 
     const configuration = await Configuration.findOne(
       {
@@ -362,74 +288,6 @@ module.exports = {
         break;
       default:
         break;
-    }
-
-    /**
-    *log data to elasticsearch if not logged already
-    **/
-    if(type == 'journey') {
-      /**
-      *query to search user not logged
-      **/
-      let logQuery = {
-        index: index,
-        body: {
-          query: {
-            "bool": {
-              "must": [
-                { "match": { "json.value.trackingId":  trackingId }},
-                { "terms": { "json.value.source.url.pathname": captureLeads }},
-                { "match": { "json.value.event": 'formsubmit' }},
-                { "range":
-                  { "@timestamp":
-                    { "gte": moment(rule.logTime).format(),
-                      "lt" :  "now+1d"
-                    }
-                  }
-                },
-                { "exists" : { "field" : "json.value.form.email" }}
-              ]
-            }
-          },
-          "sort" : [
-            { "@timestamp" : {"order" : "desc", "mode" : "max"}}
-          ],
-          "size": 10,
-          "aggs" : {
-            "users" : {
-              "terms" : { "field" : "json.value.form.email", "size" : 10000 },
-              "aggs": {
-                "user_docs": {
-                  "top_hits": {
-                      "sort": [
-                        {
-                          "@timestamp": {
-                              "order": "desc"
-                          }
-                        }
-                      ],
-                      "_source": {
-                        "includes": [ "json" ]
-                      },
-                      "size" : 1
-                  }
-                }
-              }
-            }
-          }
-        }
-      };
-
-      /**
-      *@params {logQuery}
-      *logs data to elastic search
-      **/
-      await logUser(logQuery, host);
-
-      /**
-      *update campaign with new log time
-      **/
-      await Campaign.update({_id:rule.campaign}, {$set:{logTime: Date.now()}});
     }
 
     if(rule) {
