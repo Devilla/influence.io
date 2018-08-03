@@ -155,8 +155,10 @@ module.exports = {
     let subcampaigns = await Subcampaign.find({campaign: rule?rule.campaign:null});
 
     let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: rule._id, type: 'lead', domain: host});
+    let displayLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: rule._id, type: 'display', domain: host});
 
-    const defaultLeads = captureLeads.filter(lead => lead.campaignName === rule.companyName);
+    const defaultLeads = displayLeads.filter(display => display.campaignName === rule.companyName);
+
     await configurations.push({
       paths: defaultLeads.map(lead => lead.url),
       configuration: configuration
