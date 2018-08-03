@@ -253,9 +253,24 @@ module.exports = {
                 ]
               }
             },
+            "size": 0,
             "aggs" : {
               "users" : {
-                "terms" : { "field" : "json.value.visitorId" }
+                "composite" : {
+                  "sources" : [
+                    {
+                      "visitorId": {
+                        "terms" : { "field" : "json.value.visitorId" }
+                      }
+                    },
+                    {
+                      "path": {
+                        "terms" : { "field" : "json.value.source.url.pathname" }
+                      }
+                    }
+
+                  ]
+                }
               }
             }
           }
