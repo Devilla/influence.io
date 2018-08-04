@@ -109,13 +109,12 @@ let logUser = async function(query, hostName) {
         /**
         *log data to elasticsearch
         **/
-        client.update({
+        client.create({
           index: `signups`,
           type: 'user',
           id: uuidv1(),
           body: {
-            doc: user,
-            doc_as_upsert: true
+            doc: user
           }
         }, (err, res)=>{
           return;
