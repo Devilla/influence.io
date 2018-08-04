@@ -1,0 +1,91 @@
+config:
+  target: "wss://strapi.useinfluence.co/web"
+  phases:
+    - duration: 180
+      arrivalRate: 70
+  ws:
+    # Ignore SSL certificate errors
+    # - useful in *development* with self-signed certs
+    rejectUnauthorized: false
+scenarios:
+  - engine: "ws"
+    flow:
+      - send: "{{'json': {
+            'log': '',
+            'path': '/visitors/events/',
+            'value': {
+              'visitorId': '69e9167f-d7d9-f77e-f77d-71fb0f0f1b87',
+              'browser': {
+                'language': 'en-GB',
+                'plugins': [
+                  {
+                    'name': 'Chrome PDF Plugin',
+                    'description': 'Portable Document Format',
+                    'filename': 'internal-pdf-viewer',
+                    'mimeType': {
+                      'type': 'application/x-google-chrome-pdf',
+                      'description': 'Portable Document Format',
+                      'suffixes': 'pdf'
+                    }
+                  },
+                  {
+                    'name': 'Chrome PDF Viewer',
+                    'filename': 'mhjfbmdgcfjbbpaeojofohoefgiehjai',
+                    'mimeType': {
+                      'type': 'application/pdf',
+                      'suffixes': 'pdf'
+                    }
+                  },
+                  {
+                    'name': 'Native Client',
+                    'filename': 'internal-nacl-plugin',
+                    'mimeType': {
+                      'type': 'application/x-nacl',
+                      'description': 'Native Client Executable'
+                    }
+                  }
+                ],
+                'ua': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36',
+                'name': 'Chrome',
+                'version': 67,
+                'platform': 'Linux'
+              },
+              'locale': {
+                'language': 'en-GB',
+                'timezoneOffset': -330
+              },
+              'trackingId': 'INF-406jkjiji00uszj',
+              'timestamp': '2018-07-29T10:11:56.228Z',
+              'source': {
+                'url': {
+                  'pathname': '/login',
+                  'protocol': 'https:',
+                  'host': 'useinfluence.co',
+                  'hostname': 'useinfluence.co'
+                }
+              },
+              'fingerprint': '94a17e0ab2893d32f4e0936e189dbb39',
+              'screen': {
+                'colorDepth': 24,
+                'height': 768,
+                'width': 1366
+              },
+              'url': {
+                'protocol': 'https:',
+                'host': 'useinfluence.co',
+                'hostname': 'useinfluence.co',
+                'pathname': '/login'
+              },
+              'event': 'pageview',
+              'sessionId': '429e46b8-0122-23a0-18ee-d1d0835c7e3c',
+              'document': {
+                'title': 'Influence: Increase Your Website Conversions Using Influence',
+                'url': {
+                  'pathname': '/login',
+                  'protocol': 'https:',
+                  'host': 'useinfluence.co',
+                  'hostname': 'useinfluence.co'
+                }
+              }
+            }
+          }}}"

@@ -6,7 +6,6 @@
 let chai = require('chai');
 let expect = chai.expect;
 const request = require('co-supertest');
-const payment = require('../api/payment/services/Payment');
 const uuid = require('uuid/v4');
 const email = `${uuid()}@test.com`;
 const password = uuid();
@@ -43,35 +42,12 @@ function createNewToken(done) {
        })
        .expect(200)
        .then((res) => {
-         if(!res)
-          throw err
-        else
+          if(!res)
+            throw err
           Token = res.body.jwt;
+          user = res.body.user;
        });
      });
-  });
-
-
-/*
- * Test the login user
- */
-  describe('user login test', () => {
-    it('it should Login User', function *() {
-      yield request(strapi.config.url)
-        .post('/auth/local')
-        .send({
-         identifier: email,
-         password: password
-        })
-       .expect(200)
-       .expect('Content-Type', /json/)
-       .then((res) => {
-         if(!res)
-          throw { message: "test failed", error: true };
-         Token = res.body.jwt;
-         user = res.body.user;
-      });
-    })
   });
 
 /*
@@ -90,25 +66,26 @@ describe('Should Create Payment', function() {
          "id": stripe_token
        },
        "plan" : {
-          amount:0,
-          category_id:1,
-          created_at:"2018-06-11T06:37:33.847Z",
-          created_by:1,
-          currency:"usd",
-          description:"50000",
-          details:"<p>1 month trial period</p>",
-          id:15,
-          interval:"month",
-          interval_count:1,
-          name:"Trial Version",
-          published:true,
-          references:{},
-          split_configuration:null,
-          statement_descriptor:"Useinfluence",
-          subscription_prorate:true,
-          trial_period_days:0,
-          type:"subscription",
-          updated_at:"2018-06-18T08:39:30.475Z"
+         amount: 0,
+         category_id: 1,
+         created_at: "2018-07-11T08:34:24.305Z",
+         created_by: 1,
+         currency: "usd",
+         description: "50000",
+         details: "<p><b>1 month trial period</b></p>",
+         id: 1,
+         interval: "month",
+         interval_count: 1,
+         name: "Beta Plan",
+         overhead: null,
+         published: true,
+         references: {},
+         split_configuration: null,
+         statement_descriptor: "Useinfluence",
+         subscription_prorate: true,
+         trial_period_days: 0,
+         type: "subscription",
+         updated_at: "2018-07-14T13:38:32.658Z"
        },
        "coupon": 'FIRSTCOME'
     })
@@ -130,7 +107,7 @@ describe('Should Get Payment Invoices', function() {
     .get('/payment/servicebot/invoice')
     .set('Authorization', `Bearer ${Token}`)
     .set('Accept', 'application/json')
-    .expect(201)
+    .expect(200)
     .expect('Content-Type', /json/)
     .then((data, err) => {
       if(data.error)

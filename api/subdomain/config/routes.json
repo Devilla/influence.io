@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/subdomain",
+      "handler": "Subdomain.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/subdomain/:_id",
+      "handler": "Subdomain.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/subdomain",
+      "handler": "Subdomain.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/subdomain/:_id",
+      "handler": "Subdomain.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/subdomain/:_id",
+      "handler": "Subdomain.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

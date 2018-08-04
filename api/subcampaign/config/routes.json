@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/subcampaign",
+      "handler": "Subcampaign.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/subcampaign/:_id",
+      "handler": "Subcampaign.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/subcampaign",
+      "handler": "Subcampaign.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/subcampaign/:_id",
+      "handler": "Subcampaign.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/subcampaign/:_id",
+      "handler": "Subcampaign.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

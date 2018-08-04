@@ -267,6 +267,15 @@
     },
     {
       "method": "GET",
+      "path": "/user/sendmail/gdpr-form",
+      "handler": "User.sendGdprForm",
+      "config": {
+        "policies": [],
+        "prefix": ""
+      }
+    },
+    {
+      "method": "GET",
       "path": "/user/sendmail/affiliate",
       "handler": "User.sendAffiliate",
       "config": {
@@ -278,6 +287,15 @@
       "method": "GET",
       "path": "/user/sendmail/demo",
       "handler": "User.sendDemo",
+      "config": {
+        "policies": [],
+        "prefix": ""
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/user/sendmail/contactus",
+      "handler": "User.sendContactUs",
       "config": {
         "policies": [],
         "prefix": ""

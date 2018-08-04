@@ -44,7 +44,19 @@ module.exports = {
     const data = await strapi.services.payment.userInvoices(ctx.state.user);
 
     // Send 200 `ok`
-    ctx.created(data);
+    ctx.send(data);
+  },
+
+  /**
+   * Download payment invoice.
+   *
+   * @return {Buffer}
+   */
+  downloadInvoice: async (ctx) => {
+    const data = await strapi.services.payment.downloadInvoice(ctx.state.user, ctx.params._id);
+
+    // Send 200 `ok`
+    ctx.send(data);
   },
 
   /**
