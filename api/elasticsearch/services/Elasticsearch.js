@@ -18,29 +18,6 @@ const client = elasticsearch.Client({
   log: 'trace'
 });
 
-/**
-*gets enrichment data of a user
-**/
-let getUser = async function(email, callback) {
-  let userDetail;
-  try {
-    await strapi.services.enrichment.picasaWeb(email).then(res=>{
-      callback(null, res);
-    });
-  } catch(err) {
-    try {
-      await strapi.services.enrichment.gravatr(email).then(res => {
-        callback(null, res);
-      });
-    } catch(err) {
-      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      userDetail = {
-        username: re.test(email)?email.replace(/@.*$/,""):'Anonymous'
-      };
-      callback(null, userDetail);
-    }
-  }
-}
 
 
 module.exports = {
@@ -254,10 +231,10 @@ module.exports = {
       case 'journey' :
         let mustQuery = !limit ?
           [
-            { "match": { "host.keyword": host }},
-            { "match": { "trackingId.keyword":  trackingId }},
+            { "match": { "doc.host.keyword": host }},
+            { "match": { "doc.trackingId.keyword":  trackingId }},
             { "range":
-              { "timestamp":
+              { "doc.timestamp":
                 { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
                   "lt" :  "now+1d"
                 }
@@ -266,9 +243,9 @@ module.exports = {
           ]
         :
           [
-            { "match": { "trackingId.keyword":  trackingId }},
+            { "match": { "doc.trackingId.keyword":  trackingId }},
             { "range":
-              { "timestamp":
+              { "doc.timestamp":
                 { "gte": "now-365d",
                   "lt" :  "now+1d"
                 }
@@ -284,7 +261,7 @@ module.exports = {
               }
             },
             "sort" : [
-              { "timestamp" : {"order" : "desc", "mode" : "max"}}
+              { "doc.timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
             "size": limit?10000:Number(configuration.panelStyle.recentNumber)
           }
