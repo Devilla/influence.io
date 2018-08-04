@@ -8,6 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
+const mongoose = require('mongoose');
 
 module.exports = {
 
@@ -19,7 +20,7 @@ module.exports = {
 
   fetchAll: (params) => {
     const convertedParams = strapi.utils.models.convertParams('client', params);
-
+try{
     return Client
       .find()
       .where(convertedParams.where)
@@ -27,6 +28,8 @@ module.exports = {
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
       .populate(_.keys(_.groupBy(_.reject(strapi.models.client.associations, {autoPopulate: false}), 'alias')).join(' '));
+    }catch(err)
+    {console.log(err);}
   },
 
   /**
@@ -63,7 +66,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('client', _.merge(_.clone(params), { values }));
+    //await mongoose.manageRelations('client', _.merge(_.clone(params), { values }));
     return Client.update(params, values, { multi: true });
   },
 

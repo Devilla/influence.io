@@ -49,7 +49,7 @@ module.exports = {
 
   add: async (values) => {
     const data = await Code.create(_.omit(values, _.keys(_.groupBy(strapi.models.code.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('code', _.merge(_.clone(data), { values }));
+    //await strapi.hook.mongoose.manageRelations('code', _.merge(_.clone(data), { values }));
     return data;
   },
 
@@ -63,7 +63,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('code', _.merge(_.clone(params), { values }));
+    //await strapi.hook.mongoose.manageRelations('code', _.merge(_.clone(params), { values }));
     return Code.update(params, values, { multi: true });
   },
 

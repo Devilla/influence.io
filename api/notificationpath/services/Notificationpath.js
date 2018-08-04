@@ -38,7 +38,7 @@ module.exports = {
   findRulesPath: (params) => {
     const query = {
       rule: params._id,
-      type: params.type
+      type: params.type,
     };
 
     const convertedParams = strapi.utils.models.convertParams('notificationpath', query);
@@ -84,7 +84,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('notificationpath', _.merge(_.clone(params), { values }));
+    //await strapi.hook.mongoose.manageRelations('notificationpath', _.merge(_.clone(params), { values }));
     return Notificationpath.update(params, values, { multi: true });
   },
 

@@ -70,17 +70,19 @@ let configurationDefault = {
 	  "recentConv" : 5,
 	  "hideAnonymousConversion" : true,
 	  "onlyDisplayNotification" : false,
-		liveVisitorCount: 0
+		"liveVisitorCount": 0
   },
   "contentText" : "Company Name",
 	"visitorText" : "people",
 	"notificationUrl" : "",
-	"toggleMap" : true
+	"toggleMap" : true,
+	"liveVisitorCount": 0,
+	"otherText": "signed up for"
 };
 
 let getUniqueUsers = async function(index, trackingId, callback) {
   try {
-    await strapi.services.elasticsearch.uniqueUsersWeekly(index, trackingId).then(res=>{
+    await strapi.services.elasticsearch.getAllUniqueUsers(index, trackingId).then(res=>{
       callback(null, res);
     });
   } catch(err) {
@@ -88,9 +90,9 @@ let getUniqueUsers = async function(index, trackingId, callback) {
   }
 }
 
-let getSignUps = async function(index, trackingId, type, callback) {
+let getSignUps = async function(index, trackingId, type, host, callback) {
   try {
-    await strapi.services.elasticsearch.notification(index, trackingId, type).then(res=>{
+    await strapi.services.elasticsearch.notification(index, trackingId, type, true, host).then(res=>{
       callback(null, res);
     });
   } catch(err) {
@@ -157,6 +159,7 @@ module.exports = {
       .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
+
 	/**
    * Promise to fetch a campaign with Tracking Id.
    *
@@ -164,7 +167,7 @@ module.exports = {
    */
 
   fetchTrackingId: (params) => {
-    return Campaign
+		return Campaign
       .findOne(
 				{
 					trackingId: params?params.trackingId:null
@@ -184,7 +187,6 @@ module.exports = {
    *
    * @return {Promise}
    */
-
   add: async (values) => {
 		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
 		values.isActive = true;
@@ -220,7 +222,7 @@ module.exports = {
           newConfiguration['notificationType'] = notification._id;
 					if(notification.notificationName == 'Bulk Activity') {
 						newConfiguration['panelStyle'] = {
-					    "radius" : 7,
+					    "radius" : 3,
 					    "borderWidth" : 0,
 					    "borderColor" : {
 					      "r" : 200,
@@ -259,12 +261,13 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0
+							"liveVisitorCount": 0,
+							"otherText": "signed up for"
 					  };
-						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+						newConfiguration['otherText'] = 'signed up for',
 						newConfiguration['contentText'] = 'Company';
 					}
-					 if(notification.notificationName == 'Recent Activity') {
+					if(notification.notificationName == 'Recent Activity') {
 						newConfiguration['panelStyle'] = {
 					    "radius" : 50,
 					    "borderWidth" : 0,
@@ -310,12 +313,13 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0
+							"liveVisitorCount": 0,
+							"otherText": "signed up for"
 					  };
-						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 0, "b" : 0, "a" : 0 },
+						newConfiguration['otherText'] = 'signed up for',
 						newConfiguration['contentText'] = 'Company Name';
 					}
-					 if(notification.notificationName == 'Live Visitor Count') {
+					if(notification.notificationName == 'Live Visitor Count') {
 						newConfiguration['panelStyle'] = {
 					    "radius" : 50,
 					    "borderWidth" : 0,
@@ -356,14 +360,62 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							liveVisitorCount: 0
+							"liveVisitorCount": 0,
+							"liveVisitorText":'are viewing this site'
 					  };
-						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
-						newConfiguration['contentText'] = 'Company';
+
+						newConfiguration['liveVisitorText'] = 'are viewing this site';
+						newConfiguration['contentText'] = 'Influence';
 					}
+					// if(notification.notificationName == 'Review Notification') {
+					// 	newConfiguration['panelStyle'] = {
+					//     "radius" : 50,
+					//     "borderWidth" : 0,
+					//     "borderColor" : {
+					//       "r" : 200,
+					//       "g" : 200,
+					//       "b" : 200,
+					//       "a" : 0.80
+					//     },
+					//     "shadow" : {
+					// 	    r: 0,
+					// 	    g: 0,
+					// 	    b: 0,
+					// 	    color: 'lightgrey'
+					// 	  },
+					//     "blur" : 0,
+					//     "color" : { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+					// 		"linkColor": {
+					// 	    "r": 0,
+					// 	    "g": 137,
+					// 	    "b": 216,
+					// 	    "a": 1
+					// 	  },
+					//     "backgroundColor" : {
+					//       "r" : 255,
+					//       "g" : 255,
+					//       "b" : 255,
+					//       "a" : 1
+					//     },
+					//     "fontFamily" : "inherit",
+					//     "fontWeight" : "normal",
+					// 		"linkFontFamily": "inherit",
+					// 	  "linkFontWeight": "normal",
+					// 		"selectDurationData": "hours",
+					// 	  "selectLastDisplayConversation": "hours",
+					// 		"bulkData" : 5,
+					// 	  "recentNumber" : 5,
+					// 	  "recentConv" : 5,
+					// 	  "hideAnonymousConversion" : true,
+					// 	  "onlyDisplayNotification" : false,
+					// 		liveVisitorCount: 0
+					//   };
+					// 	// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
+					// 	newConfiguration['visitorText'] = 'marketor';
+					// 	newConfiguration['contentText'] = 'Us';
+					// }
 
           Configuration.create(newConfiguration, (err, result) => {
-						console.log(result);
             if(err)
               return err;
           });
@@ -389,8 +441,8 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    // await strapi.hook.mongoose.manageRelations('campaign', _.merge(_.clone(params), { values }));
-    return Campaign.update(params, values, { upsert:false, multi: true });
+  try{return Campaign.findOneAndUpdate(params, values, { upsert: false, multi: true, new: true }).populate('webhooks').populate('profile');}
+	catch(err){console.log(err)}
   },
 
   /**
@@ -402,18 +454,21 @@ module.exports = {
   remove: async params => {
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Campaign.findOneAndRemove(params, {})
+    try{
+			const data = await Campaign.findOneAndRemove(params, {})
       .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
 
-    _.forEach(Campaign.associations, async association => {
-      const search = (_.endsWith(association.nature, 'One')) ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
-      const update = (_.endsWith(association.nature, 'One')) ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
+	    _.forEach(Campaign.associations, async association => {
+	      const search = (_.endsWith(association.nature, 'One')) ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
+	      const update = (_.endsWith(association.nature, 'One')) ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
-      await strapi.models[association.model || association.collection].remove(
-        search
-     	);
-    });
-
+	      await strapi.models[association.model || association.collection].remove(
+	        search
+	     	);
+    	});
+		} catch(err){
+			console.log(err);
+		}
     return data;
   },
 
@@ -423,7 +478,7 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchUserCampaignsInfo: async (params) => {
+  fetchUserCampaignsInfo: async (params, host) => {
     let countConfig = 0;
 
     const profile = await Profile.findOne({user: params?params:null})
@@ -444,11 +499,11 @@ module.exports = {
       .skip(convertedParams.start)
       .limit(convertedParams.limit);
 
-    const campaignFilter = await campaign.filter(camp => camp.trackingId && camp.isActive);
+    const campaignFilter = await campaign.filter(camp => camp.trackingId);
     const campaignWebsites = await campaignFilter.map(camp => camp);
     const campaignIds = await campaignFilter.map(camp => camp._id);
 
-    await Configuration.count({ campaign: {$in: campaignIds}, activity: true})
+    await Configuration.countDocuments({ campaign: {$in: campaignIds}, activity: true})
         .exec()
         .then(counts => {
           countConfig = counts;
@@ -470,7 +525,7 @@ module.exports = {
 
 		// let userSignUps = [];
 		let signedUpUsers = campaignWebsites.map(async camp => {
-			await getSignUps('filebeat-*', camp.trackingId, 'journey', (err, response) => {
+			await getSignUps('filebeat-*', camp.trackingId, 'journey', host, (err, response) => {
 				if(!err) {
 					camp['signups'] = response;
 				}

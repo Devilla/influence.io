@@ -102,9 +102,9 @@ module.exports = {
    * @return {Promise}
    */
 
-  add: async (values) => {
+  add: async function (values){
     const data = await Notificationtypes.create(_.omit(values, _.keys(_.groupBy(strapi.models.notificationtypes.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('notificationtypes', _.merge(_.clone(data), { values }));
+    //await strapi.hook.mongoose.manageRelations('notificationtypes', _.merge(_.clone(data), { values }));
     return data;
   },
 
@@ -118,7 +118,7 @@ module.exports = {
     // Note: The current method will return the full response of Mongo.
     // To get the updated object, you have to execute the `findOne()` method
     // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    await strapi.hook.mongoose.manageRelations('notificationtypes', _.merge(_.clone(params), { values }));
+  //  await strapi.hook.mongoose.manageRelations('notificationtypes', _.merge(_.clone(params), { values }));
     return Notificationtypes.update(params, values, { multi: true });
   },
 

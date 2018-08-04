@@ -2,7 +2,7 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/webhooks",
+      "path": "/webhooks/campaign/:campaignId",
       "handler": "Webhooks.find",
       "config": {
         "policies": []
@@ -20,6 +20,14 @@
       "method": "POST",
       "path": "/webhooks",
       "handler": "Webhooks.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks/custom/:trackingId/:secretId",
+      "handler": "Webhooks.log",
       "config": {
         "policies": []
       }
