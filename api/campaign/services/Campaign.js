@@ -503,7 +503,7 @@ module.exports = {
     const campaignWebsites = await campaignFilter.map(camp => camp);
     const campaignIds = await campaignFilter.map(camp => camp._id);
 
-    await Configuration.countDocuments({ campaign: {$in: campaignIds}, activity: true})
+    await Configuration.count({ campaign: {$in: campaignIds}, activity: true})
         .exec()
         .then(counts => {
           countConfig = counts;
