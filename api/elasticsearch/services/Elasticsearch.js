@@ -192,10 +192,10 @@ module.exports = {
       case 'identification' :
         let identificationQuery = !limit ?
           [
-            { "match": { "host.keyword": host }},
-            { "match": { "trackingId.keyword":  trackingId }},
+            { "match": { "doc.host.keyword": host }},
+            { "match": { "doc.trackingId.keyword":  trackingId }},
             { "range":
-              { "timestamp":
+              { "doc.timestamp":
                 { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`,
                   "lt" :  "now+1d"
                 }
@@ -204,9 +204,9 @@ module.exports = {
           ]
         :
           [
-            { "match": { "trackingId.keyword":  trackingId }},
+            { "match": { "doc.trackingId.keyword":  trackingId }},
             { "range":
-              { "timestamp":
+              { "doc.timestamp":
                 { "gte": "now-365d",
                   "lt" :  "now+1d"
                 }
@@ -222,7 +222,7 @@ module.exports = {
               }
             },
             "sort" : [
-              { "timestamp" : {"order" : "desc", "mode" : "max"}}
+              { "doc.timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
             "size": limit?10000:Number(configuration.panelStyle.recentNumber)
           }
