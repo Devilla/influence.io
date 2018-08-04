@@ -131,7 +131,7 @@ module.exports = {
    * Cron for updating users unique visitors
    * Every minute.
   **/
-  '* * * * *': () => {
+  '1 * * * * *': () => {
     Campaign
     .find({ isActive: true })
     .populate({
@@ -191,7 +191,7 @@ module.exports = {
    * Corn for logging new users
    * Runs every minute
   **/
-  '* * * * *': () => {
+  '1 * * * * *': () => {
     Campaign.find(
       {},
       {
