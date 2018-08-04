@@ -57,7 +57,7 @@ let getUser = async function(email, callback) {
 /**
 *logs users data
 **/
-  let logUser = async function(query, hostName) {
+let logUser = async function(query, hostName) {
   let userDetails = [];
   const response = await new Promise((resolve, reject) => {
     client.search(query, function (err, resp, status) {
@@ -65,7 +65,7 @@ let getUser = async function(email, callback) {
       else resolve(resp);
     });
   });
-
+  console.log("===============>response");
   if(response.aggregations && response.aggregations.users.buckets.length) {
     await response.aggregations.users.buckets.map(details => {
       details = details.user_docs.hits.hits[0];
@@ -95,7 +95,7 @@ let getUser = async function(email, callback) {
       };
       userDetails.push(userDetail);
     });
-
+    console.log(userDetails, '===============>userDetails');
     const userList = userDetails.map(async user => {
 
       await getUser(user.email, (err, userDetail) => {
@@ -208,7 +208,7 @@ module.exports = {
       await campaigns.map(async campaign => {
         let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: campaign.rule, type: 'lead'});
         captureLeads = captureLeads.map(lead => lead.url);
-
+        console.log(captureLeads, '==============>captureLeads');
         /**
         *query to search user not logged
         **/
@@ -267,7 +267,7 @@ module.exports = {
         *logs data to elastic search
         **/
         await logUser(logQuery, campaign.websiteUrl);
-
+        console.log("===========>updated");
         /**
         *update campaign with new log time
         **/
