@@ -194,6 +194,7 @@ module.exports = {
       {
         log: 1,
         campaignName: 1,
+        websiteUrl: 1,
         logTime: 1,
         rule: 1,
         trackingId: 1
