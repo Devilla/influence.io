@@ -224,7 +224,7 @@ module.exports = {
             "sort" : [
               { "timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
-            "size": limit?10000:Number(configuration.panelStyle.recentNumber)
+            "size": 10000
           }
         };
         break;
