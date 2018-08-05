@@ -205,7 +205,7 @@ module.exports = {
       await campaigns.map(async campaign => {
         let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: campaign.rule, type: 'lead'});
         captureLeads = captureLeads.map(lead => lead.url);
-        console.log(captureLeads, '==============>captureLeads');
+
         /**
         *query to search user not logged
         **/
@@ -264,6 +264,7 @@ module.exports = {
         *logs data to elastic search
         **/
         await logUser(logQuery, campaign.websiteUrl);
+        console.log(captureLeads, '==============>captureLeads');
         console.log("===========>updated");
         /**
         *update campaign with new log time
