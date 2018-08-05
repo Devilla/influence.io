@@ -70,7 +70,26 @@ module.exports = {
    */
 
   add: async (values) => {
-    const data = await Notificationpath.create(values);
+    values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+		values.isActive = true;
+    var checkDomain = new Promise((resolve, reject) => {
+      domainPing(values.websiteUrl)
+       .then((res) => {
+           resolve(res);
+       })
+       .catch((error) => {
+         reject(error)
+       });
+    });
+
+    var response = await checkDomain
+    .then((result) => {
+      return result;
+    })
+    .catch(err => {
+      return {error: true, message: "Invalid domain"};
+    });
+    const data = await Notificationpath.create(response);
     return data;
   },
 
