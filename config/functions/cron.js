@@ -113,9 +113,7 @@ let logUser = async function(query, hostName) {
           index: `signups`,
           type: 'user',
           id: uuidv1(),
-          body: {
-            doc: user
-          }
+          body: user
         }, (err, res)=>{
           return;
         });

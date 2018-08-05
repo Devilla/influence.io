@@ -192,10 +192,10 @@ module.exports = {
       case 'identification' :
         let identificationQuery = !limit ?
           [
-            { "match": { "doc.host.keyword": host }},
-            { "match": { "doc.trackingId.keyword":  trackingId }},
+            { "match": { "host.keyword": host }},
+            { "match": { "trackingId.keyword":  trackingId }},
             { "range":
-              { "doc.timestamp":
+              { "timestamp":
                 { "gte": `now-${Number(configuration.panelStyle.bulkData)}${configuration.panelStyle.selectDurationData==='days'?'d':'h'}`,
                   "lt" :  "now+1d"
                 }
@@ -204,9 +204,9 @@ module.exports = {
           ]
         :
           [
-            { "match": { "doc.trackingId.keyword":  trackingId }},
+            { "match": { "trackingId.keyword":  trackingId }},
             { "range":
-              { "doc.timestamp":
+              { "timestamp":
                 { "gte": "now-365d",
                   "lt" :  "now+1d"
                 }
@@ -222,7 +222,7 @@ module.exports = {
               }
             },
             "sort" : [
-              { "doc.timestamp" : {"order" : "desc", "mode" : "max"}}
+              { "timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
             "size": limit?10000:Number(configuration.panelStyle.recentNumber)
           }
@@ -231,10 +231,10 @@ module.exports = {
       case 'journey' :
         let mustQuery = !limit ?
           [
-            { "match": { "doc.host.keyword": host }},
-            { "match": { "doc.trackingId.keyword":  trackingId }},
+            { "match": { "host.keyword": host }},
+            { "match": { "trackingId.keyword":  trackingId }},
             { "range":
-              { "doc.timestamp":
+              { "timestamp":
                 { "gte": `now-${Number(configuration.panelStyle.recentConv)}${configuration.panelStyle.selectLastDisplayConversation==='days'?'d':'h'}`,
                   "lt" :  "now+1d"
                 }
@@ -243,9 +243,9 @@ module.exports = {
           ]
         :
           [
-            { "match": { "doc.trackingId.keyword":  trackingId }},
+            { "match": { "trackingId.keyword":  trackingId }},
             { "range":
-              { "doc.timestamp":
+              { "timestamp":
                 { "gte": "now-365d",
                   "lt" :  "now+1d"
                 }
@@ -261,7 +261,7 @@ module.exports = {
               }
             },
             "sort" : [
-              { "doc.timestamp" : {"order" : "desc", "mode" : "max"}}
+              { "timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
             "size": limit?10000:Number(configuration.panelStyle.recentNumber)
           }
