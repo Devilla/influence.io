@@ -59,6 +59,8 @@ module.exports = {
 
   add: async (values) => {
     const data = await Profile.create(values);
+    if(data._id)
+      await State.update({user: values.user}, {profile: data._id});
     return data;
   },
 

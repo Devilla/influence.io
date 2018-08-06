@@ -183,7 +183,7 @@ module.exports = {
 		},
 
   /**
-   * Promise to add a/an campaign.
+   * Promise to add a/an new campaign with default configuration and rules.
    *
    * @return {Promise}
    */
@@ -200,6 +200,11 @@ module.exports = {
        });
     });
 
+		/**
+		*	Calls checkDomain function
+		*
+		*@return {Promise}
+		*/
     var dom = await checkDomain
     .then((result) => {
       return result;
@@ -213,6 +218,11 @@ module.exports = {
     } else {
 			const data = await Campaign.create(values);
 
+			/**
+			* Find Notificationtypes and create new configuration for campaign related to notificationType
+			*
+			*@return {Null}
+			*/
 			await Notificationtypes.find()
       .exec()
       .then(async notifications => {
@@ -427,7 +437,7 @@ module.exports = {
 				if(err)
           return err;
       });
-      return data;
+      return data; // return new campaign
     }
   },
 

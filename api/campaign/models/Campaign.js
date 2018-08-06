@@ -38,7 +38,36 @@ module.exports = {
 
   // After creating a value.
   // Fired after `insert` query.
-  // afterCreate: async (model, result) => {},
+  afterCreate: async (model, result, options) => {
+    // Get saved_state using related profile and parse to manipulate value
+    const saved_state = JSON.parse(
+      JSON.stringify(
+        await strapi.api.state.services.state.fetch({
+          profile: result.profile
+        })
+      )
+    );
+
+    const present_state = saved_state.present_state;
+    const future_state = saved_state.future_state;
+
+    //Add new values to saved_state
+    saved_state.past_state = {
+      state: present_state.state,
+      created_at: present_state.created_at,
+      updated_at: present_state.updated_at
+    };
+
+    saved_state.present_state['state'] = "Campaign Created";
+    saved_state.present_state['updated_at'] = new Date();
+
+    saved_state.future_state['state'] = "Configure Notification and Update";
+    saved_state.future_state['updated_at'] = new Date();
+    saved_state.campaign = result._id;
+
+    // Update state with new values
+    await strapi.api.state.services.state.edit({_id: saved_state._id}, saved_state);
+  },
 
   // Before updating a value.
   // Fired before an `update` query.
