@@ -57,7 +57,7 @@ let getUser = async function(email, callback) {
 /**
 *logs users data
 **/
-  let logUser = async function(query, hostName) {
+let logUser = async function(query, hostName) {
   let userDetails = [];
   const response = await new Promise((resolve, reject) => {
     client.search(query, function (err, resp, status) {
@@ -65,7 +65,7 @@ let getUser = async function(email, callback) {
       else resolve(resp);
     });
   });
-
+  console.log("===============>response");
   if(response.aggregations && response.aggregations.users.buckets.length) {
     await response.aggregations.users.buckets.map(details => {
       details = details.user_docs.hits.hits[0];
@@ -95,7 +95,7 @@ let getUser = async function(email, callback) {
       };
       userDetails.push(userDetail);
     });
-
+    console.log(userDetails, '===============>userDetails');
     const userList = userDetails.map(async user => {
 
       await getUser(user.email, (err, userDetail) => {
@@ -109,14 +109,11 @@ let getUser = async function(email, callback) {
         /**
         *log data to elasticsearch
         **/
-        client.update({
+        client.create({
           index: `signups`,
           type: 'user',
           id: uuidv1(),
-          body: {
-            doc: user,
-            doc_as_upsert: true
-          }
+          body: user
         }, (err, res)=>{
           return;
         });
@@ -131,7 +128,7 @@ module.exports = {
    * Cron for updating users unique visitors
    * Every minute.
   **/
-  '* * * * *': () => {
+  '1 * * * * *': () => {
     Campaign
     .find({ isActive: true })
     .populate({
@@ -191,12 +188,13 @@ module.exports = {
    * Corn for logging new users
    * Runs every minute
   **/
-  '* * * * *': () => {
+  '1 * * * * *': () => {
     Campaign.find(
       {},
       {
         log: 1,
         campaignName: 1,
+        websiteUrl: 1,
         logTime: 1,
         rule: 1,
         trackingId: 1
@@ -267,7 +265,8 @@ module.exports = {
         *logs data to elastic search
         **/
         await logUser(logQuery, campaign.websiteUrl);
-
+        console.log(captureLeads, '==============>captureLeads');
+        console.log("===========>updated");
         /**
         *update campaign with new log time
         **/
