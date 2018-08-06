@@ -14,7 +14,7 @@ This  attempts to integrate "header.md" and "footer.md".
       "description": "apidoc  project.",
       "apidoc": {
         "header": {
-          "title": "My own header title",
+          "title": "My Api's",
           "filename": "header.md"
         },
         "footer": {
