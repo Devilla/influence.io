@@ -84,10 +84,10 @@ module.exports = {
 
     var response = await checkDomain
     .then((result) => {
-      return result;
+      return 'success';
     })
     .catch(err => {
-      return {error: true, message: "Invalid domain"};
+      return 'danger';
     });
     const data = await Notificationpath.create(response);
     return data;
