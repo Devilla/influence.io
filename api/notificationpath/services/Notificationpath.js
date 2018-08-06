@@ -70,6 +70,7 @@ module.exports = {
    */
 
   add: async (values) => {
+    console.log(data,'values inside add');
     values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
 		values.isActive = true;
     var checkDomain = new Promise((resolve, reject) => {

@@ -58,8 +58,10 @@ module.exports = {
    */
 
   create: async (ctx) => {
+    console.log(ctx,'=========response from create');
     const data = await strapi.services.notificationpath.add(ctx.request.body);
 
+    console.log(data,'=========response from add');
     // Send 201 `created`
     ctx.created(data);
   },
