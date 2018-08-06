@@ -65,7 +65,6 @@ let logUser = async function(query, hostName) {
       else resolve(resp);
     });
   });
-  console.log("===============>response");
   if(response.aggregations && response.aggregations.users.buckets.length) {
     await response.aggregations.users.buckets.map(details => {
       details = details.user_docs.hits.hits[0];
@@ -95,7 +94,6 @@ let logUser = async function(query, hostName) {
       };
       userDetails.push(userDetail);
     });
-    console.log(userDetails, '===============>userDetails');
     const userList = userDetails.map(async user => {
 
       await getUser(user.email, (err, userDetail) => {
@@ -194,6 +192,7 @@ module.exports = {
       {
         log: 1,
         campaignName: 1,
+        websiteUrl: 1,
         logTime: 1,
         rule: 1,
         trackingId: 1
@@ -264,8 +263,6 @@ module.exports = {
         *logs data to elastic search
         **/
         await logUser(logQuery, campaign.websiteUrl);
-        console.log(captureLeads, '==============>captureLeads');
-        console.log("===========>updated");
         /**
         *update campaign with new log time
         **/
