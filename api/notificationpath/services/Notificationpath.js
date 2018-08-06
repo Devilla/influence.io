@@ -45,7 +45,7 @@ module.exports = {
    * @return {Promise}
    */
 
-  findRulesPath: (params) => {
+  findRulesPath: async (params) => {
     const query = {
       rule: params._id,
       type: params.type,
@@ -53,7 +53,26 @@ module.exports = {
 
     const convertedParams = strapi.utils.models.convertParams('notificationpath', query);
 
-    return Notificationpath
+    const campaign = await Campaign.findOne({rule: params._id});
+
+    let notificationPaths = await Notificationpath
+      .find()
+      .where(convertedParams.where)
+      .sort(convertedParams.sort)
+      .skip(convertedParams.start)
+      .limit(convertedParams.limit)
+      .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationpath.associations, {autoPopulate: false}), 'alias')).join(' '));
+
+    notificationPaths = await notificationPaths.map(async path => {
+      return await validatePath('filebeat-*', campaign.trackingId, path.url, (err, pathResponse) => {
+        if(pathResponse && pathResponse.hits && pathResponse.hits.total > 0) {
+          Notificationpath.update({_id: path._id}, {$set:{status:'primary'}});
+        }
+      });
+    })
+
+
+    return await Notificationpath
       .find()
       .where(convertedParams.where)
       .sort(convertedParams.sort)
