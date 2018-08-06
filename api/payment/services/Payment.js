@@ -37,7 +37,8 @@ function doRequest(options) {
 
 /**
  * Promise to generate invoice.
- *
+ * Input : html, id
+ * Output : Payment - response
  * @return {Promise}
  */
 function generatePdf(html, id) {
@@ -55,7 +56,8 @@ module.exports = {
 
   /**
    * Promise to fetch all payments.
-   *
+   * Input : params
+   * Output : All user Payment - response
    * @return {Promise}
    */
 
@@ -77,7 +79,8 @@ module.exports = {
 
   /**
    * Promise to fetch all plan payments.
-   *
+   * Input : params
+   * Output : Payment - response
    * @return {Promise}
    */
 
@@ -98,7 +101,8 @@ module.exports = {
 
   /**
    * Promise to fetch all payments invoices.
-   *
+   * Input : user
+   * Output : Payment - invoices
    * @return {Promise}
    */
 
@@ -341,7 +345,8 @@ module.exports = {
 
   /**
    * Promise to delete a/an servicebot payment subscription.
-   *
+   * Input : user
+   * Output : Payment - response
    * @return {Promise}
    */
 
@@ -389,21 +394,23 @@ module.exports = {
 
   /**
    * Promise to edit a/an payment.
-   *
+   * Input : user
+   * Output : Update Payment - response
    * @return {Promise}
    */
 
   edit: async (params, values) => {
-    // Note: The current method will return the full response of Mongo.
-    // To get the updated object, you have to execute the `findOne()` method
-    // or use the `findOneOrUpdate()` method with `{ new:true }` option.
+    /* Note: The current method will return the full response of Mongo.
+     To get the updated object, you have to execute the `findOne()` method
+    or use the `findOneOrUpdate()` method with `{ new:true }` option.*/
     //await strapi.hook.mongoose.manageRelations('payment', _.merge(_.clone(params), { values }));
     return Payment.update(params, values, { multi: true });
   },
 
   /**
    * Promise to remove a/an payment.
-   *
+   * Input : user
+   * Output : Delete Payment - response
    * @return {Promise}
    */
 

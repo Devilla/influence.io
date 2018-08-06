@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all user rules.
-   *
+   * Input : params
+   * Output : Rules - associations
    * @return {Promise}
    */
 
@@ -64,7 +65,8 @@ module.exports = {
 
   /**
    * Promise to fetch all campaign rules.
-   *
+   * Input : params
+   * Output : Rules - associations
    * @return {Promise}
    */
 
@@ -86,7 +88,8 @@ module.exports = {
 
   /**
    * Promise to fetch all campaign rules.
-   *
+   * Input : params
+   * Output : Notification Types Rules - associations
    * @return {Promise}
    */
 
@@ -120,7 +123,8 @@ module.exports = {
 
   /**
    * Promise to fetch all rules.
-   *
+   * Input : params
+   * Output : Rules - associations
    * @return {Promise}
    */
 
@@ -138,7 +142,8 @@ module.exports = {
 
   /**
    * Promise to fetch all rules notification configuration and path.
-   *
+   * Input : params
+   * Output : Rules - associations
    * @return {Promise}
    */
 
@@ -194,7 +199,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an rules.
-   *
+   * Input : params
+   * Output : Rules - associations
    * @return {Promise}
    */
 
@@ -206,7 +212,8 @@ module.exports = {
 
   /**
    * Promise to add a/an rules.
-   *
+   * Input : values
+   * Output : Create Rules - associations
    * @return {Promise}
    */
 
@@ -218,28 +225,30 @@ module.exports = {
 
   /**
    * Promise to edit a/an rules.
-   *
+   * Input : params, values
+   * Output : Rules - associations
    * @return {Promise}
    */
 
   edit: async (params, values) => {
-    // Note: The current method will return the full response of Mongo.
-    // To get the updated object, you have to execute the `findOne()` method
-    // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    // await strapi.hook.mongoose.manageRelations('rules', _.merge(_.clone(params), { values }));
+  /*  Note: The current method will return the full response of Mongo.
+    To get the updated object, you have to execute the `findOne()` method
+    or use the `findOneOrUpdate()` method with `{ new:true }` option.
+    await strapi.hook.mongoose.manageRelations('rules', _.merge(_.clone(params), { values }));*/
     return await Rules.update(params, values, { multi: true });
   },
 
   /**
    * Promise to remove a/an rules.
-   *
+   * Input : params
+   * Output : Delete Rules - associations
    * @return {Promise}
    */
 
   remove: async params => {
-    // Note: To get the full response of Mongo, use the `remove()` method
-    // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Rules.findOneAndRemove(params, {})
+    /* Note: To get the full response of Mongo, use the `remove()` method
+      or add spent the parameter `{ passRawResult: true }` as second argument.*/
+      const data = await Rules.findOneAndRemove(params, {})
       .populate(_.keys(_.groupBy(_.reject(strapi.models.rules.associations, {autoPopulate: false}), 'alias')).join(' '));
 
     _.forEach(Rules.associations, async association => {

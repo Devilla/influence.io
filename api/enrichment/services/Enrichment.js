@@ -12,6 +12,13 @@ const gravatar = require('gravatar');
 
 module.exports = {
 
+  /**
+   * picasaWeb
+   * Input : email
+   * Output :  create picasaWeb data
+   * @description: A function which get profile pic using email address with picasa
+   */
+
   picasaWeb: async(email) => {
     return new Promise((resolve, reject) => {
       let URI = "http://picasaweb.google.com/data/entry/api/user/" + email.trim() + "?alt=json";
@@ -33,6 +40,13 @@ module.exports = {
       });
     });
   },
+
+  /**
+   * gravatr
+   * Input : email
+   * Output :  create gravatr data
+   * @description: A function which get profile pic using email address with gravatr
+   */
 
   gravatr: async(email) => {
     return new Promise((resolve, reject) => {

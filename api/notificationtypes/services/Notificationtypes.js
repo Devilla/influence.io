@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all Campaign notificationtypes for a user.
-   *
+   * Input : params
+   * Output : Notification Type - data
    * @return {Promise}
    */
 
@@ -47,7 +48,8 @@ module.exports = {
 
   /**
    * Promise to fetch notificationtypes by Campaign.
-   *
+   * Input : params
+   * Output : Campaign Notification Type - data
    * @return {Promise}
    */
 
@@ -68,7 +70,8 @@ module.exports = {
 
   /**
    * Promise to fetch all notificationtypes.
-   *
+   * Input : params
+   * Output : All Notification Type - data
    * @return {Promise}
    */
 
@@ -86,8 +89,9 @@ module.exports = {
 
   /**
    * Promise to fetch a/an notificationtypes.
-   *
-   * @return {Promise}
+   * Input : params
+   * Output : Single Notification Type - data
+   * @return {data}
    */
 
   fetch: (params) => {
@@ -98,8 +102,9 @@ module.exports = {
 
   /**
    * Promise to add a/an notificationtypes.
-   *
-   * @return {Promise}
+   * Input : values
+   * Output : Creates Notification Type - data
+   * @return {data}
    */
 
   add: async function (values){
@@ -110,8 +115,9 @@ module.exports = {
 
   /**
    * Promise to edit a/an notificationtypes.
-   *
-   * @return {Promise}
+   * Input : params
+   * Output : Updates Notification Type - data
+   * @return {data}
    */
 
   edit: async (params, values) => {
@@ -124,7 +130,8 @@ module.exports = {
 
   /**
    * Promise to remove a/an notificationtypes.
-   *
+   * Input : params
+   * Output : Update Notification Type - data
    * @return {Promise}
    */
 

@@ -70,31 +70,43 @@ let configurationDefault = {
 	  "recentConv" : 5,
 	  "hideAnonymousConversion" : true,
 	  "onlyDisplayNotification" : false,
-		"liveVisitorCount": 0
+		liveVisitorCount: 0
   },
   "contentText" : "Company Name",
 	"visitorText" : "people",
 	"notificationUrl" : "",
-	"toggleMap" : true,
-	"liveVisitorCount": 0,
-	"otherText": "signed up for"
+	"toggleMap" : true
 };
+
+/**
+ * Promise to get all Unique Users.
+ * Input params: index, trackingId, callback
+ * Output : res
+ * @return {Promise}
+ */
+
 
 let getUniqueUsers = async function(index, trackingId, callback) {
   try {
-    await strapi.services.elasticsearch.getAllUniqueUsers(index, trackingId).then(res=>{
+   const res = await strapi.services.elasticsearch.getAllUniqueUsers(index, trackingId);
       callback(null, res);
-    });
   } catch(err) {
     callback(err);
   }
 }
 
+/**
+ * Promise to get all signups.
+ * Input params: index, trackingId, type, host, callback
+ * Output : res
+ * @return {Promise}
+ */
+
+
 let getSignUps = async function(index, trackingId, type, host, callback) {
   try {
-    await strapi.services.elasticsearch.notification(index, trackingId, type, true, host).then(res=>{
+    const res = await strapi.services.elasticsearch.notification(index, trackingId, type, true, host);
       callback(null, res);
-    });
   } catch(err) {
     callback(err);
   }
@@ -104,7 +116,8 @@ module.exports = {
 
   /**
    * Promise to fetch all user campaigns.
-   *
+   * Input : params
+	 * Output : convertedParams
    * @return {Promise}
    */
 
@@ -128,9 +141,10 @@ module.exports = {
       .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
-  /**
+	/**
    * Promise to fetch all campaigns.
-   *
+   * Input : params
+	 * Output : convertedParams
    * @return {Promise}
    */
 
@@ -147,9 +161,10 @@ module.exports = {
       .populate(_.keys(_.groupBy(_.reject(strapi.models.campaign.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
-  /**
-   * Promise to fetch a/an campaign.
-   *
+	/**
+   * Promise to fetch a campaign.
+   * Input : params
+	 * Output : convertedParams
    * @return {Promise}
    */
 
@@ -163,6 +178,8 @@ module.exports = {
 	/**
    * Promise to fetch a campaign with Tracking Id.
    *
+	 * Input : params
+	* Output : trackingId
    * @return {Promise}
    */
 
@@ -184,9 +201,11 @@ module.exports = {
 
   /**
    * Promise to add a/an campaign.
-   *
+   * Inout : values
+	 * Output : add campaign data
    * @return {Promise}
    */
+
   add: async (values) => {
 		values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
 		values.isActive = true;
@@ -261,10 +280,10 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							"liveVisitorCount": 0,
-							"otherText": "signed up for"
+							liveVisitorCount: 0,
+							otherText: "signed up for"
 					  };
-						newConfiguration['otherText'] = 'signed up for',
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
 						newConfiguration['contentText'] = 'Company';
 					}
 					if(notification.notificationName == 'Recent Activity') {
@@ -313,10 +332,10 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							"liveVisitorCount": 0,
-							"otherText": "signed up for"
+							liveVisitorCount: 0,
+							otherText: "signed up for"
 					  };
-						newConfiguration['otherText'] = 'signed up for',
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 0, "b" : 0, "a" : 0 },
 						newConfiguration['contentText'] = 'Company Name';
 					}
 					if(notification.notificationName == 'Live Visitor Count') {
@@ -360,11 +379,10 @@ module.exports = {
 						  "recentConv" : 5,
 						  "hideAnonymousConversion" : true,
 						  "onlyDisplayNotification" : false,
-							"liveVisitorCount": 0,
-							"liveVisitorText":'are viewing this site'
+							liveVisitorCount: 0,
+							liveVisitorText:'are viewing this site'
 					  };
-
-						newConfiguration['liveVisitorText'] = 'are viewing this site';
+						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 149, "b" : 247, "a" : 1 },
 						newConfiguration['contentText'] = 'Influence';
 					}
 					// if(notification.notificationName == 'Review Notification') {
@@ -433,7 +451,8 @@ module.exports = {
 
   /**
    * Promise to edit a/an campaign.
-   *
+   * Input : params, values
+	 * Output : edited campaign
    * @return {Promise}
    */
 
@@ -447,7 +466,8 @@ module.exports = {
 
   /**
    * Promise to remove a/an campaign.
-   *
+   * Input : asynchronous params
+	 *Output : remove campain
    * @return {Promise}
    */
 
@@ -474,7 +494,8 @@ module.exports = {
 
   /**
    * Promise to fetch user's campaigns info.
-   *
+   * Input : params, host
+	 * Output : returns campaignWebsites, notificationCount, uniqueUsers
    * @return {Promise}
    */
 
@@ -503,7 +524,7 @@ module.exports = {
     const campaignWebsites = await campaignFilter.map(camp => camp);
     const campaignIds = await campaignFilter.map(camp => camp._id);
 
-    await Configuration.count({ campaign: {$in: campaignIds}, activity: true})
+    await Configuration.countDocuments({ campaign: {$in: campaignIds}, activity: true})
         .exec()
         .then(counts => {
           countConfig = counts;

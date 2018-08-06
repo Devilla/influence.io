@@ -1,29 +1,34 @@
-'use strict';
+"use strict";
 
 /**
  * `Websocket` service.
  */
-const fs = require('fs');
+const fs = require( "fs" );
 
-const webSocketStream = fs.createWriteStream('/tmp/log/websocket.log');
+const webSocketStream = fs.createWriteStream( "/tmp/log/websocket.log" );
 
-module.exports =  {
+module.exports = {
   /**
    * We are logging data to filebeats and then sending it to logstash and to elasticsearch
    * @param msg
+   * Input : msg
+   *
+   * Output : formatted message
    */
-  log : (msg) => {
-    const formatter = msg;
-    let message =  formatter + '\n';
-     console.log(message,'======message');
-    webSocketStream.write(message);
-  },
+    "log": ( msg ) => {
+        const formatter = msg;
+        let message = `${formatter }\n`;
 
-  health: () => {
-    if (strapi.websocket){
-      return true;
-    } else {
-      return false;
+        console.log( message, "======message" );
+        webSocketStream.write( message );
+    },
+
+
+    "health": () => {
+        if ( strapi.websocket ) {
+            return true;
+        }
+        return false;
+    
     }
-  }
 };

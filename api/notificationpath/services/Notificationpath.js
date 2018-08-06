@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all notificationpaths.
-   *
+   * Input : params
+   * Output : Notificationpath - associations
    * @return {Promise}
    */
 
@@ -31,7 +32,8 @@ module.exports = {
 
   /**
    * Promise to fetch all rules notificationpaths.
-   *
+   * Input : params
+   * Output : Rules Notificationpath - associations
    * @return {Promise}
    */
 
@@ -53,7 +55,8 @@ module.exports = {
   },
   /**
    * Promise to fetch a/an notificationpath.
-   *
+   * Input : params
+   * Output : Notificationpath - associations
    * @return {Promise}
    */
 
@@ -65,38 +68,20 @@ module.exports = {
 
   /**
    * Promise to add a/an notificationpath.
-   *
+   * Input : params
+   * Output : Creates Notificationpath - data
    * @return {Promise}
    */
 
   add: async (values) => {
-    console.log(data,'values inside add');
-    values.websiteUrl = values.websiteUrl.toLowerCase().replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
-		values.isActive = true;
-    var checkDomain = new Promise((resolve, reject) => {
-      domainPing(values.websiteUrl)
-       .then((res) => {
-           resolve(res);
-       })
-       .catch((error) => {
-         reject(error)
-       });
-    });
-
-    var response = await checkDomain
-    .then((result) => {
-      return 'success';
-    })
-    .catch(err => {
-      return 'danger';
-    });
-    const data = await Notificationpath.create(response);
+    const data = await Notificationpath.create(values);
     return data;
   },
 
   /**
    * Promise to edit a/an notificationpath.
-   *
+   * Input : params, values
+   * Output : Updates Notificationpath - data
    * @return {Promise}
    */
 
@@ -110,7 +95,8 @@ module.exports = {
 
   /**
    * Promise to remove a/an notificationpath.
-   *
+   * Input : params
+   * Output : Deletes Notificationpath - data
    * @return {Promise}
    */
 

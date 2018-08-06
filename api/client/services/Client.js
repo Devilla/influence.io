@@ -6,7 +6,7 @@
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
 
-// Public dependencies.
+/*Public dependencies.*/
 const _ = require('lodash');
 const mongoose = require('mongoose');
 
@@ -14,7 +14,8 @@ module.exports = {
 
   /**
    * Promise to fetch all clients.
-   *
+   * Input : params
+   * Output : return client
    * @return {Promise}
    */
 
@@ -34,7 +35,8 @@ try{
 
   /**
    * Promise to fetch a/an client.
-   *
+   * Input : params
+   * Output : return client - paths, associations
    * @return {Promise}
    */
 
@@ -46,7 +48,8 @@ try{
 
   /**
    * Promise to add a/an client.
-   *
+   * Input : values
+   * Output : return client data - associations, manage relations
    * @return {Promise}
    */
 
@@ -58,7 +61,8 @@ try{
 
   /**
    * Promise to edit a/an client.
-   *
+   * Input : params, values
+   * Output : return updated client - params, values
    * @return {Promise}
    */
 
@@ -72,7 +76,8 @@ try{
 
   /**
    * Promise to remove a/an client.
-   *
+   * Input : params
+   * Output : remove client - associations
    * @return {Promise}
    */
 

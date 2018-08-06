@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all profiles.
-   *
+   * Input : params
+   * Output : profile - convertedParams
    * @return {Promise}
    */
 
@@ -30,7 +31,8 @@ module.exports = {
 
   /**
    * Promise to fetch user profile.
-   *
+   * Input : params
+   * Output : profile - user
    * @return {Promise}
    */
 
@@ -42,7 +44,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an profile.
-   *
+   * Input : params
+   * Output : profile - schema paths
    * @return {Promise}
    */
 
@@ -53,7 +56,8 @@ module.exports = {
 
   /**
    * Promise to add a/an profile.
-   *
+   * Input : values
+   * Output : Create profile - data
    * @return {Promise}
    */
 
@@ -64,26 +68,28 @@ module.exports = {
 
   /**
    * Promise to edit a/an profile.
-   *
+   * Input : params,values
+   * Output : Create profile - data
    * @return {Promise}
    */
 
   edit: async (params, values) => {
-    // Note: The current method will return the full response of Mongo.
-    // To get the updated object, you have to execute the `findOne()` method
-    // or use the `findOneOrUpdate()` method with `{ new:true }` option.
+    /*Note: The current method will return the full response of Mongo.
+    To get the updated object, you have to execute the `findOne()` method
+    or use the `findOneOrUpdate()` method with `{ new:true }` option.*/
     return Profile.findOneAndUpdate(params, values, { multi: true, new:true });
   },
 
   /**
    * Promise to remove a/an profile.
-   *
+   * Input : values
+   * Output : Remove profile - data
    * @return {Promise}
    */
 
   remove: async params => {
-    // Note: To get the full response of Mongo, use the `remove()` method
-    // or add spent the parameter `{ passRawResult: true }` as second argument.
+  /*  Note: To get the full response of Mongo, use the `remove()` method
+    or add spent the parameter `{ passRawResult: true }` as second argument.*/
     const data = await Profile.findOneAndRemove(params, {})
       .populate(_.keys(_.groupBy(_.reject(strapi.models.profile.associations, {autoPopulate: false}), 'alias')).join(' '));
 

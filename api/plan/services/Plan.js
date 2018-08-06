@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all plans.
-   *
+   * Input : params
+   * Output : Plan - response
    * @return {Promise}
    */
 
@@ -35,7 +36,8 @@ module.exports = {
 
   /**
    * Promise to fetch all plans.
-   *
+   * Input : user
+   * Output : Plan - response
    * @return {Promise}
    */
 
@@ -54,7 +56,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an plan.
-   *
+   * Input : params
+   * Output : Plan Payment - response
    * @return {Promise}
    */
 
@@ -67,7 +70,8 @@ module.exports = {
 
   /**
    * Promise to add a/an plan.
-   *
+   * Input : values
+   * Output : Plan - associations
    * @return {Promise}
    */
 
@@ -79,7 +83,8 @@ module.exports = {
 
   /**
    * Promise to edit a/an plan.
-   *
+   * Input : params, values
+   * Output :  Update Plan - associations
    * @return {Promise}
    */
 
@@ -93,7 +98,8 @@ module.exports = {
 
   /**
    * Promise to remove a/an plan.
-   *
+   * Input : params
+   * Output : Delete Plan - associations
    * @return {Promise}
    */
 

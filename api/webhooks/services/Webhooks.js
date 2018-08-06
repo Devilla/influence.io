@@ -23,7 +23,8 @@ module.exports = {
 
   /**
    * Promise to fetch all webhooks.
-   *
+   * Input : params
+   * Output : Webhooks - associated campaign
    * @return {Promise}
    */
 
@@ -33,7 +34,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an webhooks.
-   *
+   * Input : params
+   * Output : Webhooks - scema-paths, associations
    * @return {Promise}
    */
 
@@ -45,7 +47,8 @@ module.exports = {
 
   /**
    * Promise to add a/an webhooks.
-   *
+   * Input : values
+   * Output : Create Webhooks -  campaign
    * @return {Promise}
    */
 

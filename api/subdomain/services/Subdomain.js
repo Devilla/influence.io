@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all subdomains.
-   *
+   * Input : values
+   * Output : Create profile - data
    * @return {Promise}
    */
 
@@ -78,6 +79,7 @@ module.exports = {
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
     const data = await Subdomain.findOneAndRemove(params, {});
+    console.log(data, "=================>>>");
 
     return data;
   }

@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all tokens.
-   *
+   * Input : params
+   * Output : Token - associations
    * @return {Promise}
    */
 
@@ -31,7 +32,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an token.
-   *
+   * Input : params
+   * Output : Token - associations
    * @return {Promise}
    */
 
@@ -43,7 +45,8 @@ module.exports = {
 
   /**
    * Promise to add a/an token.
-   *
+   * Input : params
+   * Output : Create Token - associations
    * @return {Promise}
    */
 
@@ -55,27 +58,29 @@ module.exports = {
 
   /**
    * Promise to edit a/an token.
-   *
+   * Input : values
+   * Output : Update token - associations
    * @return {Promise}
    */
 
   edit: async (params, values) => {
-    // Note: The current method will return the full response of Mongo.
-    // To get the updated object, you have to execute the `findOne()` method
-    // or use the `findOneOrUpdate()` method with `{ new:true }` option.
-    //await strapi.hook.mongoose.manageRelations('token', _.merge(_.clone(params), { values }));
+  /*  Note: The current method will return the full response of Mongo.
+    To get the updated object, you have to execute the `findOne()` method
+    or use the `findOneOrUpdate()` method with `{ new:true }` option. */
+    await strapi.hook.mongoose.manageRelations('token', _.merge(_.clone(params), { values }));
     return Token.update(params, values, { multi: true });
   },
 
   /**
    * Promise to remove a/an token.
-   *
+   * Input : params
+   * Output : Remove Token - associations
    * @return {Promise}
    */
 
   remove: async params => {
-    // Note: To get the full response of Mongo, use the `remove()` method
-    // or add spent the parameter `{ passRawResult: true }` as second argument.
+  /*  Note: To get the full response of Mongo, use the `remove()` method
+    or add spent the parameter `{ passRawResult: true }` as second argument. */
     const data = await Token.findOneAndRemove(params, {})
       .populate(_.keys(_.groupBy(_.reject(strapi.models.token.associations, {autoPopulate: false}), 'alias')).join(' '));
 

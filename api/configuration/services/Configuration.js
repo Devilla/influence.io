@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all configurations.
-   *
+   * Input : params
+   * Output :  configuration - associations
    * @return {Promise}
    */
 
@@ -34,7 +35,8 @@ module.exports = {
 
   /**
    * Promise to fetch one campaign configurations.
-   *
+   * Input : params
+   * Output :  single configuration - associations
    * @return {Promise}
    */
 
@@ -56,7 +58,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an configuration.
-   *
+   * Input : params
+   * Output :  single campaign configuration - associations
    * @return {Promise}
    */
 
@@ -77,7 +80,8 @@ module.exports = {
 
   /**
    * Promise to add a/an configuration.
-   *
+   * Input : values
+   * Output :  creates configuration - associations
    * @return {Promise}
    */
 
@@ -89,7 +93,8 @@ module.exports = {
 
   /**
    * Promise to edit a/an configuration.
-   *
+   * Input : params, values
+   * Output :  update configuration - associations
    * @return {Promise}
    */
 
@@ -103,7 +108,8 @@ module.exports = {
 
   /**
    * Promise to remove a/an configuration.
-   *
+   * Input : params
+   * Output :  deletes configuration - associations
    * @return {Promise}
    */
 

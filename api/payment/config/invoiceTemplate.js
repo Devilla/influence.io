@@ -117,7 +117,7 @@ const invoiceTemplate = (invoice, user) => {
                 <table>
                   <tr>
                     <td class="title">
-                      <img src="https://useinfluence.co/static/media/newlogo-6.d7af3d5a.png" style="width:100%; max-width:250px;">
+                      <img src="https://useinfluence.costatic/media/newlogo-6.d7af3d5a.png" style="width:100%; max-width:250px;">
                     </td>
 
                     <td class="invoice-details">

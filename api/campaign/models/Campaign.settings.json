@@ -61,10 +61,6 @@
     },
     "webhooks": {
       "model": "webhooks"
-    },
-    "subcampaign": {
-      "collection": "subcampaign",
-      "via": "campaign"
     }
   }
 }

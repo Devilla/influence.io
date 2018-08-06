@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all coupons.
-   *
+   * Input : params
+   * Output :  fetch coupon - converted params
    * @return {Promise}
    */
 
@@ -31,7 +32,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an coupon.
-   *
+   * Input : params
+   * Output :  fetch coupon - converted params
    * @return {Promise}
    */
 
@@ -43,7 +45,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an coupon.
-   *
+   * Input : params
+   * Output :  fetch coupon - converted params
    * @return {Promise}
    */
 
@@ -55,7 +58,8 @@ module.exports = {
 
   /**
    * Promise to add a/an coupon.
-   *
+   * Input : params
+   * Output :  create coupon - updated data
    * @return {Promise}
    */
 
@@ -67,7 +71,8 @@ module.exports = {
 
   /**
    * Promise to edit a/an coupon.
-   *
+   * Input : params
+   * Output :  update coupon - updated data
    * @return {Promise}
    */
 
@@ -81,7 +86,8 @@ module.exports = {
 
   /**
    * Promise to remove a/an coupon.
-   *
+   * Input : params
+   * Output :  deletes coupon - associations
    * @return {Promise}
    */
 

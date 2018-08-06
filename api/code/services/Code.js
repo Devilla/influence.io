@@ -13,7 +13,8 @@ module.exports = {
 
   /**
    * Promise to fetch all codes.
-   *
+   * Input : params
+   * Output : return code - converted params
    * @return {Promise}
    */
 
@@ -31,7 +32,8 @@ module.exports = {
 
   /**
    * Promise to fetch a/an code.
-   *
+   * Input : params
+   * Output : fetch code - converted params
    * @return {Promise}
    */
 
@@ -43,7 +45,8 @@ module.exports = {
 
   /**
    * Promise to add a/an code.
-   *
+   * Input : values
+   * Output :  creates code - associations
    * @return {Promise}
    */
 
@@ -55,7 +58,8 @@ module.exports = {
 
   /**
    * Promise to edit a/an code.
-   *
+   * Input : params, values
+   * Output :  creates code - associations
    * @return {Promise}
    */
 
@@ -69,7 +73,8 @@ module.exports = {
 
   /**
    * Promise to remove a/an code.
-   *
+   * Input : params, values
+   * Output :  deletes code - associations
    * @return {Promise}
    */
 
