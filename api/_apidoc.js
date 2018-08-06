@@ -11,16 +11,16 @@
 // Current Errors.
 // ------------------------------------------------------------------------------------------
 /**
- * @apiDefine CreateUserError
+ * @apiDefine CreateCampaignError
  * @apiVersion 0.2.0
  *
  * @apiError NoAccessRight Only authenticated Admins can access the data.
- * @apiError UserNameTooShort Minimum of 5 characters required.
+ * @apiError CampaignNameTooShort Minimum of 5 characters required.
  *
  * @apiErrorExample  Response (example):
  *     HTTP/1.1 400 Bad Request
  *     {
- *       "error": "UserNameTooShort"
+ *       "error": "CampaignNameTooShort"
  *     }
  */
 
@@ -47,56 +47,56 @@
  */
 
 /**
- * @api {get} /user/:id Read data of a User
+ * @api {get} /campaign/:id Read data of a Campaign
  * @apiVersion 0.2.0
- * @apiName GetUser
- * @apiGroup User
+ * @apiName GetCampaign
+ * @apiGroup Campaign
  * @apiPermission admin
  *
  * @apiDescription Here you can describe the function.
  * Multilines are possible.
  *
- * @apiParam {String} id The Users-ID.
+ * @apiParam {String} id The Campaigns-ID.
  *
- * @apiSuccess {String} id         The Users-ID.
- * @apiSuccess {Date}   name       Fullname of the User.
+ * @apiSuccess {String} id         The Campaigns-ID.
+ * @apiSuccess {Date}   name       Fullname of the Campaign.
  *
- * @apiError UserNotFound   The <code>id</code> of the User was not found.
+ * @apiError CampaignNotFound   The <code>id</code> of the Campaign was not found.
  */
 
 /**
- * @api {get} /user/:id Read data of a User
+ * @api {get} /campaign/:id Read data of a Campaign
  * @apiVersion 0.1.0
- * @apiName GetUser
- * @apiGroup User
+ * @apiName GetCampaign
+ * @apiGroup Campaign
  * @apiPermission admin
  *
  * @apiDescription Here you can describe the function.
  * Multilines are possible.
  *
- * @apiParam {String} id The Users-ID.
+ * @apiParam {String} id The Campaigns-ID.
  *
- * @apiSuccess {String} id         The Users-ID.
- * @apiSuccess {Date}   name       Fullname of the User.
+ * @apiSuccess {String} id         The Campaigns-ID.
+ * @apiSuccess {Date}   name       Fullname of the Campaign.
  *
- * @apiError UserNotFound   The error description text in version 0.1.0.
+ * @apiError CampaignNotFound   The error description text in version 0.1.0.
  */
 
 /**
- * @api {post} /user Create a User
+ * @api {post} /campaign Create a Campaign
  * @apiVersion 0.2.0
- * @apiName PostUser
- * @apiGroup User
+ * @apiName PostCampaign
+ * @apiGroup Campaign
  * @apiPermission none
  *
  * @apiDescription In this case "apiErrorStructure" is defined and used.
  * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
  *
- * @apiParam {String} name Name of the User.
+ * @apiParam {String} name Name of the Campaign.
  *
- * @apiSuccess {String} id         The Users-ID.
+ * @apiSuccess {String} id         The Campaigns-ID.
  *
- * @apiUse CreateUserError
+ * @apiUse CreateCampaignError
  */
 
 /**
