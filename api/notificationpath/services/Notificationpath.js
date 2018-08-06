@@ -9,6 +9,16 @@
 // Public dependencies.
 const _ = require('lodash');
 
+let validatePath = async function(index, trackingId, path, callback) {
+ try {
+   await strapi.services.elasticsearch.validatePath(index, trackingId, path).then(res=>{
+     callback(null, res);
+   });
+ } catch(err) {
+   callback(err);
+ }
+}
+
 module.exports = {
 
   /**
@@ -58,6 +68,7 @@ module.exports = {
    */
 
   fetch: (params) => {
+
     return Notificationpath
       .findOne(_.pick(params, _.keys(Notificationpath.schema.paths)))
       .populate(_.keys(_.groupBy(_.reject(strapi.models.notificationpath.associations, {autoPopulate: false}), 'alias')).join(' '));
@@ -70,6 +81,20 @@ module.exports = {
    */
 
   add: async (values) => {
+    const campaign = await Campaign.findOne({rule: values.rule});
+    let response;
+
+    if(campaign)
+      await validatePath('filebeat-*', campaign.trackingId, values.url, (err, pathResponse) => {
+        if(!err)
+          response = pathResponse;
+      });
+
+    if(response && response.hits && response.hits.total > 0)
+      values['status'] = 'primary';
+    else
+      values['status'] = 'unverified';
+
     const data = await Notificationpath.create(values);
     return data;
   },
