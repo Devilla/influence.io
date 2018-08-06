@@ -6,11 +6,11 @@
   "url": "https://useinfluence.co",
   "sampleUrl": "https://useinfluence.co",
   "header": {
-    "title": "My own header title",
+    "title": "Influence",
     "filename": "header.md"
   },
   "footer": {
-    "title": "My own footer title",
+    "title": "Influence",
     "filename": "footer.md"
   },
   "template": {
