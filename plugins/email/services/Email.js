@@ -459,8 +459,6 @@ module.exports = {
   },
 
   campaignIssue: async(email, name, campaign) => {
-    const email = email;
-    const name = name;
     const mailSub = "Issue with user campaign.";
     const content =`
       <br/>
