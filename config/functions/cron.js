@@ -206,6 +206,12 @@ module.exports = {
         captureLeads = captureLeads.map(lead => lead.url);
 
         /**
+        *Mail support if campaign id in active/not logging data
+        **/
+        // if(!campaign.isActive)
+        //   await strapi.plugins.email.services.email.campaignIssue(email, name, campaign);
+
+        /**
         *query to search user not logged
         **/
         let logQuery = {
