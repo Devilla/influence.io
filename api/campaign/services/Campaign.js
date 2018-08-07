@@ -326,7 +326,7 @@ module.exports = {
 							"liveVisitorCount": 0,
 							"otherText": "signed up for"
 					  };
-						newConfiguration['otherText'] = 'signed up for',
+						newConfiguration['otherText'] = 'Recently signed up for',
 						newConfiguration['contentText'] = 'Company Name';
 					}
 					if(notification.notificationName == 'Live Visitor Count') {
