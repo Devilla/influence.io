@@ -4951,7 +4951,7 @@
   {
     "type": "get",
     "url": "/notificationpath/rules/:type/:_id",
-    "title": "A function which get profile pic using email address with gravatr",
+    "title": "A Promise to fetch a notificationpath.",
     "version": "0.1.0",
     "name": "findRulesPath",
     "group": "notificationpath",

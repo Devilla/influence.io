@@ -1909,7 +1909,7 @@
 */
 
 /**
-* @api {get} /notificationpath/rules/:type/:_id A function which get profile pic using email address with gravatr
+* @api {get} /notificationpath/rules/:type/:_id A Promise to fetch a notificationpath.
 * @apiVersion 0.1.0
 * @apiName findRulesPath
 * @apiGroup notificationpath
