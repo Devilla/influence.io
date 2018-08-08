@@ -1827,3 +1827,102 @@
 */
 
 /**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine CreateNotificationpathError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError NotificationpathNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "NotificationpathNameTooShort"
+*     }
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
+
+/**
+* @api {get} /notificationpath/ A Promise to fetch all notificationpaths.
+* @apiVersion 0.2.0
+* @apiName find
+* @apiGroup notificationpath
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationpaths-params.
+*
+* @apiSuccess {Object} notificationpath         Notificationpath - associations.
+*
+* @apiError notificationpathNotFound   The <code>id</code> of the notificationpath was not found.
+*/
+
+/**
+* @api {get} /notificationpath/rules/:type/:_id A function which get profile pic using email address with gravatr
+* @apiVersion 0.1.0
+* @apiName findRulesPath
+* @apiGroup notificationpath
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationpaths-params.
+*
+* @apiSuccess {Object} notificationpath         Notificationpath - associations.
+*
+* @apiError notificationpathNotFound   The error description text in version 0.1.0.
+*/
+
+/**

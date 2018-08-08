@@ -556,150 +556,6 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/coupon",
-    "title": "Promise to add a coupon.",
-    "version": "0.2.0",
-    "name": "Add",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/coupon"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "post",
-    "url": "/coupon",
-    "title": "Promise to add a coupon.",
-    "version": "0.2.0",
-    "name": "Add",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/coupon"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "post",
     "url": "/client",
     "title": "Promise to add a client.",
     "version": "0.2.0",
@@ -814,6 +670,150 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "https://useinfluence.co/client"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/coupon",
+    "title": "Promise to add a coupon.",
+    "version": "0.2.0",
+    "name": "Add",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/coupon"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/coupon",
+    "title": "Promise to add a coupon.",
+    "version": "0.2.0",
+    "name": "Add",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/coupon"
       }
     ],
     "error": {
@@ -1060,6 +1060,294 @@ define({ "api": [
   },
   {
     "type": "delete",
+    "url": "/coupon/:_id",
+    "title": "Promise to remove a/an coupon.",
+    "version": "0.2.0",
+    "name": "Delete",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/coupon/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/code/:_id",
+    "title": "Promise to remove a/an code.",
+    "version": "0.2.0",
+    "name": "Delete",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/code/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/code/:_id",
+    "title": "Promise to remove a/an code.",
+    "version": "0.2.0",
+    "name": "Delete",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/code/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/client/:_id",
+    "title": "Promise to remove a/an client.",
+    "version": "0.2.0",
+    "name": "Delete",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/client/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
     "url": "/configuration/:_id",
     "title": "Promise to remove a/an configuration.",
     "version": "0.2.0",
@@ -1276,222 +1564,6 @@ define({ "api": [
   },
   {
     "type": "delete",
-    "url": "/client/:_id",
-    "title": "Promise to remove a/an client.",
-    "version": "0.2.0",
-    "name": "Delete",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/client/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "delete",
-    "url": "/code/:_id",
-    "title": "Promise to remove a/an code.",
-    "version": "0.2.0",
-    "name": "Delete",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/code/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "delete",
-    "url": "/coupon/:_id",
-    "title": "Promise to remove a/an coupon.",
-    "version": "0.2.0",
-    "name": "Delete",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/coupon/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "delete",
     "url": "/configuration/:_id",
     "title": "Promise to remove a/an configuration.",
     "version": "0.2.0",
@@ -1563,11 +1635,11 @@ define({ "api": [
     }
   },
   {
-    "type": "delete",
-    "url": "/code/:_id",
-    "title": "Promise to remove a/an code.",
+    "type": "put",
+    "url": "/client/:_id",
+    "title": "Promise to edit a client.",
     "version": "0.2.0",
-    "name": "Delete",
+    "name": "Edit",
     "group": "Client",
     "permission": [
       {
@@ -1584,6 +1656,92 @@ define({ "api": [
             "optional": false,
             "field": "params",
             "description": "<p>{String} value details of the new Client.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/client/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/code/:_id",
+    "title": "Promise to edit a code.",
+    "version": "0.2.0",
+    "name": "Edit",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>details of the new Client.</p>"
           }
         ]
       }
@@ -1715,6 +1873,322 @@ define({ "api": [
   },
   {
     "type": "put",
+    "url": "/coupon/:_id",
+    "title": "Promise to edit a coupon.",
+    "version": "0.2.0",
+    "name": "Edit",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/coupon/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/coupon/:_id",
+    "title": "Promise to edit a coupon.",
+    "version": "0.2.0",
+    "name": "Edit",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/coupon/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/client/:_id",
+    "title": "Promise to edit a client.",
+    "version": "0.2.0",
+    "name": "Edit",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/client/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/code/:_id",
+    "title": "Promise to edit a code.",
+    "version": "0.2.0",
+    "name": "Edit",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "Write"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>{String} value details of the new Client.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>details of the new Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/code/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
     "url": "/configuration/:_id",
     "title": "Promise to edit a configuration.",
     "version": "0.2.0",
@@ -1764,840 +2238,6 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "https://useinfluence.co/configuration/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "put",
-    "url": "/client/:_id",
-    "title": "Promise to edit a client.",
-    "version": "0.2.0",
-    "name": "Edit",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/client/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "put",
-    "url": "/client/:_id",
-    "title": "Promise to edit a client.",
-    "version": "0.2.0",
-    "name": "Edit",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/client/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "put",
-    "url": "/coupon/:_id",
-    "title": "Promise to edit a coupon.",
-    "version": "0.2.0",
-    "name": "Edit",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/coupon/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "put",
-    "url": "/code/:_id",
-    "title": "Promise to edit a code.",
-    "version": "0.2.0",
-    "name": "Edit",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/code/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "put",
-    "url": "/coupon/:_id",
-    "title": "Promise to edit a coupon.",
-    "version": "0.2.0",
-    "name": "Edit",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/coupon/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "put",
-    "url": "/code/:_id",
-    "title": "Promise to edit a code.",
-    "version": "0.2.0",
-    "name": "Edit",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "Write"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "params",
-            "description": "<p>{String} value details of the new Client.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "value",
-            "description": "<p>details of the new Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/code/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/client",
-    "title": "Read data of a client",
-    "version": "0.2.0",
-    "name": "GetClient",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of the Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/client"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/code",
-    "title": "Read data of a code",
-    "version": "0.2.0",
-    "name": "GetClient",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of the Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/code"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/configuration",
-    "title": "Read data of a configuration",
-    "version": "0.2.0",
-    "name": "GetClient",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of the Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/configuration"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/coupon",
-    "title": "Read data of a coupon",
-    "version": "0.2.0",
-    "name": "GetClient",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of the Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/coupon"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/code",
-    "title": "Read data of a code",
-    "version": "0.2.0",
-    "name": "GetClient",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of the Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/code"
       }
     ],
     "error": {
@@ -2772,6 +2412,222 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/configuration",
+    "title": "Read data of a configuration",
+    "version": "0.2.0",
+    "name": "GetClient",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/configuration"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/code",
+    "title": "Read data of a code",
+    "version": "0.2.0",
+    "name": "GetClient",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/code"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/client",
+    "title": "Read data of a client",
+    "version": "0.2.0",
+    "name": "GetClient",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/client"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
     "url": "/coupon",
     "title": "Read data of a coupon",
     "version": "0.2.0",
@@ -2844,10 +2700,10 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/coupon/:_id",
-    "title": "Promise to fetch all coupons.",
+    "url": "/code",
+    "title": "Read data of a code",
     "version": "0.2.0",
-    "name": "fetchAll",
+    "name": "GetClient",
     "group": "Client",
     "permission": [
       {
@@ -2885,7 +2741,79 @@ define({ "api": [
     "groupTitle": "Client",
     "sampleRequest": [
       {
-        "url": "https://useinfluence.co/coupon/:_id"
+        "url": "https://useinfluence.co/code"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/coupon",
+    "title": "Read data of a coupon",
+    "version": "0.2.0",
+    "name": "GetClient",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/coupon"
       }
     ],
     "error": {
@@ -2988,8 +2916,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/client/:_id",
-    "title": "Promise to fetch all clients.",
+    "url": "/coupon/:_id",
+    "title": "Promise to fetch all coupons.",
     "version": "0.2.0",
     "name": "fetchAll",
     "group": "Client",
@@ -3029,151 +2957,7 @@ define({ "api": [
     "groupTitle": "Client",
     "sampleRequest": [
       {
-        "url": "https://useinfluence.co/client/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/code/:_id",
-    "title": "Promise to fetch all codes.",
-    "version": "0.2.0",
-    "name": "fetchAll",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of the Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/code/:_id"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/code/:_id",
-    "title": "Promise to fetch all codes.",
-    "version": "0.2.0",
-    "name": "fetchAll",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of the Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/code/:_id"
+        "url": "https://useinfluence.co/coupon/:_id"
       }
     ],
     "error": {
@@ -3246,6 +3030,150 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "https://useinfluence.co/configuration/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/code/:_id",
+    "title": "Promise to fetch all codes.",
+    "version": "0.2.0",
+    "name": "fetchAll",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/code/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/client/:_id",
+    "title": "Promise to fetch all clients.",
+    "version": "0.2.0",
+    "name": "fetchAll",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/client/:_id"
       }
     ],
     "error": {
@@ -3390,6 +3318,78 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "https://useinfluence.co/coupon/:_id"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/code/:_id",
+    "title": "Promise to fetch all codes.",
+    "version": "0.2.0",
+    "name": "fetchAll",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/code/:_id"
       }
     ],
     "error": {
@@ -4884,6 +4884,128 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "https://useinfluence.co/enrichment/picasa/:email"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/notificationpath/",
+    "title": "A Promise to fetch all notificationpaths.",
+    "version": "0.2.0",
+    "name": "find",
+    "group": "notificationpath",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "This title is visible in version 0.1.0 and 0.2.0",
+        "description": ""
+      }
+    ],
+    "description": "<p>Here you can describe the function. Multilines are possible.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>The notificationpaths-params.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "notificationpath",
+            "description": "<p>Notificationpath - associations.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notificationpathNotFound",
+            "description": "<p>The <code>id</code> of the notificationpath was not found.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "notificationpath",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/notificationpath/"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/notificationpath/rules/:type/:_id",
+    "title": "A function which get profile pic using email address with gravatr",
+    "version": "0.1.0",
+    "name": "findRulesPath",
+    "group": "notificationpath",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "This title is visible in version 0.1.0 and 0.2.0",
+        "description": ""
+      }
+    ],
+    "description": "<p>Here you can describe the function. Multilines are possible.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>The notificationpaths-params.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "notificationpath",
+            "description": "<p>Notificationpath - associations.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notificationpathNotFound",
+            "description": "<p>The error description text in version 0.1.0.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "notificationpath",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/notificationpath/rules/:type/:_id"
       }
     ]
   }
