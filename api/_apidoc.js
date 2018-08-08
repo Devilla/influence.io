@@ -2126,3 +2126,656 @@
 *
 * @apiError notificationtypesNotFound   The error description text in version 0.1.0.
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine CreateplanError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError planNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "planNameTooShort"
+*     }
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
+
+/**
+* @api {get} /plan/ A Promise to fetch all plans.
+* @apiVersion 0.2.0
+* @apiName find
+* @apiGroup plan
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The plans-params.
+*
+* @apiSuccess {Object} plan         plan - associations.
+*
+* @apiError planNotFound   The <code>id</code> of the plan was not found.
+*/
+
+/**
+* @api {get} /plan/rules/:type/:_id A Promise to fetch a plan.
+* @apiVersion 0.1.0
+* @apiName findRulesPath
+* @apiGroup plan
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The plans-params.
+*
+* @apiSuccess {Object} plan         plan - associations.
+*
+* @apiError planNotFound   The error description text in version 0.1.0.
+*/
+
+/**
+* @api {post} /plan/ A Promise to create a plan.
+* @apiVersion 0.1.0
+* @apiName create
+* @apiGroup plan
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The plans-params.
+*
+* @apiSuccess {Object} data-add        plan - data.
+*
+* @apiError planNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {put} /plan/:_id A Promise to update a plan.
+* @apiVersion 0.1.0
+* @apiName update
+* @apiGroup plan
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The plans-params.
+* @apiParam {String} values The plans-values.
+*
+* @apiSuccess {Object} data-update        plan - data.
+*
+* @apiError planNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {delete} /plan/:_id A Promise to delete a plan.
+* @apiVersion 0.1.0
+* @apiName destroy
+* @apiGroup plan
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The plan-params.
+*
+* @apiSuccess {Object} data-delete        plan - data.
+*
+* @apiError planNotFound   The error description text in version 0.1.0.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine CreateprofileError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError profileNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "profileNameTooShort"
+*     }
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
+
+/**
+* @api {get} /profile/ A Promise to fetch all profiles.
+* @apiVersion 0.2.0
+* @apiName find
+* @apiGroup profile
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The profiles-params.
+*
+* @apiSuccess {Object} profile         profile - associations.
+*
+* @apiError profileNotFound   The <code>id</code> of the profile was not found.
+*/
+
+/**
+* @api {get} /profile/rules/:type/:_id A Promise to fetch a profile.
+* @apiVersion 0.1.0
+* @apiName findRulesPath
+* @apiGroup profile
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The profiles-params.
+*
+* @apiSuccess {Object} profile         profile - associations.
+*
+* @apiError profileNotFound   The error description text in version 0.1.0.
+*/
+
+/**
+* @api {post} /profile/ A Promise to create a profile.
+* @apiVersion 0.1.0
+* @apiName create
+* @apiGroup profile
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The profiles-params.
+*
+* @apiSuccess {Object} data-add        profile - data.
+*
+* @apiError profileNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {put} /profile/:_id A Promise to update a profile.
+* @apiVersion 0.1.0
+* @apiName update
+* @apiGroup profile
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The profiles-params.
+* @apiParam {String} values The profiles-values.
+*
+* @apiSuccess {Object} data-update        profile - data.
+*
+* @apiError profileNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {delete} /profile/:_id A Promise to delete a profile.
+* @apiVersion 0.1.0
+* @apiName destroy
+* @apiGroup profile
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The profile-params.
+*
+* @apiSuccess {Object} data-delete        profile - data.
+*
+* @apiError profileNotFound   The error description text in version 0.1.0.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine CreaterulesError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError rulesNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "rulesNameTooShort"
+*     }
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
+
+/**
+* @api {get} /rules/ A Promise to fetch all ruless.
+* @apiVersion 0.2.0
+* @apiName find
+* @apiGroup rules
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The ruless-params.
+*
+* @apiSuccess {Object} rules         rules - associations.
+*
+* @apiError rulesNotFound   The <code>id</code> of the rules was not found.
+*/
+
+/**
+* @api {get} /rules/rules/:type/:_id A Promise to fetch a rule.
+* @apiVersion 0.1.0
+* @apiName findRulesPath
+* @apiGroup rules
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The ruless-params.
+*
+* @apiSuccess {Object} rules         rules - associations.
+*
+* @apiError rulesNotFound   The error description text in version 0.1.0.
+*/
+
+/**
+* @api {post} /rules/ A Promise to create a rule.
+* @apiVersion 0.1.0
+* @apiName create
+* @apiGroup rules
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The ruless-params.
+*
+* @apiSuccess {Object} data-add        rules - data.
+*
+* @apiError rulesNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {put} /rules/:_id A Promise to update a rule.
+* @apiVersion 0.1.0
+* @apiName update
+* @apiGroup rules
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The ruless-params.
+* @apiParam {String} values The ruless-values.
+*
+* @apiSuccess {Object} data-update        rules - data.
+*
+* @apiError rulesNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {delete} /rules/:_id A Promise to delete a rule.
+* @apiVersion 0.1.0
+* @apiName destroy
+* @apiGroup rules
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The rules-params.
+*
+* @apiSuccess {Object} data-delete        rules - data.
+*
+* @apiError rulesNotFound   The error description text in version 0.1.0.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine CreatesubdomainError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError subdomainNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "subdomainNameTooShort"
+*     }
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
+
+/**
+* @api {get} /subdomain/ A Promise to fetch all subdomains.
+* @apiVersion 0.2.0
+* @apiName find
+* @apiGroup subdomain
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The subdomains-params.
+*
+* @apiSuccess {Object} subdomain         subdomain - associations.
+*
+* @apiError subdomainNotFound   The <code>id</code> of the subdomain was not found.
+*/
+
+/**
+* @api {get} /subdomain/subdomain/:type/:_id A Promise to fetch a rule.
+* @apiVersion 0.1.0
+* @apiName findsubdomainPath
+* @apiGroup subdomain
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The subdomains-params.
+*
+* @apiSuccess {Object} subdomain         subdomain - associations.
+*
+* @apiError subdomainNotFound   The error description text in version 0.1.0.
+*/
+
+/**
+* @api {post} /subdomain/ A Promise to create a rule.
+* @apiVersion 0.1.0
+* @apiName create
+* @apiGroup subdomain
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The subdomains-params.
+*
+* @apiSuccess {Object} data-add        subdomain - data.
+*
+* @apiError subdomainNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {put} /subdomain/:_id A Promise to update a rule.
+* @apiVersion 0.1.0
+* @apiName update
+* @apiGroup subdomain
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The subdomains-params.
+* @apiParam {String} values The subdomains-values.
+*
+* @apiSuccess {Object} data-update        subdomain - data.
+*
+* @apiError subdomainNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {delete} /subdomain/:_id A Promise to delete a rule.
+* @apiVersion 0.1.0
+* @apiName destroy
+* @apiGroup subdomain
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The subdomain-params.
+*
+* @apiSuccess {Object} data-delete        subdomain - data.
+*
+* @apiError subdomainNotFound   The error description text in version 0.1.0.
+*/
