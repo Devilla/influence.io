@@ -1926,3 +1926,55 @@
 */
 
 /**
+* @api {post} /notificationpath/ A Promise to create a notificationpath.
+* @apiVersion 0.1.0
+* @apiName create
+* @apiGroup notificationpath
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationpaths-params.
+*
+* @apiSuccess {Object} data-add        Notificationpath - data.
+*
+* @apiError notificationpathNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {put} /notificationpath/:_id A Promise to update a notificationpath.
+* @apiVersion 0.1.0
+* @apiName update
+* @apiGroup notificationpath
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationpaths-params.
+* @apiParam {String} values The notificationpaths-values.
+*
+* @apiSuccess {Object} data-update        Notificationpath - data.
+*
+* @apiError notificationpathNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {delete} /notificationpath/:_id A Promise to delete a notificationpath.
+* @apiVersion 0.1.0
+* @apiName destroy
+* @apiGroup notificationpath
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationpaths-params.
+*
+* @apiSuccess {Object} data-delete        Notificationpath - data.
+*
+* @apiError notificationpathNotFound   The error description text in version 0.1.0.
+*/
