@@ -2700,78 +2700,6 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/configuration",
-    "title": "Read data of a configuration",
-    "version": "0.2.0",
-    "name": "GetClient",
-    "group": "Client",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name of the Client.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Clients-ID.</p>"
-          }
-        ]
-      }
-    },
-    "filename": "api/_apidoc.js",
-    "groupTitle": "Client",
-    "sampleRequest": [
-      {
-        "url": "https://useinfluence.co/configuration"
-      }
-    ],
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NoAccessRight",
-            "description": "<p>Only authenticated Admins can access the data.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "ClientNameTooShort",
-            "description": "<p>Minimum of 5 characters required.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Response (example):",
-          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
     "url": "/coupon",
     "title": "Read data of a coupon",
     "version": "0.2.0",
@@ -2814,6 +2742,78 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "https://useinfluence.co/coupon"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoAccessRight",
+            "description": "<p>Only authenticated Admins can access the data.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ClientNameTooShort",
+            "description": "<p>Minimum of 5 characters required.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response (example):",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ClientNameTooShort\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/configuration",
+    "title": "Read data of a configuration",
+    "version": "0.2.0",
+    "name": "GetClient",
+    "group": "Client",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>In this case &quot;apiErrorStructure&quot; is defined and used. Define blocks with params that will be used in several functions, so you dont have to rewrite them.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the Client.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Clients-ID.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "Client",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/configuration"
       }
     ],
     "error": {
@@ -5196,6 +5196,318 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "https://useinfluence.co/notificationpath/:_id"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/notificationtypes/",
+    "title": "A Promise to create a notificationtypes.",
+    "version": "0.1.0",
+    "name": "create",
+    "group": "notificationtypes",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "This title is visible in version 0.1.0 and 0.2.0",
+        "description": ""
+      }
+    ],
+    "description": "<p>Here you can describe the function. Multilines are possible.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>The notificationtypess-params.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data-add",
+            "description": "<p>notificationtypes - data.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notificationtypesNotFound",
+            "description": "<p>The error description text in version 0.1.0.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "notificationtypes",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/notificationtypes/"
+      }
+    ]
+  },
+  {
+    "type": "delete",
+    "url": "/notificationtypes/:_id",
+    "title": "A Promise to delete a notificationtypes.",
+    "version": "0.1.0",
+    "name": "destroy",
+    "group": "notificationtypes",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "This title is visible in version 0.1.0 and 0.2.0",
+        "description": ""
+      }
+    ],
+    "description": "<p>Here you can describe the function. Multilines are possible.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>The notificationtypes-params.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data-delete",
+            "description": "<p>notificationtypes - data.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notificationtypesNotFound",
+            "description": "<p>The error description text in version 0.1.0.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "notificationtypes",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/notificationtypes/:_id"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/notificationtypes/",
+    "title": "A Promise to fetch all notificationtypess.",
+    "version": "0.2.0",
+    "name": "find",
+    "group": "notificationtypes",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "This title is visible in version 0.1.0 and 0.2.0",
+        "description": ""
+      }
+    ],
+    "description": "<p>Here you can describe the function. Multilines are possible.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>The notificationtypess-params.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "notificationtypes",
+            "description": "<p>notificationtypes - associations.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notificationtypesNotFound",
+            "description": "<p>The <code>id</code> of the notificationtypes was not found.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "notificationtypes",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/notificationtypes/"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/notificationtypes/rules/:type/:_id",
+    "title": "A Promise to fetch a notificationtypes.",
+    "version": "0.1.0",
+    "name": "findRulesPath",
+    "group": "notificationtypes",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "This title is visible in version 0.1.0 and 0.2.0",
+        "description": ""
+      }
+    ],
+    "description": "<p>Here you can describe the function. Multilines are possible.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>The notificationtypess-params.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "notificationtypes",
+            "description": "<p>notificationtypes - associations.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notificationtypesNotFound",
+            "description": "<p>The error description text in version 0.1.0.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "notificationtypes",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/notificationtypes/rules/:type/:_id"
+      }
+    ]
+  },
+  {
+    "type": "put",
+    "url": "/notificationtypes/:_id",
+    "title": "A Promise to update a notificationtypes.",
+    "version": "0.1.0",
+    "name": "update",
+    "group": "notificationtypes",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "This title is visible in version 0.1.0 and 0.2.0",
+        "description": ""
+      }
+    ],
+    "description": "<p>Here you can describe the function. Multilines are possible.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "params",
+            "description": "<p>The notificationtypess-params.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "values",
+            "description": "<p>The notificationtypess-values.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data-update",
+            "description": "<p>notificationtypes - data.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notificationtypesNotFound",
+            "description": "<p>The error description text in version 0.1.0.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "api/_apidoc.js",
+    "groupTitle": "notificationtypes",
+    "sampleRequest": [
+      {
+        "url": "https://useinfluence.co/notificationtypes/:_id"
       }
     ]
   }

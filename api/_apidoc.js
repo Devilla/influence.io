@@ -1146,437 +1146,437 @@
 
 
 
-   // ------------------------------------------------------------------------------------------
-   // Current Permissions.
-   // ------------------------------------------------------------------------------------------
-   /**
-   * @apiDefine admin Admin access rights needed.
-   * Optionally you can write here further Informations about the permission.
-   *
-   * An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
-   *
-   * @apiVersion 0.3.0
-   */
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
 
 
-   // ------------------------------------------------------------------------------------------
-   // History.
-   // ------------------------------------------------------------------------------------------
-   /**
-   * @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
-   * @apiVersion 0.1.0
-   */
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
 
-   /**
-   * @api {get} /coupon Read data of a coupon
-   * @apiVersion 0.2.0
-   * @apiName GetClient
-   * @apiGroup Client
-   * @apiPermission none
-   *
-   * @apiDescription In this case "apiErrorStructure" is defined and used.
-   * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-   *
-   * @apiParam {String} name Name of the Client.
-   *
-   * @apiSuccess {String} id         The Clients-ID.
-   *
-   * @apiUse CreateClientError
-   */
+/**
+* @api {get} /coupon Read data of a coupon
+* @apiVersion 0.2.0
+* @apiName GetClient
+* @apiGroup Client
+* @apiPermission none
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} name Name of the Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
-   /**
-    * @api {get} /coupon/:_id Promise to fetch all coupons.
-    * @apiVersion 0.2.0
-    * @apiName fetchAll
-    * @apiGroup Client
-    * @apiPermission none
-    *
-    * @apiDescription In this case "apiErrorStructure" is defined and used.
-    * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-    *
-    * @apiParam {String} name Name of the Client.
-    *
-    * @apiSuccess {String} id         The Clients-ID.
-    *
-    * @apiUse CreateClientError
-    */
+/**
+* @api {get} /coupon/:_id Promise to fetch all coupons.
+* @apiVersion 0.2.0
+* @apiName fetchAll
+* @apiGroup Client
+* @apiPermission none
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} name Name of the Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
-   /**
-   * @api {post} /coupon Promise to add a coupon.
-   * @apiVersion 0.2.0
-   * @apiName Add
-   * @apiGroup Client
-   * @apiPermission Write
-   *
-   * @apiDescription In this case "apiErrorStructure" is defined and used.
-   * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-   *
-   * @apiParam {String} value details of the new Client.
-   *
-   * @apiSuccess {String} id         The Clients-ID.
-   *
-   * @apiUse CreateClientError
-   */
+/**
+* @api {post} /coupon Promise to add a coupon.
+* @apiVersion 0.2.0
+* @apiName Add
+* @apiGroup Client
+* @apiPermission Write
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} value details of the new Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
-   /**
-    * @api {put} /coupon/:_id Promise to edit a coupon.
-    * @apiVersion 0.2.0
-    * @apiName Edit
-    * @apiGroup Client
-    * @apiPermission Write
-    *
-    * @apiDescription In this case "apiErrorStructure" is defined and used.
-    * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-    *
-    * @apiParam {String} params {String} value details of the new Client.
-    * @apiParam {String} value details of the new Client.
-    *
-    * @apiSuccess {String} id         The Clients-ID.
-    *
-    * @apiUse CreateClientError
-    */
+/**
+* @api {put} /coupon/:_id Promise to edit a coupon.
+* @apiVersion 0.2.0
+* @apiName Edit
+* @apiGroup Client
+* @apiPermission Write
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} params {String} value details of the new Client.
+* @apiParam {String} value details of the new Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
-   /**
-   * @api {delete} /coupon/:_id Promise to remove a/an coupon.
-   * @apiVersion 0.2.0
-   * @apiName Delete
-   * @apiGroup Client
-   * @apiPermission Write
-   *
-   * @apiDescription In this case "apiErrorStructure" is defined and used.
-   * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-   *
-   * @apiParam {String} params {String} value details of the new Client.
-   *
-   * @apiSuccess {String} id         The Clients-ID.
-   *
-   * @apiUse CreateClientError
-   */
-
-
-   /**
-   * @apiDefine CreatecouponError
-   * @apiVersion 0.2.0
-   *
-   * @apiError NoAccessRight Only authenticated Admins can access the data.
-   * @apiError ClientNameTooShort Minimum of 5 characters required.
-   *
-   * @apiErrorExample  Response (example):
-   *     HTTP/1.1 400 Bad Request
-   *     {
-   *       "error": "couponNameTooShort"
-   *     }
-   */
+/**
+* @api {delete} /coupon/:_id Promise to remove a/an coupon.
+* @apiVersion 0.2.0
+* @apiName Delete
+* @apiGroup Client
+* @apiPermission Write
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} params {String} value details of the new Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
 
-   // ------------------------------------------------------------------------------------------
-   // Current Permissions.
-   // ------------------------------------------------------------------------------------------
-   /**
-   * @apiDefine admin Admin access rights needed.
-   * Optionally you can write here further Informations about the permission.
-   *
-   * An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
-   *
-   * @apiVersion 0.3.0
-   */
+/**
+* @apiDefine CreatecouponError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError ClientNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "couponNameTooShort"
+*     }
+*/
 
 
-   // ------------------------------------------------------------------------------------------
-   // History.
-   // ------------------------------------------------------------------------------------------
-   /**
-   * @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
-   * @apiVersion 0.1.0
-   */
-
-   /**
-   * @api {get} /coupon Read data of a coupon
-   * @apiVersion 0.2.0
-   * @apiName GetClient
-   * @apiGroup Client
-   * @apiPermission none
-   *
-   * @apiDescription In this case "apiErrorStructure" is defined and used.
-   * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-   *
-   * @apiParam {String} name Name of the Client.
-   *
-   * @apiSuccess {String} id         The Clients-ID.
-   *
-   * @apiUse CreateClientError
-   */
-
-   /**
-    * @api {get} /coupon/:_id Promise to fetch all coupons.
-    * @apiVersion 0.2.0
-    * @apiName fetchAll
-    * @apiGroup Client
-    * @apiPermission none
-    *
-    * @apiDescription In this case "apiErrorStructure" is defined and used.
-    * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-    *
-    * @apiParam {String} name Name of the Client.
-    *
-    * @apiSuccess {String} id         The Clients-ID.
-    *
-    * @apiUse CreateClientError
-    */
-
-    /**
-     * @api {post} /coupon Promise to add a coupon.
-     * @apiVersion 0.2.0
-     * @apiName Add
-     * @apiGroup Client
-     * @apiPermission Write
-     *
-     * @apiDescription In this case "apiErrorStructure" is defined and used.
-     * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-     *
-     * @apiParam {String} value details of the new Client.
-     *
-     * @apiSuccess {String} id         The Clients-ID.
-     *
-     * @apiUse CreateClientError
-     */
-
-     /**
-      * @api {put} /coupon/:_id Promise to edit a coupon.
-      * @apiVersion 0.2.0
-      * @apiName Edit
-      * @apiGroup Client
-      * @apiPermission Write
-      *
-      * @apiDescription In this case "apiErrorStructure" is defined and used.
-      * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-      *
-      * @apiParam {String} params {String} value details of the new Client.
-      * @apiParam {String} value details of the new Client.
-      *
-      * @apiSuccess {String} id         The Clients-ID.
-      *
-      * @apiUse CreateClientError
-      */
-
-    /**
-     * @api {delete} /coupon/:_id Promise to remove a/an coupon.
-     * @apiVersion 0.2.0
-     * @apiName Delete
-     * @apiGroup Client
-     * @apiPermission Write
-     *
-     * @apiDescription In this case "apiErrorStructure" is defined and used.
-     * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-     *
-     * @apiParam {String} params {String} value details of the new Client.
-     *
-     * @apiSuccess {String} id         The Clients-ID.
-     *
-     * @apiUse CreateClientError
-     */
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
 
 
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
 
-     // ------------------------------------------------------------------------------------------
-     // Current Success.
-     // ------------------------------------------------------------------------------------------
+/**
+* @api {get} /coupon Read data of a coupon
+* @apiVersion 0.2.0
+* @apiName GetClient
+* @apiGroup Client
+* @apiPermission none
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} name Name of the Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
+/**
+* @api {get} /coupon/:_id Promise to fetch all coupons.
+* @apiVersion 0.2.0
+* @apiName fetchAll
+* @apiGroup Client
+* @apiPermission none
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} name Name of the Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
-     // ------------------------------------------------------------------------------------------
-     // Current Errors.
-     // ------------------------------------------------------------------------------------------
-     /**
-      * @apiDefine CreatecouponError
-      * @apiVersion 0.2.0
-      *
-      * @apiError NoAccessRight Only authenticated Admins can access the data.
-      * @apiError couponNameTooShort Minimum of 5 characters required.
-      *
-      * @apiErrorExample  Response (example):
-      *     HTTP/1.1 400 Bad Request
-      *     {
-      *       "error": "couponNameTooShort"
-      *     }
-      */
+/**
+* @api {post} /coupon Promise to add a coupon.
+* @apiVersion 0.2.0
+* @apiName Add
+* @apiGroup Client
+* @apiPermission Write
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} value details of the new Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
+/**
+* @api {put} /coupon/:_id Promise to edit a coupon.
+* @apiVersion 0.2.0
+* @apiName Edit
+* @apiGroup Client
+* @apiPermission Write
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} params {String} value details of the new Client.
+* @apiParam {String} value details of the new Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
-     // ------------------------------------------------------------------------------------------
-     // Current Permissions.
-     // ------------------------------------------------------------------------------------------
-     /**
-      * @apiDefine admin Admin access rights needed.
-      * Optionally you can write here further Informations about the permission.
-      *
-      * An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
-      *
-      * @apiVersion 0.3.0
-      */
-
-
-     // ------------------------------------------------------------------------------------------
-     // History.
-     // ------------------------------------------------------------------------------------------
-     /**
-      * @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
-      * @apiVersion 0.1.0
-      */
-
-     /**
-      * @api {get} /coupon/:id Read data of a coupon
-      * @apiVersion 0.2.0
-      * @apiName Getcoupon
-      * @apiGroup coupon
-      * @apiPermission admin
-      *
-      * @apiDescription Here you can describe the function.
-      * Multilines are possible.
-      *
-      * @apiParam {String} id The coupons-ID.
-      *
-      * @apiSuccess {String} id         The coupons-ID.
-      * @apiSuccess {Date}   name       Fullname of the coupon.
-      *
-      * @apiError couponNotFound   The <coupon>id</coupon> of the coupon was not found.
-      */
-
-     /**
-      * @api {get} /coupon/:id Read data of a coupon
-      * @apiVersion 0.1.0
-      * @apiName Getcoupon
-      * @apiGroup coupon
-      * @apiPermission admin
-      *
-      * @apiDescription Here you can describe the function.
-      * Multilines are possible.
-      *
-      * @apiParam {String} id The coupons-ID.
-      *
-      * @apiSuccess {String} id         The coupons-ID.
-      * @apiSuccess {Date}   name       Fullname of the coupon.
-      *
-      * @apiError couponNotFound   The error description text in version 0.1.0.
-      */
-
-     /**
-      * @api {post} /coupon Create a coupon
-      * @apiVersion 0.2.0
-      * @apiName Postcoupon
-      * @apiGroup coupon
-      * @apiPermission none
-      *
-      * @apiDescription In this case "apiErrorStructure" is defined and used.
-      * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-      *
-      * @apiParam {String} name Name of the coupon.
-      *
-      * @apiSuccess {String} id         The coupons-ID.
-      *
-      * @apiUse CreatecouponError
-      */
+/**
+* @api {delete} /coupon/:_id Promise to remove a/an coupon.
+* @apiVersion 0.2.0
+* @apiName Delete
+* @apiGroup Client
+* @apiPermission Write
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} params {String} value details of the new Client.
+*
+* @apiSuccess {String} id         The Clients-ID.
+*
+* @apiUse CreateClientError
+*/
 
 
 
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine CreatecouponError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError couponNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "couponNameTooShort"
+*     }
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
+
+/**
+* @api {get} /coupon/:id Read data of a coupon
+* @apiVersion 0.2.0
+* @apiName Getcoupon
+* @apiGroup coupon
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} id The coupons-ID.
+*
+* @apiSuccess {String} id         The coupons-ID.
+* @apiSuccess {Date}   name       Fullname of the coupon.
+*
+* @apiError couponNotFound   The <coupon>id</coupon> of the coupon was not found.
+*/
+
+/**
+* @api {get} /coupon/:id Read data of a coupon
+* @apiVersion 0.1.0
+* @apiName Getcoupon
+* @apiGroup coupon
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} id The coupons-ID.
+*
+* @apiSuccess {String} id         The coupons-ID.
+* @apiSuccess {Date}   name       Fullname of the coupon.
+*
+* @apiError couponNotFound   The error description text in version 0.1.0.
+*/
+
+/**
+* @api {post} /coupon Create a coupon
+* @apiVersion 0.2.0
+* @apiName Postcoupon
+* @apiGroup coupon
+* @apiPermission none
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} name Name of the coupon.
+*
+* @apiSuccess {String} id         The coupons-ID.
+*
+* @apiUse CreatecouponError
+*/
 
 
 
 
-      // ------------------------------------------------------------------------------------------
-      // Current Success.
-      // ------------------------------------------------------------------------------------------
 
 
-      // ------------------------------------------------------------------------------------------
-      // Current Errors.
-      // ------------------------------------------------------------------------------------------
-      /**
-       * @apiDefine CreateconfigurationError
-       * @apiVersion 0.2.0
-       *
-       * @apiError NoAccessRight Only authenticated Admins can access the data.
-       * @apiError configurationNameTooShort Minimum of 5 characters required.
-       *
-       * @apiErrorExample  Response (example):
-       *     HTTP/1.1 400 Bad Request
-       *     {
-       *       "error": "configurationNameTooShort"
-       *     }
-       */
+
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
 
 
-      // ------------------------------------------------------------------------------------------
-      // Current Permissions.
-      // ------------------------------------------------------------------------------------------
-      /**
-       * @apiDefine admin Admin access rights needed.
-       * Optionally you can write here further Informations about the permission.
-       *
-       * An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
-       *
-       * @apiVersion 0.3.0
-       */
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine CreateconfigurationError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError configurationNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "configurationNameTooShort"
+*     }
+*/
 
 
-      // ------------------------------------------------------------------------------------------
-      // History.
-      // ------------------------------------------------------------------------------------------
-      /**
-       * @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
-       * @apiVersion 0.1.0
-       */
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
 
-      /**
-       * @api {get} /configuration/:id Read data of a configuration
-       * @apiVersion 0.2.0
-       * @apiName fetchAll
-       * @apiGroup configuration
-       * @apiPermission admin
-       *
-       * @apiDescription Here you can describe the function.
-       * Multilines are possible.
-       *
-       * @apiParam {String} id The configurations-ID.
-       *
-       * @apiSuccess {String} id         The configurations-ID.
-       * @apiSuccess {Date}   name       Fullname of the configuration.
-       *
-       * @apiError configurationNotFound   The <code>id</code> of the configuration was not found.
-       */
 
-      /**
-       * @api {get} /configuration/:id Read data of a configuration
-       * @apiVersion 0.1.0
-       * @apiName Getconfiguration
-       * @apiGroup configuration
-       * @apiPermission admin
-       *
-       * @apiDescription Here you can describe the function.
-       * Multilines are possible.
-       *
-       * @apiParam {String} id The configurations-ID.
-       *
-       * @apiSuccess {String} id         The configurations-ID.
-       * @apiSuccess {Date}   name       Fullname of the configuration.
-       *
-       * @apiError configurationNotFound   The error description text in version 0.1.0.
-       */
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
 
-      /**
-       * @api {post} /configuration Create a configuration
-       * @apiVersion 0.2.0
-       * @apiName Postconfiguration
-       * @apiGroup configuration
-       * @apiPermission none
-       *
-       * @apiDescription In this case "apiErrorStructure" is defined and used.
-       * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
-       *
-       * @apiParam {String} name Name of the configuration.
-       *
-       * @apiSuccess {String} id         The configurations-ID.
-       *
-       * @apiUse CreateconfigurationError
-       */
+/**
+* @api {get} /configuration/:id Read data of a configuration
+* @apiVersion 0.2.0
+* @apiName fetchAll
+* @apiGroup configuration
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} id The configurations-ID.
+*
+* @apiSuccess {String} id         The configurations-ID.
+* @apiSuccess {Date}   name       Fullname of the configuration.
+*
+* @apiError configurationNotFound   The <code>id</code> of the configuration was not found.
+*/
+
+/**
+* @api {get} /configuration/:id Read data of a configuration
+* @apiVersion 0.1.0
+* @apiName Getconfiguration
+* @apiGroup configuration
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} id The configurations-ID.
+*
+* @apiSuccess {String} id         The configurations-ID.
+* @apiSuccess {Date}   name       Fullname of the configuration.
+*
+* @apiError configurationNotFound   The error description text in version 0.1.0.
+*/
+
+/**
+* @api {post} /configuration Create a configuration
+* @apiVersion 0.2.0
+* @apiName Postconfiguration
+* @apiGroup configuration
+* @apiPermission none
+*
+* @apiDescription In this case "apiErrorStructure" is defined and used.
+* Define blocks with params that will be used in several functions, so you dont have to rewrite them.
+*
+* @apiParam {String} name Name of the configuration.
+*
+* @apiSuccess {String} id         The configurations-ID.
+*
+* @apiUse CreateconfigurationError
+*/
 
 
 
@@ -1977,4 +1977,152 @@
 * @apiSuccess {Object} data-delete        Notificationpath - data.
 *
 * @apiError notificationpathNotFound   The error description text in version 0.1.0.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine CreatenotificationtypesError
+* @apiVersion 0.2.0
+*
+* @apiError NoAccessRight Only authenticated Admins can access the data.
+* @apiError notificationtypesNameTooShort Minimum of 5 characters required.
+*
+* @apiErrorExample  Response (example):
+*     HTTP/1.1 400 Bad Request
+*     {
+*       "error": "notificationtypesNameTooShort"
+*     }
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin Admin access rights needed.
+* Optionally you can write here further Informations about the permission.
+*
+* An "apiDefinePermission"-block can have an "apiVersion", so you can attach the block to a specific version.
+*
+* @apiVersion 0.3.0
+*/
+
+
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+/**
+* @apiDefine admin This title is visible in version 0.1.0 and 0.2.0
+* @apiVersion 0.1.0
+*/
+
+/**
+* @api {get} /notificationtypes/ A Promise to fetch all notificationtypess.
+* @apiVersion 0.2.0
+* @apiName find
+* @apiGroup notificationtypes
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationtypess-params.
+*
+* @apiSuccess {Object} notificationtypes         notificationtypes - associations.
+*
+* @apiError notificationtypesNotFound   The <code>id</code> of the notificationtypes was not found.
+*/
+
+/**
+* @api {get} /notificationtypes/rules/:type/:_id A Promise to fetch a notificationtypes.
+* @apiVersion 0.1.0
+* @apiName findRulesPath
+* @apiGroup notificationtypes
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationtypess-params.
+*
+* @apiSuccess {Object} notificationtypes         notificationtypes - associations.
+*
+* @apiError notificationtypesNotFound   The error description text in version 0.1.0.
+*/
+
+/**
+* @api {post} /notificationtypes/ A Promise to create a notificationtypes.
+* @apiVersion 0.1.0
+* @apiName create
+* @apiGroup notificationtypes
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationtypess-params.
+*
+* @apiSuccess {Object} data-add        notificationtypes - data.
+*
+* @apiError notificationtypesNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {put} /notificationtypes/:_id A Promise to update a notificationtypes.
+* @apiVersion 0.1.0
+* @apiName update
+* @apiGroup notificationtypes
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationtypess-params.
+* @apiParam {String} values The notificationtypess-values.
+*
+* @apiSuccess {Object} data-update        notificationtypes - data.
+*
+* @apiError notificationtypesNotFound   The error description text in version 0.1.0.
+*/
+
+
+/**
+* @api {delete} /notificationtypes/:_id A Promise to delete a notificationtypes.
+* @apiVersion 0.1.0
+* @apiName destroy
+* @apiGroup notificationtypes
+* @apiPermission admin
+*
+* @apiDescription Here you can describe the function.
+* Multilines are possible.
+*
+* @apiParam {String} params The notificationtypes-params.
+*
+* @apiSuccess {Object} data-delete        notificationtypes - data.
+*
+* @apiError notificationtypesNotFound   The error description text in version 0.1.0.
 */
