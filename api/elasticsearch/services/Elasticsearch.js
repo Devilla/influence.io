@@ -18,29 +18,6 @@ const client = elasticsearch.Client({
   log: 'trace'
 });
 
-/**
-*gets enrichment data of a user
-**/
-let getUser = async function(email, callback) {
-  let userDetail;
-  try {
-    await strapi.services.enrichment.picasaWeb(email).then(res=>{
-      callback(null, res);
-    });
-  } catch(err) {
-    try {
-      await strapi.services.enrichment.gravatr(email).then(res => {
-        callback(null, res);
-      });
-    } catch(err) {
-      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      userDetail = {
-        username: re.test(email)?email.replace(/@.*$/,""):'Anonymous'
-      };
-      callback(null, userDetail);
-    }
-  }
-}
 
 
 module.exports = {
@@ -247,7 +224,7 @@ module.exports = {
             "sort" : [
               { "timestamp" : {"order" : "desc", "mode" : "max"}}
             ],
-            "size": limit?10000:Number(configuration.panelStyle.recentNumber)
+            "size": 10000
           }
         };
         break;
@@ -420,6 +397,40 @@ module.exports = {
         else resolve(resp);
       });
     });
+    return response;
+  },
+
+  validatePath: async (index, trackingId, path) => {
+    const query = {
+      index: index,
+      body: {
+        query: {
+          "bool": {
+            "must": [
+              { "match": { "json.value.trackingId":  trackingId }},
+              { "match": { "json.value.source.url.pathname":  path }},
+              {
+                "range": {
+                  "@timestamp": {
+                    "gte": 'now-365d',
+                    "lt" : 'now+1d'
+                  }
+                }
+              },
+            ]
+          }
+        },
+        "size": 1
+      }
+    };
+
+    const response = await new Promise((resolve, reject) => {
+      client.search(query, function (err, resp, status) {
+        if (err) reject(err);
+        else resolve(resp);
+      });
+    });
+
     return response;
   }
 };

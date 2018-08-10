@@ -65,7 +65,10 @@
       "multiple": false
     },
     "coupon": {
-      "model": "coupon",
+      "model": "coupon"
+    },
+    "state": {
+      "model": "state",
       "via": "user"
     },
     "clients": {

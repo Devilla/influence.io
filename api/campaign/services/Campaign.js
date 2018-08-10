@@ -183,7 +183,7 @@ module.exports = {
 		},
 
   /**
-   * Promise to add a/an campaign.
+   * Promise to add a/an new campaign with default configuration and rules.
    *
    * @return {Promise}
    */
@@ -200,6 +200,11 @@ module.exports = {
        });
     });
 
+		/**
+		*	Calls checkDomain function
+		*
+		*@return {Promise}
+		*/
     var dom = await checkDomain
     .then((result) => {
       return result;
@@ -213,6 +218,11 @@ module.exports = {
     } else {
 			const data = await Campaign.create(values);
 
+			/**
+			* Find Notificationtypes and create new configuration for campaign related to notificationType
+			*
+			*@return {Null}
+			*/
 			await Notificationtypes.find()
       .exec()
       .then(async notifications => {
@@ -316,7 +326,7 @@ module.exports = {
 							"liveVisitorCount": 0,
 							"otherText": "signed up for"
 					  };
-						newConfiguration['otherText'] = 'signed up for',
+						newConfiguration['otherText'] = 'Recently signed up for',
 						newConfiguration['contentText'] = 'Company Name';
 					}
 					if(notification.notificationName == 'Live Visitor Count') {
@@ -427,7 +437,7 @@ module.exports = {
 				if(err)
           return err;
       });
-      return data;
+      return data; // return new campaign
     }
   },
 
@@ -503,7 +513,7 @@ module.exports = {
     const campaignWebsites = await campaignFilter.map(camp => camp);
     const campaignIds = await campaignFilter.map(camp => camp._id);
 
-    await Configuration.countDocuments({ campaign: {$in: campaignIds}, activity: true})
+    await Configuration.count({ campaign: {$in: campaignIds}, activity: true})
         .exec()
         .then(counts => {
           countConfig = counts;
