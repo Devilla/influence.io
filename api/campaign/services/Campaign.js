@@ -219,6 +219,11 @@ module.exports = {
        });
     });
 
+		/**
+		*	Calls checkDomain function
+		*
+		*@return {Promise}
+		*/
     var dom = await checkDomain
     .then((result) => {
       return result;
@@ -232,6 +237,11 @@ module.exports = {
     } else {
 			const data = await Campaign.create(values);
 
+			/**
+			* Find Notificationtypes and create new configuration for campaign related to notificationType
+			*
+			*@return {Null}
+			*/
 			await Notificationtypes.find()
       .exec()
       .then(async notifications => {
@@ -335,7 +345,7 @@ module.exports = {
 							liveVisitorCount: 0,
 							otherText: "signed up for"
 					  };
-						// newConfiguration['panelStyle'].color = { "r" : 0, "g" : 0, "b" : 0, "a" : 0 },
+						newConfiguration['otherText'] = 'Recently signed up for',
 						newConfiguration['contentText'] = 'Company Name';
 					}
 					if(notification.notificationName == 'Live Visitor Count') {
@@ -445,7 +455,7 @@ module.exports = {
 				if(err)
           return err;
       });
-      return data;
+      return data; // return new campaign
     }
   },
 

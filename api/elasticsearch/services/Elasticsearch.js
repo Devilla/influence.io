@@ -528,5 +528,39 @@ module.exports = {
       });
     });
     return response;
+  },
+
+  validatePath: async (index, trackingId, path) => {
+    const query = {
+      index: index,
+      body: {
+        query: {
+          "bool": {
+            "must": [
+              { "match": { "json.value.trackingId":  trackingId }},
+              { "match": { "json.value.source.url.pathname":  path }},
+              {
+                "range": {
+                  "@timestamp": {
+                    "gte": 'now-365d',
+                    "lt" : 'now+1d'
+                  }
+                }
+              },
+            ]
+          }
+        },
+        "size": 1
+      }
+    };
+
+    const response = await new Promise((resolve, reject) => {
+      client.search(query, function (err, resp, status) {
+        if (err) reject(err);
+        else resolve(resp);
+      });
+    });
+
+    return response;
   }
 };

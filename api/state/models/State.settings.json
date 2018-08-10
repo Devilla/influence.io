@@ -1,0 +1,39 @@
+{
+  "connection": "default",
+  "collectionName": "state",
+  "info": {
+    "name": "state",
+    "description": "Manages user state"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "past_state": {
+      "type": "json",
+      "multiple": false
+    },
+    "present_state": {
+      "type": "json",
+      "multiple": false
+    },
+    "future_state": {
+      "type": "json",
+      "multiple": false
+    },
+    "user": {
+      "model": "user",
+      "via": "state",
+      "plugin": "users-permissions"
+    },
+    "profile": {
+      "model": "profile",
+      "via": "user_state"
+    },
+    "campaign": {
+      "collection": "campaign",
+      "via": "campaign_state",
+      "plugin": ""
+    }
+  }
+}

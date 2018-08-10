@@ -456,5 +456,37 @@ module.exports = {
       html: mytemp
     };
     return send(mailOptions);
+  },
+
+  campaignIssue: async(email, name, campaign) => {
+    const mailSub = "Issue with user campaign.";
+    const content =`
+      <br/>
+      <span>This is to let you know about the urgent issue regarding User's campaign.</span>
+      <br/>
+      <span>User : {name}</span>
+      <br/>
+      <span>Email : {email}</span>
+      <br/>
+      <span>Campaign Name : {campaign.campaignName}</span>
+      <br/>
+      <span>Campaign URL : {campaign.websiteUrl}</span>
+      <br/>
+      <span>Thanks for investing your faith in us.</span>
+      <br/>
+      <span>See you soon.</span>
+      <br/>
+      <span>Thanks!</span>
+    `;
+
+    var mytemp = template.commontemp(mailSub, name, content);
+
+    let mailOptions = {
+      from: 'info@useinfluence.co',
+      to: 'support@useinfluence.co',
+      subject: mailSub,
+      html: mytemp
+    };
+    return send(mailOptions);
   }
 };
