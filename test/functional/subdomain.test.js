@@ -12,38 +12,39 @@ describe('Should Return Subdomain Data', function() {
   describe('#campaignAdd()', function() {
     it('should return data when the value is passed', function() {
       let values = {
-        websiteUrl: 'contact.useinfluence.co',
+
+        websiteUrl: 'subdomain.co',
     		isActive: true
       }
         campaign.add(values).then(function (data) {
-         expect(data.websiteUrl).to.equal('contact.useinfluence.co');
-         expect(data.isActive).to.equal(true);
+         expect(data).to.not.equal(null);
       });
     });
   });
 });
 
 
-// describe('Should Return Subdomain Data', function() {
-//   describe('#fetchAllSubdomains()', function() {
-//     it('should return data when the value is passed', function() {
-//       let profile = {
-//         _id:'5b3b49c8341d70505653d750'
-//       }
-//         campaign.fetchAll(profile._id).then(function (data) {
-//          expect(data).to.not.equal(null);
-//       });
-//     });
-//   });
-// });
+describe('Should Return Subdomain Data', function() {
+  describe('#fetchAllSubdomains()', function() {
+    it('should return data when the value is passed', function() {
+      let profile = {
+        _id:'5b5af8ee41c6d400121b28ba',
+        websiteUrl: 'subdomain.co',
+      }
+        campaign.fetchAll(profile._id).then(function (data) {
+         expect(data).to.not.equal(null);
+      });
+    });
+  });
+});
 
 describe('Should Return Subdomain Data', function() {
   describe('#fetch()', function() {
     it('should return data when the value is passed', function() {
-      let profile = {
-        _id:'5b3b49c8341d70505653d750'
+      let params = {
+        _id:'5b5af8ee41c6d400121b28ba'
       }
-        campaign.fetch(profile._id).then(function (data) {
+        campaign.fetch(params._id).then(function (data) {
          expect(data).to.not.equal(null);
       });
     });
@@ -53,11 +54,14 @@ describe('Should Return Subdomain Data', function() {
 describe('Should Edit Subdomain Data', function() {
   describe('#edit()', function() {
     it('should return data when the value is passed', function() {
-      let body = {
-        _id:'5b3b49c8341d70505653d750'
+      let params = {
+        _id:'5b5af8ee41c6d400121b28ba'
       }
-        try{campaign.edit(body).then(function (data) {
-         expect(data).to.equal(null);
+      let values = {
+        websiteUrl: 'subdomain.co'
+      }
+        try{campaign.edit(params,values).then(function (data) {
+         expect(data).to.not.equal(null);
         });
       }catch(err){
         console.log(err);
@@ -69,10 +73,10 @@ describe('Should Edit Subdomain Data', function() {
 describe('Should Remove Subdomain Data', function() {
   describe('#remove()', function() {
     it('should return data when the value is passed', function() {
-      let profile = {
-        _id:'5b3b49c8341d70505653d750'
+      let params = {
+        _id:'5b5af8ee41c6d400121b28ba'
       }
-        campaign.remove(profile._id).then(function (data) {
+        campaign.remove(params).then(function (data) {
          expect(data).to.not.equal(null);
         });
     });
