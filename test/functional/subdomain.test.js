@@ -6,18 +6,24 @@ let chai = require('chai');
 let expect = chai.expect;;
 const campaign = require('../../api/subdomain/services/Subdomain');
 
-const websiteUrl='';
+const DomainUrl='';
 const isActive=false;
 describe('Should Return Subdomain Data', function() {
   describe('#campaignAdd()', function() {
     it('should return data when the value is passed', function() {
       let values = {
 
-        websiteUrl: 'subdomain.co',
+        domainUrl: 'subdomain.co',
     		isActive: true
       }
         campaign.add(values).then(function (data) {
-         expect(data).to.not.equal(null);
+          expect(data).to.not.equal(null);
+         // expect(data).to.equal([
+         //   { _id: '5b6d531562778953a152e835',
+         //    domainUrl: null,
+         //    createdAt: '2018-08-10T08:55:49.873Z',
+         //    updatedAt: '2018-08-10T08:55:49.873Z',
+         //    __v: 0}]);
       });
     });
   });
@@ -29,7 +35,7 @@ describe('Should Return Subdomain Data', function() {
     it('should return data when the value is passed', function() {
       let profile = {
         _id:'5b5af8ee41c6d400121b28ba',
-        websiteUrl: 'subdomain.co',
+        DomainUrl: 'subdomain.co',
       }
         campaign.fetchAll(profile._id).then(function (data) {
          expect(data).to.not.equal(null);
@@ -58,7 +64,7 @@ describe('Should Edit Subdomain Data', function() {
         _id:'5b5af8ee41c6d400121b28ba'
       }
       let values = {
-        websiteUrl: 'subdomain.co'
+        DomainUrl: 'subdomain.co'
       }
         try{campaign.edit(params,values).then(function (data) {
          expect(data).to.not.equal(null);
