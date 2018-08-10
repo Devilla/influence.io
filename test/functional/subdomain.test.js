@@ -6,7 +6,7 @@ let chai = require('chai');
 let expect = chai.expect;;
 const campaign = require('../../api/subdomain/services/Subdomain');
 
-const DomainUrl='';
+const domainUrl='';
 const isActive=false;
 describe('Should Return Subdomain Data', function() {
   describe('#campaignAdd()', function() {
@@ -35,7 +35,7 @@ describe('Should Return Subdomain Data', function() {
     it('should return data when the value is passed', function() {
       let profile = {
         _id:'5b5af8ee41c6d400121b28ba',
-        DomainUrl: 'subdomain.co',
+        domainUrl: 'subdomain.co',
       }
         campaign.fetchAll(profile._id).then(function (data) {
          expect(data).to.not.equal(null);
@@ -64,7 +64,7 @@ describe('Should Edit Subdomain Data', function() {
         _id:'5b5af8ee41c6d400121b28ba'
       }
       let values = {
-        DomainUrl: 'subdomain.co'
+        domainUrl: 'subdomain.co'
       }
         try{campaign.edit(params,values).then(function (data) {
          expect(data).to.not.equal(null);
