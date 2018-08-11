@@ -13,7 +13,7 @@
       "type": "string",
       "multiple": false
     },
-    "id": {
+    "clientId": {
       "type": "string",
       "multiple": false
     },
@@ -21,9 +21,16 @@
       "type": "string",
       "multiple": false
     },
-    "userId": {
+    "redirectUri": {
+      "type": "string",
+      "multiple": false
+    },
+    "origin": {
+      "type": "string",
+      "multiple": true
+    },
+    "user": {
       "model": "user",
-      "via": "clients",
       "plugin": "users-permissions"
     }
   }
