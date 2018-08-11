@@ -432,5 +432,115 @@ module.exports = {
     });
 
     return response;
+  },
+
+  mapGraph: async (index, trackingIds) => {
+    const query = {
+      index: index,
+      body: {
+      	"size":0,
+      	"_source":{
+      	  "excludes":[]
+      	},
+      	"aggs":{
+      	  "body":{
+      	    "terms":{
+      	      "field":"json.value.geo.country",
+      	      "size":100,
+      	      "order":{
+      	        "_term":"asc"
+      	      }
+      	    }
+      	  }
+      	},
+      	"stored_fields":["*"],
+      	"script_fields":{},
+      	"docvalue_fields":["@timestamp"],
+      	"query":{
+          "bool":{
+            "must":[{
+              "terms": {
+                "json.value.trackingId":  trackingIds
+              }
+            },{
+              "range":{
+                "@timestamp":{
+                  "gte":"now-7d",
+                  "lte":"now",
+                  "format":"epoch_millis"
+                }
+              }
+            }],
+            "filter":[],
+            "should":[],
+            "must_not":[]
+          }
+        }
+      }
+    };
+
+    const response = await new Promise((resolve, reject) => {
+      client.search(query, function (err, resp, status) {
+        if (err) reject(err);
+        else resolve(resp);
+      });
+    });
+
+    let mapArray = [['Country', 'traffic']];
+    response.aggregations.body.buckets.map(country => mapArray.push(Object.values(country)));
+
+    return mapArray;
+  },
+
+  heatMapGraph: async (index, trackingIds) => {
+    const query = {
+      index: index,
+      body: {
+      	"size": 0,
+      	"query":{
+        	"bool":{
+            	"must":[{
+            		"terms": {
+                		"json.value.trackingId":  trackingIds
+            		}
+        		},{
+              "range":{
+                "@timestamp":{
+                  "gte":"now-7d",
+                  "lte":"now",
+                  "format":"epoch_millis"
+                }
+              }
+            }]
+        	}
+      	},
+      	"aggs": {
+      		"hour": {
+            "date_histogram": {
+      				"field": "@timestamp",
+      				"interval": "hour",
+      				"min_doc_count": 0
+      			}
+      		}
+      	}
+      }
+    };
+
+    let response = await new Promise((resolve, reject) => {
+      client.search(query, function (err, resp, status) {
+        if (err) reject(err);
+        else resolve(resp);
+      });
+    });
+    let data = [];
+    const sortedBucket = await response.aggregations.hour.buckets.sort((a, b) => {
+      return moment(b.key_as_string).diff(moment(a.key_as_string))
+    });
+    await sortedBucket.map(info => {
+      let hour = moment(info.key_as_string).hour();
+      data[hour] = data[hour]?data[hour]:[];
+      data[hour].push(info.doc_count);
+    });
+    return data;
   }
-};
+}
