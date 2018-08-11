@@ -83,6 +83,15 @@ module.exports = {
     ctx.send({
       message: data
     });
-  }
+  },
 
+  mapGraph: async(ctx) => {
+    let index = 'filebeat-*';
+    let trackingIds = ctx.request.body;
+    let data = await strapi.services.elasticsearch.mapGraph(index, trackingIds);
+
+    ctx.send({
+      message: data
+    });
+  }
 };

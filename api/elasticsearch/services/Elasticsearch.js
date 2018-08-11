@@ -432,5 +432,60 @@ module.exports = {
     });
 
     return response;
+  },
+
+  mapGraph: async (index, trackingIds) => {
+    const query = {
+      index: index,
+      body: {
+      	"size":0,
+      	"_source":{
+      	  "excludes":[]
+      	},
+      	"aggs":{
+      	  "body":{
+      	    "terms":{
+      	      "field":"json.value.geo.country",
+      	      "size":100,
+      	      "order":{
+      	        "_term":"asc"
+      	      }
+      	    }
+      	  }
+      	},
+      	"stored_fields":["*"],
+      	"script_fields":{},
+      	"docvalue_fields":["@timestamp"],
+      	"query":{
+          "bool":{
+            "must":[{
+              "terms": {
+                "json.value.trackingId":  trackingIds
+              }
+            },{
+              "range":{
+                "@timestamp":{
+                  "gte":1514745000000,
+                  "lte":1546280999999,
+                  "format":"epoch_millis"
+                }
+              }
+            }],
+            "filter":[],
+            "should":[],
+            "must_not":[]
+          }
+        }
+      }
+    };
+
+    const response = await new Promise((resolve, reject) => {
+      client.search(query, function (err, resp, status) {
+        if (err) reject(err);
+        else resolve(resp);
+      });
+    });
+
+    return response;
   }
-};
+}
