@@ -1,0 +1,12 @@
+{
+  "connection": "default",
+  "collectionName": "oauth",
+  "info": {
+    "name": "oauth",
+    "description": "Oauth2 service"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {}
+}

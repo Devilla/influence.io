@@ -20,16 +20,17 @@ module.exports = {
 
   fetchAll: (params) => {
     const convertedParams = strapi.utils.models.convertParams('client', params);
-try{
-    return Client
-      .find()
-      .where(convertedParams.where)
-      .sort(convertedParams.sort)
-      .skip(convertedParams.start)
-      .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.client.associations, {autoPopulate: false}), 'alias')).join(' '));
-    }catch(err)
-    {console.log(err);}
+    try {
+      return Client
+        .find()
+        .where(convertedParams.where)
+        .sort(convertedParams.sort)
+        .skip(convertedParams.start)
+        .limit(convertedParams.limit)
+        .populate(_.keys(_.groupBy(_.reject(strapi.models.client.associations, {autoPopulate: false}), 'alias')).join(' '));
+    } catch(err) {
+      console.log(err);
+    }
   },
 
   /**
@@ -50,9 +51,9 @@ try{
    * @return {Promise}
    */
 
-  add: async (values) => {
-    const data = await Client.create(_.omit(values, _.keys(_.groupBy(strapi.models.client.associations, 'alias'))));
-    await strapi.hook.mongoose.manageRelations('client', _.merge(_.clone(data), { values }));
+  add: async (values, user) => {
+    values['user'] = user;
+    var data = await Client.create(values);
     return data;
   },
 

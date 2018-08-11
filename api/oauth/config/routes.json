@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/oauth/authorize",
+      "handler": "Oauth.authorization",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/oauth/authorize",
+      "handler": "Oauth.decision",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/oauth/token",
+      "handler": "Oauth.token",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

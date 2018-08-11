@@ -1,13 +1,8 @@
 'use strict';
 
 /**
- * Lifecycle callbacks for the `Client` model.
+ * Lifecycle callbacks for the `Oauth` model.
  */
-
-var randtokenUid = require('rand-token').uid;
-var randtokenSecret = require('rand-token').generator({
-  chars: '0-9'
-});
 
 module.exports = {
   // Before saving a value.
@@ -35,10 +30,7 @@ module.exports = {
 
   // Before creating a value.
   // Fired before `insert` query.
-  beforeCreate: async (model) => {
-    model['clientId'] = randtokenUid(32);
-    model['secret'] = randtokenSecret.generate(16);
-  },
+  // beforeCreate: async (model) => {},
 
   // After creating a value.
   // Fired after `insert` query.
