@@ -39,6 +39,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/elasticsearch/heatmap",
+      "handler": "Elasticsearch.heatMapGraph",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

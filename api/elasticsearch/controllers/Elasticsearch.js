@@ -93,5 +93,15 @@ module.exports = {
     ctx.send({
       message: data
     });
+  },
+
+  heatMapGraph: async(ctx) => {
+    let index = 'filebeat-*';
+    let trackingIds = ctx.request.body;
+    let data = await strapi.services.elasticsearch.heatMapGraph(index, trackingIds);
+
+    ctx.send({
+      message: data
+    });
   }
 };
