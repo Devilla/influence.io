@@ -465,8 +465,8 @@ module.exports = {
             },{
               "range":{
                 "@timestamp":{
-                  "gte":1514745000000,
-                  "lte":1546280999999,
+                  "gte":"now-7d",
+                  "lte":"now",
                   "format":"epoch_millis"
                 }
               }
