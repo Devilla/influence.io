@@ -65,6 +65,7 @@
     "request": "^2.83.0",
     "strapi": "3.0.0-alpha.12.7",
     "strapi-mongoose": "3.0.0-alpha.12.7",
+    "strapi-generate": "3.0.0-alpha.12.7",
     "stream-to-array": "^2.3.0",
     "stripe": "^6.3.0",
     "supertest": "^3.1.0",
