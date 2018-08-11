@@ -486,7 +486,10 @@ module.exports = {
       });
     });
 
-    return response;
+    let mapArray = [['Country', 'traffic']];
+    response.aggregations.body.buckets.map(country => mapArray.push(Object.values(country)));
+
+    return mapArray;
   },
 
   heatMapGraph: async (index, trackingIds) => {
