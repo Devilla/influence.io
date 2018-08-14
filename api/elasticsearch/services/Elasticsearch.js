@@ -542,5 +542,61 @@ module.exports = {
       data[hour].push(info.doc_count);
     });
     return data;
+  },
+
+  conversionGraph: async (index, profile, host) => {
+    const queryModel = (trackingId, captureLeads) =>  {
+      return {
+        index: 'signups',
+        body: {
+          "query":{
+            "bool":{
+              "must":[
+              {
+                "match": {
+                  "trackingId":  trackingId,
+                }
+              },{
+                "terms": {
+                  "path": captureLeads
+                }
+              },{
+                  "range":{
+                    "timestamp":{
+                      "gte":"now-7d",
+                      "lte":"now",
+                      "format":"epoch_millis"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+        	"size":0,
+          "aggs":{
+            "email": {
+              "terms" : { "field" : "email.keyword" }
+            }
+          }
+        }
+      }
+    };
+    let campaignConversionDetails = [];
+    let campaignData = await Campaign.find({profile: profile},{rule: 1, trackingId: 1})
+
+    await campaignData.map(async campaign => {
+      let captureLeads = await strapi.api.notificationpath.services.notificationpath.findRulesPath({_id: campaign.rule, type: 'lead', domain: host});
+      captureLeads = captureLeads.map(lead => lead.url);
+      const query = queryModel(campaign.trackingId, captureLeads);
+      let response = await new Promise((resolve, reject) => {
+        client.search(query, function (err, resp, status) {
+          if (err) reject(err);
+          else resolve(resp);
+        });
+      });
+      await campaignConversionDetails.push(response);
+    });
+
+    return await campaignConversionDetails;
   }
 }

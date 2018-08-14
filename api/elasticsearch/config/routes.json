@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/elasticsearch/conversiongraph",
+      "handler": "Elasticsearch.conversionGraph",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
