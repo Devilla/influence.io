@@ -18,15 +18,42 @@ module.exports = {
    */
 
   fetchAll: async (params) => {
-    const convertedParams = strapi.utils.models.convertParams('state', params);
-
-    return State
-      .find()
-      .where(convertedParams.where)
-      .sort(convertedParams.sort)
-      .skip(convertedParams.start)
-      .limit(convertedParams.limit)
-      .populate(_.keys(_.groupBy(_.reject(strapi.models.state.associations, {autoPopulate: false}), 'alias')).join(' '));
+    const Users = await strapi.plugins['users-permissions'].services.user.fetchAll({});
+    await Users.map(async user => {
+      await Profile.findOne({user: user._id})
+      .then(async profile => {
+        const state = {
+          past_state: {
+            state: "User Created",
+            created_at: new Date(),
+            updated_at: new Date()
+          },
+          present_state: {
+            state: "User Created",
+            created_at: new Date(),
+            updated_at: new Date()
+          },
+          future_state: {
+            state: "Create Profile",
+            created_at: new Date(),
+            updated_at: new Date()
+          },
+          user: user._id,
+          profile: profile._id
+        };
+        //Create new state for new user
+        await strapi.api.state.services.state.add(state);
+      });
+    });
+    // const convertedParams = strapi.utils.models.convertParams('state', params);
+    //
+    // return State
+    //   .find()
+    //   .where(convertedParams.where)
+    //   .sort(convertedParams.sort)
+    //   .skip(convertedParams.start)
+    //   .limit(convertedParams.limit)
+    //   .populate(_.keys(_.groupBy(_.reject(strapi.models.state.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
   /**
