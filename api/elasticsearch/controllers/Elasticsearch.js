@@ -83,6 +83,44 @@ module.exports = {
     ctx.send({
       message: data
     });
-  }
+  },
 
+  mapGraph: async(ctx) => {
+    let index = 'filebeat-*';
+    let trackingIds = ctx.request.body;
+    let data = await strapi.services.elasticsearch.mapGraph(index, trackingIds);
+
+    ctx.send({
+      message: data
+    });
+  },
+
+  heatMapGraph: async(ctx) => {
+    let index = 'filebeat-*';
+    let trackingIds = ctx.request.body;
+    let data = await strapi.services.elasticsearch.heatMapGraph(index, trackingIds);
+
+    ctx.send({
+      message: data
+    });
+  },
+
+  conversionGraph: async(ctx) => {
+    const index = 'filebeat-*';
+    const user = ctx.state.user._id;
+    const profile = await Profile.findOne({user: user},{ _id: 1});
+    const host = ctx.request.header.origin?
+      ctx.request.header.origin.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]
+    :
+      ctx.request.header.referer?
+        ctx.request.header.referer.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0].replace("/", "")
+      :
+        null;
+
+    let data = await strapi.services.elasticsearch.conversionGraph(index, profile._id, 'docs.google.com');
+
+    ctx.send({
+      message: data
+    });
+  }
 };

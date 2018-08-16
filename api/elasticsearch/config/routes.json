@@ -31,6 +31,30 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/elasticsearch/map",
+      "handler": "Elasticsearch.mapGraph",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/elasticsearch/heatmap",
+      "handler": "Elasticsearch.heatMapGraph",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/elasticsearch/conversiongraph",
+      "handler": "Elasticsearch.conversionGraph",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

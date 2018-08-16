@@ -4,6 +4,11 @@
  * Lifecycle callbacks for the `Client` model.
  */
 
+var randtokenUid = require('rand-token').uid;
+var randtokenSecret = require('rand-token').generator({
+  chars: '0-9'
+});
+
 module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
@@ -30,7 +35,10 @@ module.exports = {
 
   // Before creating a value.
   // Fired before `insert` query.
-  // beforeCreate: async (model) => {},
+  beforeCreate: async (model) => {
+    model['clientId'] = randtokenUid(32);
+    model['secret'] = randtokenSecret.generate(16);
+  },
 
   // After creating a value.
   // Fired after `insert` query.

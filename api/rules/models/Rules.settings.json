@@ -77,6 +77,10 @@
       "type": "string",
       "multiple": false
     },
+    "displayOnAllPages": {
+      "type": "boolean",
+      "multiple": false
+    },
     "campaign": {
       "model": "campaign",
       "via": "rule"
