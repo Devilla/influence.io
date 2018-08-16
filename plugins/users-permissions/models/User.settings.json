@@ -67,10 +67,6 @@
     "coupon": {
       "model": "coupon"
     },
-    "state": {
-      "model": "state",
-      "via": "user"
-    },
     "code": {
       "model": "code",
       "via": "userId"

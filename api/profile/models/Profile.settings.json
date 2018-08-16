@@ -54,10 +54,6 @@
       "type": "json",
       "multiple": false
     },
-    "user_state": {
-      "model": "state",
-      "via": "profile"
-    },
     "profile_payments": {
       "type": "json",
       "multiple": false

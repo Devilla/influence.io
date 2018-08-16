@@ -23,17 +23,13 @@
     },
     "user": {
       "model": "user",
-      "via": "state",
       "plugin": "users-permissions"
     },
     "profile": {
-      "model": "profile",
-      "via": "user_state"
+      "model": "profile"
     },
     "campaign": {
-      "collection": "campaign",
-      "via": "campaign_state",
-      "plugin": ""
+      "model": "campaign"
     }
   }
 }
